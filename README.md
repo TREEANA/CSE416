@@ -1,4 +1,4 @@
-# CSE416_New_Ego
+# CSE416
 # Problem Statement
 # TeamMate List
 - Dukyoung Eom
