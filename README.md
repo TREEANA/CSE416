@@ -7,5 +7,5 @@ Wouldn't wine be more popular if restaurants could purchase a list of wines care
 - Hyerin Choi
 - Woohyun Park
 - Woohyung Lee
-# Project proposal 
-click the notion [link](https://www.notion.so/podo-dc94e6d2f017482ca798316a998613db)
+# Project Proposal 
+click the[link](https://www.notion.so/podo-dc94e6d2f017482ca798316a998613db)
