@@ -8,4 +8,4 @@ Wouldn't wine be more popular if restaurants could purchase a list of wines care
 - Woohyun Park
 - Woohyung Lee
 # Project Proposal 
-click the[link](https://www.notion.so/podo-dc94e6d2f017482ca798316a998613db)
+[Click](https://www.notion.so/podo-dc94e6d2f017482ca798316a998613db)
