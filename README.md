@@ -1,10 +1,10 @@
 # CSE416
 # Problem Statement
-Client base: General consumers or restaurants that want to have a carefully selected wine list
+Target User: general consumers who want to purchase wine for a specific purpose but lack knowledge of wine.
 
-Problem: It is difficult for the above client base to know which wine is a good wine or how to purchase it at a lower price. This is because they have so much to learn to build knowledge of wine, and hiring sommeliers is quite expensive, so they have poor access to wine
+Problem: Since the target users do not know well about wine, they need experts' help to choose wine for their desired purpose. However, getting help from sommeliers is difficult and expensive, so access to wine could be tricky.
 
-Solution: If sommeliers share their knowledge with the general consumers or restaurant to increase access to wine, wouldn't this increase the popularity of wine and have a good effect on the themselves. We will create a website that helps sommeliers easily share their recommended wine lists and their knowledge to the public and allows general consumers or restaurants to purchase wine at low prices.
+Solution: Create a wine guide website that offers general users wine ratings and experts'(sommeliers') pairings. With those, target users can find a wine that suits their taste and purpose without background knowledge of wine.
 # TeamMate List
 - Dukyoung Eom
 - Hyerin Choi
