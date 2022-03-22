@@ -3,11 +3,10 @@
   z-index: 1;
   transition: 1s;
 
-  width: 40vw;
+  width: 70vw;
   height: 100vh;
-  background-color: #cd5351;
-  color: #f4ded3;
-  padding: 10px;
+  background-color: var(--primary);
+  color: var(--bg-0);
   border-radius: 0 30px 30px 0;
 }
 
@@ -15,29 +14,53 @@
   transform: translateX(-100%);
   transition: 1s;
 }
-.sidebar-login {
-}
-.sidebar-login-header {
+
+.sidebar__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /*margin: 10px;*/
-  padding: 0 20px;
-}
-.sidebar-menu {
-  justify-content: space-around;
-  padding: 20px;
-}
-.sidebar-menu-title {
+  margin: 3rem 1.5rem 0 1.5rem;
+  font-size: 3rem;
   font-weight: bold;
-  font-size: x-large;
 }
-.sidebar-menu-winelist {
-  display: flex;
-  flex-direction: column;
-  padding: 10px 0;
+
+.sidebar__status > a {
+  color: var(--bg-0);
 }
-.sidebar-menu-wine {
-  display: flex;
-  flex-direction: column;
+
+.sidebar__header:hover {
+  cursor: pointer;
+}
+
+.sidebar__close:hover {
+  cursor: pointer;
+}
+
+.sidebar__register {
+  margin: 0.5rem 1.5rem 3rem 1.5rem;
+}
+
+.sidebar__register > a {
+  color: var(--bg-0);
+}
+
+.sidebar__menu {
+  justify-content: space-around;
+  margin: 1.5rem;
+}
+
+.sidebar__title {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar__link {
+  text-decoration: none;
+  color: var(--bg-0);
+  font-size: 1.5rem;
+}
+
+.sidebar__link > a {
+  color: var(--bg-0);
 }

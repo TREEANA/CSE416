@@ -12,7 +12,7 @@
 }
 
 .header__menu {
-  margin: 1rem;
+  margin: 2rem;
 }
 
 .header__menu:hover {
@@ -30,7 +30,7 @@
 }
 
 .header__search {
-  margin: 1rem;
+  margin: 2rem;
 }
 
 .header__search:hover {
