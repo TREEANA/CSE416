@@ -5,7 +5,7 @@ import "./Sidebar.css";
 const Sidebar = ({ sidebarStatus, toggleSidebar }) => {
   return (
     <>
-      <div className={sidebarStatus ? "sidebar" : "sidebar--inactive"}>
+      <div className={sidebarStatus ? "sidebar" : "sidebar sidebar--inactive"}>
         <div className="sidebar__login">
           <div className="sidebar-login-header">
             <p> Login </p>

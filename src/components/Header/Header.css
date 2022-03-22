@@ -8,12 +8,31 @@
   position: sticky;
   top: 0;
   background-color: var(--bg-20);
+  color: var(--primary);
 }
 
 .header__menu {
   margin: 1rem;
 }
 
+.header__menu:hover {
+  cursor: pointer;
+}
+
+.header__title {
+  font-size: 2rem;
+  text-decoration: none;
+  color: var(--primary);
+}
+
+.header__title:hover {
+  cursor: pointer;
+}
+
 .header__search {
   margin: 1rem;
+}
+
+.header__search:hover {
+  cursor: pointer;
 }
