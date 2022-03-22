@@ -1,3 +1,19 @@
+/* Social Login */
+.btn-social-login {
+  transition: all 0.2s;
+  outline: 0;
+  border: 1px solid transparent;
+  padding: 0.5rem !important;
+  border-radius: 50%;
+  color: #fff;
+}
+.btn-social-login:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.text-dark {
+  color: #343a40 !important;
+}
+
 input:focus {
   outline: 1px solid var(--text-50);
 }
@@ -13,7 +29,6 @@ input:focus {
   height: 100vh;
   position: fixed;
   z-index: 2;
-  transition: 1s;
   background-color: var(--bg-20);
   transform: translateY(-100%);
   color: var(--primary);
@@ -92,4 +107,45 @@ input:focus {
   border: 1px var(--primary) solid;
   color: var(--primary);
   font-size: 1.5rem;
+}
+
+.login__sns-msg {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 1rem 1rem 1rem;
+  font-size: 1.5rem;
+  color: var(--text-100);
+}
+
+.login__sns-cont {
+  display: flex;
+  justify-content: center;
+}
+
+.login__sns-cont > * {
+  margin: 0 1rem;
+}
+
+.login__sns-cont > *:hover {
+  cursor: pointer;
+}
+
+.login__naver {
+  background: #1fc700;
+  width: fit-content;
+}
+
+.login__kakao {
+  background: #ffeb00;
+  width: fit-content;
+}
+
+.login__facebook {
+  background: #4267b2;
+  width: fit-content;
+}
+
+.login__google {
+  background: #d93025;
+  width: fit-content;
 }

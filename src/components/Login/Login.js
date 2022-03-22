@@ -25,10 +25,21 @@ const Login = ({ loginModalStatus, toggleLoginModal }) => {
         </div>
         <div className="login__register">register</div>
         <div className="login__sns">
-          <div className="login__naver"></div>
-          <div className="login__kakao"></div>
-          <div className="login__facebook"></div>
-          <div className="login__google"></div>
+          <div className="login__sns-msg">login with SNS</div>
+          <div className="login__sns-cont">
+            <button className="btn-social-login login__naver">
+              <i className="xi-2x xi-naver"></i>
+            </button>
+            <button class="btn-social-login login__kakao">
+              <i class="xi-2x xi-kakaotalk text-dark"></i>
+            </button>
+            <button class="btn-social-login login__facebook">
+              <i class="xi-2x xi-facebook"></i>
+            </button>
+            <button class="btn-social-login login__google">
+              <i class="xi-2x xi-google"></i>
+            </button>
+          </div>
         </div>
       </div>
     </>
