@@ -9,9 +9,7 @@
   color: #f4ded3;
   padding: 10px;
   border-radius: 0 30px 30px 0;
-  /* top: 0; */
-  /*position: fixed;*/
-  /*opacity: 40%;*/
+
 }
 
 .sidebar--inactive {
@@ -27,28 +25,40 @@
   border-radius: 0 30px 30px 0;
   left: -100%;
 }
-.sidebar-login {
-}
+
+.sidebar-login {}
+
 .sidebar-login-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   /*margin: 10px;*/
+  padding: 40px 20px 10px;
+  font-size: 24px;
+  font-weight: bold;
+
+}
+
+.sidebar-login-subheader {
   padding: 0 20px;
 }
+
 .sidebar-menu {
   justify-content: space-around;
   padding: 20px;
 }
+
 .sidebar-menu-title {
   font-weight: bold;
   font-size: x-large;
 }
+
 .sidebar-menu-winelist {
   display: flex;
   flex-direction: column;
   padding: 10px 0;
 }
+
 .sidebar-menu-wine {
   display: flex;
   flex-direction: column;
