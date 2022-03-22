@@ -55,6 +55,7 @@
   margin-bottom: 0.5rem;
 }
 
+
 .sidebar__link {
   text-decoration: none;
   color: var(--bg-0);
@@ -64,3 +65,4 @@
 .sidebar__link > a {
   color: var(--bg-0);
 }
+
