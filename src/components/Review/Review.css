@@ -1,0 +1,50 @@
+.review {
+    /* border-radius: 30px; */
+    border: 2px solid;
+    border-color: var(--text-100);
+    /* padding: 5px; */
+}
+
+.review__title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review__user {
+    display: flex;
+}
+
+.review__user-image {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+
+}
+
+.review__user-name {
+    font-size: small;
+}
+
+.review__user-date {
+    font-size: x-small;
+}
+
+.review__user-rate {
+    border-radius: 30px;
+    border: 1px solid;
+    border-color: var(--text-100);
+
+}
+
+.review__tag {
+    display: flex;
+    padding: 5px;
+}
+
+.review__ind-tag {
+    border-radius: 20px;
+    border: 1px solid var(--primary);
+    padding: 3px 5px;
+    margin: 0 3px;
+}
