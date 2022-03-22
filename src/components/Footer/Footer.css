@@ -1,21 +1,49 @@
 .footer {
-  /* footer */
   font-family: "Rounded Elegance";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-  /* identical to box height */
-
-  /* Auto layout */
-
-  background-color: #242424;
-  padding: 4rem 0 2rem 0;
+  padding: 2rem 0 2rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  /* background */
-
+  align-items: left;
   background: var(--bg-100);
+}
+
+.footer__title-cont {
+  margin: 0 2rem 1rem 2rem;
+}
+
+.footer__title {
+  font-size: 2rem;
+  color: var(--primary);
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+}
+
+.footer__title:hover {
+  cursor: pointer;
+}
+
+.footer__cont {
+  display: flex;
+  flex-direction: row;
+  margin: 0 2rem 0 0;
+}
+
+.footer__section {
+  margin: 0 2rem;
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+
+.footer__link {
+  color: var(--text-100);
+  font-size: 1rem;
+}
+
+.footer__link > a {
+  color: var(--text-100);
+}
+
+.footer__link:hover {
+  cursor: pointer;
 }

@@ -5,23 +5,26 @@ import "./Sidebar.css";
 const Sidebar = ({ sidebarStatus, toggleSidebar }) => {
   return (
     <>
-      <div className={sidebarStatus ? "sidebar" : "sidebar--inactive"}>
+      <div className={sidebarStatus ? "sidebar" : "sidebar sidebar--inactive"}>
         <div className="sidebar__login">
-          <div className="sidebar-login-header">
-            <p> Login </p>
+          <div className="sidebar__header">
+            <div className="sidebar__status" onClick={toggleSidebar}>
+              <Link to="/login">Login</Link>
+            </div>
             <span className="sidebar__close" onClick={toggleSidebar}>
               x
             </span>
           </div>
-          <div> don't have an account? </div>
+          <div className="sidebar__register">
+            <Link to="/register">don't have an account?</Link>
+          </div>
         </div>
-
-        <div className="sidebar-menu">
-          <div className="sidebar-menu-winelist">
-            <span className="sidebar-menu-title">Title</span>
+        <div className="sidebar__menu">
+          <div className="sidebar__section">
+            <div className="sidebar__title">Title</div>
             {/* 여기서 페이지 구현할때 sidebar__link 하나씩 복사해서 일단 사용 */}
             <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link to="/login">Login</Link>
+              <Link to="/theme">Theme</Link>
             </div>
           </div>
         </div>
