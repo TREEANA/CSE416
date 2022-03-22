@@ -1,0 +1,20 @@
+.header {
+  /* title */
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: var(--bg-20);
+}
+
+.header__menu {
+  margin: 1rem;
+}
+
+.header__search {
+  margin: 1rem;
+}

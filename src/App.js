@@ -1,11 +1,24 @@
+import "./App.css";
 import React from "react";
-import "./style.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
+import Footer from "./components/Footer/Footer";
+import Sidebar from "./components/Sidebar/Sidebar";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      가나다라마바사
-    </div>
+    <>
+      <BrowserRouter>
+        <Header />
+        {/* <Sidebar></Sidebar> */}
+        <Routes>
+          <Route path="/" exact component={Main} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </>
   );
-}
+};
+
 export default App;
