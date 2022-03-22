@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
-const Sidebar = ({ sidebarStatus, toggleSidebar }) => {
+const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal }) => {
   return (
     <>
       <div className={sidebarStatus ? "sidebar" : "sidebar sidebar--inactive"}>
         <div className="sidebar__login">
           <div className="sidebar__header">
-            <div className="sidebar__status" onClick={toggleSidebar}>
-              <Link to="/login">Login</Link>
+            <div
+              className="sidebar__status"
+              onClick={() => {
+                toggleSidebar();
+                toggleLoginModal();
+                console.log("onclick");
+              }}
+            >
+              Login
             </div>
             <span className="sidebar__close" onClick={toggleSidebar}>
               x

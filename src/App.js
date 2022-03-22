@@ -9,16 +9,24 @@ import Login from "./components/Login/Login";
 
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
+  const [loginModalStatus, setLoginModalStatus] = useState(0);
   const toggleSidebar = () => {
-    console.log("toggleSidebar", sidebarStatus);
     setSidebarStatus(!sidebarStatus);
+  };
+  const toggleLoginModal = () => {
+    setLoginModalStatus(!loginModalStatus);
   };
   return (
     <Router>
       <Sidebar
         sidebarStatus={sidebarStatus}
         toggleSidebar={toggleSidebar}
+        toggleLoginModal={toggleLoginModal}
       ></Sidebar>
+      <Login
+        loginModalStatus={loginModalStatus}
+        toggleLoginModal={toggleLoginModal}
+      ></Login>
       <Header toggleSidebar={toggleSidebar} />
       <Routes>
         <Route path="/" element={<Main />} />
