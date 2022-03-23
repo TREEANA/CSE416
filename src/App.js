@@ -8,6 +8,9 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Login from "./components/Login/Login";
 import Review from "./components/Review/Review";
 import Detail from "./components/Detail/Detail";
+import Search from "./components/Search/Search";
+
+
 
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
@@ -23,6 +26,7 @@ const App = () => {
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const toggleSearchBar = () =>{
     setSearchBarStatus(!searchBarStatus);
+    console.log("searchBar toggle going on : ", {searchBarStatus});
   }
 
 
@@ -56,6 +60,13 @@ const App = () => {
         loginModalStatus={loginModalStatus}
         toggleLoginModal={toggleLoginModal}
       ></Login>
+      <Search 
+      toggleSearchBar = {toggleSearchBar}
+      searchBarStatus = {searchBarStatus} >
+
+      </Search>
+
+
       <Header 
         toggleSidebar={toggleSidebar} 
         toggleSearchBar = {toggleSearchBar}

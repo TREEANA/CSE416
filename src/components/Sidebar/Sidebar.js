@@ -10,7 +10,7 @@ const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal, userstatus })
           <div className="sidebar__header">
             <div
               className="sidebar__status"
-              onClick={() => {ㅁ
+              onClick={() => {
                 toggleSidebar();
                 toggleLoginModal();
                 console.log("onclick");

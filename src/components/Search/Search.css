@@ -1,16 +1,24 @@
 .search {
     background-color: var(--bg-20);
     height: 80px;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     /* position: fixed; */
     transition: 1s;
+    position: fixed;
+    z-index: 2;
+
+}
+
+.search--inactive {
+    transform: translateY(-50vh);
 }
 
 .search__bar {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    padding-bottom: 15px;
 }
 
 .search__textbar {
@@ -42,6 +50,7 @@
     border-radius: 30px;
     margin: 3px;
     outline: none;
+    padding: 0;
 }
 
 .search__text-input:hover,

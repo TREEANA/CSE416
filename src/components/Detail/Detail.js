@@ -7,9 +7,9 @@ const Detail = ({userstatus}) => {
   return (
     <>
 
-      <div className = "detail">
+      {/* <div className = "detail">
         <Search/>
-      </div>
+      </div> */}
 
 
       <div className="detail">
