@@ -20,11 +20,20 @@ const App = () => {
     setLoginModalStatus(!loginModalStatus);
   };
 
-  const [userStatus, setUserStatus] = useState(0);
-  // const setUserStatus = () =>{
-  //   console.log("setUserStatus to : ", userStatus);
+  const [userType, setUserType] = useState(1);
+  // general user, sommelier, admin (in order of 0,1,2)
+  const setUser= (user) =>{
+    if (user == "general"){
+      setUserType(0);
+    }
+    else if (user == "sommelier"){
+      setUserType(1);
+    }
+    else if (user == "admin"){
+      setUserType(2);
+    }
+  }
 
-  // }
 
   return (
     <Router>
@@ -32,6 +41,7 @@ const App = () => {
         sidebarStatus={sidebarStatus}
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
+        userType= {userType}
       ></Sidebar>
       <Login
         loginModalStatus={loginModalStatus}
