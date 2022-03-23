@@ -1,0 +1,151 @@
+/* Social Login */
+.btn-social-login {
+  transition: all 0.2s;
+  outline: 0;
+  border: 1px solid transparent;
+  padding: 0.5rem !important;
+  border-radius: 50%;
+  color: #fff;
+}
+.btn-social-login:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.text-dark {
+  color: #343a40 !important;
+}
+
+input:focus {
+  outline: 1px solid var(--text-50);
+}
+
+.login__login:hover,
+.login__register:hover,
+.login__forgot:hover {
+  cursor: pointer;
+}
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 2;
+  background-color: var(--bg-20);
+  transform: translateY(-100%);
+  color: var(--primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.login--inactive {
+  transform: translateY(0);
+}
+
+.login__header {
+  display: flex;
+  margin: 2rem;
+  font-size: 2rem;
+  justify-content: space-between;
+}
+
+.login__back:hover {
+  cursor: pointer;
+}
+
+.login__home > a {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.login__home:hover {
+  cursor: pointer;
+}
+
+.login__title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 2rem;
+}
+
+.login__id,
+.login__pw,
+.login__login,
+.login__register {
+  margin: 0.5rem 2rem;
+  height: 2.5rem;
+  border-radius: 5rem;
+  border-style: none;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.login__forgot {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 2rem;
+  color: var(--text-50);
+  font-size: 1.5rem;
+}
+
+.login__login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary);
+  color: var(--bg-0);
+  font-size: 1.5rem;
+}
+
+.login__login > a {
+  color: var(--bg-0);
+}
+
+.login__register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-0);
+  border: 1px var(--primary) solid;
+  color: var(--primary);
+  font-size: 1.5rem;
+}
+
+.login__sns-msg {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 1rem 1rem 1rem;
+  font-size: 1.5rem;
+  color: var(--text-100);
+}
+
+.login__sns-cont {
+  display: flex;
+  justify-content: center;
+}
+
+.login__sns-cont > * {
+  margin: 0 1rem;
+}
+
+.login__sns-cont > *:hover {
+  cursor: pointer;
+}
+
+.login__naver {
+  background: #1fc700;
+  width: fit-content;
+}
+
+.login__kakao {
+  background: #ffeb00;
+  width: fit-content;
+}
+
+.login__facebook {
+  background: #4267b2;
+  width: fit-content;
+}
+
+.login__google {
+  background: #d93025;
+  width: fit-content;
+}
