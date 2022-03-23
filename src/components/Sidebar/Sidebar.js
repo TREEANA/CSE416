@@ -7,6 +7,7 @@ const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal }) => {
     <>
       <div className={sidebarStatus ? "sidebar" : "sidebar sidebar--inactive"}>
         <div className="sidebar__login">
+
           <div className="sidebar__header">
             <div
               className="sidebar__status"
@@ -22,6 +23,7 @@ const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal }) => {
               x
             </span>
           </div>
+
           <div className="sidebar__register">
             <Link to="/register">don't have an account?</Link>
           </div>
@@ -33,6 +35,9 @@ const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal }) => {
             <div className="sidebar__link" onClick={toggleSidebar}>
               <Link to="/theme">Theme</Link>
             </div>
+
+
+
           </div>
         </div>
       </div>
