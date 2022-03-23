@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./Review.css";
 import {  BsFillStarFill,BsPatchCheckFill } from "react-icons/bs";
 
-const Review = ({userType}) => {
-    // userType = 1;
+const Review = ({userstatus}) => {
+    userstatus = 1;
     return (
       <>
-        <div className = "review"> 
+        <div className = {userstatus == 1? "review--somm" : "review"}> 
             <div className = "review__title">
                 <div className = "review__user">
                     <div className = "review__user-image"> i </div>
@@ -14,9 +14,9 @@ const Review = ({userType}) => {
                         <div className = "review__user-name">Marc Almert</div>
                         <div className = "review__user-date"> 2022.02.27 </div>
                     </div>
-                    <div> {userType == 0 ? <BsPatchCheckFill/> : <div></div>} </div>
+                    <div className = "review__user-icon" > {userstatus == 1 ? <BsPatchCheckFill/> : <div></div>} </div>
                 </div>
-                <div className = "review__user-rate"> <BsFillStarFill /> 4.5 </div>
+                <div className = {userstatus == 1? "review__user-rate--somm" :"review__user-rate"}> <BsFillStarFill /> 4.5 </div>
             </div>
 
             <div className = "review__tag"> 

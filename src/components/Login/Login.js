@@ -30,14 +30,14 @@ const Login = ({ loginModalStatus, toggleLoginModal }) => {
             <button className="btn-social-login login__naver">
               <i className="xi-2x xi-naver"></i>
             </button>
-            <button class="btn-social-login login__kakao">
-              <i class="xi-2x xi-kakaotalk text-dark"></i>
+            <button className="btn-social-login login__kakao">
+              <i className="xi-2x xi-kakaotalk text-dark"></i>
             </button>
-            <button class="btn-social-login login__facebook">
-              <i class="xi-2x xi-facebook"></i>
+            <button className="btn-social-login login__facebook">
+              <i className="xi-2x xi-facebook"></i>
             </button>
-            <button class="btn-social-login login__google">
-              <i class="xi-2x xi-google"></i>
+            <button className="btn-social-login login__google">
+              <i className="xi-2x xi-google"></i>
             </button>
           </div>
         </div>

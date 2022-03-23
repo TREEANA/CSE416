@@ -3,17 +3,17 @@ import "./Detail.css";
 import Review from "../Review/Review";
 import Search from "../Search/Search";
 
-const Detail = ({userType}) => {
+const Detail = ({userstatus}) => {
   return (
     <>
 
-      <div className = "detail">
+      {/* <div className = "detail">
         <Search/>
-      </div>
+      </div> */}
 
 
       <div className="detail">
-        <Review userType = {userType}/>
+        <Review userstatus = {userstatus}/>
       </div>
 
 

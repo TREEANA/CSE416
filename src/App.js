@@ -8,6 +8,9 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Login from "./components/Login/Login";
 import Review from "./components/Review/Review";
 import Detail from "./components/Detail/Detail";
+import Search from "./components/Search/Search";
+
+
 
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
@@ -20,19 +23,29 @@ const App = () => {
     setLoginModalStatus(!loginModalStatus);
   };
 
-  const [userType, setUserType] = useState(1);
+  const [searchBarStatus, setSearchBarStatus] = useState(false);
+  const toggleSearchBar = () =>{
+    setSearchBarStatus(!searchBarStatus);
+    console.log("searchBar toggle going on : ", {searchBarStatus});
+  }
+
+
+
+  const [userstatus, setUserstatus] = useState(1);
   // general user, sommelier, admin (in order of 0,1,2)
   const setUser= (user) =>{
     if (user == "general"){
-      setUserType(0);
+      setUserstatus(0);
     }
     else if (user == "sommelier"){
-      setUserType(1);
+      setUserstatus(1);
     }
     else if (user == "admin"){
-      setUserType(2);
+      setUserstatus(2);
     }
   }
+
+
 
 
   return (
@@ -41,13 +54,23 @@ const App = () => {
         sidebarStatus={sidebarStatus}
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
-        userType= {userType}
+        userstatus= {userstatus}
       ></Sidebar>
       <Login
         loginModalStatus={loginModalStatus}
         toggleLoginModal={toggleLoginModal}
       ></Login>
-      <Header toggleSidebar={toggleSidebar} />
+      <Search 
+      toggleSearchBar = {toggleSearchBar}
+      searchBarStatus = {searchBarStatus} >
+
+      </Search>
+
+
+      <Header 
+        toggleSidebar={toggleSidebar} 
+        toggleSearchBar = {toggleSearchBar}
+        searchBarStatus = {searchBarStatus} />
       <Routes>
         <Route path="/" element={<Main />} />
         {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}

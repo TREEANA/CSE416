@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 import { BsGrid, BsSearch } from "react-icons/bs";
 
-const Header = ({ toggleSidebar }) => {
+const Header = ({ toggleSidebar , toggleSearchBar, searchBarStatus}) => {
   return (
     <>
       <header className="header">
@@ -11,7 +11,7 @@ const Header = ({ toggleSidebar }) => {
         <Link to="/">
           <h1 className="header__title">podo</h1>
         </Link>
-        <BsSearch className="header__search"></BsSearch>
+        <BsSearch className="header__search" onClick = {toggleSearchBar}></BsSearch>
       </header>
     </>
   );
