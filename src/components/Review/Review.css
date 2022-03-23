@@ -7,9 +7,9 @@
 }
 
 .review--somm {
+    border: 1px solid;
     border-color: var(--primary);
     border-radius: 30px;
-    border: 1px solid;
     margin: var(--margin-out);
 }
 
@@ -25,7 +25,7 @@
     align-items: center;
 }
 
-.review__user>svg {
+.review__user-icon>svg {
     margin: 5px;
     color: var(--primary);
     width: 20px;
@@ -91,6 +91,7 @@
     border: 1px solid var(--primary);
     padding: 3px 7px;
     margin: 0 3px;
+    color: var(--primary);
 }
 
 .review__content {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
-const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal, userType }) => {
+const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal, userstatus }) => {
   return (
     <>
       <div className={sidebarStatus ? "sidebar" : "sidebar sidebar--inactive"}>
@@ -35,7 +35,7 @@ const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal, userType }) =
               <Link to="/theme">Theme</Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userType = {userType} to="/detail" > Detail</Link>
+              <Link userstatus = {userstatus} to="/detail" > Detail</Link>
             </div>
           </div>
         </div>

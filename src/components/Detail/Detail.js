@@ -3,7 +3,7 @@ import "./Detail.css";
 import Review from "../Review/Review";
 import Search from "../Search/Search";
 
-const Detail = ({userType}) => {
+const Detail = ({userstatus}) => {
   return (
     <>
 
@@ -13,7 +13,7 @@ const Detail = ({userType}) => {
 
 
       <div className="detail">
-        <Review userType = {userType}/>
+        <Review userstatus = {userstatus}/>
       </div>
 
 

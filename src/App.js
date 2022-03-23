@@ -27,17 +27,17 @@ const App = () => {
 
 
 
-  const [userType, setUserType] = useState(1);
+  const [userstatus, setUserstatus] = useState(1);
   // general user, sommelier, admin (in order of 0,1,2)
   const setUser= (user) =>{
     if (user == "general"){
-      setUserType(0);
+      setUserstatus(0);
     }
     else if (user == "sommelier"){
-      setUserType(1);
+      setUserstatus(1);
     }
     else if (user == "admin"){
-      setUserType(2);
+      setUserstatus(2);
     }
   }
 
@@ -50,7 +50,7 @@ const App = () => {
         sidebarStatus={sidebarStatus}
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
-        userType= {userType}
+        userstatus= {userstatus}
       ></Sidebar>
       <Login
         loginModalStatus={loginModalStatus}
