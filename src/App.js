@@ -20,6 +20,13 @@ const App = () => {
     setLoginModalStatus(!loginModalStatus);
   };
 
+  const [searchBarStatus, setSearchBarStatus] = useState(false);
+  const toggleSearchBar = () =>{
+    setSearchBarStatus(!searchBarStatus);
+  }
+
+
+
   const [userType, setUserType] = useState(1);
   // general user, sommelier, admin (in order of 0,1,2)
   const setUser= (user) =>{
@@ -35,6 +42,8 @@ const App = () => {
   }
 
 
+
+
   return (
     <Router>
       <Sidebar
@@ -47,7 +56,10 @@ const App = () => {
         loginModalStatus={loginModalStatus}
         toggleLoginModal={toggleLoginModal}
       ></Login>
-      <Header toggleSidebar={toggleSidebar} />
+      <Header 
+        toggleSidebar={toggleSidebar} 
+        toggleSearchBar = {toggleSearchBar}
+        searchBarStatus = {searchBarStatus} />
       <Routes>
         <Route path="/" element={<Main />} />
         {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
