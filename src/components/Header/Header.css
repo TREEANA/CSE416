@@ -12,7 +12,7 @@
 }
 
 .header__menu {
-  margin: 2rem;
+  margin: var(--margin-out);
 }
 
 .header__menu:hover {
@@ -30,10 +30,9 @@
 }
 
 .header__search {
-  margin: 2rem;
+  margin: var(--margin-out);
 }
 
 .header__search:hover {
   cursor: pointer;
 }
-

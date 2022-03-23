@@ -3,6 +3,19 @@
   src: url("fonts/Rounded_Elegance.ttf") format("truetype");
 }
 
+:root {
+  --primary: rgba(222, 73, 75, 1);
+  --bg-100: rgba(249, 221, 209, 1);
+  --bg-20: rgba(252, 238, 232, 1);
+  --bg-0: rgba(255, 255, 255, 1);
+  --text-100: rgba(8, 20, 46, 1);
+  --text-50: rgba(131, 137, 151, 1);
+
+  --font: "Rounded Elegance";
+
+  --margin-out: 2rem;
+}
+
 * {
   font-family: var(--font);
 }
@@ -12,14 +25,6 @@ a {
 }
 
 body {
-  --primary: rgba(222, 73, 75, 1);
-  --bg-100: rgba(249, 221, 209, 1);
-  --bg-20: rgba(252, 238, 232, 1);
-  --bg-0: rgba(255, 255, 255, 1);
-  --text-100: rgba(8, 20, 46, 1);
-  --text-50: rgba(131, 137, 151, 1);
-  --font: "Rounded Elegance";
-
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

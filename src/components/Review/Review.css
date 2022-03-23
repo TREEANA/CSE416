@@ -1,88 +1,88 @@
 .review {
-    border-radius: 30px;
-    border: 1px solid;
-    border-color: var(--text-100);
-    /* padding: 5px; */
-    margin: 10px;
+  border-radius: 30px;
+  border: 1px solid;
+  border-color: var(--text-100);
+  /* padding: 5px; */
+  margin: var(--margin-out);
 }
 
 .review--somm {
-    border-color: var(--primary);
+  border-color: var(--primary);
 }
 
 .review__title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .review__user {
-    display: flex;
-    padding: 10px;
-    align-items: center;
+  display: flex;
+  padding: 10px;
+  align-items: center;
 }
 
-.review__user>svg {
-    margin: 5px;
-    color: var(--primary);
-    width: 20px;
-    height: 20px;
+.review__user > svg {
+  margin: 5px;
+  color: var(--primary);
+  width: 20px;
+  height: 20px;
 }
 
 .review__user-image {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-    border: 1px solid var(--text-100);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border: 1px solid var(--text-100);
 }
 
-.review__user-info {}
+.review__user-info {
+}
 
 .review__user-name {
-    font-size: 15px;
-    padding-bottom: 2px;
+  font-size: 15px;
+  padding-bottom: 2px;
 }
 
 .review__user-date {
-    font-size: x-small;
+  font-size: x-small;
 }
 
 .review__user-rate {
-    border-radius: 20px;
-    border: 1px solid;
-    border-color: var(--text-100);
-    display: flex;
-    align-items: center;
-    height: fit-content;
-    padding: 5px 7px 5px 5px;
-    color: var(--bg-0);
-    background-color: var(--text-100);
-    margin-right: 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  border-color: var(--text-100);
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  padding: 5px 7px 5px 5px;
+  color: var(--bg-0);
+  background-color: var(--text-100);
+  margin-right: 10px;
 }
 
 .review__user-rate--somm {
-    background-color: var(primary);
+  background-color: var(primary);
 }
 
-.review__user-rate>svg {
-    margin: 4px;
+.review__user-rate > svg {
+  margin: 4px;
 }
 
 .review__tag {
-    display: flex;
-    padding: 0px 0px 0 5px;
+  display: flex;
+  padding: 0px 0px 0 5px;
 }
 
 .review__ind-tag {
-    border-radius: 20px;
-    border: 1px solid var(--primary);
-    padding: 3px 7px;
-    margin: 0 3px;
-
+  border-radius: 20px;
+  border: 1px solid var(--primary);
+  padding: 3px 7px;
+  margin: 0 3px;
 }
 
 .review__content {
-    padding: 10px;
-    font-size: 20px;
+  padding: 10px;
+  font-size: 20px;
 }
