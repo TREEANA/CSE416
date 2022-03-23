@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./Review.css";
 import {  BsFillStarFill,BsPatchCheckFill } from "react-icons/bs";
 
-const Review = ({}) => {
+const Review = ({userType}) => {
+    // userType = 1;
     return (
       <>
         <div className = "review"> 
@@ -13,7 +14,7 @@ const Review = ({}) => {
                         <div className = "review__user-name">Marc Almert</div>
                         <div className = "review__user-date"> 2022.02.27 </div>
                     </div>
-                    <BsPatchCheckFill/>
+                    <div> {userType == 0 ? <BsPatchCheckFill/> : <div></div>} </div>
                 </div>
                 <div className = "review__user-rate"> <BsFillStarFill /> 4.5 </div>
             </div>
