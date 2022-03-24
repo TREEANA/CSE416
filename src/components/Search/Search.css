@@ -7,18 +7,28 @@
     transition: 1s;
     position: fixed;
     z-index: 2;
-
+    width: 100%;
 }
 
 .search--inactive {
-    transform: translateY(-50vh);
+    transform: translateY(-350%);
+    background-color: var(--bg-20);
+    height: 80px;
+    /* display: flex; */
+    align-items: center;
+    /* position: fixed; */
+    transition: 1s;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
 }
 
 .search__bar {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    padding-bottom: 15px;
+    /* justify-content: space-around; */
+    /* padding-bottom: 15px; */
+    height: 80px;
 }
 
 .search__textbar {

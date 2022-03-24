@@ -8,13 +8,13 @@ const Search = ({toggleSearchBar, searchBarStatus}) => {
     // use State for inputs, and its placeholder (profile page 면 search other users )
     return (
             <>
-                <div className = "search search--inactive"> 
+                <div className = {searchBarStatus ? "search": "search--inactive"}> 
                     <div className = "search__bar">
                         <div className = "search__textbar">
-                            <BsSearch className = "search__text-icon"/>
+                            <BsSearch className = "search__text-icon" />
                             <input className = "search__text-input" placeholder = "search"></input>
                         </div>
-                        <BsXLg className="search__close" />
+                        <BsXLg className="search__close" onClick = {toggleSearchBar}/>
                     </div>
                     <div className = "search__result">
                     {/* when input not empty */}
