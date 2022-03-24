@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
+import { BsXLg} from "react-icons/bs";
 
 const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal, userstatus }) => {
   return (
@@ -18,9 +19,7 @@ const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal, userstatus })
             >
               Login
             </div>
-            <span className="sidebar__close" onClick={toggleSidebar}>
-              x
-            </span>
+            <BsXLg className="sidebar__close" onClick={toggleSidebar}/>
           </div>
 
           <div className="sidebar__register">
