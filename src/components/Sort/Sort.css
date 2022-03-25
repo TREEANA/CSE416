@@ -5,6 +5,15 @@
     background-color: var(--bg-0);
 }
 
+.sort--inactive {
+    width: 100vw;
+    height: 100vh;
+    color: var(--primary);
+    background-color: var(--bg-0);
+    transform: translateY(-100%);
+}
+
+
 .sort__top {
     display: flex;
     align-items: center;

@@ -6,11 +6,12 @@ const Sort = () => {
     
     return (
             <>
-                <div className = "sort">
+                {/* <div className = {sortToggle? "sort": "sort--inactive"}> */}
+                <div className =  "sort">
                     <div className = "sort__top">
                         <div className = "sort__top-left">x</div>
                         <div className = "sort__top-title"> Sort </div>
-                        <BsXLg className = "sort__top-close"/>
+                        <BsXLg className = "sort__top-close" />
                     </div>
 
                     <div className = "sort__method">
@@ -18,8 +19,6 @@ const Sort = () => {
                         <div className = "sort__method--unselected">Most Liked</div>
                         <div className = "sort__method--unselected">Price - Low to High</div>
                         <div className = "sort__method--unselected">Price - High to Low</div>
-                    
-                    
                     </div>
                 </div>
             </>

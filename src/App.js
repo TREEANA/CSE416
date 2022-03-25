@@ -29,6 +29,13 @@ const App = () => {
     console.log("searchBar toggle going on : ", { searchBarStatus });
   };
 
+  const [sortToggle, setSortToggle] = useState(false);
+  const toggleSortButton = () =>{
+    setSortToggle(!sortToggle);
+    console.log("toggleSort result, sortToggle : ", sortToggle);
+  }
+
+
   const [userstatus, setUserstatus] = useState(1);
   // general user, sommelier, admin (in order of 0,1,2)
   const setUser = (user) => {
@@ -68,7 +75,7 @@ const App = () => {
           <Route path="/" element={<Main />} />
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
           <Route path="/login" element={<Login />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail" element={<Detail sortToggle = {sortToggle} toggleSortButton = {toggleSortButton} />} />
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/winePage" element={<WinePage />} />
