@@ -9,7 +9,7 @@ import Login from "./components/Login/Login";
 import Review from "./components/Review/Review";
 import Detail from "./components/Detail/Detail";
 import Search from "./components/Search/Search";
-
+import Profile from "./components/Profile/Profile";
 
 
 const App = () => {
@@ -63,7 +63,6 @@ const App = () => {
       <Search 
       toggleSearchBar = {toggleSearchBar}
       searchBarStatus = {searchBarStatus} >
-
       </Search>
 
 
@@ -71,13 +70,18 @@ const App = () => {
         toggleSidebar={toggleSidebar} 
         toggleSearchBar = {toggleSearchBar}
         searchBarStatus = {searchBarStatus} />
+      <div className="article">
       <Routes>
         <Route path="/" element={<Main />} />
         {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
         <Route path="/login" element={<Login />} />
         <Route path="/detail" element={<Detail />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
+      </div>
+
       <Footer />
+      
     </Router>
   );
 };
