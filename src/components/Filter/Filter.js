@@ -9,7 +9,6 @@ const Filter = () => {
     // State 이용해서 input 값 != "" 이면 X 보이게 하는걸로 할까여 
     // 그럼 x 클릭하면 onClick = {inputReset} 뭐 이런식으로 해야됨
 
-
     // const [value, setValue] = useState([]); //값
     // const [min, setMin] = useState();
     // const [max, setMax] = useState();
