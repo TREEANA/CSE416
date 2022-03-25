@@ -1,0 +1,41 @@
+.sort {
+    width: 100vw;
+    height: 100vh;
+    color: var(--primary);
+    background-color: var(--bg-0);
+}
+
+.sort__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    margin: 0 var(--margin-out);
+}
+
+.sort__top-left {
+    visibility: hidden;
+}
+
+.sort__top-title {
+    font-size: 24px;
+}
+
+.sort__top-close {
+    font-weight: bold;
+    position: static;
+}
+
+.sort__method {
+    margin: 0 var(--margin-out);
+}
+
+.sort__method--selected,
+.sort__method--unselected {
+    font-size: var(--size-btn);
+    margin: 15px 0;
+}
+
+.sort__method--selected {
+    font-weight: bolder;
+}
