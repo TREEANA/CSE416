@@ -1,0 +1,40 @@
+.winePage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-20);
+  margin: var(--margin-out);
+}
+
+.winePage__text {
+  font-size: var(--size-txt);
+  color: var(--primary);
+}
+
+.winePage__title {
+  font-size: var(--size-title);
+  color: var(--primary);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.winePage__btnCont {
+  display: flex;
+  justify-content: space-between;
+}
+
+.winePage__filter {
+  width: 69%;
+  height: var(--size-btn);
+  border-radius: 30px;
+  border: solid 1px var(--primary);
+  background-color: var(--bg-20);
+}
+
+.winePage__sort {
+  width: 29%;
+  height: var(--size-btn);
+  border-radius: 30px;
+  border: solid 1px var(--primary);
+  background-color: var(--bg-20);
+}
