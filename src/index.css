@@ -12,6 +12,9 @@
   --text-50: rgba(131, 137, 151, 1);
 
   --font: "Rounded Elegance";
+  --size-title: 3rem;
+  --size-btn: 1.5rem;
+  --size-txt: 1.2rem;
 
   --margin-out: 2rem;
 }
