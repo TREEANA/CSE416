@@ -40,14 +40,17 @@ const Sidebar = ({
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
               <Link userstatus={userstatus} to="/detail">
-                {" "}
                 Detail
               </Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
               <Link userstatus={userstatus} to="/profile">
-                {" "}
                 Profile
+              </Link>
+            </div>
+            <div className="sidebar__link" onClick={toggleSidebar}>
+              <Link userstatus={userstatus} to="/winePage">
+                WinePage
               </Link>
             </div>
           </div>

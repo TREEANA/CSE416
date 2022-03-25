@@ -1,5 +1,5 @@
 .article {
-    background-color: var(--bg-20);
-    display:flex;
-    justify-content: center;
+  background-color: var(--bg-20);
+  display: flex;
+  justify-content: center;
 }

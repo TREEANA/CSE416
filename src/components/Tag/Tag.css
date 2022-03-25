@@ -1,0 +1,13 @@
+.tag {
+  display: inline-block;
+  margin: 0.2rem;
+  padding: 0.5rem;
+  border-radius: 30px;
+  background-color: var(--bg-100);
+  color: var(--bg-0);
+}
+
+.tag--filled {
+  background-color: var(--primary);
+  color: var(--bg-0);
+}
