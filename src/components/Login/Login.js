@@ -18,7 +18,7 @@ const Login = ({ loginModalStatus, toggleLoginModal }) => {
         </div>
         <div className="login__title">Login</div>
         <input className="login__id"></input>
-        <input className="login__pw"></input>
+        <input className="login__pw" type="password"></input>
         <div className="login__forgot">forgot email or password?</div>
         <div className="login__login" onClick={toggleLoginModal}>
           <Link to="/">login</Link>
