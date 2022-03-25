@@ -1,14 +1,12 @@
 .filter {
     width: 100vw;
     /* height: 100vh; */
-    margin: 0 var(--margin-out) 0 var(--margin-out);
     color: var(--primary);
 }
 
 .filter--inactive {
     width: 100vw;
     /* height: 100vh; */
-    margin: 0 var(--margin-out) 0 var(--margin-out);
     color: var(--primary);
     transform: translateY(-100%);
 }
@@ -29,14 +27,25 @@
     position: static;
 }
 
+.filter__cond {
+    margin: 0 var(--margin-out) 0 var(--margin-out);
+}
+
+.filter__cond-tag,
+.filter__cond-price,
+.filter__cond-rate {
+    margin: 10px 0;
+}
+
 .filter__cond-title {
     font-size: 24px;
     font-weight: bold;
     padding: 3px 0;
+    margin: 3px 0;
 }
 
 .filter__cond-search {
-    width: 90%;
+    width: 80%;
     display: flex;
     align-items: center;
     border-bottom: lightgray 1px solid;
@@ -60,3 +69,12 @@
 .filter__cond-search-input:not(hover) {
     outline: none;
 }
+
+.MuiBox-root>span {
+    color: var(--primary);
+    height: 2px;
+}
+
+/* .MuiSlider-thumb {
+    size: 3px;
+} */
