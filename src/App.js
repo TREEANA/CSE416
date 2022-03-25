@@ -11,7 +11,6 @@ import Detail from "./components/Detail/Detail";
 import Search from "./components/Search/Search";
 import Profile from "./components/Profile/Profile";
 
-
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
   const [loginModalStatus, setLoginModalStatus] = useState(0);
@@ -24,29 +23,22 @@ const App = () => {
   };
 
   const [searchBarStatus, setSearchBarStatus] = useState(false);
-  const toggleSearchBar = () =>{
+  const toggleSearchBar = () => {
     setSearchBarStatus(!searchBarStatus);
-    console.log("searchBar toggle going on : ", {searchBarStatus});
-  }
-
-
+    console.log("searchBar toggle going on : ", { searchBarStatus });
+  };
 
   const [userstatus, setUserstatus] = useState(1);
   // general user, sommelier, admin (in order of 0,1,2)
-  const setUser= (user) =>{
-    if (user == "general"){
+  const setUser = (user) => {
+    if (user == "general") {
       setUserstatus(0);
-    }
-    else if (user == "sommelier"){
+    } else if (user == "sommelier") {
       setUserstatus(1);
-    }
-    else if (user == "admin"){
+    } else if (user == "admin") {
       setUserstatus(2);
     }
-  }
-
-
-
+  };
 
   return (
     <Router>
@@ -54,23 +46,22 @@ const App = () => {
         sidebarStatus={sidebarStatus}
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
-        userstatus= {userstatus}
+        userstatus={userstatus}
       ></Sidebar>
       <Login
         loginModalStatus={loginModalStatus}
         toggleLoginModal={toggleLoginModal}
       ></Login>
-      <Search 
-      toggleSearchBar = {toggleSearchBar}
-      searchBarStatus = {searchBarStatus} >
-      </Search>
+      <Search
+        toggleSearchBar={toggleSearchBar}
+        searchBarStatus={searchBarStatus}
+      ></Search>
 
-
-      <Header 
-        toggleSidebar={toggleSidebar} 
-        toggleSearchBar = {toggleSearchBar}
-        searchBarStatus = {searchBarStatus} />
-      <div className="article">
+      <Header
+        toggleSidebar={toggleSidebar}
+        toggleSearchBar={toggleSearchBar}
+        searchBarStatus={searchBarStatus}
+      />
       <Routes>
         <Route path="/" element={<Main />} />
         {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
@@ -78,10 +69,8 @@ const App = () => {
         <Route path="/detail" element={<Detail />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
-      </div>
 
       <Footer />
-      
     </Router>
   );
 };

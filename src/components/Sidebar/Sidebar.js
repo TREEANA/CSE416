@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
-import { BsXLg} from "react-icons/bs";
+import { BsXLg } from "react-icons/bs";
 
-const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal, userstatus }) => {
+const Sidebar = ({
+  sidebarStatus,
+  toggleSidebar,
+  toggleLoginModal,
+  userstatus,
+}) => {
   return (
     <>
       <div className={sidebarStatus ? "sidebar" : "sidebar sidebar--inactive"}>
@@ -19,7 +24,7 @@ const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal, userstatus })
             >
               Login
             </div>
-            <BsXLg className="sidebar__close" onClick={toggleSidebar}/>
+            <BsXLg className="sidebar__close" onClick={toggleSidebar} />
           </div>
 
           <div className="sidebar__register">
@@ -34,7 +39,16 @@ const Sidebar = ({ sidebarStatus, toggleSidebar, toggleLoginModal, userstatus })
               <Link to="/theme">Theme</Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus = {userstatus} to="/detail" > Detail</Link>
+              <Link userstatus={userstatus} to="/detail">
+                {" "}
+                Detail
+              </Link>
+            </div>
+            <div className="sidebar__link" onClick={toggleSidebar}>
+              <Link userstatus={userstatus} to="/profile">
+                {" "}
+                Profile
+              </Link>
             </div>
           </div>
         </div>
