@@ -12,9 +12,9 @@ const Detail = ({userstatus}) => {
         <Filter/>
       </div>
 
-      <div className="detail">
+      {/* <div className="detail">
         <Review userstatus = {userstatus}/>
-      </div>
+      </div> */}
       
     </>
   );

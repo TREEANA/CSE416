@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Filter.css";
-import {BsSearch, BsXLg} from "react-icons/bs";
+import Tag from '../Tag/Tag';
+import {BsSearch, BsXLg, BsStarFill, BsStar} from "react-icons/bs";
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 
@@ -33,8 +34,9 @@ const Filter = () => {
     //         setMax(max);
     //     });
     // },[]);
-    const [valuePrice, setValuePrice] = useState([23, 58]);
-    const [valueRate, setValueRate] = useState([3, 5.4]);
+
+    const [valuePrice, setValuePrice] = useState([23000, 128000]);
+    const [valueRate, setValueRate] = useState([3, 4.5]);
 
     const handlePriceChange = (event, newValue) => {
         setValuePrice(newValue);
@@ -42,10 +44,11 @@ const Filter = () => {
     };
 
     const handleRateChange = (event, newValue) => {
-        setValuePrice(newValue);
-        console.log("Rate value : ", valueRate)
+        setValueRate(newValue);
+        console.log("Rate value : ", valueRate/20)
     };
     
+    //discriminates number by 3 digits (with comma)
     const numberFormat = (num) => {
         if (num > 1000) {
           return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -54,7 +57,6 @@ const Filter = () => {
         }
     };
 
-
     //range slider from Material-UI
     //https://mui.com/getting-started/installation/
 
@@ -62,6 +64,7 @@ const Filter = () => {
         <>
             <div className = "filter">
                 <div className = "filter__top">
+                    <div className = "filter__top-left">x</div>
                     <div className = "filter__top-title"> filters </div>
                     <BsXLg className = "filter__top-close"/>
                 </div>
@@ -73,17 +76,40 @@ const Filter = () => {
                             <BsSearch className = "filter__cond-search-icon"/>
                             <input className = "filter__cond-search-input" placeholder = "search tags"></input>
                         </div>
+                        <div>
+                            <Tag isFilled = {0} txt = "acidic"/>
+                            <Tag isFilled = {1} txt = "light"/>
+                            <Tag isFilled = {1} txt = "blackberry"/>
+                            <Tag isFilled = {0} txt = "picnic"/>
+                            <Tag isFilled = {0} txt = "chocolate"/>
+                            <Tag isFilled = {0} txt = "oak"/>
+                            <Tag isFilled = {0} txt = "vanilla"/>
+                            <Tag isFilled = {0} txt = "plum"/>
+                            <Tag isFilled = {0} txt = "jam"/>
+                            <Tag isFilled = {0} txt = "good"/>
+                            <Tag isFilled = {0} txt = "cherry"/>
+                            <Tag isFilled = {0} txt = "red fruit"/>
+                            <Tag isFilled = {0} txt = "strawberry"/>
+                            <Tag isFilled = {0} txt = "fig"/>
+                        </div>
                     </div>
 
                     <div className = "filter__cond-price">
                         <div className = "filter__cond-title"> Price </div>
-                        <Box sx = {{width : "80%"}}>
+                        <div className = "filter__cond-price-number">
+                            <div ClassName = "filter__cond-price-less"> ₩{numberFormat(valuePrice[0])}</div>
+                            <div ClassName = "filter__cond-price-more"> ₩{numberFormat(valuePrice[1])} </div>
+                        </div>
+                        <Box >
                             <Slider className = "filter__cond-price-slider"
-                                // getAriaLabel={() => 'wine price range'}
-                                // aria-labelledby="range-slider"
+                                getAriaLabel={() => 'wine price range'}
+                                aria-labelledby="range-slider"
                                 value={valuePrice}
                                 onChange={handlePriceChange}
-                                valueLabelDisplay="auto"
+                                size = "small"
+                                min = {0}
+                                max = {150000}
+                                step = {100}
                                 // color = "primary"
                             />
                         </Box>
@@ -91,20 +117,31 @@ const Filter = () => {
 
                     <div className = "filter__cond-rate">
                         <div className = "filter__cond-title"> Rating </div>
-                        <Box sx = {{width : "80%"}}>
-                            <Slider className = "filter__cond-price-slider"
-                                // getAriaLabel={() => 'wine price range'}
-                                // aria-labelledby="range-slider"
+                        <div className = "filter__cond-rate-number">
+                            <div ClassName = "filter__cond-rate-less"> <BsStarFill/>{valueRate[0]}</div>
+                            <div ClassName = "filter__cond-rate-more"> <BsStarFill/>{valueRate[1]} </div>
+                        </div>
+                        <Box>
+                            {/* sx = {{width : "80%"}} */}
+                            <Slider className = "filter__cond-rate-slider"
+                                getAriaLabel={() => 'wine price range'}
+                                aria-labelledby="range-slider"
                                 value={valueRate}
                                 onChange={handleRateChange}
-                                valueLabelDisplay="auto"
+                                size = "small"
+                                aria-label = "rate-range-slider"
+                                min={0}
+                                step={0.1}
+                                max={5}
                                 // color = "primary"
                             />
                         </Box>
                     </div>
 
                 </div>
-                
+                <div className = "filter__button">
+                    <div className = "filter__button-apply">apply filter</div>
+                </div>
             </div>
         </>
         
