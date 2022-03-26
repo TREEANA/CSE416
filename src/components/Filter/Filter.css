@@ -13,7 +13,7 @@
     height: 100vh;
     color: var(--primary);
     transform: translateY(-100%);
-    transition: 0.5s;
+    transition: 1s;
 }
 
 .filter__top {
@@ -35,6 +35,7 @@
 .filter__top-close {
     font-weight: bold;
     position: static;
+    cursor: pointer;
 }
 
 .filter__cond {
