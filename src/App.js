@@ -26,13 +26,19 @@ const App = () => {
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const toggleSearchBar = () => {
     setSearchBarStatus(!searchBarStatus);
-    console.log("searchBar toggle going on : ", { searchBarStatus });
+    console.log("searchBar toggle going on : ",  searchBarStatus );
   };
 
-  const [sortToggle, setSortToggle] = useState(false);
-  const toggleSortButton = () =>{
-    setSortToggle(!sortToggle);
-    console.log("toggleSort result, sortToggle : ", sortToggle);
+  const [filterpage, setFilterpage] = useState(false);
+  const togglefilterpage = () =>{
+    setFilterpage(!filterpage);
+    console.log("filterPage toggled, current filterPageStatus: ", filterpage);
+  }
+
+  const [sortpage, setSortpage] = useState(false);
+  const togglesortpage = () =>{
+    setSortpage(!sortpage);
+    console.log("toggleSortPage, current sortpage: ", sortpage);
   }
 
 
@@ -75,10 +81,10 @@ const App = () => {
           <Route path="/" element={<Main />} />
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
           <Route path="/login" element={<Login />} />
-          <Route path="/detail" element={<Detail sortToggle = {sortToggle} toggleSortButton = {toggleSortButton} />} />
+          <Route path="/detail" element={<Detail />} />
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/winePage" element={<WinePage />} />
+          <Route path="/winePage" element={<WinePage filterpage = {filterpage} togglefilterpage = {togglefilterpage} togglesortpage = {togglesortpage} sortpage = {sortpage}/>} />
         </Routes>
       </div>
 

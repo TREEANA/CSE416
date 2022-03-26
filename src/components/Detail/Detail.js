@@ -10,8 +10,8 @@ const Detail = ({userstatus}) => {
     <>
 
       <div className = "detail">
-        {/* <Filter/> */}
-        <Sort/>
+        <Filter filterpage = {filterpage} togglefilterpage = {togglefilterpage}/>
+        {/* <Sort/> */}
       </div>
 
       {/* <div className="detail">

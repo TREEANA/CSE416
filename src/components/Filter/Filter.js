@@ -5,7 +5,7 @@ import {BsSearch, BsXLg, BsStarFill, BsStar} from "react-icons/bs";
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 
-const Filter = () => {
+const Filter = ({filterpage,togglefilterpage}) => {
     // State 이용해서 input 값 != "" 이면 X 보이게 하는걸로 할까여 
     // 그럼 x 클릭하면 onClick = {inputReset} 뭐 이런식으로 해야됨
 
@@ -61,11 +61,11 @@ const Filter = () => {
 
     return (
         <>
-            <div className = "filter">
+            <div className = {filterpage? "filter": "filter--inactive"}>
                 <div className = "filter__top">
                     <div className = "filter__top-left">x</div>
                     <div className = "filter__top-title"> filters </div>
-                    <BsXLg className = "filter__top-close"/>
+                    <BsXLg className = "filter__top-close" onClick = {togglefilterpage}/>
                 </div>
 
                 <div className = "filter__cond">
@@ -93,22 +93,24 @@ const Filter = () => {
                         </div>
                     </div>
 
+                    {/* 와인리스트에 대해서는 이부분 없애야함 */}
+        
                     <div className = "filter__cond-price">
                         <div className = "filter__cond-title"> Price </div>
                         <div className = "filter__cond-price-number">
-                            <div ClassName = "filter__cond-price-less"> ₩{numberFormat(valuePrice[0])}</div>
-                            <div ClassName = "filter__cond-price-more"> ₩{numberFormat(valuePrice[1])} </div>
+                            <div className = "filter__cond-price-less"> ₩{numberFormat(valuePrice[0])}</div>
+                            <div className = "filter__cond-price-more"> ₩{numberFormat(valuePrice[1])} </div>
                         </div>
                         <Box >
                             <Slider className = "filter__cond-price-slider"
                                 getAriaLabel={() => 'wine price range'}
-                                aria-labelledby="range-slider"
+                                // aria-labelledby="range-slider"
                                 value={valuePrice}
                                 onChange={handlePriceChange}
                                 size = "small"
                                 min = {0}
                                 max = {150000}
-                                step = {100}
+                                step = {1000}
                                 // color = "primary"
                             />
                         </Box>
@@ -117,18 +119,18 @@ const Filter = () => {
                     <div className = "filter__cond-rate">
                         <div className = "filter__cond-title"> Rating </div>
                         <div className = "filter__cond-rate-number">
-                            <div ClassName = "filter__cond-rate-less"> <BsStarFill/>{valueRate[0]}</div>
-                            <div ClassName = "filter__cond-rate-more"> <BsStarFill/>{valueRate[1]} </div>
+                            <div className = "filter__cond-rate-less"> <BsStarFill/>{valueRate[0]}</div>
+                            <div className = "filter__cond-rate-more"> <BsStarFill/>{valueRate[1]} </div>
                         </div>
                         <Box>
                             {/* sx = {{width : "80%"}} */}
                             <Slider className = "filter__cond-rate-slider"
-                                getAriaLabel={() => 'wine price range'}
-                                aria-labelledby="range-slider"
+                                getAriaLabel={() => 'wine rate range'}
+                                // aria-labelledby="range-slider"
                                 value={valueRate}
                                 onChange={handleRateChange}
                                 size = "small"
-                                aria-label = "rate-range-slider"
+                                // aria-label = "rate-range-slider"
                                 min={0}
                                 step={0.1}
                                 max={5}
@@ -139,7 +141,7 @@ const Filter = () => {
 
                 </div>
                 <div className = "filter__button">
-                    <div className = "filter__button-apply">apply filter</div>
+                    <div className = "filter__button-apply" onClick = {togglefilterpage}>apply filter</div>
                 </div>
             </div>
         </>

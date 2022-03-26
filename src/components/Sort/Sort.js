@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Sort.css";
 import {  BsSearch, BsXLg} from "react-icons/bs";
 
-const Sort = () => {
+const Sort = ({sortpage, togglesortpage}) => {
     
     return (
             <>
@@ -11,7 +11,7 @@ const Sort = () => {
                     <div className = "sort__top">
                         <div className = "sort__top-left">x</div>
                         <div className = "sort__top-title"> Sort </div>
-                        <BsXLg className = "sort__top-close" />
+                        <BsXLg className = "sort__top-close" onClick = {togglesortpage} />
                     </div>
 
                     <div className = "sort__method">

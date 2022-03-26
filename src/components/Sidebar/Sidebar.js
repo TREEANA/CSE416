@@ -8,6 +8,10 @@ const Sidebar = ({
   toggleSidebar,
   toggleLoginModal,
   userstatus,
+  filterpage,
+  togglefilterpage,
+  sortpage,
+  togglesortpage
 }) => {
   return (
     <>
@@ -49,7 +53,7 @@ const Sidebar = ({
               </Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus={userstatus} to="/winePage">
+              <Link userstatus={userstatus} filterpage = {filterpage} togglefilterpage ={togglefilterpage} togglesortpage = {togglesortpage} sortpage = {sortpage} to="/winePage">
                 WinePage
               </Link>
             </div>
