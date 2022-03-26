@@ -14,7 +14,7 @@ const Filter = ({filterpage,togglefilterpage}) => {
     // const [max, setMax] = useState();
 
     // useEffect(() => {
-    //     fetch("http://localhost:3000/data/data.json")
+    //     fetch("url something")
     //     .then((res) => res.json())
     //     .then((res) => {
     //         // data 중 가격으로만 이루어진 새로운 배열 생성
