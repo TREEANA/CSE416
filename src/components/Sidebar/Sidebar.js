@@ -43,7 +43,7 @@ const Sidebar = ({
               <Link to="/theme">Theme</Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus={userstatus} to="/detail">
+              <Link userstatus={userstatus} togglefilterpage = {togglefilterpage} filterpage = {filterpage} to="/detail">
                 Detail
               </Link>
             </div>

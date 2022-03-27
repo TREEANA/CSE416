@@ -61,6 +61,10 @@ const App = () => {
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
         userstatus={userstatus}
+        filterpage = {filterpage}
+        togglefilterpage = {togglefilterpage}
+        sortpage = {sortpage}
+        togglesortpage = {togglesortpage}
       ></Sidebar>
       <Login
         loginModalStatus={loginModalStatus}
@@ -76,6 +80,7 @@ const App = () => {
         toggleSearchBar={toggleSearchBar}
         searchBarStatus={searchBarStatus}
       />
+
       <div className="article">
         <Routes>
           <Route path="/" element={<Main />} />

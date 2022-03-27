@@ -1,9 +1,5 @@
 import React from "react";
-import "./Detail.css";
-import Review from "../Review/Review";
-// import Search from "../Search/Search";
-import Filter from "../Filter/Filter";
-import Sort from "../Sort/Sort";
+import "./Register.css";
 
 const Detail = ({userstatus, filterpage, togglefilterpage}) => {
   
