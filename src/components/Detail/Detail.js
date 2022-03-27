@@ -2,10 +2,11 @@ import React from "react";
 import "./Detail.css";
 import Review from "../Review/Review";
 // import Search from "../Search/Search";
-import Filter from "../Filter/Filter";
-import Sort from "../Sort/Sort";
+// import Filter from "../Filter/Filter";
+// import Sort from "../Sort/Sort";
+import Register from "../Register/Register";
 
-const Detail = ({userstatus, filterpage, togglefilterpage}) => {
+const Detail = ({userstatus }) => {
   
   return (
     <>
@@ -15,10 +16,13 @@ const Detail = ({userstatus, filterpage, togglefilterpage}) => {
         {/* <Sort/> */}
       </div>
 
-      <div className="detail">
+      {/* <div className="detail">
         <Review userstatus = {userstatus}/>
-      </div>
+      </div> */}
       
+      <div>
+        {/* <Register/> */}
+      </div>
     </>
   );
 };

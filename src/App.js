@@ -11,17 +11,24 @@ import Detail from "./components/Detail/Detail";
 import Search from "./components/Search/Search";
 import Profile from "./components/Profile/Profile";
 import WinePage from "./components/WinePage/WinePage";
-
+import FAQ from "./components/FAQ/FAQ";
+import Register from "./components/Register/Register";
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
-  const [loginModalStatus, setLoginModalStatus] = useState(0);
   const toggleSidebar = () => {
     setSidebarStatus(!sidebarStatus);
   };
-
+  
+  const [loginModalStatus, setLoginModalStatus] = useState(0);
   const toggleLoginModal = () => {
     setLoginModalStatus(!loginModalStatus);
   };
+
+  const [registerModalStatus, setRegisterModalStatus] = useState(0);
+  const toggleRegisterModal = () =>{
+    setRegisterModalStatus(!registerModalStatus);
+    console.log("register modal toggled , now is :", registerModalStatus);
+  }
 
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const toggleSearchBar = () => {
@@ -60,6 +67,7 @@ const App = () => {
         sidebarStatus={sidebarStatus}
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
+        toggleRegisterModal = {toggleRegisterModal}
         userstatus={userstatus}
         filterpage = {filterpage}
         togglefilterpage = {togglefilterpage}
@@ -69,6 +77,8 @@ const App = () => {
       <Login
         loginModalStatus={loginModalStatus}
         toggleLoginModal={toggleLoginModal}
+        toggleRegisterModal = {toggleRegisterModal}
+        registerModalStatus = {registerModalStatus}
       ></Login>
       <Search
         toggleSearchBar={toggleSearchBar}
@@ -86,10 +96,12 @@ const App = () => {
           <Route path="/" element={<Main />} />
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/detail" element={<Detail />} />
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/winePage" element={<WinePage filterpage = {filterpage} togglefilterpage = {togglefilterpage} togglesortpage = {togglesortpage} sortpage = {sortpage}/>} />
+          <Route path="/faq" element={< FAQ />} />
         </Routes>
       </div>
 

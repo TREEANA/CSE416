@@ -11,7 +11,9 @@ const Sidebar = ({
   filterpage,
   togglefilterpage,
   sortpage,
-  togglesortpage
+  togglesortpage,
+  toggleRegisterModal, 
+  registerModalStatus
 }) => {
   return (
     <>
@@ -32,7 +34,7 @@ const Sidebar = ({
           </div>
 
           <div className="sidebar__register">
-            <Link to="/register">don't have an account?</Link>
+            <Link to="/register" onClick ={() => {toggleRegisterModal(); toggleSidebar();}} >don't have an account?</Link>
           </div>
         </div>
         <div className="sidebar__menu">
@@ -43,7 +45,7 @@ const Sidebar = ({
               <Link to="/theme">Theme</Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus={userstatus} togglefilterpage = {togglefilterpage} filterpage = {filterpage} to="/detail">
+              <Link userstatus={userstatus} to="/detail">
                 Detail
               </Link>
             </div>
@@ -53,7 +55,8 @@ const Sidebar = ({
               </Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus={userstatus} filterpage = {filterpage} togglefilterpage ={togglefilterpage} togglesortpage = {togglesortpage} sortpage = {sortpage} to="/winePage">
+              {/* <Link userstatus={userstatus} filterpage = {filterpage} togglefilterpage ={togglefilterpage} togglesortpage = {togglesortpage} sortpage = {sortpage} to="/winePage"> */}
+              <Link userstatus={userstatus} to="/winePage">
                 WinePage
               </Link>
             </div>

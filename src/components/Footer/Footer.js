@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="footer__section">
             HELP & SUPPORT
             <div className="footer__link">
-              <Link to="/faq">FAQ</Link>
+              <Link to="/FAQ">FAQ</Link>
             </div>
             <div className="footer__link">
               <Link to="/email-us">Email Us</Link>
