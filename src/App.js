@@ -11,6 +11,7 @@ import Detail from "./components/Detail/Detail";
 import Search from "./components/Search/Search";
 import Profile from "./components/Profile/Profile";
 import WinePage from "./components/WinePage/WinePage";
+import FAQ from "./components/FAQ/FAQ";
 
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
@@ -85,6 +86,7 @@ const App = () => {
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/winePage" element={<WinePage filterpage = {filterpage} togglefilterpage = {togglefilterpage} togglesortpage = {togglesortpage} sortpage = {sortpage}/>} />
+          <Route path="/faq" element={< FAQ />} />
         </Routes>
       </div>
 
