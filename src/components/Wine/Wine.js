@@ -11,12 +11,12 @@ const Wine = ({}) => {
       <div className="wine__detail">
         <div className="wine__title">La Crema Sonoma Coast Pinotasdf Noir</div>
         <div className="wine__tags">
-          <Tag isFilled={1} txt="picnic" />
-          <Tag isFilled={1} txt="dry" />
-          <Tag isFilled={1} txt="steak" />
-          <Tag isFilled={1} txt="oak" />
-          <Tag isFilled={0} txt="rose" />
-          <Tag isFilled={0} txt="cherry" />
+          <Tag isFilled={1} isDisabled={1} txt="picnic" />
+          <Tag isDisabled={1} txt="dry" />
+          <Tag isDisabled={1} txt="steak" />
+          <Tag isDisabled={1} txt="oak" />
+          <Tag isDisabled={1} txt="rose" />
+          <Tag isDisabled={1} txt="cherry" />
         </div>
         <div className="wine__rate">★4.5</div>
         <div className="wine__price">₩17,000</div>

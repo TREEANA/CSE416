@@ -53,6 +53,11 @@ const Sidebar = ({
                 WinePage
               </Link>
             </div>
+            <div className="sidebar__link" onClick={toggleSidebar}>
+              <Link userstatus={userstatus} to="/wineListPage">
+                WineListPage
+              </Link>
+            </div>
           </div>
         </div>
       </div>

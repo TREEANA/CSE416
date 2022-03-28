@@ -7,6 +7,10 @@
   color: var(--bg-0);
 }
 
+.tag:hover {
+  cursor: pointer;
+}
+
 .tag--filled {
   background-color: var(--primary);
   color: var(--bg-0);

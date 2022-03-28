@@ -11,6 +11,7 @@ import Detail from "./components/Detail/Detail";
 import Search from "./components/Search/Search";
 import Profile from "./components/Profile/Profile";
 import WinePage from "./components/WinePage/WinePage";
+import WineListPage from "./components/WineListPage/WineListPage";
 
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
@@ -71,6 +72,7 @@ const App = () => {
           <Route path="/detail" element={<Detail />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/winePage" element={<WinePage />} />
+          <Route path="/wineListPage" element={<WineListPage />} />
         </Routes>
       </div>
 
