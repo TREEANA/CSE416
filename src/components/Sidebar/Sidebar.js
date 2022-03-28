@@ -13,7 +13,6 @@ const Sidebar = ({
   togglefilterpage,
   sortpage,
   togglesortpage,
-
   toggleRegisterModal, 
   registerModalStatus,
   registerTagModalStatus,
