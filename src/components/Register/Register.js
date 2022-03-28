@@ -19,11 +19,11 @@ const Register = ({toggleRegisterModal, registerModalStatus}) => {
                 <div className = "register__main-content">
                     <input className="register__email" placeholder = "email"></input>
                     <input className="register__name" placeholder = "username"></input>
-                    <div className = "register__name-warning"> dooddi is available</div>
-                    
+                    <div className = "register__name-warning">  available username </div>
+
                     <input className="register__pwd" placeholder = "password" type = "password"></input>
                     <input className="register__pwd2" placeholder = "password" type = "password"></input>
-                    <div className = "register__pwd-warning"> Password does not match! </div>
+                    <div className = "register__pwd-warning"> Password does not match </div>
 
                     <div className="register__register" onClick = {toggleRegisterModal} >register</div>
                 </div>
