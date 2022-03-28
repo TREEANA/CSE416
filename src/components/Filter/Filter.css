@@ -105,7 +105,7 @@
     background-color: var(--primary);
     color: var(--bg-0);
     border-radius: 30px;
-    height: 1.5rem;
+    height: var(--size-btn);
     display: flex;
     align-items: center;
     justify-content: center;

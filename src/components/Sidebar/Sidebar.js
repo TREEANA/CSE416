@@ -13,6 +13,11 @@ const Sidebar = ({
   togglefilterpage,
   sortpage,
   togglesortpage,
+
+  toggleRegisterModal,
+  registerModalStatus,
+  registerTagModalStatus,
+  toggleRegisterTagModal,
 }) => {
   return (
     <>
@@ -33,7 +38,9 @@ const Sidebar = ({
           </div>
 
           <div className="sidebar__register">
-            <Link to="/register">don't have an account?</Link>
+            <Link to="/register" onClick={toggleRegisterModal}>
+              don't have an account?
+            </Link>
           </div>
         </div>
         <div className="sidebar__menu">
@@ -46,6 +53,11 @@ const Sidebar = ({
             <div className="sidebar__link" onClick={toggleSidebar}>
               <Link userstatus={userstatus} to="/detail">
                 Detail
+              </Link>
+            </div>
+            <div className="sidebar__link" onClick={toggleSidebar}>
+              <Link userstatus={userstatus} to="/profile">
+                Profile
               </Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>

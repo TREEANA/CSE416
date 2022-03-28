@@ -15,23 +15,32 @@ import WineListPage from "./components/WineListPage/WineListPage";
 import FAQ from "./components/FAQ/FAQ";
 import Ticket from "./components/Ticket/Ticket";
 import WineListDetail from "./components/WineListDetail/WineListDetail";
+import Register from "./components/Register/Register";
 
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
-  const [loginModalStatus, setLoginModalStatus] = useState(0);
   const toggleSidebar = () => {
     setSidebarStatus(!sidebarStatus);
   };
 
+  const [loginModalStatus, setLoginModalStatus] = useState(0);
   const toggleLoginModal = () => {
     setLoginModalStatus(!loginModalStatus);
   };
 
-  const [ticketModalStatus, setTicketModalStatus] = useState(false);
+  const [registerModalStatus, setRegisterModalStatus] = useState(0);
+  const toggleRegisterModal = () => {
+    setRegisterModalStatus(!registerModalStatus);
+    console.log("register modal toggled , now is :", registerModalStatus);
+  };
 
-  const toggleTicketModal = () => {
-    setTicketModalStatus(!ticketModalStatus);
-    console.log("Ticket modal , current sortpage: ", ticketModalStatus);
+  const [registerTagModalStatus, setRegisterTagModalStatus] = useState(false);
+  const toggleRegisterTagModal = () => {
+    setRegisterTagModalStatus(!registerTagModalStatus);
+    console.log(
+      "register tag modal toggled, now is ; ",
+      registerTagModalStatus
+    );
   };
 
   const [searchBarStatus, setSearchBarStatus] = useState(false);
@@ -70,8 +79,13 @@ const App = () => {
         sidebarStatus={sidebarStatus}
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
-        toggleTicketModal={toggleTicketModal}
+        toggleRegisterModal={toggleRegisterModal}
+        toggleRegisterTagModal={toggleRegisterTagModal}
         userstatus={userstatus}
+        filterpage={filterpage}
+        togglefilterpage={togglefilterpage}
+        sortpage={sortpage}
+        togglesortpage={togglesortpage}
       ></Sidebar>
       <Ticket
         ticketModalStatus={ticketModalStatus}
@@ -80,6 +94,10 @@ const App = () => {
       <Login
         loginModalStatus={loginModalStatus}
         toggleLoginModal={toggleLoginModal}
+        toggleRegisterModal={toggleRegisterModal}
+        registerModalStatus={registerModalStatus}
+        toggleRegisterTagModal={toggleRegisterTagModal}
+        registerTagModalStatus={registerTagModalStatus}
       ></Login>
       <Search
         toggleSearchBar={toggleSearchBar}
@@ -91,11 +109,13 @@ const App = () => {
         toggleSearchBar={toggleSearchBar}
         searchBarStatus={searchBarStatus}
       />
+
       <div className="article">
         <Routes>
           <Route path="/" element={<Main />} />
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/detail" element={<Detail />} />
           <Route path="/wineListDetail" element={<WineListDetail />} />
           {/* detail includes Review, Filter */}
