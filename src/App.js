@@ -30,6 +30,13 @@ const App = () => {
     console.log("register modal toggled , now is :", registerModalStatus);
   }
 
+  const [registerTagModalStatus, setRegisterTagModalStatus] = useState(false);
+  const toggleRegisterTagModal = () =>{
+    setRegisterTagModalStatus(!registerTagModalStatus);
+    console.log("register tag modal toggled, now is ; ", registerTagModalStatus);
+  }
+
+
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const toggleSearchBar = () => {
     setSearchBarStatus(!searchBarStatus);
@@ -68,6 +75,7 @@ const App = () => {
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
         toggleRegisterModal = {toggleRegisterModal}
+        toggleRegisterTagModal = {toggleRegisterTagModal}
         userstatus={userstatus}
         filterpage = {filterpage}
         togglefilterpage = {togglefilterpage}
@@ -79,6 +87,8 @@ const App = () => {
         toggleLoginModal={toggleLoginModal}
         toggleRegisterModal = {toggleRegisterModal}
         registerModalStatus = {registerModalStatus}
+        toggleRegisterTagModal = {toggleRegisterTagModal}
+        registerTagModalStatus = {registerTagModalStatus}
       ></Login>
       <Search
         toggleSearchBar={toggleSearchBar}

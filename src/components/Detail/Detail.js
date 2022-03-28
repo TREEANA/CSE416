@@ -5,6 +5,7 @@ import Review from "../Review/Review";
 // import Filter from "../Filter/Filter";
 // import Sort from "../Sort/Sort";
 import Register from "../Register/Register";
+import RegisterTag from "../RegisterTag/RegisterTag";
 
 const Detail = ({userstatus }) => {
   
@@ -14,6 +15,7 @@ const Detail = ({userstatus }) => {
       <div className = "detail">
         {/* <Filter filterpage = {filterpage} togglefilterpage = {togglefilterpage}/> */}
         {/* <Sort/> */}
+        <RegisterTag/>
       </div>
 
       {/* <div className="detail">

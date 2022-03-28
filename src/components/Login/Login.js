@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./Login.css";
 import Register from "../Register/Register";
 
-const Login = ({ loginModalStatus, toggleLoginModal, toggleRegisterModal, registerModalStatus }) => {
+const Login = ({ loginModalStatus, toggleLoginModal, toggleRegisterModal, registerModalStatus,registerTagModalStatus, toggleRegisterTagModal }) => {
   return (
     <>
       <div className={loginModalStatus ? "login login--inactive" : "login"}>
@@ -27,7 +27,7 @@ const Login = ({ loginModalStatus, toggleLoginModal, toggleRegisterModal, regist
           <Link to="/">login</Link>
         </div>
         <div className="login__register" onClick = {toggleRegisterModal}>register</div>
-        {registerModalStatus && <Register toggleRegisterModal = {toggleRegisterModal} registerModalStatus = {registerModalStatus}/>}
+        {registerModalStatus && <Register toggleRegisterModal = {toggleRegisterModal} registerModalStatus = {registerModalStatus} registerTagModalStatus = {registerTagModalStatus} toggleRegisterTagModal = {toggleRegisterTagModal}/>}
         <div className="login__sns">
           <div className="login__sns-msg">login with SNS</div>
           <div className="login__sns-cont">

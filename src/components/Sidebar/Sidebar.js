@@ -13,7 +13,9 @@ const Sidebar = ({
   sortpage,
   togglesortpage,
   toggleRegisterModal, 
-  registerModalStatus
+  registerModalStatus,
+  registerTagModalStatus,
+  toggleRegisterTagModal
 }) => {
   return (
     <>
