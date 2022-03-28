@@ -1,5 +1,4 @@
 .profile{
-    height: 100vh;
     width: 480px;
     display: flex;
     align-items: center;
@@ -8,6 +7,7 @@
     background-color: var(--bg-20);
 }
 .profile__name{
+    margin-left: var(--margin-out);
     align-self: flex-start;
     font-size: 1.5rem;
     text-decoration: none;
@@ -18,13 +18,14 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 1.0rem;
+    margin-top: 1.0rem
 }
 
 .profile__image{
     border-radius: 50%;
     width: 3.5rem;
     height: 3.5rem;
-    margin-right: 10px;
+    margin-right: 3rem;
     border: 1px solid var(--text-100);
     align-items: center;
     display: flex;
@@ -42,7 +43,7 @@
     display: flex;
     font-size: 1.6rem;
     line-height: 1.5;
-    margin-right: 4rem;
+    margin-right: 3rem;
     cursor: pointer;
 
 }
@@ -61,7 +62,7 @@ li {
 }
 
 .profile__editporfile{
-    
+    margin-left: var(--margin-out);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,9 +74,75 @@ li {
     width: 480px;
     border-radius: 5rem;
     border-style: none;
+    padding: 1rem 0rem;
+    margin-bottom: var(--margin-out);
+}
+.profile__listcontainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile__selected{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-0);
+    color: var(--primary);
+    font-size: 1.5rem;;
+    height: 1rem;
+    width: 240px;
+    border: 1px solid;
+    border-color: var(--primary);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;;
+    border-style: none;
     font-size: 1.5rem;
     padding: 1rem 0rem;
+}
+.profile__unselected{
+    color: var(--bg-0);
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    background-color: var(--primary);
+    color: var(--bg-0);
+    font-size: 1.5rem;;
+    height: 1rem;
+    width: 240px;
+    border-color: var(--primary);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;;
+    border-style: none;
+    font-size: 1.5rem;
+    padding: 1rem 0rem;
+}
 
-
+.profile__list{
+    border: 1px solid;
+    border-color: var(--primary);
+    width: 480px;
+    height: 480px
 
 }
+
+.gallery__image {
+    background: #444;
+    border: 1px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #AAA;
+  }
+  .gallery__image > img {
+    width: 160px; 
+    height: 160px;
+  }
+  
+  .gallery {
+    display: grid;
+    grid-template-rows: 160px 160px 160px;
+    grid-template-columns: 160px 160px 160px;
+}
+

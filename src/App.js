@@ -12,6 +12,8 @@ import Search from "./components/Search/Search";
 import Profile from "./components/Profile/Profile";
 import WinePage from "./components/WinePage/WinePage";
 import WineListPage from "./components/WineListPage/WineListPage";
+import FAQ from "./components/FAQ/FAQ";
+import Ticket from "./components/Ticket/Ticket";
 
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
@@ -24,10 +26,29 @@ const App = () => {
     setLoginModalStatus(!loginModalStatus);
   };
 
+  const [ticketModalStatus, setTicketModalStatus] = useState(false);
+
+  const toggleTicketModal = () => {
+    setTicketModalStatus(!ticketModalStatus);
+    console.log("Ticket modal , current sortpage: ", ticketModalStatus);
+  };
+
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const toggleSearchBar = () => {
     setSearchBarStatus(!searchBarStatus);
-    console.log("searchBar toggle going on : ", { searchBarStatus });
+    console.log("searchBar toggle going on : ", searchBarStatus);
+  };
+
+  const [filterpage, setFilterpage] = useState(false);
+  const togglefilterpage = () => {
+    setFilterpage(!filterpage);
+    console.log("filterPage toggled, current filterPageStatus: ", filterpage);
+  };
+
+  const [sortpage, setSortpage] = useState(false);
+  const togglesortpage = () => {
+    setSortpage(!sortpage);
+    console.log("toggleSortPage, current sortpage: ", sortpage);
   };
 
   const [userstatus, setUserstatus] = useState(1);
@@ -48,8 +69,13 @@ const App = () => {
         sidebarStatus={sidebarStatus}
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
+        toggleTicketModal={toggleTicketModal}
         userstatus={userstatus}
       ></Sidebar>
+      <Ticket
+        ticketModalStatus={ticketModalStatus}
+        toggleTicketModal={toggleTicketModal}
+      ></Ticket>
       <Login
         loginModalStatus={loginModalStatus}
         toggleLoginModal={toggleLoginModal}
@@ -70,9 +96,21 @@ const App = () => {
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
           <Route path="/login" element={<Login />} />
           <Route path="/detail" element={<Detail />} />
+          {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/winePage" element={<WinePage />} />
           <Route path="/wineListPage" element={<WineListPage />} />
+          <Route
+            path="/winePage"
+            element={
+              <WinePage
+                filterpage={filterpage}
+                togglefilterpage={togglefilterpage}
+                togglesortpage={togglesortpage}
+                sortpage={sortpage}
+              />
+            }
+          />
+          <Route path="/faq" element={<FAQ />} />
         </Routes>
       </div>
 
