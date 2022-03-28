@@ -1,0 +1,112 @@
+.text-dark {
+    color: #343a40 !important;
+}
+
+input:focus {
+    border: 1px solid var(--primary);
+}
+
+input:hover,
+input:not(:hover) {
+    outline: none;
+}
+
+.register {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-20);
+    /* transform: translateY(-100%); */
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: var(--primary);
+    display: flex;
+    flex-direction: column;
+}
+
+/* .register--inactive {
+    transform: translateY(0);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 2;
+    background-color: var(--bg-20);
+    color: var(--primary);
+    display: flex;
+    flex-direction: column;
+} */
+
+.register__header {
+    display: flex;
+    margin: var(--margin-out);
+    font-size: 2rem;
+    justify-content: space-between;
+}
+
+.register__back:hover {
+    cursor: pointer;
+}
+
+.register__home>a {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.register__home:hover {
+    cursor: pointer;
+}
+
+.register__main {
+    margin: 0 var(--margin-out);
+}
+
+.register__title {
+    font-size: var(--size-title);
+    font-weight: bold;
+    margin: var(--margin-out) 0;
+}
+
+.register__main-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.register__email,
+.register__name,
+.register__pwd,
+.register__pwd2 {
+    margin: 0.5rem 0;
+    height: 2.5rem;
+    border-radius: 5rem;
+    border-style: none;
+    font-size: var(--size-btn);
+    padding: 0.5rem 1rem;
+
+}
+
+.register__name-warning,
+.register__pwd-warning {
+    display: flex;
+    justify-content: flex-end;
+    color: var(--text-50);
+    font-size: var(--size-txt);
+}
+
+.register__register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary);
+    border: 1px var(--primary) solid;
+    color: var(--bg-0);
+    font-size: var(--size-btn);
+    height: 2.5rem;
+    padding: 0.5rem 1rem;
+    margin: var(--margin-out) 0;
+    border-radius: 30px;
+}
+
+.register__register:hover {
+    cursor: pointer;
+}

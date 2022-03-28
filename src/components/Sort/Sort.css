@@ -1,11 +1,12 @@
 .sort {
-    width: 100vw;
+    /* width: 100vw; */
     height: 100vh;
     top: 0;
     left: 0;
     color: var(--primary);
     background-color: var(--bg-0);
     z-index: 2;
+    border-radius: 30px;
 }
 
 .sort--inactive {
