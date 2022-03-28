@@ -5,7 +5,7 @@ import { BsSearch, BsXLg, BsStarFill, BsStar } from "react-icons/bs";
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
 
-const Filter = ({ filterpage, togglefilterpage }) => {
+const Filter = ({ filterModal, toggleFilterModal }) => {
   // State 이용해서 input 값 != "" 이면 X 보이게 하는걸로 할까여
   // 그럼 x 클릭하면 onClick = {inputReset} 뭐 이런식으로 해야됨
 
@@ -61,11 +61,11 @@ const Filter = ({ filterpage, togglefilterpage }) => {
 
   return (
     <>
-      <div className={filterpage ? "filter" : "filter--inactive"}>
+      <div className={filterModal ? "filter" : "filter--inactive"}>
         <div className="filter__top">
           <div className="filter__top-left">x</div>
           <div className="filter__top-title"> filters </div>
-          <BsXLg className="filter__top-close" onClick={togglefilterpage} />
+          <BsXLg className="filter__top-close" onClick={toggleFilterModal} />
         </div>
 
         <div className="filter__cond">
@@ -102,11 +102,9 @@ const Filter = ({ filterpage, togglefilterpage }) => {
             <div className="filter__cond-title"> Price </div>
             <div className="filter__cond-price-number">
               <div className="filter__cond-price-less">
-                {" "}
                 ₩{numberFormat(valuePrice[0])}
               </div>
               <div className="filter__cond-price-more">
-                {" "}
                 ₩{numberFormat(valuePrice[1])}{" "}
               </div>
             </div>
@@ -130,14 +128,12 @@ const Filter = ({ filterpage, togglefilterpage }) => {
             <div className="filter__cond-title"> Rating </div>
             <div className="filter__cond-rate-number">
               <div className="filter__cond-rate-less">
-                {" "}
                 <BsStarFill />
                 {valueRate[0]}
               </div>
               <div className="filter__cond-rate-more">
-                {" "}
                 <BsStarFill />
-                {valueRate[1]}{" "}
+                {valueRate[1]}
               </div>
             </div>
             <Box>
@@ -159,7 +155,7 @@ const Filter = ({ filterpage, togglefilterpage }) => {
           </div>
         </div>
         <div className="filter__button">
-          <div className="filter__button-apply" onClick={togglefilterpage}>
+          <div className="filter__button-apply" onClick={toggleFilterModal}>
             apply filter
           </div>
         </div>

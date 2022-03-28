@@ -4,8 +4,12 @@ import Wine from "../Wine/Wine";
 import Sort from "../Sort/Sort";
 import Filter from "../Filter/Filter";
 
-const WinePage = ({filterpage, togglefilterpage,togglesortpage,sortpage}) => {
-
+const WinePage = ({
+  filterModal,
+  toggleFilterModal,
+  toggleSortModal,
+  sortModal,
+}) => {
   return (
     <div className="winePage">
       <div className="winePage__titleCont">
@@ -13,15 +17,26 @@ const WinePage = ({filterpage, togglefilterpage,togglesortpage,sortpage}) => {
         <div className="winePage__title">Pinot Noir</div>
       </div>
       <div className="winePage__btnCont">
-        <button className="winePage__filter" onClick = {togglefilterpage}>filter</button>
-        <button className="winePage__sort" onClick = {togglesortpage} > sort</button>
+        <button className="winePage__filter" onClick={toggleFilterModal}>
+          filter
+        </button>
+        <button className="winePage__sort" onClick={toggleSortModal}>
+          sort
+        </button>
       </div>
       <>
-        {filterpage && <Filter togglefilterpage = {togglefilterpage} filterpage = {filterpage}/>}
+        {filterModal && (
+          <Filter
+            toggleFilterModal={toggleFilterModal}
+            filterModal={filterModal}
+          />
+        )}
       </>
 
       <>
-        {sortpage && <Sort sortpage = {sortpage} togglesortpage = {togglesortpage}/>}
+        {sortModal && (
+          <Sort sortModal={sortModal} toggleSortModal={toggleSortModal} />
+        )}
       </>
       <Wine />
       <Wine />
