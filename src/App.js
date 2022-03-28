@@ -14,106 +14,41 @@ import WinePage from "./components/WinePage/WinePage";
 import WineListPage from "./components/WineListPage/WineListPage";
 import FAQ from "./components/FAQ/FAQ";
 import Register from "./components/Register/Register";
-import Ticket from "./components/Ticket/Ticket"
-
+import Ticket from "./components/Ticket/Ticket";
 
 const App = () => {
-  const [sidebarStatus, setSidebarStatus] = useState(0);
-  const toggleSidebar = () => {
-    setSidebarStatus(!sidebarStatus);
-  };
-  
-  const [loginModalStatus, setLoginModalStatus] = useState(0);
-  const toggleLoginModal = () => {
-    setLoginModalStatus(!loginModalStatus);
-  };
-
-  const [registerModalStatus, setRegisterModalStatus] = useState(0);
-  const toggleRegisterModal = () =>{
-    setRegisterModalStatus(!registerModalStatus);
-    console.log("register modal toggled , now is :", registerModalStatus);
-  }
-
-  const [registerTagModalStatus, setRegisterTagModalStatus] = useState(false);
-  const toggleRegisterTagModal = () =>{
-    setRegisterTagModalStatus(!registerTagModalStatus);
-    console.log("register tag modal toggled, now is ; ", registerTagModalStatus);
-  }
-
-  const [ticketModalStatus, setTicketModalStatus] = useState(false);
-
-  const toggleTicketModal = () => {
-    setTicketModalStatus(!ticketModalStatus);
-    console.log("Ticket modal , current sortpage: ", ticketModalStatus);
-  }
-  
-  const [searchBarStatus, setSearchBarStatus] = useState(false);
-  const toggleSearchBar = () => {
-    setSearchBarStatus(!searchBarStatus);
-    console.log("searchBar toggle going on : ", searchBarStatus);
-  };
-
-  const [filterpage, setFilterpage] = useState(false);
-  const togglefilterpage = () => {
-    setFilterpage(!filterpage);
-    console.log("filterPage toggled, current filterPageStatus: ", filterpage);
-  };
-
-  const [sortpage, setSortpage] = useState(false);
-  const togglesortpage = () => {
-    setSortpage(!sortpage);
-    console.log("toggleSortPage, current sortpage: ", sortpage);
-  };
-
-  const [userstatus, setUserstatus] = useState(1);
-  // general user, sommelier, admin (in order of 0,1,2)
-  const setUser = (user) => {
-    if (user == "general") {
-      setUserstatus(0);
-    } else if (user == "sommelier") {
-      setUserstatus(1);
-    } else if (user == "admin") {
-      setUserstatus(2);
-    }
+  const [status, setStatus] = useState({
+    user: 0,
+    sideBar: false,
+    searchBar: false,
+    loginModal: false,
+    registerModal: false,
+    registerTagModal: false,
+    ticketModal: false,
+    filterModal: false,
+    sortModal: false,
+  });
+  const toggleStatus = (name) => {
+    console.log(`toggle${name}`);
+    setStatus({
+      ...status,
+      [name]: !status[name],
+    });
   };
 
   return (
     <Router>
-      <Sidebar
-        sidebarStatus={sidebarStatus}
-        toggleSidebar={toggleSidebar}
-        toggleLoginModal={toggleLoginModal}
-        toggleRegisterModal = {toggleRegisterModal}
-        toggleRegisterTagModal = {toggleRegisterTagModal}
-        toggleTicketModal={toggleTicketModal}
-        userstatus={userstatus}
-        filterpage = {filterpage}
-        togglefilterpage = {togglefilterpage}
-        sortpage = {sortpage}
-        togglesortpage = {togglesortpage}
-      ></Sidebar>
+      <Sidebar status={status} toggleStatus={toggleStatus}></Sidebar>
       <Ticket
-        ticketModalStatus={ticketModalStatus}
-        toggleTicketModal={toggleTicketModal}
+        ticketModalStatus={status.ticketModal}
+        toggleTicketModal={() => toggleStatus("ticketModal")}
       ></Ticket>
-      <Login
-        loginModalStatus={loginModalStatus}
-        toggleLoginModal={toggleLoginModal}
-        toggleRegisterModal = {toggleRegisterModal}
-        registerModalStatus = {registerModalStatus}
-        toggleRegisterTagModal = {toggleRegisterTagModal}
-        registerTagModalStatus = {registerTagModalStatus}
-      ></Login>
+      <Login status={status} toggleStatus={toggleStatus}></Login>
       <Search
-        toggleSearchBar={toggleSearchBar}
-        searchBarStatus={searchBarStatus}
+        searchBarStatus={status.searchBar}
+        toggleSearchBar={() => toggleStatus("searchBar")}
       ></Search>
-
-      <Header
-        toggleSidebar={toggleSidebar}
-        toggleSearchBar={toggleSearchBar}
-        searchBarStatus={searchBarStatus}
-      />
+      <Header status={status} toggleStatus={toggleStatus} />
 
       <div className="article">
         <Routes>
@@ -129,10 +64,10 @@ const App = () => {
             path="/winePage"
             element={
               <WinePage
-                filterpage={filterpage}
-                togglefilterpage={togglefilterpage}
-                togglesortpage={togglesortpage}
-                sortpage={sortpage}
+                filterModal={status.filterModal}
+                toggleFilterModal={() => toggleStatus("filterModal")}
+                toggleSortModal={() => toggleStatus("sortModal")}
+                sortModal={status.sortModal}
               />
             }
           />

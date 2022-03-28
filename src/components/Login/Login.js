@@ -4,30 +4,42 @@ import { Link } from "react-router-dom";
 import "./Login.css";
 import Register from "../Register/Register";
 
-const Login = ({ loginModalStatus, toggleLoginModal, toggleRegisterModal, registerModalStatus,registerTagModalStatus, toggleRegisterTagModal }) => {
+const Login = ({ status, toggleStatus }) => {
   return (
     <>
-      <div className={loginModalStatus ? "login login--inactive" : "login"}>
+      <div className={status.loginModal ? "login login--inactive" : "login"}>
         <div className="login__header">
           <BsArrowLeft
             className="login__back"
-            onClick={toggleLoginModal}
+            onClick={() => toggleStatus("loginModal")}
           ></BsArrowLeft>
-          <div className="login__home" onClick={toggleLoginModal}>
+          <div
+            className="login__home"
+            onClick={() => toggleStatus("loginModal")}
+          >
             <Link to="/">podo</Link>
           </div>
         </div>
-
 
         <div className="login__title">Login</div>
         <input className="login__id"></input>
         <input className="login__pw"></input>
         <div className="login__forgot">forgot email or password?</div>
-        <div className="login__login" onClick={toggleLoginModal}>
+        <div
+          className="login__login"
+          onClick={() => toggleStatus("loginModal")}
+        >
           <Link to="/">login</Link>
         </div>
-        <div className="login__register" onClick = {() =>{toggleRegisterModal();}}>register</div>
-        {registerModalStatus && <Register toggleRegisterModal = {toggleRegisterModal} registerModalStatus = {registerModalStatus} registerTagModalStatus = {registerTagModalStatus} toggleRegisterTagModal = {toggleRegisterTagModal}/>}
+        <div
+          className="login__register"
+          onClick={() => toggleStatus("registerModal")}
+        >
+          register
+        </div>
+        {status.registerModal && (
+          <Register status={status} toggleStatus={status} />
+        )}
         <div className="login__sns">
           <div className="login__sns-msg">login with SNS</div>
           <div className="login__sns-cont">

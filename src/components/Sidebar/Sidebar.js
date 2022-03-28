@@ -3,89 +3,78 @@ import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import { BsXLg } from "react-icons/bs";
 
-const Sidebar = ({
-  sidebarStatus,
-  toggleSidebar,
-  toggleLoginModal,
-  toggleTicketModal,
-  userstatus,
-  filterpage,
-  togglefilterpage,
-  sortpage,
-  togglesortpage,
-  toggleRegisterModal, 
-  registerModalStatus,
-  registerTagModalStatus,
-  toggleRegisterTagModal
-}) => {
+const Sidebar = ({ status, toggleStatus }) => {
   return (
     <>
-      <div className={sidebarStatus ? "sidebar" : "sidebar sidebar--inactive"}>
+      <div className={status.sideBar ? "sidebar" : "sidebar sidebar--inactive"}>
         <div className="sidebar__login">
           <div className="sidebar__header">
             <div
               className="sidebar__status"
               onClick={() => {
-                toggleSidebar();
-                toggleLoginModal();
-                console.log("onclick");
+                toggleStatus("sideBar");
+                toggleStatus("loginModal");
               }}
             >
               Login
             </div>
-            <BsXLg className="sidebar__close" onClick={toggleSidebar} />
+            <BsXLg
+              className="sidebar__close"
+              onClick={() => toggleStatus("sideBar")}
+            />
           </div>
 
           <div className="sidebar__register">
-            <Link to="/register" onClick ={toggleRegisterModal } >don't have an account?</Link>
+            <Link to="/register" onClick={() => toggleStatus("registerModal")}>
+              don't have an account?
+            </Link>
           </div>
         </div>
         <div className="sidebar__menu">
           <div className="sidebar__section">
             <div className="sidebar__title">Title</div>
             {/* 여기서 페이지 구현할때 sidebar__link 하나씩 복사해서 일단 사용 */}
-            <div className="sidebar__link" onClick={toggleSidebar}>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
               <Link to="/theme">Theme</Link>
             </div>
-            <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus={userstatus} to="/detail">
-                Detail
-              </Link>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/detail">Detail</Link>
             </div>
-            <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus={userstatus} to="/profile">
-                Profile
-              </Link>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/profile">Profile</Link>
             </div>
-            <div className="sidebar__link" onClick={toggleSidebar}>
-
-              <Link
-                userstatus={userstatus}
-                filterpage={filterpage}
-                togglefilterpage={togglefilterpage}
-                togglesortpage={togglesortpage}
-                sortpage={sortpage}
-                to="/winePage"
-              >
-                WinePage
-              </Link>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/winePage">WinePage</Link>
             </div>
-            <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus={userstatus} to="/wineListPage">
-                WineListPage
-              </Link>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/wineListPage">WineListPage</Link>
             </div>
-            <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus={userstatus} to="/Profile">
-                {" "}
-                Profile
-              </Link>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/Profile"> Profile</Link>
             </div>
             <div
               className="sidebar__link"
               onClick={() => {
-                toggleSidebar();
-                toggleTicketModal();
+                toggleStatus("sideBar");
+                toggleStatus("ticketModal");
               }}
             >
               view tickets
