@@ -20,7 +20,7 @@ const Register = ({toggleRegisterModal, registerModalStatus}) => {
                     <input className="register__email" placeholder = "email"></input>
                     <input className="register__name" placeholder = "username"></input>
                     <div className = "register__name-warning"> dooddi is available</div>
-
+                    
                     <input className="register__pwd" placeholder = "password" type = "password"></input>
                     <input className="register__pwd2" placeholder = "password" type = "password"></input>
                     <div className = "register__pwd-warning"> Password does not match! </div>

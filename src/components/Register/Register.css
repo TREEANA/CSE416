@@ -3,7 +3,12 @@
 }
 
 input:focus {
-    outline: 1px solid var(--text-50);
+    border: 1px solid var(--primary);
+}
+
+input:hover,
+input:not(:hover) {
+    outline: none;
 }
 
 .register__register:hover {
@@ -66,6 +71,11 @@ input:focus {
     margin: var(--margin-out) 0;
 }
 
+.register__main-content {
+    display: flex;
+    flex-direction: column;
+}
+
 .register__email,
 .register__name,
 .register__pwd,
@@ -76,7 +86,7 @@ input:focus {
     border-style: none;
     font-size: var(--size-btn);
     padding: 0.5rem 1rem;
-    border: 1px solid var(--primary);
+
 }
 
 .register__name-warning,
