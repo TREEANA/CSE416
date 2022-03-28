@@ -1,0 +1,48 @@
+.wineListDetail__like:hover {
+  cursor: pointer;
+}
+
+.wineListDetail {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-20);
+  margin: var(--margin-out);
+}
+
+.wineListDetail__firstCont {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wineListDetail__title {
+  font-size: 1.5rem;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.wineListDetail__like {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 30px;
+  background-color: var(--bg-100);
+  margin-right: 0.5rem;
+  color: var(--bg-0);
+}
+
+.wineListDetail__like--filled {
+  color: var(--primary);
+}
+
+.wineListDetail__scrollCont {
+  display: flex;
+}
+
+.wineListDetail__detail {
+  border: 1px solid var(--primary);
+}

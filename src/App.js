@@ -14,6 +14,7 @@ import WinePage from "./components/WinePage/WinePage";
 import WineListPage from "./components/WineListPage/WineListPage";
 import FAQ from "./components/FAQ/FAQ";
 import Ticket from "./components/Ticket/Ticket";
+import WineListDetail from "./components/WineListDetail/WineListDetail";
 
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
@@ -96,6 +97,7 @@ const App = () => {
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
           <Route path="/login" element={<Login />} />
           <Route path="/detail" element={<Detail />} />
+          <Route path="/wineListDetail" element={<WineListDetail />} />
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/wineListPage" element={<WineListPage />} />

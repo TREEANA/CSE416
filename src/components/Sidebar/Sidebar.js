@@ -41,16 +41,11 @@ const Sidebar = ({
             <div className="sidebar__title">Title</div>
             {/* 여기서 페이지 구현할때 sidebar__link 하나씩 복사해서 일단 사용 */}
             <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link to="/theme">Theme</Link>
+              <Link to="/">Main</Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
               <Link userstatus={userstatus} to="/detail">
                 Detail
-              </Link>
-            </div>
-            <div className="sidebar__link" onClick={toggleSidebar}>
-              <Link userstatus={userstatus} to="/profile">
-                Profile
               </Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
@@ -71,8 +66,12 @@ const Sidebar = ({
               </Link>
             </div>
             <div className="sidebar__link" onClick={toggleSidebar}>
+              <Link userstatus={userstatus} to="/wineListDetail">
+                WineListDetail
+              </Link>
+            </div>
+            <div className="sidebar__link" onClick={toggleSidebar}>
               <Link userstatus={userstatus} to="/Profile">
-                {" "}
                 Profile
               </Link>
             </div>
