@@ -96,3 +96,7 @@
     border-radius: 30px;
     color: var(--bg-0);
 }
+
+.registertag__explore>a {
+    color: var(--bg-0);
+}

@@ -7,6 +7,7 @@ import RegisterTag from "../RegisterTag/RegisterTag";
 const Register = ({toggleRegisterModal, registerModalStatus, registerTagModalStatus, toggleRegisterTagModal}) => {
   return (
     <>
+    {registerModalStatus &&
         <div className = "register">
             <div className="register__header">
                 <BsArrowLeft className="register__back" onClick = {toggleRegisterModal}></BsArrowLeft>
@@ -26,10 +27,11 @@ const Register = ({toggleRegisterModal, registerModalStatus, registerTagModalSta
                         <input className="register__pwd2" placeholder = "password" type = "password"></input>
                         <div className = "register__pwd-warning"> Password does not match </div>
                     <div className="register__register" onClick = {() =>{toggleRegisterModal(); toggleRegisterTagModal();}} > register</div>
-                    {registerTagModalStatus && <RegisterTag/>}
+                    {registerTagModalStatus && <RegisterTag registerTagModalStatus = {registerTagModalStatus} toggleRegisterTagModal = {toggleRegisterTagModal}/>}
                 </form>
             </div>
         </div>
+        }
     </>
   );
 };

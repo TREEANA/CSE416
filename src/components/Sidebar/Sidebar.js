@@ -36,7 +36,7 @@ const Sidebar = ({
           </div>
 
           <div className="sidebar__register">
-            <Link to="/register" onClick ={() => {toggleRegisterModal(); toggleSidebar();}} >don't have an account?</Link>
+            <Link to="/register" onClick ={() => {toggleRegisterModal(); }} >don't have an account?</Link>
           </div>
         </div>
         <div className="sidebar__menu">

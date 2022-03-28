@@ -26,7 +26,7 @@ const Login = ({ loginModalStatus, toggleLoginModal, toggleRegisterModal, regist
         <div className="login__login" onClick={toggleLoginModal}>
           <Link to="/">login</Link>
         </div>
-        <div className="login__register" onClick = {toggleRegisterModal}>register</div>
+        <div className="login__register" onClick = {() =>{toggleRegisterModal();}}>register</div>
         {registerModalStatus && <Register toggleRegisterModal = {toggleRegisterModal} registerModalStatus = {registerModalStatus} registerTagModalStatus = {registerTagModalStatus} toggleRegisterTagModal = {toggleRegisterTagModal}/>}
         <div className="login__sns">
           <div className="login__sns-msg">login with SNS</div>
