@@ -53,7 +53,7 @@ input:focus {
   cursor: pointer;
 }
 
-.login__home>a {
+.login__home > a {
   color: var(--primary);
   font-weight: bold;
 }
@@ -97,7 +97,7 @@ input:focus {
   font-size: 1.5rem;
 }
 
-.login__login>a {
+.login__login > a {
   color: var(--bg-0);
 }
 
@@ -124,11 +124,11 @@ input:focus {
   justify-content: center;
 }
 
-.login__sns-cont>* {
+.login__sns-cont > * {
   margin: 0 1rem;
 }
 
-.login__sns-cont>*:hover {
+.login__sns-cont > *:hover {
   cursor: pointer;
 }
 

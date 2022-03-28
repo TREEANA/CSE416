@@ -11,6 +11,7 @@ import Detail from "./components/Detail/Detail";
 import Search from "./components/Search/Search";
 import Profile from "./components/Profile/Profile";
 import WinePage from "./components/WinePage/WinePage";
+import WineListPage from "./components/WineListPage/WineListPage";
 import FAQ from "./components/FAQ/FAQ";
 import Ticket from "./components/Ticket/Ticket";
 
@@ -24,32 +25,31 @@ const App = () => {
   const toggleLoginModal = () => {
     setLoginModalStatus(!loginModalStatus);
   };
-  
+
   const [ticketModalStatus, setTicketModalStatus] = useState(false);
 
   const toggleTicketModal = () => {
     setTicketModalStatus(!ticketModalStatus);
     console.log("Ticket modal , current sortpage: ", ticketModalStatus);
-  }
-
+  };
 
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const toggleSearchBar = () => {
     setSearchBarStatus(!searchBarStatus);
-    console.log("searchBar toggle going on : ",  searchBarStatus );
+    console.log("searchBar toggle going on : ", searchBarStatus);
   };
 
   const [filterpage, setFilterpage] = useState(false);
-  const togglefilterpage = () =>{
+  const togglefilterpage = () => {
     setFilterpage(!filterpage);
     console.log("filterPage toggled, current filterPageStatus: ", filterpage);
-  }
+  };
 
   const [sortpage, setSortpage] = useState(false);
-  const togglesortpage = () =>{
+  const togglesortpage = () => {
     setSortpage(!sortpage);
     console.log("toggleSortPage, current sortpage: ", sortpage);
-  }
+  };
 
   const [userstatus, setUserstatus] = useState(1);
   // general user, sommelier, admin (in order of 0,1,2)
@@ -73,10 +73,9 @@ const App = () => {
         userstatus={userstatus}
       ></Sidebar>
       <Ticket
-        ticketModalStatus ={ticketModalStatus}
-        toggleTicketModal ={toggleTicketModal}
-      >
-      </Ticket>
+        ticketModalStatus={ticketModalStatus}
+        toggleTicketModal={toggleTicketModal}
+      ></Ticket>
       <Login
         loginModalStatus={loginModalStatus}
         toggleLoginModal={toggleLoginModal}
@@ -99,8 +98,19 @@ const App = () => {
           <Route path="/detail" element={<Detail />} />
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/winePage" element={<WinePage filterpage = {filterpage} togglefilterpage = {togglefilterpage} togglesortpage = {togglesortpage} sortpage = {sortpage}/>} />
-          <Route path="/faq" element={< FAQ />} />
+          <Route path="/wineListPage" element={<WineListPage />} />
+          <Route
+            path="/winePage"
+            element={
+              <WinePage
+                filterpage={filterpage}
+                togglefilterpage={togglefilterpage}
+                togglesortpage={togglesortpage}
+                sortpage={sortpage}
+              />
+            }
+          />
+          <Route path="/faq" element={<FAQ />} />
         </Routes>
       </div>
 
