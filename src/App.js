@@ -12,6 +12,7 @@ import Search from "./components/Search/Search";
 import Profile from "./components/Profile/Profile";
 import WinePage from "./components/WinePage/WinePage";
 import FAQ from "./components/FAQ/FAQ";
+import Ticket from "./components/Ticket/Ticket";
 
 const App = () => {
   const [sidebarStatus, setSidebarStatus] = useState(0);
@@ -23,6 +24,14 @@ const App = () => {
   const toggleLoginModal = () => {
     setLoginModalStatus(!loginModalStatus);
   };
+  
+  const [ticketModalStatus, setTicketModalStatus] = useState(false);
+
+  const toggleTicketModal = () => {
+    setTicketModalStatus(!ticketModalStatus);
+    console.log("Ticket modal , current sortpage: ", ticketModalStatus);
+  }
+
 
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const toggleSearchBar = () => {
@@ -42,7 +51,6 @@ const App = () => {
     console.log("toggleSortPage, current sortpage: ", sortpage);
   }
 
-
   const [userstatus, setUserstatus] = useState(1);
   // general user, sommelier, admin (in order of 0,1,2)
   const setUser = (user) => {
@@ -61,8 +69,14 @@ const App = () => {
         sidebarStatus={sidebarStatus}
         toggleSidebar={toggleSidebar}
         toggleLoginModal={toggleLoginModal}
+        toggleTicketModal={toggleTicketModal}
         userstatus={userstatus}
       ></Sidebar>
+      <Ticket
+        ticketModalStatus ={ticketModalStatus}
+        toggleTicketModal ={toggleTicketModal}
+      >
+      </Ticket>
       <Login
         loginModalStatus={loginModalStatus}
         toggleLoginModal={toggleLoginModal}

@@ -7,11 +7,12 @@ const Sidebar = ({
   sidebarStatus,
   toggleSidebar,
   toggleLoginModal,
+  toggleTicketModal,
   userstatus,
   filterpage,
   togglefilterpage,
   sortpage,
-  togglesortpage
+  togglesortpage,
 }) => {
   return (
     <>
@@ -60,6 +61,14 @@ const Sidebar = ({
             <div className="sidebar__link" onClick={toggleSidebar}>
               <Link userstatus = {userstatus} to="/Profile" > Profile</Link>
             </div>
+            <div className="sidebar__link" onClick={() => {
+                toggleSidebar();
+                toggleTicketModal();
+              }}
+            >
+               view tickets
+            </div>
+
           </div>
         </div>
       </div>
