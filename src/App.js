@@ -28,6 +28,13 @@ const App = () => {
     filterModal: false,
     sortModal: false,
   });
+  const handleStatus = (name, value) => {
+    console.log(`handle${name}`);
+    setStatus({
+      ...status,
+      [name]: value,
+    });
+  };
   const toggleStatus = (name) => {
     console.log(`toggle${name}`);
     setStatus({
