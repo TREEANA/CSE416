@@ -7,6 +7,7 @@
     background-color: var(--bg-20);
 }
 .profile__name{
+    margin-left: var(--margin-out);
     align-self: flex-start;
     font-size: 1.5rem;
     text-decoration: none;
@@ -61,7 +62,7 @@ li {
 }
 
 .profile__editporfile{
-    
+    margin-left: var(--margin-out);
     display: flex;
     justify-content: center;
     align-items: center;

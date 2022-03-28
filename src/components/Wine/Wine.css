@@ -45,7 +45,6 @@ button:hover {
 
 .wine__rate {
   font-size: var(--size-title);
-  transform: translateY(0.5rem);
   color: var(--primary);
   font-weight: bold;
 }
