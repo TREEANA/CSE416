@@ -11,8 +11,8 @@ const RegisterTag = ({toggleRegisteTagModal, registerTagModalStatus}) =>{
         <>
             <div className = "registertag">
                 <div className="registertag__header">
-                    <BsArrowLeft className="registertag__back" ></BsArrowLeft>
-                    <div className="registertag__home" >
+                    <BsArrowLeft className="registertag__back" onClick = {toggleRegisteTagModal} ></BsArrowLeft>
+                    <div className="registertag__home" onClick = {toggleRegisteTagModal}>
                         <Link to="/" >podo</Link>
                     </div>
                 </div>
