@@ -19,7 +19,7 @@ import Register from "./components/Register/Register";
 
 const App = () => {
   const [status, setStatus] = useState({
-    user: 0,
+    user: 3,
     sideBar: false,
     searchBar: false,
     loginModal: false,
