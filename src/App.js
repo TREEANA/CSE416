@@ -15,9 +15,11 @@ import WineListPage from "./components/WineListPage/WineListPage";
 import FAQ from "./components/FAQ/FAQ";
 import Register from "./components/Register/Register";
 import Ticket from "./components/Ticket/Ticket";
+import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
 
 const App = () => {
   const [status, setStatus] = useState({
+    becomeSommlierModal:false,
     user: 0,
     sideBar: false,
     searchBar: false,
@@ -50,6 +52,10 @@ const App = () => {
         ticketModalStatus={status.ticketModal}
         toggleTicketModal={() => toggleStatus("ticketModal")}
       ></Ticket>
+      <BecomeSommlier
+       becomeSommlierModalStatus = {status.becomeSommlierModal}
+       togglebecomeSommlierModal = {() => toggleStatus("becomeSommlierModal")}
+       ></BecomeSommlier>
       <Login status={status} toggleStatus={toggleStatus}></Login>
       <Search
         searchBarStatus={status.searchBar}

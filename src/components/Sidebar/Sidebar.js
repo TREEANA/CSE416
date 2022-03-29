@@ -79,6 +79,16 @@ const Sidebar = ({ status, toggleStatus }) => {
             >
               view tickets
             </div>
+            <div
+              className="sidebar__link"
+              onClick={() => {
+                toggleStatus("sideBar");
+                toggleStatus("becomeSommlierModal");
+              }}
+            >
+              become sommlier
+            </div>
+            
           </div>
         </div>
       </div>
