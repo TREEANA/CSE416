@@ -69,6 +69,8 @@ const App = () => {
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/wineListPage" element={<WineListPage />} />
+          <Route path="/wineListDetail" element={<wineListDetail />} />
+
           <Route
             path="/winePage"
             element={
