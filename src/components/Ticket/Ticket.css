@@ -24,6 +24,9 @@
 .ticket__button--faq {
   background-color: var(--primary);
   color: var(--bg-0);
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 .ticket__progress {
@@ -79,6 +82,7 @@
 .ticket__question,
 .ticket__answer {
   margin-top: 1rem;
+  color: var(--text-100);
 }
 
 .ticket__question > b,
