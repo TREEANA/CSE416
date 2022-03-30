@@ -38,19 +38,19 @@ const Detail = () => {
           </div>
           
         </div>
-        <hr></hr>
+        <hr className = "detail__line"></hr>
           <div className = "detail__review">
-            <div className = "detail__review-title"> </div>
+            <div className = "detail__review-title"> Reviews </div>
             <Review userstatus={1}/>
             <Review userStatus={0}/>
           </div>
-        <hr></hr>
+        <hr className = "detail__line"></hr>
           <div className = "detail__winerecomm">
             <div className = "detail__winerecomm-title"> You may also like</div>
             <Wine/>
             <Wine/>
           </div>
-        <hr></hr>
+        <hr className = "detail__line"></hr>
           <div className = "detail__winelistrecomm">
             <div className = "detail__winelistrecomm-title"> List that contains this wine </div>
             <WineList/>

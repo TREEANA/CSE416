@@ -3,14 +3,16 @@
     border: 1px solid;
     border-color: var(--text-100);
     /* padding: 5px; */
-    margin: var(--margin-out);
+    /* margin: var(--margin-out); */
+    margin: 10px 0;
 }
 
 .review--somm {
     border: 1px solid;
     border-color: var(--primary);
     border-radius: 30px;
-    margin: var(--margin-out);
+    /* margin: var(--margin-out); */
+    margin: 10px 0;
 }
 
 .review__title {
