@@ -54,6 +54,63 @@ const Detail = () => {
             </table>
           </div> */}
 
+          {/* <table class="tasteStructure__tasteStructure--15VDn">
+            <tbody>
+              <tr class="tasteStructure__tasteCharacteristic--1rMFl">
+                <td>
+                  <div class="tasteStructure__property--loYWN">Light</div>
+                </td>
+                <td class="tasteStructure__progressBar--hjNb2">
+                  <div class="indicatorBar__meter--2t_YL tasteStructure__progressBar--hjNb2">
+                    <span class="indicatorBar__progress--3aXLX" style="width: 20%; left: 80%;"></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="tasteStructure__property--loYWN">Bold</div>
+                </td>
+              </tr>
+              <tr class="tasteStructure__tasteCharacteristic--1rMFl">
+                <td>
+                  <div class="tasteStructure__property--loYWN">Smooth</div>
+                </td>
+                <td class="tasteStructure__progressBar--hjNb2">
+                  <div class="indicatorBar__meter--2t_YL tasteStructure__progressBar--hjNb2">
+                    <span class="indicatorBar__progress--3aXLX" style="width: 20%; left: 44.41%;"></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="tasteStructure__property--loYWN">Tannic</div>
+                </td>
+              </tr>
+              <tr class="tasteStructure__tasteCharacteristic--1rMFl">
+                <td>
+                  <div class="tasteStructure__property--loYWN">Dry</div>
+                </td>
+                <td class="tasteStructure__progressBar--hjNb2">
+                  <div class="indicatorBar__meter--2t_YL tasteStructure__progressBar--hjNb2">
+                    <span class="indicatorBar__progress--3aXLX" style="width: 20%; left: 13.1148%;"></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="tasteStructure__property--loYWN">Sweet</div>
+                </td>
+              </tr>
+              <tr class="tasteStructure__tasteCharacteristic--1rMFl">
+                <td>
+                  <div class="tasteStructure__property--loYWN">Soft</div>
+                </td>
+                <td class="tasteStructure__progressBar--hjNb2">
+                  <div class="indicatorBar__meter--2t_YL tasteStructure__progressBar--hjNb2">
+                    <span class="indicatorBar__progress--3aXLX" style="width: 20%; left: 37.3993%;"></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="tasteStructure__property--loYWN">Acidic</div>
+                </td>
+              </tr>
+            </tbody>
+          </table> */}
+
         </div>
         <hr className = "detail__line"></hr>
           <div className = "detail__review">
