@@ -148,7 +148,7 @@ button:hover {
     align-items: center;
 }
 
-.tag {
+.review-tag {
     background-color: transparent;
     border: 1px solid var(--primary);
     color: var(--primary);

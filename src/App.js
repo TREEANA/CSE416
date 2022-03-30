@@ -22,7 +22,7 @@ import VerifySommelier from "./components/VerifySommelier/VerifySommelier";
 const App = () => {
   const [status, setStatus] = useState({
     becomeSommlierModal: false,
-    user: 3,
+    user: 0,
     sideBar: false,
     searchBar: false,
     loginModal: false,
