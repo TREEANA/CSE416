@@ -116,6 +116,14 @@ const Sidebar = ({ status, toggleStatus }) => {
           >
             view tickets
           </div>
+          <div
+            className="sidebar__link"
+            onClick={() => {
+              toggleStatus("sideBar", "createWineListModal");
+            }}
+          >
+            create Wine List
+          </div>
         </>
       );
     } else if (status.user === 3) {

@@ -17,11 +17,12 @@ import Ticket from "./components/Ticket/Ticket";
 import WineListDetail from "./components/WineListDetail/WineListDetail";
 import Register from "./components/Register/Register";
 import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
+import CreateWineList from "./components/CreateWineList/CreateWineList";
 
 const App = () => {
   const [status, setStatus] = useState({
     becomeSommlierModal: false,
-    user: 0,
+    user: 2,
     sideBar: false,
     searchBar: false,
     loginModal: false,
@@ -30,6 +31,7 @@ const App = () => {
     ticketModal: false,
     filterModal: false,
     sortModal: false,
+    createWineListModal:false,
   });
   const handleStatus = (name, value) => {
     console.log(`handle${name}`);
@@ -57,6 +59,10 @@ const App = () => {
         becomeSommlierModalStatus={status.becomeSommlierModal}
         togglebecomeSommlierModal={() => toggleStatus("becomeSommlierModal")}
       ></BecomeSommlier>
+      <CreateWineList
+        createWineListModalStatus ={status.createWineListModal}
+        togglecreateWineListModal={() => toggleStatus("createWineListModal")}
+      ></CreateWineList>
       <Login status={status} toggleStatus={toggleStatus}></Login>
       <Search
         searchBarStatus={status.searchBar}
