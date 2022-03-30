@@ -19,6 +19,7 @@ import Register from "./components/Register/Register";
 import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
 import CreateWineList from "./components/CreateWineList/CreateWineList";
 import VerifySommelier from "./components/VerifySommelier/VerifySommelier";
+import Comment from "./components/Comment/Comment";
 
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
     filterModal: false,
     sortModal: false,
     createWineListModal:false,
+    commentModal:false,
   });
   const handleStatus = (name, value) => {
     console.log(`handle${name}`);
@@ -65,6 +67,11 @@ const App = () => {
         createWineListModalStatus ={status.createWineListModal}
         togglecreateWineListModal={() => toggleStatus("createWineListModal")}
       ></CreateWineList>
+      <Comment
+      commentModalStatus= {status.commentModal}
+      togglecommentModal ={() => toggleStatus("commentModal")}
+      >
+      </Comment>
       <Login status={status} toggleStatus={toggleStatus}></Login>
       <Search
         searchBarStatus={status.searchBar}

@@ -207,6 +207,12 @@ const Sidebar = ({ status, toggleStatus }) => {
             </div>
             <div
               className="sidebar__link"
+              onClick={() => toggleStatus("sideBar","commentModal")}
+            >
+              Wine Detail Comment
+            </div>
+            <div
+              className="sidebar__link"
               onClick={() => toggleStatus("sideBar")}
             >
               <Link to="/Profile"> Profile</Link>
