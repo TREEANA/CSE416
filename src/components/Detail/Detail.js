@@ -7,7 +7,6 @@ import Review from "../Review/Review";
 // import Register from "../Register/Register";
 // import RegisterTag from "../RegisterTag/RegisterTag";
 import Wine from "../Wine/Wine";
-import VerifySommelier from "../VerifySommelier/VerifySommelier";
 
 const Detail = () => {
   
@@ -15,7 +14,6 @@ const Detail = () => {
     <>
       <div className = "detail">
         <div>
-          <VerifySommelier></VerifySommelier>
 
         </div>
       </div>
