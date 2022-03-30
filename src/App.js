@@ -22,9 +22,10 @@ import VerifySommelier from "./components/VerifySommelier/VerifySommelier";
 const App = () => {
   const [status, setStatus] = useState({
     becomeSommlierModal: false,
-    user: 3,
+    user: 0,
     sideBar: false,
     searchBar: false,
+    searchPersonBar: false,
     loginModal: false,
     registerModal: false,
     registerTagModal: false,
@@ -93,7 +94,7 @@ const App = () => {
             }
           />
           <Route path="/faq" element={<FAQ />} />
-          <Route path = "verifysomm" element = {<VerifySommelier/>} />
+          <Route path="verifysomm" element={<VerifySommelier />} />
         </Routes>
       </div>
 
