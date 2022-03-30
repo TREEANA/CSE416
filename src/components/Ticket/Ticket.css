@@ -9,11 +9,16 @@
 .ticket__button {
   display: flex;
   z-index: 1;
+  justify-content: space-between;
+  background-color: var(--primary);
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--bg-0);
 }
 
 .ticket__button {
   padding: 1rem;
-
+  border-radius: 30px;
 }
 
 .ticket--inactive {
@@ -37,7 +42,6 @@
   display: flex;
   flex-direction: column;
   margin: var(--margin-out);
-
 }
 
 .ticket__header {
@@ -60,15 +64,16 @@
 }
 
 .ticket__create {
-  margin-left: var(--margin-out);
   align-self: flex-start;
-
+  width: 100%;
   font-size: 1.5rem;
-  background-color: var(--bg-0);
   border-radius: 30px;
   position: relative;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+}
+.ticket__create > * {
+  margin: 1rem;
 }
 
 .ticket__button--faq {
@@ -86,13 +91,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--bg-0);
 }
 
 .ticket__progress--0 {
   color: green;
 }
 
-.ticket__progress--0>* {
+.ticket__progress--0 > * {
   height: 30px;
   width: 30px;
 }
@@ -101,12 +107,16 @@
   background-color: yellow;
 }
 
-.ticket__progress--1>svg {
+.ticket__progress--1 > svg {
   height: 24px;
   width: 24px;
 }
 
-.ticket__box {}
+.ticket__box {
+  background-color: var(--bg-0);
+  border-radius: 30px;
+  padding: 1rem;
+}
 
 .ticket_box_container {
   color: var(--text-100);
@@ -114,7 +124,6 @@
   display: flex;
   flex-direction: column;
   margin: 0 var(--margin-out) 1.5rem var(--margin-out);
-
 }
 
 .ticket_answer_box {
@@ -138,7 +147,7 @@
   display: none;
 }
 
-.ticket__box--close>* {
+.ticket__box--close > * {
   height: 0%;
   display: none;
 }
@@ -148,11 +157,13 @@
   color: var(--text-100);
 }
 
-
 .ticket__question,
 .ticket__answer {
-  margin-top: 1rem;
   color: var(--text-100);
+}
+
+.ticket__question {
+  margin-bottom: 1rem;
 }
 
 .ticket__question > b,
@@ -160,9 +171,8 @@
   margin-right: 0.5rem;
 }
 
-
-.ticket__question>b,
-.ticket__answer>b {
+.ticket__question > b,
+.ticket__answer > b {
   margin-right: 0.5rem;
 }
 
@@ -180,4 +190,3 @@
   color: white;
   display: flex;
 }
-
