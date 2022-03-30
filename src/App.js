@@ -38,6 +38,7 @@ const App = () => {
       [name]: value,
     });
   };
+
   const toggleStatus = (name) => {
     console.log(`toggle${name}`);
     setStatus({

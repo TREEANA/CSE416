@@ -32,6 +32,7 @@ const Sidebar = ({ status, toggleStatus }) => {
           </div>
         </div>
       );
+
     else if (status.user === 1) {
       return (
         <div className="sidebar__profileCont">
@@ -45,6 +46,7 @@ const Sidebar = ({ status, toggleStatus }) => {
           />
         </div>
       );
+      
     } else if (status.user === 2) {
       return (
         <div className="sidebar__profileCont">
