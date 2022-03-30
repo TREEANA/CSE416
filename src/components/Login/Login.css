@@ -32,14 +32,13 @@ input:focus {
   position: fixed;
   z-index: 2;
   background-color: var(--bg-20);
-  transform: translateY(-100%);
   color: var(--primary);
   display: flex;
   flex-direction: column;
 }
 
 .login--inactive {
-  transform: translateY(0);
+  display: none;
 }
 
 .login__header {

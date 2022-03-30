@@ -13,16 +13,18 @@ import Profile from "./components/Profile/Profile";
 import WinePage from "./components/WinePage/WinePage";
 import WineListPage from "./components/WineListPage/WineListPage";
 import FAQ from "./components/FAQ/FAQ";
-import Ticket from "./components/Ticket/Ticket";
+import TicketModal from "./components/TicketModal/TicketModal";
 import WineListDetail from "./components/WineListDetail/WineListDetail";
 import Register from "./components/Register/Register";
 import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
 import CreateWineList from "./components/CreateWineList/CreateWineList";
+import VerifySommelier from "./components/VerifySommelier/VerifySommelier";
+
 
 const App = () => {
   const [status, setStatus] = useState({
     becomeSommlierModal: false,
-    user: 2,
+    user: 3,
     sideBar: false,
     searchBar: false,
     loginModal: false,
@@ -51,10 +53,10 @@ const App = () => {
   return (
     <Router>
       <Sidebar status={status} toggleStatus={toggleStatus}></Sidebar>
-      <Ticket
+      <TicketModal
         ticketModalStatus={status.ticketModal}
         toggleTicketModal={() => toggleStatus("ticketModal")}
-      ></Ticket>
+      ></TicketModal>
       <BecomeSommlier
         becomeSommlierModalStatus={status.becomeSommlierModal}
         togglebecomeSommlierModal={() => toggleStatus("becomeSommlierModal")}
@@ -75,7 +77,10 @@ const App = () => {
           <Route path="/" element={<Main />} />
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/register"
+            element={<Register status={status} toggleStatus={toggleStatus} />}
+          />
           <Route path="/detail" element={<Detail />} />
           <Route path="/wineListDetail" element={<WineListDetail />} />
           {/* detail includes Review, Filter */}
@@ -95,6 +100,7 @@ const App = () => {
             }
           />
           <Route path="/faq" element={<FAQ />} />
+          <Route path = "verifysomm" element = {<VerifySommelier/>} />
         </Routes>
       </div>
 

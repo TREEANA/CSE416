@@ -78,6 +78,7 @@
 
 .wineListDetail__wineName {
   font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .wineListDetail__detail {

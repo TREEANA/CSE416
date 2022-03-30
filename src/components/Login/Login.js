@@ -7,7 +7,7 @@ import Register from "../Register/Register";
 const Login = ({ status, toggleStatus }) => {
   return (
     <>
-      <div className={status.loginModal ? "login login--inactive" : "login"}>
+      <div className={status.loginModal ? "login" : "login login--inactive"}>
         <div className="login__header">
           <BsArrowLeft
             className="login__back"
@@ -22,8 +22,8 @@ const Login = ({ status, toggleStatus }) => {
         </div>
 
         <div className="login__title">Login</div>
-        <input className="login__id"></input>
-        <input className="login__pw"></input>
+        <input className="login__id" placeholder="id(email)"></input>
+        <input className="login__pw" placeholder="password"></input>
         <div className="login__forgot">forgot email or password?</div>
         <div
           className="login__login"

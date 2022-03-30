@@ -3,6 +3,7 @@ import "./WinePage.css";
 import Wine from "../Wine/Wine";
 import Sort from "../Sort/Sort";
 import Filter from "../Filter/Filter";
+import WineList from "../WineList/WineList";
 
 const WinePage = ({
   filterModal,
@@ -41,6 +42,12 @@ const WinePage = ({
       <Wine />
       <Wine />
       <Wine />
+      <div className="winePage__btn">show more wines</div>
+      <hr className="winePage__hr"></hr>
+      <WineList />
+      <WineList />
+      <WineList />
+      <div className="winePage__btn">show more wine lists</div>
     </div>
   );
 };

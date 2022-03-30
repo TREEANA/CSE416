@@ -1,6 +1,6 @@
 .sidebar {
   position: fixed;
-  z-index: 1;
+  z-index: 800;
   transition: 1s;
 
   width: 70vw;
@@ -15,11 +15,16 @@
   transition: 1s;
 }
 
+.sidebar__topCont {
+  margin: 1.5rem;
+  margin-top: 3rem;
+}
+
 .sidebar__profileCont {
   display: flex;
-  margin: 3.5rem 1.5rem 3rem 1.5rem;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: var(--margin-out);
 }
 
 .sidebar__profile {
@@ -103,4 +108,20 @@
 
 .sidebar__hr {
   margin: 1rem 0;
+}
+
+.sidebar__create {
+  align-self: flex-start;
+  font-size: 2rem;
+  text-decoration: none;
+  color: var(--bg-0);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar__create > svg {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
 }
