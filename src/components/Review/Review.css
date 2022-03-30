@@ -5,6 +5,7 @@
     /* padding: 5px; */
     /* margin: var(--margin-out); */
     margin: 10px 0;
+    background-color: var(--bg-0);
 }
 
 .review--somm {
@@ -13,6 +14,7 @@
     border-radius: 30px;
     /* margin: var(--margin-out); */
     margin: 10px 0;
+    background-color: var(--bg-0);
 }
 
 .review__title {

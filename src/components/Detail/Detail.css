@@ -52,14 +52,103 @@ button:hover {
     font-size: 2rem;
 }
 
+.detail__wine-taste {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.detail__wine-char {
+    height: 24px;
+    margin-bottom: 8px;
+    white-space: nowrap;
+}
+
+.detail__wine-char1,
+.detail__wine-char2 {}
+
+.detail__wine-range {}
+
+.detail__wine-range-div {
+    height: 8px;
+    border-radius: 5px;
+}
+
+.detail__wine-range-span {
+    width: 20%;
+    left: 80%;
+    background-color: var(--primary);
+    overflow: hidden;
+    display: block;
+}
+
+
+
 .detail__line {
     border-color: var(--primary);
 }
 
-/* 
-.detail>hr {
+
+.detail__one-review {
+    background-color: var(--bg-0);
+    border-radius: 30px;
+    padding: 15px;
+}
+
+.detail__review-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail__review-addtag {}
+
+.detail__review-tagcont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid grey;
+    margin: 5px 0;
+}
+
+.detail__review-input {
+    background-color: transparent;
+    border: none;
+    /* border: 1px solid black; */
+    width: 70%;
+    height: 2rem;
+    font-size: var(--size-txt);
+}
+
+.detail__review-input:focus {
+    border: none;
+}
+
+.detail__review-plus {
     color: var(--primary);
-} */
+    background-color: transparent;
+    font-size: var(--size-btn);
+    cursor: pointer;
+}
+
+.detail__review-content {
+    border-radius: 30px;
+    margin: 10px 0;
+    border: 1px solid var(--primary);
+    padding: 15px 10px;
+}
+
+.detail__review-post {
+    cursor: pointer;
+    border-radius: 30px;
+    color: var(--bg-0);
+    background-color: var(--primary);
+    display: flex;
+    justify-content: center;
+    height: 1.5rem;
+}
+
+
+
 
 .detail__winerecomm-title,
 .detail__review-title,
