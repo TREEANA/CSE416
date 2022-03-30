@@ -182,11 +182,12 @@
     margin-bottom: 1rem;
 }
 .createWineList__tag{
+    border: 1px solid var(--primary);
     display: flex;
     margin: 0.2rem;
     padding: 0.5rem;
     border-radius: 30px;
-    background-color: var(--bg-0);
+    background-color: var(--bg-20);
     color: var(--primary);
     align-items: center;
 
