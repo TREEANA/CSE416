@@ -1,6 +1,6 @@
 .footer {
+  height: 200px;
   font-family: "Rounded Elegance";
-  padding: var(--margin-out) 0 var(--margin-out) 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
