@@ -27,7 +27,7 @@ const VerifySommelier = () =>{
             <div className = "verifysomm">
                 <div className = "verifysomm__title">
                     <div className = "verifysomm__title-title"> Verify Sommelier </div>
-                    <BsXLg></BsXLg>
+                    {/* <BsXLg></BsXLg> */}
                 </div>
                 <div className = "verifysomm__verify">
                     <div className = "verifysomm__verify-ind" onClick = {toggleInd1Status}> 
