@@ -20,7 +20,7 @@ import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
 
 const App = () => {
   const [status, setStatus] = useState({
-    becomeSommlierModal:false,
+    becomeSommlierModal: false,
     user: 3,
     sideBar: false,
     searchBar: false,
@@ -54,9 +54,9 @@ const App = () => {
         toggleTicketModal={() => toggleStatus("ticketModal")}
       ></Ticket>
       <BecomeSommlier
-       becomeSommlierModalStatus = {status.becomeSommlierModal}
-       togglebecomeSommlierModal = {() => toggleStatus("becomeSommlierModal")}
-       ></BecomeSommlier>
+        becomeSommlierModalStatus={status.becomeSommlierModal}
+        togglebecomeSommlierModal={() => toggleStatus("becomeSommlierModal")}
+      ></BecomeSommlier>
       <Login status={status} toggleStatus={toggleStatus}></Login>
       <Search
         searchBarStatus={status.searchBar}

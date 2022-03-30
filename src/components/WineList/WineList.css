@@ -1,10 +1,10 @@
 .wineList__profile:hover,
 .wineList__like:hover,
-.wineList__bg:hover,
+.wineList__topCont:hover,
 .wineList__title:hover,
 .wineList__leftArrow:hover,
 .wineList__rightArrow:hover,
-.wineList__page:hover {
+.wineList__pages > *:hover {
   cursor: pointer;
 }
 
@@ -18,15 +18,89 @@
   flex-direction: column;
 }
 
-.wineList__bg {
+.wineList__topCont {
+  position: relative;
   width: 100%;
   height: 70%;
-  background-image: url("https://images.unsplash.com/photo-1566995541428-f2246c17cda1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80");
   background-size: cover;
   border-radius: 30px 30px 0 0;
+  overflow: hidden;
+  z-index: 0;
 }
 
-.wineList__cont {
+.wineList__bg {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  transition: 1s;
+  z-index: -1;
+}
+
+.wineList__bg--1 {
+  transform: translateX(-100%);
+}
+
+.wineList__bg--2 {
+  transform: translateX(-200%);
+}
+
+.wineList__bg--3 {
+  transform: translateX(-300%);
+}
+
+.wineList__bg--4 {
+  transform: translateX(-400%);
+}
+
+.wineList__bg--5 {
+  transform: translateX(-500%);
+}
+
+.wineList__bg--6 {
+  transform: translateX(-600%);
+}
+
+.wineList__bg--7 {
+  transform: translateX(-700%);
+}
+
+.wineList__bg--8 {
+  transform: translateX(-800%);
+}
+
+.wineList__bg--9 {
+  transform: translateX(-900%);
+}
+
+.wineList__bgCont--main,
+.wineList__bgCont--wine {
+  width: inherit;
+  height: inherit;
+}
+
+.wineList__bgCont--wine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(var(--primary) 30%, var(--bg-100) 100%);
+}
+
+.wineList__bgCont--main > img {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+}
+
+.wineList__bgCont--wine > img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.wineList__profileCont {
   display: flex;
   margin: 1rem;
   justify-content: space-between;
@@ -77,6 +151,7 @@
 .wineList__title {
   color: var(--primary);
   font-size: 2rem;
+  font-weight: bold;
 }
 
 .wineList__subTitle {
@@ -93,6 +168,12 @@
   display: flex;
 }
 
-.wineList__page {
-  margin: 0rem 0.5rem;
+.wineList__pages > * {
+  font-size: 0.7rem;
+  margin: 0.2rem 0.5rem 0 0.5rem;
+}
+
+.wineList__leftArrow,
+.wineList__rightArrow {
+  font-size: 1.5rem;
 }
