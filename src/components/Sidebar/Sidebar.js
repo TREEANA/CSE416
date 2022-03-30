@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
-import { BsXLg } from "react-icons/bs";
+import { BsXLg, BsFillPlusCircleFill } from "react-icons/bs";
 import { MdWineBar, MdSettings } from "react-icons/md";
 
 const Sidebar = ({ status, toggleStatus }) => {
@@ -36,47 +36,55 @@ const Sidebar = ({ status, toggleStatus }) => {
           </div>
         </div>
       );
-
     else if (status.user === 1) {
       return (
-        <div className="sidebar__profileCont">
-          <div className="sidebar__profile">
-            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-            <div className="sidebar__name">iamdooddi</div>
+        <div className="sidebar__topCont">
+          <div className="sidebar__profileCont">
+            <div className="sidebar__profile">
+              <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+              <div className="sidebar__name">iamdooddi</div>
+            </div>
+            <BsXLg
+              className="sidebar__close"
+              onClick={() => toggleStatus("sideBar")}
+            />
           </div>
-          <BsXLg
-            className="sidebar__close"
-            onClick={() => toggleStatus("sideBar")}
-          />
         </div>
       );
-      
     } else if (status.user === 2) {
       return (
-        <div className="sidebar__profileCont">
-          <div className="sidebar__profile">
-            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-            <div className="sidebar__name">iamdooddi</div>
-            <MdWineBar className="sidebar__icon" />
+        <div className="sidebar__topCont">
+          <div className="sidebar__profileCont">
+            <div className="sidebar__profile">
+              <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+              <div className="sidebar__name">iamdooddi</div>
+              <MdWineBar className="sidebar__icon" />
+            </div>
+            <BsXLg
+              className="sidebar__close"
+              onClick={() => toggleStatus("sideBar")}
+            />
           </div>
-          <BsXLg
-            className="sidebar__close"
-            onClick={() => toggleStatus("sideBar")}
-          />
+          <div className="sidebar__create">
+            <BsFillPlusCircleFill /> create wine list
+          </div>
+          <hr className="sidebar__hr"></hr>
         </div>
       );
     } else if (status.user === 3) {
       return (
-        <div className="sidebar__profileCont">
-          <div className="sidebar__profile">
-            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-            <div className="sidebar__name">iamdooddi</div>
-            <MdSettings className="sidebar__icon" />
+        <div className="sidebar__topCont">
+          <div className="sidebar__profileCont">
+            <div className="sidebar__profile">
+              <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+              <div className="sidebar__name">iamdooddi</div>
+              <MdSettings className="sidebar__icon" />
+            </div>
+            <BsXLg
+              className="sidebar__close"
+              onClick={() => toggleStatus("sideBar")}
+            />
           </div>
-          <BsXLg
-            className="sidebar__close"
-            onClick={() => toggleStatus("sideBar")}
-          />
         </div>
       );
     }

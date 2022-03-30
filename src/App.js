@@ -21,7 +21,7 @@ import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
 const App = () => {
   const [status, setStatus] = useState({
     becomeSommlierModal: false,
-    user: 0,
+    user: 3,
     sideBar: false,
     searchBar: false,
     loginModal: false,
