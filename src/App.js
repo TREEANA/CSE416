@@ -81,7 +81,7 @@ const App = () => {
             path="/register"
             element={<Register status={status} toggleStatus={toggleStatus} />}
           />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/wineDetail" element={<Detail />} />
           <Route path="/wineListDetail" element={<WineListDetail />} />
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />

@@ -174,12 +174,7 @@ const Sidebar = ({ status, toggleStatus }) => {
             >
               <Link to="/theme">Theme</Link>
             </div>
-            <div
-              className="sidebar__link"
-              onClick={() => toggleStatus("sideBar")}
-            >
-              <Link to="/detail">Detail</Link>
-            </div>
+            
             <div
               className="sidebar__link"
               onClick={() => toggleStatus("sideBar")}
@@ -191,6 +186,12 @@ const Sidebar = ({ status, toggleStatus }) => {
               onClick={() => toggleStatus("sideBar")}
             >
               <Link to="/winePage">WinePage</Link>
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/winedetail">WinePage Detail</Link>
             </div>
             <div
               className="sidebar__link"
