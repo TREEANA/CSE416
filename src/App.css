@@ -2,4 +2,5 @@
   background-color: var(--bg-20);
   display: flex;
   justify-content: center;
+  min-height: calc(100vh - 280px);
 }
