@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import { BsXLg } from "react-icons/bs";
+import { MdWineBar, MdSettings } from "react-icons/md";
 
 const Sidebar = ({ status, toggleStatus }) => {
-  return (
-    <>
-      <div className={status.sideBar ? "sidebar" : "sidebar sidebar--inactive"}>
+  const displayUser = () => {
+    if (status.user === 0)
+      return (
         <div className="sidebar__login">
           <div className="sidebar__header">
             <div
@@ -30,6 +31,125 @@ const Sidebar = ({ status, toggleStatus }) => {
             </Link>
           </div>
         </div>
+      );
+    else if (status.user === 1) {
+      return (
+        <div className="sidebar__profileCont">
+          <div className="sidebar__profile">
+            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+            <div className="sidebar__name">iamdooddi</div>
+          </div>
+          <BsXLg
+            className="sidebar__close"
+            onClick={() => toggleStatus("sideBar")}
+          />
+        </div>
+      );
+    } else if (status.user === 2) {
+      return (
+        <div className="sidebar__profileCont">
+          <div className="sidebar__profile">
+            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+            <div className="sidebar__name">iamdooddi</div>
+            <MdWineBar className="sidebar__icon" />
+          </div>
+          <BsXLg
+            className="sidebar__close"
+            onClick={() => toggleStatus("sideBar")}
+          />
+        </div>
+      );
+    } else if (status.user === 3) {
+      return (
+        <div className="sidebar__profileCont">
+          <div className="sidebar__profile">
+            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+            <div className="sidebar__name">iamdooddi</div>
+            <MdSettings className="sidebar__icon" />
+          </div>
+          <BsXLg
+            className="sidebar__close"
+            onClick={() => toggleStatus("sideBar")}
+          />
+        </div>
+      );
+    }
+  };
+  const displayFunction = () => {
+    if (status.user === 0) {
+      return <></>;
+    } else if (status.user === 1) {
+      return (
+        <>
+          <hr className="sidebar__hr"></hr>
+          <div
+            className="sidebar__link"
+            onClick={() => toggleStatus("sideBar")}
+          >
+            become sommlier
+          </div>
+          <div
+            className="sidebar__link"
+            onClick={() => {
+              toggleStatus("sideBar");
+              toggleStatus("ticketModal");
+            }}
+          >
+            view tickets
+          </div>
+        </>
+      );
+    } else if (status.user === 2) {
+      return (
+        <>
+          <hr className="sidebar__hr"></hr>
+          <div
+            className="sidebar__link"
+            onClick={() => {
+              toggleStatus("sideBar");
+              toggleStatus("ticketModal");
+            }}
+          >
+            view tickets
+          </div>
+        </>
+      );
+    } else if (status.user === 3) {
+      return (
+        <>
+          <hr className="sidebar__hr"></hr>
+          <div
+            className="sidebar__link"
+            onClick={() => {
+              toggleStatus("sideBar");
+            }}
+          >
+            verify sommeliers
+          </div>
+          <div
+            className="sidebar__link"
+            onClick={() => {
+              toggleStatus("sideBar");
+            }}
+          >
+            manage reviews
+          </div>
+          <div
+            className="sidebar__link"
+            onClick={() => {
+              toggleStatus("sideBar");
+            }}
+          >
+            manage tickets
+          </div>
+        </>
+      );
+    }
+  };
+  return (
+    <>
+      <div className={status.sideBar ? "sidebar" : "sidebar sidebar--inactive"}>
+        {displayUser()}
         <div className="sidebar__menu">
           <div className="sidebar__section">
             <div className="sidebar__title">Title</div>
@@ -68,6 +188,12 @@ const Sidebar = ({ status, toggleStatus }) => {
               className="sidebar__link"
               onClick={() => toggleStatus("sideBar")}
             >
+              <Link to="/wineListDetail">WineListDetail</Link>
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
               <Link to="/Profile"> Profile</Link>
             </div>
             <div
@@ -88,7 +214,7 @@ const Sidebar = ({ status, toggleStatus }) => {
             >
               become sommlier
             </div>
-            
+             {displayFunction()}
           </div>
         </div>
       </div>

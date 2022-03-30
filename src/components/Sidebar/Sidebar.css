@@ -15,6 +15,37 @@
   transition: 1s;
 }
 
+.sidebar__profileCont {
+  display: flex;
+  margin: 3.5rem 1.5rem 3rem 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar__profile {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar__profile > img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 30px;
+  margin-right: 0.5rem;
+}
+
+.sidebar__name {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.sidebar__icon {
+  width: 24px;
+  height: 24px;
+}
+
 .sidebar__header {
   display: flex;
   justify-content: space-between;
@@ -24,7 +55,7 @@
   font-weight: bold;
 }
 
-.sidebar__status>a {
+.sidebar__status > a {
   color: var(--bg-0);
 }
 
@@ -37,14 +68,15 @@
 }
 
 .sidebar__close {
-  font-size: 30px;
+  font-size: 1rem;
+  margin-top: -0.3rem;
 }
 
 .sidebar__register {
   margin: 0.5rem 1.5rem 3rem 1.5rem;
 }
 
-.sidebar__register>a {
+.sidebar__register > a {
   color: var(--bg-0);
 }
 
@@ -59,13 +91,16 @@
   margin-bottom: 0.5rem;
 }
 
-
 .sidebar__link {
   text-decoration: none;
   color: var(--bg-0);
   font-size: 1.5rem;
 }
 
-.sidebar__link>a {
+.sidebar__link > a {
   color: var(--bg-0);
+}
+
+.sidebar__hr {
+  margin: 1rem 0;
 }

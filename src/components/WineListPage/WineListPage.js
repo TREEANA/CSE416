@@ -13,6 +13,8 @@ const WineListPage = ({}) => {
         <button className="wineListPage__filter">filter</button>
       </div>
       <WineList />
+      <WineList />
+      <WineList />
     </div>
   );
 };

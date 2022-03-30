@@ -13,14 +13,15 @@ import Profile from "./components/Profile/Profile";
 import WinePage from "./components/WinePage/WinePage";
 import WineListPage from "./components/WineListPage/WineListPage";
 import FAQ from "./components/FAQ/FAQ";
-import Register from "./components/Register/Register";
 import Ticket from "./components/Ticket/Ticket";
+import WineListDetail from "./components/WineListDetail/WineListDetail";
+import Register from "./components/Register/Register";
 import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
 
 const App = () => {
   const [status, setStatus] = useState({
     becomeSommlierModal:false,
-    user: 0,
+    user: 3,
     sideBar: false,
     searchBar: false,
     loginModal: false,
@@ -70,9 +71,12 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/detail" element={<Detail />} />
+          <Route path="/wineListDetail" element={<WineListDetail />} />
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/wineListPage" element={<WineListPage />} />
+          <Route path="/wineListDetail" element={<wineListDetail />} />
+
           <Route
             path="/winePage"
             element={

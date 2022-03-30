@@ -1,10 +1,15 @@
 import React from "react";
+import WineList from "../WineList/WineList";
 import "./Main.css";
 
 const Main = () => {
   return (
     <>
-      <main className="Main">main</main>
+      <main className="main">
+        <WineList />
+        <WineList />
+        <WineList />
+      </main>
     </>
   );
 };
