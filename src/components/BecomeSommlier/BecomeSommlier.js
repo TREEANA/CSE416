@@ -35,11 +35,11 @@ const BecomeSommlier = ({becomeSommlierModalStatus,togglebecomeSommlierModal}) =
                 </div>
 
                 <div className="becomesommlier__section2">
-                    <div className="becomesommlier_poto">image</div>
+                    <img  className="becomesommlier_poto" src="https://mblogthumb-phinf.pstatic.net/MjAxOTAzMjJfMjA2/MDAxNTUzMjI3NDU5NzU0.MB7x7Bu9pbwOeZ_vXg11Q8MstK3C6MkAZ6UnhQ6ki0Yg.rOy-j6vpy3UbmWMEnBNo2LJLrV9lKzDUvMoeTGU-elAg.JPEG.onwinnersmd/2.jpg?type=w800"></img>
                     <div className="becomesommlier__button" onClick={submit}>Submit</div>
                 </div>
 
-                <div className="becomesommlier__section3">
+                <div className="becomesommlier__section3" >
                     <div className="becomesommlier__section3_font" onClick={close}>Submission complete!<br></br>
                     The rsult will be notified in 2-3 businness days</div>
                 </div>

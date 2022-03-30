@@ -37,11 +37,7 @@
     font-weight: bold;
     cursor: pointer;
 }
-.ticket__center{
-  margin-left: var(--margin-out);
-  display: flex;
 
-}
 .ticket__create{
   margin-left: var(--margin-out);
   align-self: flex-start;
@@ -55,18 +51,27 @@
 
 }
 
-.ticket__button__container{
+.ticket_box_container{
   color: var(--text-100);
   border-radius: 30px;
   display: flex;
   flex-direction: column;
+  margin: 0 var(--margin-out) 1.5rem var(--margin-out);
+  
+}
+.ticket_answer_box{
+  display: flex;
+  flex-direction: column;
   background-color: var(--bg-100);
-  margin-left: var(--margin-out);
-  margin-right: var(--margin-out);
-  margin-bottom: 10px;
-
+  border-radius: 0 0 30px 30px ;
+  
 }
 
+.ticket_answer, .ticket_answer1, .ticket_answer2 {
+  display: none;
+  margin-left: 20px;
+
+}
 
 .ticket__button {
   background-color: var(--bg-0);
@@ -80,11 +85,6 @@
 .ticket__button__text {
   margin-left: 1rem;
   color: var(--text-100);
-
-}
-.ticket_answer{
-  display: none;
-  margin-left: 20px;
 
 }
 .ticket_checkicon{
