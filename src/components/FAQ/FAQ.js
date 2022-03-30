@@ -47,23 +47,31 @@ const FAQ = () => {
     <div className="FAQ">
        <div className ="FAQ__name">FAQ</div>
 
-       <div className="FAQ_container">
-        <div className="FAQ__button" onClick={reset}>  I want to reset my password</div>
-        <div className="FAQ_reset"><b>Q</b> default </div>
-        <div className="FAQ_reset"><b>A</b> default </div>
-      </div>
 
        <div className="FAQ_container">
-        <div className="FAQ__button" onClick={modify}>  I want to modlify my account information</div>
-        <div className="FAQ_modify"><b>Q</b> default </div>
-        <div className="FAQ_modify"><b>A</b> default </div>
-      </div>
+        <div className="FAQ__button" onClick={reset}> I want to reset my password</div>
+        <div className="FAQ_answer_box">
+          <div className="FAQ_reset"><b>Q</b>default </div>
+          <div className="FAQ_reset"><b>A</b>default</div>
+        </div>
+       </div>
 
-        <div className="FAQ_container">
-          <div className="FAQ__button" onClick={hide}>I want to delete my account</div>
+       <div className="FAQ_container">
+        <div className="FAQ__button" onClick={modify}>I want to modlify my account information</div>
+        <div className="FAQ_answer_box">
+          <div className="FAQ_modify"><b>Q</b>default </div>
+          <div className="FAQ_modify"><b>A</b>default</div>
+        </div>
+       </div>
+
+       <div className="FAQ_container">
+        <div className="FAQ__button" onClick={hide}>I want to delete my account</div>
+        <div className="FAQ_answer_box">
           <div className="FAQ_delete"><b>Q</b> I want to delete my account </div>
           <div className="FAQ_delete"><b>A</b> Go to my Page and click "Delete my account" </div>
         </div>
+       </div>
+
 
       </div>
 

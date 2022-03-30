@@ -134,6 +134,8 @@ li {
     align-items: center;
     justify-content: center;
     color: #AAA;
+    width: 160px; 
+    height: 160px;
   }
   .gallery__image > img {
     width: 160px; 

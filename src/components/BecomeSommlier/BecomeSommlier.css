@@ -27,7 +27,10 @@
 
   }
   .becomesommlier__section2{
-    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: var(--margin-out);
 
   }
 
