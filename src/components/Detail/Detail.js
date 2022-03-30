@@ -14,7 +14,7 @@ const Detail = () => {
     <>
       <div className = "detail">
         <div>
-          {/* <Wine/> */}
+
         </div>
       </div>
     </>

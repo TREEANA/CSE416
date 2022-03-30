@@ -1,3 +1,4 @@
+
 .ticket__cont {
   margin-bottom: 1rem;
 }
@@ -13,6 +14,54 @@
 
 .ticket__button {
   padding: 1rem;
+=======
+.ticket--inactive {
+  display: none;
+}
+
+.ticket {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
+  background-color: var(--bg-20);
+  color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ticket__container {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  margin: var(--margin-out);
+
+}
+
+.ticket__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  margin: 0 var(--margin-out);
+}
+
+.ticket__header-title {
+  font-size: var(--size-title);
+}
+
+.ticket__top-close {
+  font-size: 1.5rem;
+  display: flex;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ticket__create {
+  margin-left: var(--margin-out);
+  align-self: flex-start;
+
   font-size: 1.5rem;
   background-color: var(--bg-0);
   border-radius: 30px;
@@ -28,6 +77,7 @@
   justify-content: center;
   text-align: center;
 }
+
 
 .ticket__progress {
   height: 30px;
@@ -54,10 +104,23 @@
 }
 
 .ticket__box {
+
+.ticket_box_container {
+  color: var(--text-100);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 var(--margin-out) 1.5rem var(--margin-out);
+
+}
+
+.ticket_answer_box {
+
   display: flex;
   flex-direction: column;
   background-color: var(--bg-100);
   border-radius: 0 0 30px 30px;
+
   padding: 0 1rem 1rem 1rem;
   padding-top: 1.75rem;
   margin-top: -1.75rem;
@@ -71,6 +134,14 @@
 
 .ticket__box--close {
   height: 0%;
+
+
+}
+
+.ticket_answer,
+.ticket_answer1,
+.ticket_answer2 {
+
   display: none;
 }
 
@@ -78,6 +149,10 @@
   height: 0%;
   display: none;
 }
+.ticket__button__text {
+  margin-left: 1rem;
+  color: var(--text-100);
+
 
 .ticket__question,
 .ticket__answer {
@@ -85,7 +160,23 @@
   color: var(--text-100);
 }
 
+
 .ticket__question > b,
 .ticket__answer > b {
   margin-right: 0.5rem;
 }
+
+.ticket_checkicon {
+  margin-right: 1rem;
+  border-radius: 100%;
+  display: flex;
+  color: green;
+}
+
+.ticket__progressicon {
+  margin-right: 1rem;
+  border-radius: 100%;
+  background-color: yellow;
+  color: white;
+  display: flex;
+  }

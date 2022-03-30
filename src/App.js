@@ -17,6 +17,7 @@ import TicketModal from "./components/TicketModal/TicketModal";
 import WineListDetail from "./components/WineListDetail/WineListDetail";
 import Register from "./components/Register/Register";
 import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
+import VerifySommelier from "./components/VerifySommelier/VerifySommelier";
 
 const App = () => {
   const [status, setStatus] = useState({
@@ -92,6 +93,7 @@ const App = () => {
             }
           />
           <Route path="/faq" element={<FAQ />} />
+          <Route path = "verifysomm" element = {<VerifySommelier/>} />
         </Routes>
       </div>
 

@@ -136,7 +136,7 @@ const Sidebar = ({ status, toggleStatus }) => {
               toggleStatus("sideBar");
             }}
           >
-            verify sommeliers
+            <Link to = "/verifysomm">verify sommeliers</Link>
           </div>
           <div
             className="sidebar__link"
