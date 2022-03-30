@@ -39,7 +39,6 @@ const Register = ({ status, toggleStatus }) => {
                 type="password"
               ></input>
               <div className="register__pwd-warning">
-                {" "}
                 Password does not match{" "}
               </div>
               <div
@@ -49,10 +48,9 @@ const Register = ({ status, toggleStatus }) => {
                   toggleStatus("registerTagModal");
                 }}
               >
-                {" "}
                 register
               </div>
-              {status.registerModal && (
+              {status.registerTagModal && (
                 <RegisterTag
                   registerTagModalStatus={() =>
                     toggleStatus("registerTagModal")

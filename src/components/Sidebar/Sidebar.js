@@ -4,7 +4,7 @@ import "./Sidebar.css";
 import { BsXLg, BsFillPlusCircleFill } from "react-icons/bs";
 import { MdWineBar, MdSettings } from "react-icons/md";
 
-const Sidebar = ({ status, toggleStatus }) => {
+const Sidebar = ({ status, handleStatus, toggleStatus }) => {
   const displayUser = () => {
     if (status.user === 0)
       return (
@@ -136,7 +136,7 @@ const Sidebar = ({ status, toggleStatus }) => {
               toggleStatus("sideBar");
             }}
           >
-            <Link to = "/verifysomm">verify sommeliers</Link>
+            <Link to="/verifysomm">verify sommeliers</Link>
           </div>
           <div
             className="sidebar__link"
@@ -168,15 +168,81 @@ const Sidebar = ({ status, toggleStatus }) => {
             {/* 여기서 페이지 구현할때 sidebar__link 하나씩 복사해서 일단 사용 */}
             <div
               className="sidebar__link"
-              onClick={() => toggleStatus("sideBar")}
+              onClick={() => toggleStatus("sideBar", "registerModal")}
             >
-              <Link to="/theme">Theme</Link>
+              Register
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar", "loginModal")}
+            >
+              Login
             </div>
             <div
               className="sidebar__link"
               onClick={() => toggleStatus("sideBar")}
             >
-              <Link to="/detail">Detail</Link>
+              <Link to="/">Main</Link>
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => handleStatus("user", 1)}
+            >
+              User
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => handleStatus("user", 2)}
+            >
+              Sommlier
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => handleStatus("user", 3)}
+            >
+              Admin
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/wineDetail">Wine Detail</Link>
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/wineComment">Wine Detail Comment</Link>
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/wineListDetail">Wine List Detail</Link>
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/winePage">Search Result</Link>
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar", "filterModal")}
+            >
+              Filter
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar", "sortModal")}
+            >
+              Sort
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar")}
+            >
+              <Link to="/wineListPage">Wine List Page</Link>
             </div>
             <div
               className="sidebar__link"
@@ -186,43 +252,33 @@ const Sidebar = ({ status, toggleStatus }) => {
             </div>
             <div
               className="sidebar__link"
-              onClick={() => toggleStatus("sideBar")}
+              onClick={() => toggleStatus("sideBar", "becomeSommlierModal")}
             >
-              <Link to="/winePage">WinePage</Link>
+              Become Sommlier
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar", "ticketModal")}
+            >
+              View Tickets
             </div>
             <div
               className="sidebar__link"
               onClick={() => toggleStatus("sideBar")}
             >
-              <Link to="/wineListPage">WineListPage</Link>
+              <Link to="/FAQ">FAQ</Link>
+            </div>
+            <div
+              className="sidebar__link"
+              onClick={() => toggleStatus("sideBar", "createModal")}
+            >
+              Create Wine List
             </div>
             <div
               className="sidebar__link"
               onClick={() => toggleStatus("sideBar")}
             >
-              <Link to="/wineListDetail">WineListDetail</Link>
-            </div>
-            <div
-              className="sidebar__link"
-              onClick={() => toggleStatus("sideBar")}
-            >
-              <Link to="/Profile"> Profile</Link>
-            </div>
-            <div
-              className="sidebar__link"
-              onClick={() => {
-                toggleStatus("sideBar", "ticketModal");
-              }}
-            >
-              view tickets
-            </div>
-            <div
-              className="sidebar__link"
-              onClick={() => {
-                toggleStatus("sideBar", "becomeSommlierModal");
-              }}
-            >
-              become sommlier
+              <Link to="/verifysomm">Verify Sommlier</Link>
             </div>
             {displayFunction()}
           </div>

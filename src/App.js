@@ -50,7 +50,11 @@ const App = () => {
 
   return (
     <Router>
-      <Sidebar status={status} toggleStatus={toggleStatus}></Sidebar>
+      <Sidebar
+        status={status}
+        handleStatus={handleStatus}
+        toggleStatus={toggleStatus}
+      ></Sidebar>
       <TicketModal
         ticketModalStatus={status.ticketModal}
         toggleTicketModal={() => toggleStatus("ticketModal")}
@@ -60,6 +64,7 @@ const App = () => {
         togglebecomeSommlierModal={() => toggleStatus("becomeSommlierModal")}
       ></BecomeSommlier>
       <Login status={status} toggleStatus={toggleStatus}></Login>
+      <Register status={status} toggleStatus={toggleStatus} />
       <Search
         searchBarStatus={status.searchBar}
         toggleSearchBar={() => toggleStatus("searchBar")}
