@@ -13,6 +13,7 @@
 
 .ticket__button {
   padding: 1rem;
+
 }
 
 .ticket--inactive {
@@ -73,8 +74,10 @@
 .ticket__button--faq {
   background-color: var(--primary);
   color: var(--bg-0);
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
-
 
 .ticket__progress {
   height: 30px;
@@ -115,12 +118,10 @@
 }
 
 .ticket_answer_box {
-
   display: flex;
   flex-direction: column;
   background-color: var(--bg-100);
   border-radius: 0 0 30px 30px;
-
   padding: 0 1rem 1rem 1rem;
   padding-top: 1.75rem;
   margin-top: -1.75rem;
@@ -134,14 +135,6 @@
 
 .ticket__box--close {
   height: 0%;
-
-
-}
-
-.ticket_answer,
-.ticket_answer1,
-.ticket_answer2 {
-
   display: none;
 }
 
@@ -155,9 +148,16 @@
   color: var(--text-100);
 }
 
+
 .ticket__question,
 .ticket__answer {
   margin-top: 1rem;
+  color: var(--text-100);
+}
+
+.ticket__question > b,
+.ticket__answer > b {
+  margin-right: 0.5rem;
 }
 
 
@@ -180,3 +180,4 @@
   color: white;
   display: flex;
 }
+
