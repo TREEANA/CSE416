@@ -25,9 +25,10 @@ import Comment from "./components/Comment/Comment";
 const App = () => {
   const [status, setStatus] = useState({
     becomeSommlierModal: false,
-    user: 3,
+    user: 0,
     sideBar: false,
     searchBar: false,
+    searchPersonBar: false,
     loginModal: false,
     registerModal: false,
     registerTagModal: false,
@@ -54,7 +55,11 @@ const App = () => {
 
   return (
     <Router>
-      <Sidebar status={status} toggleStatus={toggleStatus}></Sidebar>
+      <Sidebar
+        status={status}
+        handleStatus={handleStatus}
+        toggleStatus={toggleStatus}
+      ></Sidebar>
       <TicketModal
         ticketModalStatus={status.ticketModal}
         toggleTicketModal={() => toggleStatus("ticketModal")}
@@ -73,6 +78,7 @@ const App = () => {
       >
       </Comment>
       <Login status={status} toggleStatus={toggleStatus}></Login>
+      <Register status={status} toggleStatus={toggleStatus} />
       <Search
         searchBarStatus={status.searchBar}
         toggleSearchBar={() => toggleStatus("searchBar")}
@@ -107,7 +113,7 @@ const App = () => {
             }
           />
           <Route path="/faq" element={<FAQ />} />
-          <Route path = "verifysomm" element = {<VerifySommelier/>} />
+          <Route path="verifysomm" element={<VerifySommelier />} />
         </Routes>
       </div>
 
