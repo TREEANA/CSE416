@@ -13,8 +13,7 @@ const Sidebar = ({ status, toggleStatus }) => {
             <div
               className="sidebar__status"
               onClick={() => {
-                toggleStatus("sideBar");
-                toggleStatus("loginModal");
+                toggleStatus("sideBar", "loginModal");
               }}
             >
               Login
@@ -26,7 +25,12 @@ const Sidebar = ({ status, toggleStatus }) => {
           </div>
 
           <div className="sidebar__register">
-            <Link to="/register" onClick={() => toggleStatus("registerModal")}>
+            <Link
+              to="/register"
+              onClick={() => {
+                toggleStatus("sideBar", "registerModal");
+              }}
+            >
               don't have an account?
             </Link>
           </div>
@@ -91,8 +95,7 @@ const Sidebar = ({ status, toggleStatus }) => {
           <div
             className="sidebar__link"
             onClick={() => {
-              toggleStatus("sideBar");
-              toggleStatus("ticketModal");
+              toggleStatus("sideBar", "ticketModal");
             }}
           >
             view tickets
@@ -106,8 +109,7 @@ const Sidebar = ({ status, toggleStatus }) => {
           <div
             className="sidebar__link"
             onClick={() => {
-              toggleStatus("sideBar");
-              toggleStatus("ticketModal");
+              toggleStatus("sideBar", "ticketModal");
             }}
           >
             view tickets
@@ -199,8 +201,7 @@ const Sidebar = ({ status, toggleStatus }) => {
             <div
               className="sidebar__link"
               onClick={() => {
-                toggleStatus("sideBar");
-                toggleStatus("ticketModal");
+                toggleStatus("sideBar", "ticketModal");
               }}
             >
               view tickets
@@ -208,13 +209,12 @@ const Sidebar = ({ status, toggleStatus }) => {
             <div
               className="sidebar__link"
               onClick={() => {
-                toggleStatus("sideBar");
-                toggleStatus("becomeSommlierModal");
+                toggleStatus("sideBar", "becomeSommlierModal");
               }}
             >
               become sommlier
             </div>
-             {displayFunction()}
+            {displayFunction()}
           </div>
         </div>
       </div>

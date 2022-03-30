@@ -21,7 +21,7 @@ import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
 const App = () => {
   const [status, setStatus] = useState({
     becomeSommlierModal: false,
-    user: 3,
+    user: 0,
     sideBar: false,
     searchBar: false,
     loginModal: false,
@@ -38,12 +38,12 @@ const App = () => {
       [name]: value,
     });
   };
-  const toggleStatus = (name) => {
-    console.log(`toggle${name}`);
-    setStatus({
-      ...status,
-      [name]: !status[name],
+  const toggleStatus = (...names) => {
+    const result = { ...status };
+    names.forEach((name) => {
+      result[name] = !status[name];
     });
+    setStatus(result);
   };
 
   return (
