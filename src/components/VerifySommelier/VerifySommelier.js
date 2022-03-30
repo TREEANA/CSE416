@@ -40,9 +40,18 @@ const VerifySommelier = () =>{
                     </div>
 
                     <div className = "verifysomm__verify-detail">
-                        <div>
-                            
+                        <div className = "verifysomm__verify-detail-img" >
+                            <img  src="https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg" ></img>
                         </div>
+                        <div className="verifysomm__verify-detail-comment">
+                            <div className = "verifysomm_verify-usercomment">
+                                I request verification with my certificate. Let me know if this is too blurred.
+                            </div>
+                            <div className = "verifysomm__verfiy-admincomment"> 
+                                <input placeholder="write a comment"></input>
+                            </div>
+                        </div>
+                        
                     </div>
                     
                     
