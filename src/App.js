@@ -13,7 +13,7 @@ import Profile from "./components/Profile/Profile";
 import WinePage from "./components/WinePage/WinePage";
 import WineListPage from "./components/WineListPage/WineListPage";
 import FAQ from "./components/FAQ/FAQ";
-import Ticket from "./components/Ticket/Ticket";
+import TicketModal from "./components/TicketModal/TicketModal";
 import WineListDetail from "./components/WineListDetail/WineListDetail";
 import Register from "./components/Register/Register";
 import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
@@ -50,10 +50,10 @@ const App = () => {
   return (
     <Router>
       <Sidebar status={status} toggleStatus={toggleStatus}></Sidebar>
-      <Ticket
+      <TicketModal
         ticketModalStatus={status.ticketModal}
         toggleTicketModal={() => toggleStatus("ticketModal")}
-      ></Ticket>
+      ></TicketModal>
       <BecomeSommlier
         becomeSommlierModalStatus={status.becomeSommlierModal}
         togglebecomeSommlierModal={() => toggleStatus("becomeSommlierModal")}
@@ -70,8 +70,11 @@ const App = () => {
           <Route path="/" element={<Main />} />
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/winedetail" element={<Detail />} />
+          <Route
+            path="/register"
+            element={<Register status={status} toggleStatus={toggleStatus} />}
+          />
+          <Route path="/wineDetail" element={<Detail />} />
           <Route path="/wineListDetail" element={<WineListDetail />} />
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<Profile />} />
