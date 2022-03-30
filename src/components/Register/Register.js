@@ -7,7 +7,7 @@ import RegisterTag from "../RegisterTag/RegisterTag";
 const Register = ({ status, toggleStatus }) => {
   return (
     <>
-      {status.registerModal && (
+
         <div className="register">
           <div className="register__header">
             <BsArrowLeft
@@ -50,20 +50,11 @@ const Register = ({ status, toggleStatus }) => {
               >
                 register
               </div>
-              {status.registerTagModal && (
-                <RegisterTag
-                  registerTagModalStatus={() =>
-                    toggleStatus("registerTagModal")
-                  }
-                  toggleRegisterTagModal={() =>
-                    toggleStatus("registerTagModal")
-                  }
-                />
-              )}
+
             </form>
           </div>
         </div>
-      )}
+      
     </>
   );
 };

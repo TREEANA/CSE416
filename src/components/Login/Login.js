@@ -33,13 +33,13 @@ const Login = ({ status, toggleStatus }) => {
         </div>
         <div
           className="login__register"
-          onClick={() => toggleStatus("registerModal")}
+          onClick={() => toggleStatus("registerModal", "loginModal")}
         >
-          register
+          <Link to = "/register"> register </Link>
         </div>
-        {status.registerModal && (
+        {/* {status.registerModal && (
           <Register status={status} toggleStatus={status} />
-        )}
+        )} */}
         <div className="login__sns">
           <div className="login__sns-msg">login with SNS</div>
           <div className="login__sns-cont">
