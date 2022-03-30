@@ -4,7 +4,6 @@ button:hover {
 
 .wine {
   width: calc(100% - 3rem);
-  height: 100%;
   margin-top: var(--margin-out);
   border-radius: 30px;
   border: solid 1px var(--primary);
