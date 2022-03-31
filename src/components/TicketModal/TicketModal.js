@@ -50,7 +50,7 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
             <BsXLg className="ticket__top-close" onClick={toggleTicketModal} />
           </div>
           <div className="ticket__create">
-            <BsFillPlusCircleFill /> <div>create a new ticket</div>
+            <BsFillPlusCircleFill /> create a new ticket
           </div>
 
           <Ticket

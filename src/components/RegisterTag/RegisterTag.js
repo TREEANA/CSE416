@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import Tag from '../Tag/Tag';
 
 
-const RegisterTag = ({status, toggleStatus}) =>{
+const RegisterTag = ({toggleRegisteTagModal, registerTagModalStatus}) =>{
 
     return (
         <>
             <div className = "registertag">
                 <div className="registertag__header">
-                    <BsArrowLeft className="registertag__back" onClick = {() => toggleStatus("registerTagModal")} ></BsArrowLeft>
-                    <div className="registertag__home" onClick = {() => toggleStatus("registerTagModal")}>
+                    <BsArrowLeft className="registertag__back" onClick = {toggleRegisteTagModal} ></BsArrowLeft>
+                    <div className="registertag__home" onClick = {toggleRegisteTagModal}>
                         <Link to="/" >podo</Link>
                     </div>
                 </div>

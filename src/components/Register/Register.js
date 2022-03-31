@@ -7,7 +7,7 @@ import RegisterTag from "../RegisterTag/RegisterTag";
 const Register = ({ status, toggleStatus }) => {
   return (
     <>
-
+      {status.registerModal && (
         <div className="register">
           <div className="register__header">
             <BsArrowLeft
@@ -39,6 +39,7 @@ const Register = ({ status, toggleStatus }) => {
                 type="password"
               ></input>
               <div className="register__pwd-warning">
+                {" "}
                 Password does not match{" "}
               </div>
               <div
@@ -48,13 +49,23 @@ const Register = ({ status, toggleStatus }) => {
                   toggleStatus("registerTagModal");
                 }}
               >
+                {" "}
                 register
               </div>
-
+              {status.registerModal && (
+                <RegisterTag
+                  registerTagModalStatus={() =>
+                    toggleStatus("registerTagModal")
+                  }
+                  toggleRegisterTagModal={() =>
+                    toggleStatus("registerTagModal")
+                  }
+                />
+              )}
             </form>
           </div>
         </div>
-      
+      )}
     </>
   );
 };
