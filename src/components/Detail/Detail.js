@@ -25,9 +25,9 @@ const Detail = () => {
             <div className="detail__wine-detail">
               <div className="detail__wine-title">La Crema Sonoma Coast Pinot Noir</div>
               <div className="detail__wine-tags">
-                <Tag isFilled={1} isDisabled={0} txt="picnic" />
-                <Tag isFilled = {0} isDisabled={1} txt="dry" />
-                <Tag isDisabled={0} txt="steak" />
+                <Tag isFilled={1} isDisabled={1} txt="picnic" />
+                <Tag isDisabled={1} txt="dry" />
+                <Tag isDisabled={1} txt="steak" />
                 <Tag isDisabled={1} txt="oak" />
                 <Tag isDisabled={1} txt="rose" />
                 <Tag isDisabled={1} txt="cherry" />
