@@ -1,121 +1,102 @@
 .becomesommlier {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: 1;
-    background-color: var(--bg-20);
-    color: var(--primary);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
+  background-color: var(--bg-20);
+  color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .becomesommlier--inactive {
-    display: none;
-  }
+  display: none;
+}
 
-  .becomesommlier__container{
-    width: 480px;
-    display: flex;
-    flex-direction: column;
-    margin: var(--margin-out);
+.becomesommlier__container {
+  display: flex;
+  flex-direction: column;
+  margin: var(--margin-out);
+}
 
-  }
+.becomesommlier__section1 {
+  display: inline;
+}
+.becomesommlier__section2 {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+}
 
-  .becomesommlier__section1{
-    display: inline;
+.becomesommlier__section3 {
+  display: none;
+}
+.becomesommlier__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
 
-  }
-  .becomesommlier__section2{
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0  var(--margin-out)  var(--margin-out)  var(--margin-out);
-
-  }
-
-  .becomesommlier__section3{
-    display: none;
-
-  }
-  .becomesommlier__header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 80px;
-    margin: 0 var(--margin-out);
-  }
-
-  .becomesommlier__header__title{
-    font-size: 2rem;
+.becomesommlier__header__title {
+  font-size: 2rem;
 }
 
 .becomesommlier__top-close {
-    font-size: 1.5rem;
-    display: flex;
-    font-weight: bold;
-    cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.becomesommlier__create{
-    margin-left: var(--margin-out);
-    align-self: flex-start;
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: var(--primary);
-    font-weight: bold;
-    margin-bottom: var(--margin-out);
-    display: flex;
-    align-items: center;
-  
-  }
-
-  .becomesommlier__create__icon{
-    font-size: 3rem;
-    margin-right: 10px;
-
-  
-  }
-  .becomesommlier__history {
-    display: flex;
-    color: var(--text-50);
-    font-size: var(--size-txt);
-    justify-content: flex-end;
-    margin-right: var(--margin-out);
-
+.becomesommlier__create {
+  align-self: flex-start;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.becomesommlier_poto{
-    border-radius: 30px;
-    height: 15rem;
-    background-color: var(--text-50);
-    margin: var(--margin-out);
-    display: flex;
-    align-items: center;
-    color:var(--bg-0);
-    justify-content: center;
-
+.becomesommlier__create__icon {
+  font-size: 3rem;
+  margin-right: 2rem;
+}
+.becomesommlier__history {
+  display: flex;
+  color: var(--text-50);
+  font-size: var(--size-txt);
+  justify-content: flex-end;
 }
 
-  .becomesommlier__button {
-    background-color: var(--primary);
-    color: var(--bg-0);
-    border-radius: 30px;
-    height: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    margin: var(--margin-out);
-
+.becomesommlier_poto {
+  border-radius: 30px;
+  height: 15rem;
+  background-color: var(--text-50);
+  margin: var(--margin-out);
+  display: flex;
+  align-items: center;
+  color: var(--bg-0);
+  justify-content: center;
 }
 
-.becomesommlier__section3_font{
+.becomesommlier__button {
+  background-color: var(--primary);
+  color: var(--bg-0);
+  border-radius: 30px;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: var(--margin-out);
+}
+
+.becomesommlier__section3_font {
   display: flex;
   align-items: center;
   color: var(--text-100);
   font-size: var(--size-txt);
-  margin: var(--margin-out);
 }
-  
-  
