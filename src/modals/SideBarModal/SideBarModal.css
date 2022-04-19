@@ -44,11 +44,13 @@
   font-weight: bold;
   font-size: 1.5rem;
   margin-right: 0.5rem;
+  color: var(--bg-0);
 }
 
 .sidebar__icon {
   width: 24px;
   height: 24px;
+  color: var(--bg-0);
 }
 
 .sidebar__header {

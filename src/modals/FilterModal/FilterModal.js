@@ -6,36 +6,82 @@ import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
 
 const FilterModal = ({ filterModal, toggleFilterModal }) => {
-  // State 이용해서 input 값 != "" 이면 X 보이게 하는걸로 할까여
-  // 그럼 x 클릭하면 onClick = {inputReset} 뭐 이런식으로 해야됨
-
-  // const [value, setValue] = useState([]); //값
-  // const [min, setMin] = useState();
-  // const [max, setMax] = useState();
-
-  // useEffect(() => {
-  //     fetch("url something")
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //         // data 중 가격으로만 이루어진 새로운 배열 생성
-  //         const price = res.data.map((data) => data.price);
-  //         // 가격으로 이루어진 배열에서, 최대값과 최소값 구하기
-  //         const max = price.reduce(function (pre, cur) {
-  //         return pre > cur ? pre : cur;
-  //         });
-  //         const min = price.reduce(function (pre, cur) {
-  //         return pre > cur ? cur : pre;
-  //         });
-  //         setData(res.data);
-  //         // 최소값과 최대값으로 defaultValue 값 설정
-  //         setValue([min, max]);
-  //         setMin(min);
-  //         setMax(max);
-  //     });
-  // },[]);
-
+  const dummytaydata = [
+    "acidic",
+    "light",
+    "blackberry",
+    "picnic",
+    "chocolate",
+    "oak",
+    "vanilla",
+    "good",
+    "cherry",
+    "red fruit",
+    "strawberry",
+    "fig",
+  ];
   const [valuePrice, setValuePrice] = useState([23000, 128000]);
-  const [valueRate, setValueRate] = useState([3, 4.5]);
+  const [valueRate, setValueRate] = useState(4.5);
+  const [valueSearch, setSearch] = useState("");
+  const [tagsItems, settagsItems] = useState(dummytaydata);
+  const [selectedtagsItems, setselectedtagsItems] = useState([]);
+
+  const clickTags = () => {
+    const Result = selectedtagsItems;
+    Result.push(valueSearch);
+    setselectedtagsItems(Result);
+  };
+
+  const clickSearchIcon = () => {
+    if (
+      dummytaydata.includes(valueSearch) &&
+      !selectedtagsItems.includes(valueSearch)
+    ) {
+      const Result = [];
+      for (let i = 0; i < selectedtagsItems.length; i++) {
+        Result.push(selectedtagsItems[i]);
+      }
+      Result.push(valueSearch);
+      setselectedtagsItems(Result);
+      settagsItems([]);
+    }
+  };
+
+  const getSelectedTagItemsJSX = () => {
+    return (
+      <div>
+        {selectedtagsItems.map((tag, index) => (
+          <Tag isFilled={0} txt={tag} />
+        ))}
+      </div>
+    );
+  };
+
+  const getTagItemsJSX = () => {
+    return (
+      <div>
+        {selectedtagsItems.map((tag, index) => (
+          <Tag isFilled={0} txt={tag} />
+        ))}
+        {tagsItems.map((tag, index) => (
+          <Tag isFilled={0} txt={tag} />
+        ))}
+      </div>
+    );
+  };
+
+  const findTag = () => {
+    const Result = [];
+
+    for (let i = 0; i < dummytaydata.length; i++) {
+      if (dummytaydata[i].includes(valueSearch)) {
+        if (!selectedtagsItems.includes(dummytaydata[i])) {
+          Result.push(dummytaydata[i]);
+        }
+      }
+    }
+    settagsItems(Result);
+  };
 
   const handlePriceChange = (event, newValue) => {
     setValuePrice(newValue);
@@ -72,28 +118,20 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
           <div className="filter__cond-tag">
             <div className="filter__cond-title"> Tags </div>
             <div className="filter__cond-search">
-              <BsSearch className="filter__cond-search-icon" />
+              <BsSearch
+                className="filter__cond-search-icon"
+                onClick={clickSearchIcon}
+              />
               <input
+                type="text"
                 className="filter__cond-search-input"
                 placeholder="search tags"
+                onChange={(event) => {
+                  setSearch(event.target.value), findTag();
+                }}
               ></input>
             </div>
-            <div>
-              <Tag isFilled={0} txt="acidic" />
-              <Tag isFilled={1} txt="light" />
-              <Tag isFilled={1} txt="blackberry" />
-              <Tag isFilled={0} txt="picnic" />
-              <Tag isFilled={0} txt="chocolate" />
-              <Tag isFilled={0} txt="oak" />
-              <Tag isFilled={0} txt="vanilla" />
-              <Tag isFilled={0} txt="plum" />
-              <Tag isFilled={0} txt="jam" />
-              <Tag isFilled={0} txt="good" />
-              <Tag isFilled={0} txt="cherry" />
-              <Tag isFilled={0} txt="red fruit" />
-              <Tag isFilled={0} txt="strawberry" />
-              <Tag isFilled={0} txt="fig" />
-            </div>
+            <div>{getTagItemsJSX()}</div>
           </div>
 
           {/* 와인리스트에 대해서는 이부분 없애야함 */}
@@ -127,13 +165,10 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
           <div className="filter__cond-rate">
             <div className="filter__cond-title"> Rating </div>
             <div className="filter__cond-rate-number">
-              <div className="filter__cond-rate-less">
-                <BsStarFill />
-                {valueRate[0]}
-              </div>
+              <div className="filter__cond-rate-less"></div>
               <div className="filter__cond-rate-more">
                 <BsStarFill />
-                {valueRate[1]}
+                {valueRate}
               </div>
             </div>
             <Box>
