@@ -17,7 +17,6 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
     "good",
     "cherry",
     "red fruit",
-    "red fruit",
     "strawberry",
     "fig",
   ];
@@ -44,6 +43,7 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
       }
       Result.push(valueSearch);
       setselectedtagsItems(Result);
+      settagsItems([]);
     }
   };
 
@@ -60,6 +60,9 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
   const getTagItemsJSX = () => {
     return (
       <div>
+        {selectedtagsItems.map((tag, index) => (
+          <Tag isFilled={0} txt={tag} />
+        ))}
         {tagsItems.map((tag, index) => (
           <Tag isFilled={0} txt={tag} />
         ))}
@@ -72,7 +75,9 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
 
     for (let i = 0; i < dummytaydata.length; i++) {
       if (dummytaydata[i].includes(valueSearch)) {
-        Result.push(dummytaydata[i]);
+        if (!selectedtagsItems.includes(dummytaydata[i])) {
+          Result.push(dummytaydata[i]);
+        }
       }
     }
     settagsItems(Result);
@@ -134,9 +139,6 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
               ></input>
             </div>
             <div>{getTagItemsJSX()}</div>
-            <br></br>
-            <div className="filter__cond-title"> Selected Tags </div>
-            <div>{getSelectedTagItemsJSX()}</div>
           </div>
 
           {/* 와인리스트에 대해서는 이부분 없애야함 */}
