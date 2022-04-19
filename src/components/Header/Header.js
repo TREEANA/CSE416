@@ -13,20 +13,22 @@ const Header = ({ status, toggleStatus }) => {
           onClick={() => toggleStatus("sideBarModal")}
         ></BsGrid>
         <Link to="/">
-          <h1 className="header__title">podo</h1>
+          <h1 className="header__title">
+            <b>p</b>odo
+          </h1>
         </Link>
         {location.pathname !== "/profile" ? (
           <BsSearch
             className="header__search"
             onClick={() => {
-              toggleStatus("searchBar");
+              toggleStatus("searchBarModal");
             }}
           ></BsSearch>
         ) : (
           <BsPeople
             className="header__search"
             onClick={() => {
-              toggleStatus("peopleBar");
+              toggleStatus("searchBarModal");
             }}
           ></BsPeople>
         )}

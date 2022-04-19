@@ -25,7 +25,7 @@ import VerifyPage from "./pages/VerifyPage/VerifyPage";
 
 const App = () => {
   const [status, setStatus] = useState({
-    user: 0,
+    user: 3,
     sideBarModal: false,
     searchBarModal: false,
     loginModal: false,
@@ -73,7 +73,7 @@ const App = () => {
       ></CommentModal>
       <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
       <SearchBarModal
-        searchBarModalStatus={status.searchModal}
+        searchBarModalStatus={status.searchBarModal}
         toggleSearchBarModal={() => toggleStatus("searchBarModal")}
       ></SearchBarModal>
       <Header status={status} toggleStatus={toggleStatus} />
