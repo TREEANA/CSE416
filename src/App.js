@@ -1,44 +1,44 @@
 import "./App.css";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import Footer from "./components/Footer/Footer";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Login from "./components/Login/Login";
-import Review from "./components/Review/Review";
-import Detail from "./components/Detail/Detail";
-import Search from "./components/Search/Search";
-import Profile from "./components/Profile/Profile";
-import WinePage from "./components/WinePage/WinePage";
-import WineListPage from "./components/WineListPage/WineListPage";
-import FAQ from "./components/FAQ/FAQ";
-import TicketModal from "./components/TicketModal/TicketModal";
-import WineListDetail from "./components/WineListDetail/WineListDetail";
-import Register from "./components/Register/Register";
-import BecomeSommlier from "./components/BecomeSommlier/BecomeSommlier";
-import CreateWineList from "./components/CreateWineList/CreateWineList";
-import VerifySommelier from "./components/VerifySommelier/VerifySommelier";
-import Comment from "./components/Comment/Comment";
 
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+
+import LoginModal from "./modals/LoginModal/LoginModal";
+import RegisterModal from "./modals/RegisterModal/RegisterModal";
+import SideBarModal from "./modals/SideBarModal/SideBarModal";
+import SearchBarModal from "./modals/SearchBarModal/SearchBarModal";
+import ApplyModal from "./modals/ApplyModal/ApplyModal";
+import TicketModal from "./modals/TicketModal/TicketModal";
+import CreateModal from "./modals/CreateModal/CreateModal";
+import CommentModal from "./modals/CommentModal/CommentModal";
+
+import MainPage from "./pages/MainPage/MainPage";
+import WinePage from "./pages/WinePage/WinePage";
+import WineDetailPage from "./pages/WineDetailPage/WineDetailPage";
+import ListPage from "./pages/ListPage/ListPage";
+import ListDetailPage from "./pages/ListDetailPage/ListDetailPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import FaqPage from "./pages/FaqPage/FaqPage";
+import VerifyPage from "./pages/VerifyPage/VerifyPage";
 
 const App = () => {
   const [status, setStatus] = useState({
-    becomeSommlierModal: false,
-    user: 3,
-    sideBar: false,
-    searchBar: false,
+    user: 0,
+    sideBarModal: false,
+    searchBarModal: false,
     loginModal: false,
     registerModal: false,
     registerTagModal: false,
     ticketModal: false,
     filterModal: false,
     sortModal: false,
-    createWineListModal:false,
-    commentModal:false,
+    createModal: false,
+    applyModal: false,
+    commentModal: false,
   });
   const handleStatus = (name, value) => {
-    console.log(`handle${name}`);
     setStatus({
       ...status,
       [name]: value,
@@ -54,60 +54,60 @@ const App = () => {
 
   return (
     <Router>
-      <Sidebar status={status} toggleStatus={toggleStatus}></Sidebar>
+      <SideBarModal status={status} toggleStatus={toggleStatus}></SideBarModal>
       <TicketModal
         ticketModalStatus={status.ticketModal}
         toggleTicketModal={() => toggleStatus("ticketModal")}
       ></TicketModal>
-      <BecomeSommlier
-        becomeSommlierModalStatus={status.becomeSommlierModal}
-        togglebecomeSommlierModal={() => toggleStatus("becomeSommlierModal")}
-      ></BecomeSommlier>
-      <CreateWineList
-        createWineListModalStatus ={status.createWineListModal}
-        togglecreateWineListModal={() => toggleStatus("createWineListModal")}
-      ></CreateWineList>
-      <Comment
-      commentModalStatus= {status.commentModal}
-      togglecommentModal ={() => toggleStatus("commentModal")}
-      >
-      </Comment>
-      <Login status={status} toggleStatus={toggleStatus}></Login>
-      <Search
-        searchBarStatus={status.searchBar}
-        toggleSearchBar={() => toggleStatus("searchBar")}
-      ></Search>
+      <ApplyModal
+        applyModalStatus={status.applyModal}
+        toggleApplyModal={() => toggleStatus("applyModal")}
+      ></ApplyModal>
+      <CreateModal
+        CreateModalStatus={status.createModal}
+        toggleCreateModal={() => toggleStatus("createModal")}
+      ></CreateModal>
+      <CommentModal
+        commentModalStatus={status.commentModal}
+        togglecommentModal={() => toggleStatus("commentModal")}
+      ></CommentModal>
+      <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
+      <SearchBarModal
+        searchBarModalStatus={status.searchModal}
+        toggleSearchBarModal={() => toggleStatus("searchBarModal")}
+      ></SearchBarModal>
       <Header status={status} toggleStatus={toggleStatus} />
 
       <div className="article">
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<MainPage />} />
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<LoginModal />} />
           <Route
             path="/register"
-            element={<Register status={status} toggleStatus={toggleStatus} />}
+            element={
+              <RegisterModal status={status} toggleStatus={toggleStatus} />
+            }
           />
-          <Route path="/wineDetail" element={<Detail />} />
-          <Route path="/wineListDetail" element={<WineListDetail />} />
+          <Route path="/wineDetail" element={<WineDetailPage />} />
+          <Route path="/listDetail" element={<ListDetailPage />} />
           {/* detail includes Review, Filter */}
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/wineListPage" element={<WineListPage />} />
-          <Route path="/wineListDetail" element={<wineListDetail />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/listPage" element={<ListPage />} />
 
           <Route
             path="/winePage"
             element={
               <WinePage
                 filterModal={status.filterModal}
+                sortModal={status.sortModal}
                 toggleFilterModal={() => toggleStatus("filterModal")}
                 toggleSortModal={() => toggleStatus("sortModal")}
-                sortModal={status.sortModal}
               />
             }
           />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path = "verifysomm" element = {<VerifySommelier/>} />
+          <Route path="/faq" element={<FaqPage />} />
+          <Route path="verifysomm" element={<VerifyPage />} />
         </Routes>
       </div>
 
