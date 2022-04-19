@@ -28,15 +28,13 @@ const SideBarModal = ({ status, toggleStatus }) => {
             />
           </div>
 
-          <div className="sidebar__register">
-            <Link
-              to="/register"
-              onClick={() => {
-                toggleStatus("sideBarModal", "registerModal");
-              }}
-            >
-              don't have an account?
-            </Link>
+          <div
+            className="sidebar__register"
+            onClick={() => {
+              toggleStatus("sideBarModal", "registerModal");
+            }}
+          >
+            don't have an account?
           </div>
         </div>
       );

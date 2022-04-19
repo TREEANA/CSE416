@@ -76,6 +76,10 @@ const App = () => {
         searchBarModalStatus={status.searchModal}
         toggleSearchBarModal={() => toggleStatus("searchBarModal")}
       ></SearchBarModal>
+      <RegisterModal
+        status={status}
+        toggleStatus={toggleStatus}
+      ></RegisterModal>
       <Header status={status} toggleStatus={toggleStatus} />
 
       <div className="article">

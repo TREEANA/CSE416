@@ -102,13 +102,6 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
     }
   };
 
-  const seachtag = () => {
-    if (dummytaydata.includes(valueSearch)) {
-      console.log("hi");
-      tagsResult.push(<Tag isFilled={0} txt={valueSearch} />);
-    }
-  };
-
   //range slider from Material-UI
   //https://mui.com/getting-started/installation/
 

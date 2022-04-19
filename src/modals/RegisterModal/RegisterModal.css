@@ -1,28 +1,48 @@
 .text-dark {
-    color: #343a40 !important;
+  color: #343a40 !important;
 }
 
 input:focus {
-    border: 1px solid var(--primary);
+  border: 1px solid var(--primary);
 }
 
 input:hover,
 input:not(:hover) {
-    outline: none;
+  outline: none;
 }
 
 .register {
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--bg-20);
-    /* transform: translateY(-100%); */
-    z-index: 2;
-    position: fixed;
-    top: 0;
-    left: 0;
-    color: var(--primary);
-    display: flex;
-    flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-20);
+  /* transform: translateY(-100%); */
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: var(--primary);
+  display: flex;
+  flex-direction: column;
+}
+.register__image__box {
+  border-radius: 50%;
+  height: 9rem;
+  width: 9rem;
+  background-color: var(--text-50);
+  display: flex;
+  align-items: center;
+  color: var(--bg-0);
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.register__image__box__container {
+  align-content: center;
+  display: flex;
+  color: var(--bg-0);
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 /* .register--inactive {
@@ -38,75 +58,108 @@ input:not(:hover) {
 } */
 
 .register__header {
-    display: flex;
-    margin: var(--margin-out);
-    font-size: 2rem;
-    justify-content: space-between;
+  display: flex;
+  margin: var(--margin-out);
+  font-size: 2rem;
+  justify-content: space-between;
 }
 
 .register__back:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.register__home>a {
-    color: var(--primary);
-    font-weight: bold;
+.register__home > a {
+  color: var(--primary);
+  font-weight: bold;
 }
 
 .register__home:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .register__main {
-    margin: 0 var(--margin-out);
+  margin: 0 var(--margin-out);
 }
 
 .register__title {
-    font-size: var(--size-title);
-    font-weight: bold;
-    margin: var(--margin-out) 0;
+  font-size: var(--size-title);
+  font-weight: bold;
 }
 
 .register__main-content {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .register__email,
 .register__name,
 .register__pwd,
 .register__pwd2 {
-    margin: 0.5rem 0;
-    height: 2.5rem;
-    border-radius: 5rem;
-    border-style: none;
-    font-size: var(--size-btn);
-    padding: 0.5rem 1rem;
-
+  margin: 0.5rem 0;
+  height: 2rem;
+  border-radius: 5rem;
+  border-style: none;
+  font-size: var(--size-btn);
+  padding: 0.5rem 1rem;
+}
+.register__poto__file {
+  font-size: var(--size-txt);
+  color: var(--primary);
 }
 
 .register__name-warning,
 .register__pwd-warning {
-    display: flex;
-    justify-content: flex-end;
-    color: var(--text-50);
-    font-size: var(--size-txt);
+  display: flex;
+  justify-content: flex-end;
+  color: var(--text-50);
+  font-size: var(--size-txt);
 }
 
 .register__register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--primary);
-    border: 1px var(--primary) solid;
-    color: var(--bg-0);
-    font-size: var(--size-btn);
-    height: 2.5rem;
-    padding: 0.5rem 1rem;
-    margin: var(--margin-out) 0;
-    border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary);
+  border: 1px var(--primary) solid;
+  color: var(--bg-0);
+  font-size: var(--size-btn);
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+  margin: var(--margin-out) 0;
+  border-radius: 30px;
 }
 
 .register__register:hover {
-    cursor: pointer;
+  cursor: pointer;
+}
+.register_subtitle {
+  font-weight: bold;
+  font-size: var(--size-txt);
+  margin-bottom: 10px;
+}
+.registertag__main-content {
+  display: flex;
+  flex-direction: column;
+}
+.registertag__main-search {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: lightgray 1px solid;
+  height: 2rem;
+}
+
+.registertag__main-search-icon {
+  margin: 2px;
+  padding: 2px;
+}
+
+.registertag__main-search-input {
+  width: 100%;
+  border: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: var(--size-btn);
+  background-color: transparent;
 }
