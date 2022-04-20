@@ -1,36 +1,49 @@
 import React, { useState } from "react";
 import "./Review.css";
-import {  BsFillStarFill,BsPatchCheckFill } from "react-icons/bs";
+import { BsFillStarFill, BsPatchCheckFill } from "react-icons/bs";
 
-const Review = ({userstatus}) => {
-    // userstatus = 1;
-    return (
-      <>
-        <div className = {userstatus == 1? "review--somm" : "review"}> 
-            <div className = "review__title">
-                <div className = "review__user">
-                    <div className = "review__user-image" src = "https://mymodernmet.com/wp/wp-content/uploads/2020/08/sommelier-shutterstock-1.jpg"> </div>
-                    {/* <img className = "review__user-image" src = "https://mymodernmet.com/wp/wp-content/uploads/2020/08/sommelier-shutterstock-1.jpg"> </img> */}
-                    <div className = "review__user-info"> 
-                        <div className = "review__user-name">Marc Almert</div>
-                        <div className = "review__user-date"> 2022.02.27 </div>
-                    </div>
-                    <div className = "review__user-icon" > {userstatus == 1 ? <BsPatchCheckFill/> : <div></div>} </div>
-                </div>
-                <div className = {userstatus == 1? "review__user-rate--somm" :"review__user-rate"}> <BsFillStarFill /> 4.5 </div>
+const Review = ({ userstatus }) => {
+  // userstatus = 1;
+  return (
+    <>
+      <div className={userstatus == 1 ? "review--somm" : "review"}>
+        <div className="review__title">
+          <div className="review__user">
+            <div
+              className="review__user-image"
+              src="https://mymodernmet.com/wp/wp-content/uploads/2020/08/sommelier-shutterstock-1.jpg"
+            ></div>
+            <div className="review__user-info">
+              <div className="review__user-name">Marc Almert</div>
+              <div className="review__user-date"> 2022.02.27 </div>
             </div>
-
-            <div className = "review__tag"> 
-                <div className = "review__ind-tag"> light </div>
-                <div className = "review__ind-tag"> steak </div>
-                <div className = "review__ind-tag"> picnic </div>
-                <div className = "review__ind-tag"> dry </div>
+            <div className="review__user-icon">
+              {userstatus == 1 ? <BsPatchCheckFill /> : <div></div>}
             </div>
-            <div className = "review__content">Fantastic Tinta de toro! Strong Flavors of tobacco, vanilla, leather, oak, earthly hints of pure toro. Matsu el regio 4.5 to a great wine.</div>
+          </div>
+          <div
+            className={
+              userstatus == 1 ? "review__user-rate--somm" : "review__user-rate"
+            }
+          >
+            <BsFillStarFill />
+            4.5
+          </div>
         </div>
-      </>
-    );
-  };
-  
+
+        <div className="review__tag">
+          <div className="review__ind-tag"> light </div>
+          <div className="review__ind-tag"> steak </div>
+          <div className="review__ind-tag"> picnic </div>
+          <div className="review__ind-tag"> dry </div>
+        </div>
+        <div className="review__content">
+          Fantastic Tinta de toro! Strong Flavors of tobacco, vanilla, leather,
+          oak, earthly hints of pure toro. Matsu el regio 4.5 to a great wine.
+        </div>
+      </div>
+    </>
+  );
+};
+
 export default Review;
-  

@@ -34,10 +34,7 @@ const Detail = () => {
               </div>
               <div className="detail__wine-rate">★4.5</div>
               <div className="detail__wine-price">₩17,000</div>
-            </div>
-
-
-            
+            </div>            
           </div>
 
           {/* <div className="detail__wine-taste">
