@@ -3,7 +3,7 @@ button:hover {
 }
 
 .detail__wine {
-  width: calc(100% - 3rem);
+  /* width: calc(100% - 3rem); */
   height: 100%;
   margin-top: var(--margin-out);
   border-radius: 30px;
@@ -201,4 +201,60 @@ button:hover {
   animation-duration: 1s;
   -webkit-animation-name: indicatorBar__bounceIn--lAgLM;
   animation-name: indicatorBar__bounceIn--lAgLM;
+}
+
+.detail__wineChar {
+  margin: 0 var(--margin-out);
+}
+
+.detail__wineCharInd {
+  display: flex;
+  align-items: center;
+}
+.detail__wineCharName {
+  /* margin: 5px; */
+  font-weight: light;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.detail__wineCharSlider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 15px; /* Specified height */
+  background: var(--bg-0); /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+  border-radius: 30px;
+  margin: 15px 10px;
+}
+
+.detail__wineCharSlider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  /* Set a specific slider handle width */
+  /* width: 50px;  */
+  width: 15%;
+  height: 15px; /* Slider handle height */
+  border-radius: 30px;
+  background: var(--primary); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.detail__windCharSlider::focused,
+.detail__windCharSlider:not(focused) {
+  outline: none;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+.detail__wineChar:focus,
+.detail__wineChar:not(focus) {
+  outline: none;
 }

@@ -11,36 +11,6 @@ import {
 import Ticket from "../../components/Ticket/Ticket";
 
 const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
-  // const [TicketAnswerStatus, setTicketAnswerStatus] = useState(0);
-  // const [TicketAnswer1Status, setTicketAnswer1Status] = useState(0);
-  // const [TicketAnswer2Status, setTicketAnswer2Status] = useState(0);
-  // const answer = () => {
-  //   setTicketAnswerStatus(!TicketAnswerStatus);
-  //   if (TicketAnswerStatus) {
-  //     $(".ticket_answer_box").hide();
-  //   } else {
-  //     $(".ticket_answer_box").show();
-  //   }
-  // };
-
-  // const defaultanswer1 = () => {
-  //   setTicketAnswer1Status(!TicketAnswer1Status);
-  //   if (TicketAnswer1Status) {
-  //     $(".ticket_answer1").hide();
-  //   } else {
-  //     $(".ticket_answer1").show();
-  //   }
-  // };
-
-  // const defaultanswer2 = () => {
-  //   setTicketAnswerStatus(!TicketAnswerStatus);
-  //   if (TicketAnswerStatus) {
-  //     $(".ticket_answer2").hide();
-  //   } else {
-  //     $(".ticket_answer2").show();
-  //   }
-  // };
-
   return (
     <>
       <div
