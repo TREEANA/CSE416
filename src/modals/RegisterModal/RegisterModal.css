@@ -16,7 +16,7 @@ input:not(:hover) {
   height: 100vh;
   background-color: var(--bg-20);
   /* transform: translateY(-100%); */
-  z-index: 2;
+  z-index: 650;
   position: fixed;
   top: 0;
   left: 0;

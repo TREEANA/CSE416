@@ -42,14 +42,17 @@ const SideBarModal = ({ status, toggleStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <div
-              className="sidebar__profile"
-              onClick={() => {
-                toggleStatus("sideBarModal");
-              }}
-            >
-              <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-            </div>
+            <Link to="/profile">
+              <div
+                className="sidebar__profile"
+                onClick={() => {
+                  toggleStatus("sideBarModal");
+                }}
+              >
+                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+                <div className="sidebar__name">iamdooddi</div>
+              </div>
+            </Link>
             <BsXLg
               className="sidebar__close"
               onClick={() => toggleStatus("sideBarModal")}
@@ -61,20 +64,18 @@ const SideBarModal = ({ status, toggleStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <div
-              className="sidebar__profile"
-              onClick={() => {
-                toggleStatus("sideBarModal");
-              }}
-            >
-              <Link to="/profile">
+            <Link to="/profile">
+              <div
+                className="sidebar__profile"
+                onClick={() => {
+                  toggleStatus("sideBarModal");
+                }}
+              >
                 <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-              </Link>
-              <div className="sidebar__name">
-                <Link to="/profile">iamdooddi</Link>
+                <div className="sidebar__name">iamdooddi</div>
+                <MdWineBar className="sidebar__icon" />
               </div>
-              <MdWineBar className="sidebar__icon" />
-            </div>
+            </Link>
             <BsXLg
               className="sidebar__close"
               onClick={() => toggleStatus("sideBarModal")}
