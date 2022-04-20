@@ -19,15 +19,6 @@ const Footer = () => {
               <Link to="/email-us">Email Us</Link>
             </div>
           </div>
-          <div className="footer__section">
-            SOCIAL
-            <div className="footer__link">
-              <Link to="/instagram">Instagram</Link>
-            </div>
-            <div className="footer__link">
-              <Link to="/facebook">Facebook</Link>
-            </div>
-          </div>
         </div>
       </footer>
     </>
