@@ -44,8 +44,6 @@
   border: 1px solid var(--text-100);
 }
 
-<<<<<<< HEAD
-=======
 .review__user-image > img {
   width: 40px;
   height: 40px;
@@ -54,7 +52,6 @@
   margin-right: 0.5rem;
 }
 
->>>>>>> 8eb31d13b86107da4da4c31cd7f85561db4c0ca7
 .review__user-info {
 }
 

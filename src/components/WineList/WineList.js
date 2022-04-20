@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./WineList.css";
 import { BsCircleFill, BsCircle } from "react-icons/bs";
-import axios from "axios";
+// import axios from "axios";
 
 const defaultWineList = {
   wineListID: 0,

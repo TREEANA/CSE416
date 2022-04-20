@@ -41,11 +41,7 @@ const WineDetailPage = () => {
               </div>
               <div className="detail__wine-rate">★4.5</div>
               <div className="detail__wine-price">₩17,000</div>
-<<<<<<< HEAD:src/components/Detail/Detail.js
-            </div>            
-=======
             </div>
->>>>>>> 8eb31d13b86107da4da4c31cd7f85561db4c0ca7:src/pages/WineDetailPage/WineDetailPage.js
           </div>
 
           {/* <div className="detail__wine-taste">

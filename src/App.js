@@ -25,7 +25,7 @@ import VerifyPage from "./pages/VerifyPage/VerifyPage";
 
 const App = () => {
   const [status, setStatus] = useState({
-    user: 3,
+    user: 1,
     sideBarModal: false,
     searchBarModal: false,
     loginModal: false,

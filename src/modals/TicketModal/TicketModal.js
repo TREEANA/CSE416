@@ -43,18 +43,23 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
 
   return (
     <>
-      <div className={ticketModalStatus ? "ticket" : "ticket--inactive"}>
-        <div className="ticket__container">
-          <div className="ticket__header">
-            <div className="ticket__header-title">view tickets</div>
-            <BsXLg className="ticket__top-close" onClick={toggleTicketModal} />
+      <div
+        className={ticketModalStatus ? "ticketModal" : "ticketModal--inactive"}
+      >
+        <div className="ticketModal__container">
+          <div className="ticketModal__header">
+            <div className="ticketModal__header-title">view tickets</div>
+            <BsXLg
+              className="ticketModal__top-close"
+              onClick={toggleTicketModal}
+            />
           </div>
-          <div className="ticket__create">
+          <div className="ticketModal__create">
             <BsFillPlusCircleFill /> create a new ticket
           </div>
 
           <Ticket
-            type="ticket"
+            type="ticketModal"
             ticketStatus={0}
             title={"Trouble Logging in"}
             question={"I have trouble logging in with my account"}
@@ -63,7 +68,7 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
             }
           />
           <Ticket
-            type="ticket"
+            type="ticketModal"
             ticketStatus={1}
             title={"Trouble Logging in"}
             question={"I have trouble logging in with my account"}
