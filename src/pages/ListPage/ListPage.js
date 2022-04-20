@@ -4,7 +4,7 @@ import WineList from "../../components/WineList/WineList";
 import FilterModal from "../../modals/FilterModal/FilterModal";
 import "./ListPage.css";
 
-const defaultList = [
+const defaultLists = [
   {
     wineListID: 0,
     userID: 0,
@@ -49,7 +49,7 @@ const defaultList = [
 const ListPage = ({ status, toggleStatus }) => {
   const location = useLocation();
   const theme = location.pathname.split("/")[2];
-  const list = defaultList;
+  const list = defaultLists;
   const displayLists = () => {
     const result = [];
     list.forEach((each, i) => {
@@ -62,10 +62,6 @@ const ListPage = ({ status, toggleStatus }) => {
   };
   return (
     <>
-      <FilterModal
-        filterModal={status.filterModal}
-        toggleFilterModal={() => toggleStatus("filterModal")}
-      />
       <div className="wineListPage">
         <div className="wineListPage__titleCont">
           <div className="wineListPage__text">Wine Lists</div>
@@ -83,6 +79,10 @@ const ListPage = ({ status, toggleStatus }) => {
         </div>
         {displayLists()}
       </div>
+      <FilterModal
+        filterModal={status.filterModal}
+        toggleFilterModal={() => toggleStatus("filterModal")}
+      />
     </>
   );
 };

@@ -22,6 +22,7 @@ import ListDetailPage from "./pages/ListDetailPage/ListDetailPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import FaqPage from "./pages/FaqPage/FaqPage";
 import VerifyPage from "./pages/VerifyPage/VerifyPage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 const App = () => {
   const [status, setStatus] = useState({
@@ -102,17 +103,13 @@ const App = () => {
             path="/lists/*"
             element={<ListPage status={status} toggleStatus={toggleStatus} />}
           />
-
           <Route
-            path="/winePage"
-            element={
-              <WinePage
-                filterModal={status.filterModal}
-                sortModal={status.sortModal}
-                toggleFilterModal={() => toggleStatus("filterModal")}
-                toggleSortModal={() => toggleStatus("sortModal")}
-              />
-            }
+            path="/wines/*"
+            element={<WinePage status={status} toggleStatus={toggleStatus} />}
+          />
+          <Route
+            path="/search/*"
+            element={<SearchPage status={status} toggleStatus={toggleStatus} />}
           />
           <Route path="/faq" element={<FaqPage />} />
           <Route path="verifysomm" element={<VerifyPage />} />

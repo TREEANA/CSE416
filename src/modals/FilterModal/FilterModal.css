@@ -10,13 +10,7 @@
 }
 
 .filter--inactive {
-  width: 100vw;
-  height: 100vh;
-  color: var(--primary);
-  transform: translateY(-110%);
-  transition: 1s;
-  position: fixed;
-  z-index: 700;
+  display: none;
 }
 
 .filter__top {
