@@ -3,26 +3,28 @@ import "./WineList.css";
 import { BsCircleFill, BsCircle } from "react-icons/bs";
 import axios from "axios";
 
-const WineList = ({}) => {
-  const [wineList, setWineList] = useState({
-    wineListID: 0,
-    userID: 0,
-    title: "Title 1",
-    images: [
-      "https://images.unsplash.com/photo-1566995541428-f2246c17cda1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
-      "https://images.vivino.com/thumbs/ygTg4K4vR5GYCjWTFocWng_pb_x600.png",
-      "https://images.vivino.com/thumbs/8grEUdS1S4K9s7DQhmqyfg_pb_x600.png",
-      "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-    ],
-    content: "Content 1",
-    lastUpdatedAt: new Date(),
-  });
-  const [author, setAuthor] = useState({
-    userID: 0,
-    username: "Woohyun Park",
-    profileImage:
-      "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-  });
+const defaultWineList = {
+  wineListID: 0,
+  userID: 0,
+  title: "Title 1",
+  images: [
+    "https://images.unsplash.com/photo-1566995541428-f2246c17cda1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+    "https://images.vivino.com/thumbs/ygTg4K4vR5GYCjWTFocWng_pb_x600.png",
+    "https://images.vivino.com/thumbs/8grEUdS1S4K9s7DQhmqyfg_pb_x600.png",
+    "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
+  ],
+  content: "Content 1",
+  lastUpdatedAt: new Date(),
+};
+
+const defaultAuthor = {
+  userID: 0,
+  username: "Woohyun Park",
+  profileImage:
+    "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+};
+
+const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
   const [likeStatus, setLikeStatus] = useState(0);
   const [curPage, setCurPage] = useState(0);
   const onPageClick = (num) => {

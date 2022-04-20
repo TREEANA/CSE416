@@ -1,9 +1,9 @@
 import React from "react";
-import "./WinePage.css";
 import Wine from "../../components/Wine/Wine";
 import Sort from "../../modals/SortModal/SortModal";
 import Filter from "../../modals/FilterModal/FilterModal";
 import WineList from "../../components/WineList/WineList";
+import "./WinePage.css";
 
 const WinePage = ({
   filterModal,
