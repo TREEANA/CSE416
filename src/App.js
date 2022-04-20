@@ -80,6 +80,7 @@ const App = () => {
         status={status}
         toggleStatus={toggleStatus}
       ></RegisterModal>
+
       <Header status={status} toggleStatus={toggleStatus} />
 
       <div className="article">
@@ -98,7 +99,7 @@ const App = () => {
           {/* detail includes Review, Filter */}
           <Route path="/profile" element={<ProfilePage />} />
           <Route
-            path="/list/*"
+            path="/lists/*"
             element={<ListPage status={status} toggleStatus={toggleStatus} />}
           />
 

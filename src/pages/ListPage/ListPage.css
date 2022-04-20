@@ -23,7 +23,7 @@
 }
 
 .wineListPage__title:hover {
-  cursor: pointer;
+  cursor: default;
 }
 
 .wineListPage__btnCont {

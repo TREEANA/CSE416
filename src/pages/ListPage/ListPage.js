@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import WineList from "../../components/WineList/WineList";
+import FilterModal from "../../modals/FilterModal/FilterModal";
 import "./ListPage.css";
 
 const defaultList = [
@@ -60,25 +61,29 @@ const ListPage = ({ status, toggleStatus }) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
   return (
-    <div className="wineListPage">
-      <div className="wineListPage__titleCont">
-        <div className="wineListPage__text">Wine Lists</div>
-        <Link to={"list/picnic"}>
+    <>
+      <FilterModal
+        filterModal={status.filterModal}
+        toggleFilterModal={() => toggleStatus("filterModal")}
+      />
+      <div className="wineListPage">
+        <div className="wineListPage__titleCont">
+          <div className="wineListPage__text">Wine Lists</div>
           <div className="wineListPage__title">{formatTheme(theme)}</div>
-        </Link>
+        </div>
+        <div className="wineListPage__btnCont">
+          <button
+            className="wineListPage__filter"
+            onClick={() => {
+              toggleStatus("filterModal");
+            }}
+          >
+            filter
+          </button>
+        </div>
+        {displayLists()}
       </div>
-      <div className="wineListPage__btnCont">
-        <button
-          className="wineListPage__filter"
-          onClick={() => {
-            toggleStatus("filterModal");
-          }}
-        >
-          filter
-        </button>
-      </div>
-      {displayLists()}
-    </div>
+    </>
   );
 };
 
