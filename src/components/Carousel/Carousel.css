@@ -1,0 +1,49 @@
+.carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  margin: 2rem 0;
+  position: relative;
+  transition: 1s;
+  height: 20rem;
+}
+
+.carousel--0 {
+  transform: translateX(0%);
+}
+.carousel--1 {
+  transform: translateX(-100%);
+}
+.carousel--2 {
+  transform: translateX(-200%);
+}
+.carousel--3 {
+  transform: translateX(-300%);
+}
+.carousel--4 {
+  transform: translateX(-400%);
+}
+.carousel--5 {
+  transform: translateX(-500%);
+}
+.carousel--6 {
+  transform: translateX(-600%);
+}
+.carousel--7 {
+  transform: translateX(-700%);
+}
+.carousel--8 {
+  transform: translateX(-800%);
+}
+.carousel--9 {
+  transform: translateX(-900%);
+}
+.carousel--10 {
+  transform: translateX(-1000%);
+}
+
+.carousel__image {
+  display: flex;
+  justify-content: center;
+  min-width: 100%;
+}
