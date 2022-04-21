@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { BsXLg, BsFillCheckCircleFill, BsThreeDots } from "react-icons/bs";
 import "./Faqbox.css";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const dummyData = {
   ticketID: 1,
@@ -25,24 +30,24 @@ const Faqbox = ({ num }) => {
   const verifybtn = () => {
     if (num === 0) {
       return (
-        <div className="verifysomm__verify-btn">
-          <div className="verifysomm__verify-reject">
+        <div className="verifysomm__verifyBtn">
+          <div className="verifysomm__verifyReject">
             <BsXLg />
           </div>
         </div>
       );
     } else if (num === 1) {
       return (
-        <div className="verifysomm__verify-btn">
-          <div className="verifysomm__verify-approve">
+        <div className="verifysomm__verifyBtn">
+          <div className="verifysomm__verifyApprove">
             <BsFillCheckCircleFill />
           </div>
         </div>
       );
     } else if (num === 2) {
       return (
-        <div className="verifysomm__verify-btn">
-          <div className="verifysomm__verify-pending">
+        <div className="verifysomm__verifyBtn">
+          <div className="verifysomm__verifyPending">
             <BsThreeDots />
           </div>
         </div>
@@ -52,24 +57,23 @@ const Faqbox = ({ num }) => {
 
   return (
     <>
-      {" "}
-      <div className="verifysomm__verify-ind" onClick={toggleInd2Status}>
-        <div className="verifysomm__verify-info">
+      <div className="verifysomm__verifyInd" onClick={toggleInd2Status}>
+        <div className="verifysomm__verifyInfo">
           <img src="https://img.jamieoliver.com/home/wp-content/uploads/features-import/2015/09/feature-header8.jpg"></img>
-          <div className="verifysomm__verify-name"> {dummyData.createdAt}</div>
+          <div className="verifysomm__verifyName"> {dummyData.createdAt}</div>
         </div>
         {verifybtn()}
       </div>
       {ind2Status && (
-        <div className="verifysomm__verify-detail">
-          <div className="verifysomm__verify-detail-img">
+        <div className="verifysomm__verifyDetail">
+          <div className="verifysomm__verifyDetailImg">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaP4OqblIDCQJm3iCLap4B54afd_InVdqdVfauOESpHpJUosOh3kEXFkZMdC8yhLIbcvI&usqp=CAU"></img>
           </div>
-          <div className="verifysomm__verify-detail-comment">
-            <div className="verifysomm_verify-usercomment">
+          <div className="verifysomm__verifyDetailComment">
+            <div className="verifysomm_verifyUserComment">
               Submitting my sommelier certificate, contact me
             </div>
-            <div className="verifysomm__verfiy-admincomment">
+            <div className="verifysomm__verfiyAdminComment">
               Your certificate regarded valid, your user status will be promoted
               to "Sommelier".
             </div>
