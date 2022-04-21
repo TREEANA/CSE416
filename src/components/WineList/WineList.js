@@ -16,7 +16,6 @@ const defaultWineList = {
   content: "Content 1",
   lastUpdatedAt: new Date(),
 };
-
 const defaultAuthor = {
   userID: 0,
   username: "Woohyun Park",

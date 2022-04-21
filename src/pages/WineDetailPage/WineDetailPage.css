@@ -3,6 +3,7 @@ button:hover {
 }
 
 .detail__wine {
+
   /* width: calc(100% - 3rem); */
   height: 100%;
   margin-top: var(--margin-out);
@@ -18,6 +19,7 @@ button:hover {
   height: 100%;
   margin: 0rem 3rem 0rem 0rem;
 }
+
 
 .detail__wineImage > img {
   height: 100%;
@@ -35,6 +37,7 @@ button:hover {
   margin-bottom: 0.5rem;
 }
 
+
 .detail__wineTags {
   display: flex;
   flex-wrap: wrap;
@@ -48,6 +51,7 @@ button:hover {
   font-weight: bold;
 }
 
+
 .detail__winePrice {
   font-size: 2rem;
 }
@@ -56,6 +60,7 @@ button:hover {
   margin-bottom: 20px;
   width: 100%;
 }
+
 
 /* .detail__wineChar {
   height: 24px;
@@ -74,6 +79,7 @@ button:hover {
   height: 8px;
   border-radius: 5px;
 }
+
 
 .detail__wineRangeSpan {
   width: 20%;
@@ -147,12 +153,14 @@ button:hover {
   height: 1.5rem;
   align-items: center;
 }
+
 /* 
 .tag {
   background-color: transparent;
   border: 1px solid var(--primary);
   color: var(--primary);
 } */
+
 
 .detail__wineRecommTitle,
 .detail__reviewTitle,

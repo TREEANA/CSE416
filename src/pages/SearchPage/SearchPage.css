@@ -27,11 +27,6 @@
   cursor: default;
 }
 
-.winePage__text {
-  font-size: var(--size-txt);
-  color: var(--primary);
-}
-
 .winePage__btnCont {
   display: flex;
   justify-content: space-between;

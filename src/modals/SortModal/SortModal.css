@@ -5,18 +5,12 @@
   left: 0;
   color: var(--primary);
   background-color: var(--bg-0);
-  z-index: 2;
+  z-index: 700;
   position: fixed;
 }
 
 .sort--inactive {
-  width: 100vw;
-  height: 100vh;
-  color: var(--primary);
-  background-color: var(--bg-0);
-  transform: translateY(-100%);
-  z-index: 2;
-  transition: 1s;
+  display: none;
 }
 
 .sort__top {

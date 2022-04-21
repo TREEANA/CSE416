@@ -44,8 +44,7 @@ const SortModal = ({ sortModal, toggleSortModal }) => {
 
   return (
     <>
-      {/* <div className = {sortToggle? "sort": "sort--inactive"}> */}
-      <div className="sort">
+      <div className={sortModal ? "sort" : "sort--inactive"}>
         <div className="sort__top">
           <div className="sort__top-left">x</div>
           <div className="sort__top-title"> Sort </div>

@@ -4,8 +4,31 @@ import Wine from "../../components/Wine/Wine";
 import SortModal from "../../modals/SortModal/SortModal";
 import FilterModal from "../../modals/FilterModal/FilterModal";
 import WineList from "../../components/WineList/WineList";
-import "./WinePage.css";
+import "./SearchPage.css";
 
+const defaultWines = [
+  {
+    wineID: 0,
+    tags: ["picnic", "dry", "steak", "oak", "rose", "cherry"],
+    name: "Wine 1",
+    price: 17000,
+    rating: 4.5,
+  },
+  {
+    wineID: 1,
+    tags: ["picnic", "dry", "steak", "oak", "rose", "cherry"],
+    name: "Wine 2",
+    price: 17000,
+    rating: 4.5,
+  },
+  {
+    wineID: 2,
+    tags: ["picnic", "dry", "steak", "oak", "rose", "cherry"],
+    name: "Wine 3",
+    price: 17000,
+    rating: 4.5,
+  },
+];
 const defaultLists = [
   {
     wineListID: 0,
@@ -48,7 +71,12 @@ const defaultLists = [
   },
 ];
 
-const WinePage = ({ lists = defaultLists, status, toggleStatus }) => {
+const SearchPage = ({
+  lists = defaultLists,
+  wines = defaultWines,
+  status,
+  toggleStatus,
+}) => {
   const location = useLocation();
   const theme = location.pathname.split("/")[2];
   const filterModal = status.filterModal;
@@ -65,10 +93,17 @@ const WinePage = ({ lists = defaultLists, status, toggleStatus }) => {
     });
     return result;
   };
+  const displayLists = () => {
+    const result = [];
+    lists.forEach((each, i) => {
+      result.push(<WineList wineList={each} />);
+    });
+    return result;
+  };
   return (
     <div className="winePage">
       <div className="winePage__titleCont">
-        <div className="winePage__text">Wines</div>
+        <div className="winePage__text">search results for</div>
         <div className="winePage__title">{formatTheme(theme)}</div>
       </div>
       <div className="winePage__btnCont">
@@ -80,6 +115,14 @@ const WinePage = ({ lists = defaultLists, status, toggleStatus }) => {
         </button>
       </div>
       {displayWines()}
+      <Link to={"/wines/" + theme}>
+        <div className="winePage__btn">show more wines</div>
+      </Link>
+      <hr className="winePage__hr"></hr>
+      {displayLists()}
+      <Link to={"/lists/" + theme}>
+        <div className="winePage__btn">show more wine lists</div>
+      </Link>
       <FilterModal
         toggleFilterModal={toggleFilterModal}
         filterModal={filterModal}
@@ -89,4 +132,4 @@ const WinePage = ({ lists = defaultLists, status, toggleStatus }) => {
   );
 };
 
-export default WinePage;
+export default SearchPage;
