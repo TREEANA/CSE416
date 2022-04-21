@@ -3,8 +3,8 @@
   margin: 0.2rem;
   padding: 0.5rem;
   border-radius: 30px;
-  background-color: var(--bg-100);
-  color: var(--bg-0);
+  color: var(--primary);
+  border: 0.1rem solid var(--primary);
 }
 
 .tag:hover {

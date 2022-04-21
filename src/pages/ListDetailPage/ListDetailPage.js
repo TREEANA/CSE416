@@ -100,8 +100,10 @@ const ListDetailPage = ({
   const displayTags = () => {
     const result = [];
     wines[curPage].tags.forEach((each, i) => {
-      if (i < 3) result.push(<Tag isFilled={1} isDisabled={1} txt={each} />);
-      else result.push(<Tag isDisabled={1} txt={each} />);
+      if (i < 1) result.push(<Tag type="select" txt={each} />);
+      else if (i < 3)
+        result.push(<Tag type="wineButton" isFilled={true} txt={each} />);
+      else result.push(<Tag type="wineButton" isFilled={false} txt={each} />);
     });
     return result;
   };
