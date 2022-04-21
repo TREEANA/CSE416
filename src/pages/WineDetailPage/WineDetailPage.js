@@ -75,6 +75,7 @@ const WineDetailPage = (
                 max="5"
                 value={lightness}
                 disable="disable"
+                readonly
               />
               <div className="detail__wineCharName"> bold</div>
             </div>
@@ -88,6 +89,7 @@ const WineDetailPage = (
                 max="5"
                 value={smoothness}
                 disable="disable"
+                readonly
               />
               <div className="detail__wineCharName"> tannin</div>
             </div>
@@ -101,6 +103,7 @@ const WineDetailPage = (
                 max="5"
                 value={sweetness}
                 disable="disable"
+                readonly
               />
               <div className="detail__wineCharName"> dry</div>
             </div>
@@ -114,6 +117,7 @@ const WineDetailPage = (
                 max="5"
                 value={softness}
                 disable="disable"
+                readonly
               />
               <div className="detail__wineCharName"> acidic</div>
             </div>
@@ -146,11 +150,11 @@ const WineDetailPage = (
                 <div className="detail__reviewPlus"> +</div>
               </div>
               <div>
-                <Tag isDisabled={0} isFilled={1} txt="x acidic"></Tag>
-                <Tag isDisabled={0} isFilled={1} txt="x dry"></Tag>
-                <Tag isDisabled={0} isFilled={1} txt="x light"></Tag>
-                <Tag isDisabled={0} isFilled={1} txt="x steak"></Tag>
-                <Tag isDisabled={0} isFilled={1} txt="x picnic"></Tag>
+                <Tag type="select" txt="acidic"></Tag>
+                <Tag type="select" txt="dry"></Tag>
+                <Tag type="select" txt="light"></Tag>
+                <Tag type="select" txt="acidic"></Tag>
+                <Tag type="select" txt="acidic"></Tag>
               </div>
             </div>
 
