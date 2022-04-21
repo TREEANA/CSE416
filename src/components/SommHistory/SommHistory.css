@@ -91,7 +91,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: yellow;
+  background-color: #f9e000;
   color: var(--bg-0);
 }
 .verifysomm__verifyPending > svg {

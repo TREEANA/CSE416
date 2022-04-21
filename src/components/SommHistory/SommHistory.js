@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { BsXLg, BsFillCheckCircleFill, BsThreeDots } from "react-icons/bs";
-import "./Faqbox.css";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import "./SommHistory.css";
 
 const dummyData = {
   ticketID: 1,
@@ -21,7 +16,7 @@ const dummyData = {
   // 날짜를 쓰자
 };
 
-const Faqbox = ({ num }) => {
+const SommHistory = ({ num }) => {
   const [ind2Status, setInd2Status] = useState(false);
 
   const toggleInd2Status = () => {
@@ -84,4 +79,4 @@ const Faqbox = ({ num }) => {
   );
 };
 
-export default Faqbox;
+export default SommHistory;

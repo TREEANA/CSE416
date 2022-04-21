@@ -17,16 +17,25 @@ import {
   BsStarFill,
 } from "react-icons/bs";
 
-const WineDetailPage = ({
-  name,
-  images,
-  lightness,
-  smoothness,
-  sweetness,
-  softness,
-  price,
-  grape,
-}) => {
+const WineDetailPage = (
+  {
+    // name,
+    // images,
+    // lightness,
+    // smoothness,
+    // sweetness,
+    // softness,
+    // price,
+    // grape,
+  }
+) => {
+  let name = "meonoi";
+  let smoothness = 2.4;
+  let sweetness = 2;
+  let softness = 3;
+  let lightness = 2.5;
+  let price = 25000;
+
   const initTags = {};
   // const tagsSorted = [...movies].sort(
   //   (a, b) => b[sortProperty] - a[sortProperty]
