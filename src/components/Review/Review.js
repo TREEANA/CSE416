@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Review.css";
 import { BsFillStarFill, BsPatchCheckFill } from "react-icons/bs";
+
 import { MdWineBar, MdSettings } from "react-icons/md";
 
 const dumyReviewdata = {
@@ -60,7 +61,6 @@ const Review = ({ userstatus }) => {
             {dumyReviewdata.rating}{" "}
           </div>
         </div>
-
         <div className="review__tag">{getTags(dumyReviewdata.tags)}</div>
         <div className="review__content"> {dumyReviewdata.content} </div>
       </div>

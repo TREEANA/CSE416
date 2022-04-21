@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Ticket.css";
-import $ from "jquery";
+// import $ from "jquery";
 import {
   BsXLg,
   BsFilePlusFill,

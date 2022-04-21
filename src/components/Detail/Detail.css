@@ -3,8 +3,7 @@ button:hover {
 }
 
 .detail__wine {
-
-  /* width: calc(100% - 3rem); */
+  width: calc(100% - 3rem);
   height: 100%;
   margin-top: var(--margin-out);
   border-radius: 30px;
@@ -15,54 +14,50 @@ button:hover {
   background-color: var(--bg-20);
 }
 
-.detail__wineImage {
+.detail__wine-image {
   height: 100%;
   margin: 0rem 3rem 0rem 0rem;
 }
 
-
-.detail__wineImage > img {
+.detail__wine-image > img {
   height: 100%;
 }
 
-.detail__wineDetail {
+.detail__wine-detail {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
 
-.detail__wineTitle {
+.detail__wine-title {
   font-size: 2rem;
   text-align: right;
   margin-bottom: 0.5rem;
 }
 
-
-.detail__wineTags {
+.detail__wine-tags {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   margin-bottom: 1rem;
 }
 
-.detail__wineRate {
+.detail__wine-rate {
   font-size: var(--size-title);
   color: var(--primary);
   font-weight: bold;
 }
 
-
-.detail__winePrice {
+.detail__wine-price {
   font-size: 2rem;
 }
 
-.detail__wineTaste {
+.detail__wine-taste {
   margin-bottom: 20px;
   width: 100%;
 }
 
-
-/* .detail__wineChar {
+.detail__wine-char {
   height: 24px;
   margin-bottom: 8px;
   white-space: nowrap;
@@ -73,15 +68,14 @@ button:hover {
 }
 
 .detail__wine-range {
-} */
+}
 
-.detail__wineRangeDiv {
+.detail__wine-range-div {
   height: 8px;
   border-radius: 5px;
 }
 
-
-.detail__wineRangeSpan {
+.detail__wine-range-span {
   width: 20%;
   left: 80%;
   background-color: var(--primary);
@@ -93,13 +87,13 @@ button:hover {
   border-color: var(--primary);
 }
 
-.detail__oneReview {
+.detail__one-review {
   background-color: var(--bg-0);
   border-radius: 30px;
   padding: 15px;
 }
 
-.detail__reviewTitle {
+.detail__review-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -108,7 +102,7 @@ button:hover {
 .detail__review-addtag {
 }
 
-.detail__reviewTagcont {
+.detail__review-tagcont {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -116,7 +110,7 @@ button:hover {
   margin: 5px 0;
 }
 
-.detail__reviewInput {
+.detail__review-input {
   background-color: transparent;
   border: none;
   /* border: 1px solid black; */
@@ -125,25 +119,25 @@ button:hover {
   font-size: var(--size-txt);
 }
 
-.detail__reviewInput:focus {
+.detail__review-input:focus {
   border: none;
 }
 
-.detail__reviewPlus {
+.detail__review-plus {
   color: var(--primary);
   background-color: transparent;
   font-size: var(--size-btn);
   cursor: pointer;
 }
 
-.detail__reviewContent {
+.detail__review-content {
   border-radius: 30px;
   margin: 10px 0;
   border: 1px solid var(--primary);
   padding: 15px 10px;
 }
 
-.detail__reviewPost {
+.detail__review-post {
   cursor: pointer;
   border-radius: 30px;
   color: var(--bg-0);
@@ -154,26 +148,18 @@ button:hover {
   align-items: center;
 }
 
-/* 
-.tag {
-  background-color: transparent;
-  border: 1px solid var(--primary);
-  color: var(--primary);
-} */
-
-
-.detail__wineRecommTitle,
-.detail__reviewTitle,
-.detail__winelistRecommTitle {
+.detail__winerecomm-title,
+.detail__review-title,
+.detail__winelistrecomm-title {
   font-size: 2rem;
   color: var(--primary);
   font-weight: bold;
   padding: 10px;
 }
 
-.detail__wineRecomm,
+.detail__winerecomm,
 .detail__review,
-.detail__winelistRecomm {
+.detail__winelistrecomm {
   /* margin-bottom: 20px; */
   margin: 0 var(--margin-out) 20px;
 }
@@ -210,69 +196,3 @@ button:hover {
   -webkit-animation-name: indicatorBar__bounceIn--lAgLM;
   animation-name: indicatorBar__bounceIn--lAgLM;
 }
-
-.detail__wineChar {
-  margin: 0 var(--margin-out);
-}
-
-.detail__wineCharInd {
-  display: flex;
-  align-items: center;
-}
-.detail__wineCharName {
-  /* margin: 5px; */
-  font-weight: light;
-  width: 80px;
-  display: flex;
-  justify-content: center;
-}
-
-.detail__wineCharSlider {
-  -webkit-appearance: none; /* Override default CSS styles */
-  appearance: none;
-  width: 100%; /* Full-width */
-  height: 15px; /* Specified height */
-  background: var(--bg-0); /* Grey background */
-  outline: none; /* Remove outline */
-  opacity: 1;
-  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
-  transition: opacity 0.2s;
-  border-radius: 30px;
-  margin: 15px 10px;
-}
-
-.detail__wineCharSlider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
-  appearance: none;
-  /* Set a specific slider handle width */
-  /* width: 50px;  */
-  width: 15%;
-  height: 15px; /* Slider handle height */
-  border-radius: 30px;
-  background: var(--primary); /* Green background */
-  cursor: pointer; /* Cursor on hover */
-}
-/* 
-.detail__windCharSlider::focused,
-.detail__windCharSlider:not(focused) {
-  outline: none;
-}
-
-input[type="range"]:focus {
-  outline: none;
-}
-
-.detail__wineChar:focus,
-.detail__wineChar:not(focus) {
-  outline: none;
-}
-.detail__wineChar:focus:not(:focus-visible) {
-  outline: none;
-}
-
-:focus:not(:focus-visible) {
-  outline: 0;
-}
-:focus-visible {
-  outline: 0;
-} */

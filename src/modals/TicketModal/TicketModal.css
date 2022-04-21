@@ -1,45 +1,48 @@
-.ticket__create:hover {
+.ticketModal__create:hover {
   cursor: pointer;
 }
 
-.ticket--inactive {
+.ticketModal--inactive {
   display: none;
 }
 
-.ticket {
+.ticketModal {
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 900;
+  z-index: 700;
   background-color: var(--bg-20);
   color: var(--primary);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
 }
-.ticket__container {
+.ticketModal__container {
+  width: 480px;
   display: flex;
   flex-direction: column;
   margin: var(--margin-out);
 }
-.ticket__header {
+.ticketModal__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 80px;
   margin-bottom: 2rem;
 }
-.ticket__header-title {
+.ticketModal__header-title {
   font-size: var(--size-title);
 }
 
-.ticket__top-close {
+.ticketModal__top-close {
   font-size: 1.5rem;
   display: flex;
   font-weight: bold;
   cursor: pointer;
 }
 
-.ticket__create {
+.ticketModal__create {
   align-self: flex-start;
   font-size: 2rem;
   text-decoration: none;
@@ -50,20 +53,20 @@
   align-items: center;
 }
 
-.ticket__create > svg {
+.ticketModal__create > svg {
   width: 30px;
   height: 30px;
   margin-right: 0.5rem;
 }
 
-.ticket_box_container {
+.ticketModal_box_container {
   color: var(--text-100);
   border-radius: 30px;
   display: flex;
   flex-direction: column;
   margin: 0 var(--margin-out) 1.5rem var(--margin-out);
 }
-.ticket_answer_box {
+.ticketModal_answer_box {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-100);
@@ -73,9 +76,9 @@
   padding: 1.75rem 1rem 1rem 0;
 }
 
-.ticket_answer,
-.ticket_answer1,
-.ticket_answer2 {
+.ticketModal_answer,
+.ticketModal_answer1,
+.ticketModal_answer2 {
   display: none;
   margin-left: 20px;
 }
@@ -84,13 +87,13 @@
   margin-left: 1rem;
   color: var(--text-100);
 }
-.ticket_checkicon {
+.ticketModal_checkicon {
   margin-right: 1rem;
   border-radius: 100%;
   display: flex;
   color: green;
 }
-.ticket__progressicon {
+.ticketModal__progressicon {
   margin-right: 1rem;
   border-radius: 100%;
   background-color: yellow;
