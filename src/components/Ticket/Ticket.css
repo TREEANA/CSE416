@@ -9,11 +9,13 @@
 .ticket__button {
   display: flex;
   z-index: 1;
+  padding: 1rem;
+  border-radius: 30px;
+  position: relative;
 }
 
-.ticket__button {
-  padding: 1rem;
-}
+/* .ticket__button {
+} */
 
 .ticket--inactive {
   display: none;
@@ -105,6 +107,12 @@
 }
 
 .ticket__box {
+  background-color: var(--bg-0);
+  border-radius: 30px;
+  padding: 15px 20px;
+  position: relative;
+  top: -50px;
+  margin-bottom: -50px;
 }
 
 .ticket_box_container {
@@ -112,7 +120,7 @@
   border-radius: 30px;
   display: flex;
   flex-direction: column;
-  margin: 0 var(--margin-out) 1.5rem var(--margin-out);
+  margin-bottom: 1.5rem;
 }
 
 .ticket_answer_box {
@@ -150,6 +158,10 @@
 .ticket__answer {
   margin-top: 1rem;
   color: var(--text-100);
+}
+
+.ticket__question {
+  margin-top: 50px;
 }
 
 .ticket__question > b,

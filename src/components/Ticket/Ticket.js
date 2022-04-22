@@ -36,7 +36,7 @@ const Ticket = ({ type, ticketStatus, title, question, answer }) => {
     if (type === "faq") {
       return (
         <div className="ticket__answer">
-          <b>A</b>
+          <b>A.</b>
           {answer}
         </div>
       );
@@ -44,7 +44,7 @@ const Ticket = ({ type, ticketStatus, title, question, answer }) => {
       if (ticketStatus === 0) {
         return (
           <div className="ticket__answer">
-            <b>A</b>
+            <b>A.</b>
             {answer}
           </div>
         );

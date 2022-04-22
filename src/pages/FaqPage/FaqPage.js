@@ -32,6 +32,7 @@ const FaqPage = () => {
       $(".FAQ_delete").show();
     }
   };
+
   return (
     <>
       <div className="FAQ">
@@ -61,6 +62,7 @@ const FaqPage = () => {
             "Please click on forgot my password button to reset your password."
           }
         />
+        <div>back to home</div>
       </div>
     </>
   );
