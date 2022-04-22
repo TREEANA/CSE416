@@ -273,8 +273,4 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
   );
 };
 
-{
-  /* <img alt="Meiomi Pinot Noir" src="//images.vivino.com/thumbs/fjBaM_ZHTxqQtDa5Qj94JQ_pb_x600.png" height="500" width="147"> */
-}
-
 export default WineDetailPage;
