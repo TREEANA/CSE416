@@ -49,10 +49,19 @@ button:hover {
   margin-bottom: 1rem;
 }
 
+/* .detail__wineTags  {
+  background-color: var(--bg-0);
+} */
+
 .detail__wineRate {
   font-size: var(--size-title);
   color: var(--primary);
   font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.detail__wineRate > svg {
+  margin: 0 5px;
 }
 
 .detail__winePrice {
@@ -106,8 +115,20 @@ button:hover {
   align-items: center;
 }
 
+.detail__reviewStar {
+  height: max-content;
+}
+
 .detail__reviewStar > span {
   color: var(--primary);
+  height: inherit;
+  width: inherit;
+  /* background-color: var(--bg-20); */
+}
+
+.detail__reviewTags {
+  display: flex;
+  align-items: center;
 }
 
 .detail__reviewTagcont {
@@ -120,11 +141,11 @@ button:hover {
 
 .detail__reviewIcon--active {
   color: var(--primary);
-  margin: 0 3px;
+  margin: 0 5px;
 }
 .detail__reviewIcon--inactive {
   color: var(--bg-20);
-  margin: 0 3px;
+  margin: 0 5px;
 }
 
 .detail__reviewInput {

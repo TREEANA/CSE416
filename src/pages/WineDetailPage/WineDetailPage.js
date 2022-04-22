@@ -11,6 +11,7 @@ import WineList from "../../components/WineList/WineList";
 import Tag from "../../components/Tag/Tag";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
 
 import {
   BsHeart,
@@ -42,8 +43,22 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
   const toggleLikes = () => {
     setLikes(!likes);
   };
-  const dummyTags = ["acidic", "chocolate", "blueberry", "fruity"];
-  const tagList = dummyTags.map((each) => <Tag key={each.id} txt={each} />);
+  const dummyTags = [
+    "acidic",
+    "chocolate",
+    "blueberry",
+    "fruity",
+    "steak",
+    "picnic",
+    "seafood",
+    "cheese",
+  ];
+  const selectedTaglist = ["steak", "blueberry"];
+
+  const tagList = dummyTags.map((each) => (
+    <Tag type="wineButton" key={each.id} txt={each} />
+  ));
+
   const [editReview, setEditReview] = useState(false);
   const toggleEditReview = () => {
     setEditReview(!editReview);
@@ -61,11 +76,10 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
             <div className="detail__wineDetail">
               <div className="detail__wineTitle">{wine.name}</div>
               <div className="detail__grapeTitle">{wine.grape}</div>
-              {/* <div>tag</div> */}
-              <div className="detail__wineTags">
-                <div>{tagList}</div>
+              <div className="detail__wineTags">{tagList}</div>
+              <div className="detail__wineRate">
+                <StarIcon fontSize="40" /> 4.5
               </div>
-              <div className="detail__wineRate">★ 4.5</div>
               <div className="detail__winePrice">
                 {wine.price.toLocaleString("en-US", {
                   style: "currency",
@@ -138,15 +152,27 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
         <div className="detail__review">
           <div className="detail__reviewTitle"> Reviews </div>
 
-          <div className="detail__oneReview">
+          <form className="detail__oneReview" method="POST">
             <div className="detail__reviewTitle">
               <div className="detail__reviewStar">
+                {/* <Box> */}
                 <Rating
                   precision={0.5}
                   size="large"
+                  // fontSize="large"
                   defaultValue={2.5}
                   readOnly={editReview ? false : true}
+                  sx={{ fontSize: 40 }}
+                  emptyIcon={
+                    <StarIcon
+                      style={{ color: "var(--bg-20)" }}
+                      // fontSize=""
+                      sx={{ fontSize: 40 }}
+                    />
+                  }
+                  // emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit"}
                 />
+                {/* </Box> */}
               </div>
               <div className="detail__reviewIcons">
                 <BsHeartFill
@@ -167,7 +193,15 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
                 />
               </div>
             </div>
-
+            <div className="detail__reviewTags">
+              {!editReview && (
+                <div>
+                  {selectedTaglist.map((each) => (
+                    <Tag type="wineButton" txt={each} />
+                  ))}
+                </div>
+              )}
+            </div>
             {editReview && (
               <div className="detail__reviewAddtag">
                 <div className="detail__reviewTagcont">
@@ -178,12 +212,25 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
                   <div className="detail__reviewPlus"> +</div>
                 </div>
                 <div>
-                  <Tag type="select" txt="acidic"></Tag>
+                  {dummyTags.map((each) => (
+                    <Tag key={each.id} txt={each} />
+                  ))}
+                  {/* <Tag type="select" txt="acidic"></Tag>
                   <Tag type="select" txt="dry"></Tag>
                   <Tag type="select" txt="light"></Tag>
                   <Tag type="select" txt="acidic"></Tag>
-                  <Tag type="select" txt="acidic"></Tag>
+                  <Tag type="select" txt="acidic"></Tag> */}
                 </div>
+              </div>
+            )}
+            {/* selected 된 태그만 나타내고 싶은데 db가 없어서 그런가 잘 안됨 */}
+            {!editReview && (
+              <div>
+                {dummyTags
+                  .filter((each) => each.isSelected == true)
+                  .map((each) => (
+                    <Tag key={each.id} txt={each} />
+                  ))}
               </div>
             )}
 
@@ -192,11 +239,13 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
               chocolate. Worth opening ahead of drinking - smooth and mellow.
             </div>
             {editReview && (
-              <div className="detail__reviewPost"> post a review </div>
+              <div className="detail__reviewPost" onClick={toggleEditReview}>
+                post a review
+              </div>
             )}
 
             <div></div>
-          </div>
+          </form>
 
           <Review userstatus={1} />
           <Review userStatus={0} />
