@@ -193,6 +193,7 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
                 />
               </div>
             </div>
+
             <div className="detail__reviewTags">
               {!editReview && (
                 <div>
@@ -202,6 +203,7 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
                 </div>
               )}
             </div>
+
             {editReview && (
               <div className="detail__reviewAddtag">
                 <div className="detail__reviewTagcont">
@@ -212,17 +214,19 @@ const WineDetailPage = ({ wine = defaultWineInfo }) => {
                   <div className="detail__reviewPlus"> +</div>
                 </div>
                 <div>
+                  {/* 여기 매우 몹시 이상한데 일단 넘어가.... */}
+                  {/* selected 처리할수 있게되면 그때 다시 하겠음 */}
+                  {/* 우형이형이한거 보고 다시 할 예정*/}
+                  {selectedTaglist.map((each) => (
+                    <Tag type="wineButton" txt={each} isFilled />
+                  ))}
                   {dummyTags.map((each) => (
                     <Tag key={each.id} txt={each} />
                   ))}
-                  {/* <Tag type="select" txt="acidic"></Tag>
-                  <Tag type="select" txt="dry"></Tag>
-                  <Tag type="select" txt="light"></Tag>
-                  <Tag type="select" txt="acidic"></Tag>
-                  <Tag type="select" txt="acidic"></Tag> */}
                 </div>
               </div>
             )}
+
             {/* selected 된 태그만 나타내고 싶은데 db가 없어서 그런가 잘 안됨 */}
             {!editReview && (
               <div>
