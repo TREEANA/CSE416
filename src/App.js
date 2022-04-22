@@ -24,9 +24,6 @@ import FaqPage from "./pages/FaqPage/FaqPage";
 import VerifyPage from "./pages/VerifyPage/VerifyPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 
-import Review from "./components/Review/Review";
-import Ticket from "./components/Ticket/Ticket";
-
 const App = () => {
   const [status, setStatus] = useState({
     user: 1,
@@ -116,8 +113,6 @@ const App = () => {
           />
           <Route path="/faq" element={<FaqPage />} />
           <Route path="verifysomm" element={<VerifyPage />} />
-          <Route path="/review" element={<Review />} />
-          <Route path="/ticket" element={<Ticket />} />
         </Routes>
       </div>
 

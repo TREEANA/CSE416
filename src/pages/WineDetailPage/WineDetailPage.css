@@ -5,7 +5,7 @@ button:hover {
 .detail__wine {
   /* width: calc(100% - 3rem); */
   height: 100%;
-  margin-top: var(--margin-out);
+  /* margin-top: var(--margin-out); */
   border-radius: 30px;
   padding: 1.5rem;
   display: flex;
@@ -37,7 +37,7 @@ button:hover {
 }
 
 .detail__grapeTitle {
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: right;
   margin-bottom: 0.5rem;
 }
