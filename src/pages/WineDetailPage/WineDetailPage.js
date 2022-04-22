@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./WineDetailPage.css";
 import Review from "../../components/Review/Review";
 // import Search from "../Search/Search";
@@ -9,6 +9,9 @@ import Review from "../../components/Review/Review";
 import Wine from "../../components/Wine/Wine";
 import WineList from "../../components/WineList/WineList";
 import Tag from "../../components/Tag/Tag";
+import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
+
 import {
   BsHeart,
   BsFillPencilFill,
@@ -17,29 +20,34 @@ import {
   BsStarFill,
 } from "react-icons/bs";
 
-const WineDetailPage = (
-  {
-    // name,
-    // images,
-    // lightness,
-    // smoothness,
-    // sweetness,
-    // softness,
-    // price,
-    // grape,
-  }
-) => {
-  let name = "meonoi";
-  let smoothness = 2.4;
-  let sweetness = 2;
-  let softness = 3;
-  let lightness = 2.5;
-  let price = 25000;
+const defaultWineInfo = {
+  wineID: 1,
+  name: "Meanoi",
+  images: [],
+  lightness: 2.4,
+  sweetness: 1.3,
+  smoothness: 4.3,
+  softness: 3.1,
+  price: 1030,
+  grape: "Pinot Noir",
+  likes: 33,
+  //tags 는 쓸데없는거였음.. 이건 좀 더 생각 해봐야겠우
+};
 
-  const initTags = {};
-  // const tagsSorted = [...movies].sort(
-  //   (a, b) => b[sortProperty] - a[sortProperty]
-  // );
+const WineDetailPage = ({ wine = defaultWineInfo }) => {
+  //개인유저가 이 와인을 마음에 들어했는지, 아닌지를 하트로 판단
+  //전체숫자에 더해주고, 이 사람의 liked list 에 넣어줘야함.
+
+  const [likes, setLikes] = useState(0);
+  const toggleLikes = () => {
+    setLikes(!likes);
+  };
+  const dummyTags = ["acidic", "chocolate", "blueberry", "fruity"];
+  const tagList = dummyTags.map((each) => <Tag key={each.id} txt={each} />);
+  const [editReview, setEditReview] = useState(false);
+  const toggleEditReview = () => {
+    setEditReview(!editReview);
+  };
 
   return (
     <>
@@ -51,18 +59,19 @@ const WineDetailPage = (
             </div>
 
             <div className="detail__wineDetail">
-              <div className="detail__wineTitle">{name}</div>
+              <div className="detail__wineTitle">{wine.name}</div>
+              <div className="detail__grapeTitle">{wine.grape}</div>
               {/* <div>tag</div> */}
               <div className="detail__wineTags">
-                <Tag isFilled={1} isDisabled={1} txt="picnic" />
-                <Tag isDisabled={1} txt="dry" />
-                <Tag isDisabled={1} txt="steak" />
-                <Tag isDisabled={1} txt="oak" />
-                <Tag isDisabled={1} txt="rose" />
-                <Tag isDisabled={1} txt="cherry" />
+                <div>{tagList}</div>
               </div>
-              <div className="detail__wineRate">★4.5</div>
-              <div className="detail__winePrice">{price}</div>
+              <div className="detail__wineRate">★ 4.5</div>
+              <div className="detail__winePrice">
+                {wine.price.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </div>
             </div>
           </div>
           <div className="detail__wineChar">
@@ -73,7 +82,7 @@ const WineDetailPage = (
                 type="range"
                 min="0"
                 max="5"
-                value={lightness}
+                value={wine.lightness}
                 disable="disable"
                 readonly
               />
@@ -87,7 +96,7 @@ const WineDetailPage = (
                 type="range"
                 min="0"
                 max="5"
-                value={smoothness}
+                value={wine.smoothness}
                 disable="disable"
                 readonly
               />
@@ -101,7 +110,7 @@ const WineDetailPage = (
                 type="range"
                 min="0"
                 max="5"
-                value={sweetness}
+                value={wine.sweetness}
                 disable="disable"
                 readonly
               />
@@ -115,7 +124,7 @@ const WineDetailPage = (
                 type="range"
                 min="0"
                 max="5"
-                value={softness}
+                value={wine.softness}
                 disable="disable"
                 readonly
               />
@@ -125,44 +134,67 @@ const WineDetailPage = (
         </div>
 
         <hr className="detail__line"></hr>
+
         <div className="detail__review">
           <div className="detail__reviewTitle"> Reviews </div>
 
-          <div className="detail__oneTeview">
+          <div className="detail__oneReview">
             <div className="detail__reviewTitle">
               <div className="detail__reviewStar">
-                {" "}
-                <BsStarFill /> <BsStarFill /> <BsStarFill /> <BsStarFill />{" "}
-                <BsStar />{" "}
+                <Rating
+                  precision={0.5}
+                  size="large"
+                  defaultValue={2.5}
+                  readOnly={editReview ? false : true}
+                />
               </div>
               <div className="detail__reviewIcons">
-                <BsHeartFill />
-                <BsFillPencilFill />
+                <BsHeartFill
+                  className={
+                    likes
+                      ? "detail__reviewIcon--active"
+                      : "detail__reviewIcon--inactive"
+                  }
+                  onClick={toggleLikes}
+                />
+                <BsFillPencilFill
+                  className={
+                    editReview
+                      ? "detail__reviewIcon--active"
+                      : "detail__reviewIcon--inactive"
+                  }
+                  onClick={toggleEditReview}
+                />
               </div>
             </div>
 
-            <div className="detail__reviewAddtag">
-              <div className="detail__reviewTagcont">
-                <input
-                  className="detail__reviewInput"
-                  placeholder="add tags "
-                ></input>
-                <div className="detail__reviewPlus"> +</div>
+            {editReview && (
+              <div className="detail__reviewAddtag">
+                <div className="detail__reviewTagcont">
+                  <input
+                    className="detail__reviewInput"
+                    placeholder="add tags "
+                  ></input>
+                  <div className="detail__reviewPlus"> +</div>
+                </div>
+                <div>
+                  <Tag type="select" txt="acidic"></Tag>
+                  <Tag type="select" txt="dry"></Tag>
+                  <Tag type="select" txt="light"></Tag>
+                  <Tag type="select" txt="acidic"></Tag>
+                  <Tag type="select" txt="acidic"></Tag>
+                </div>
               </div>
-              <div>
-                <Tag type="select" txt="acidic"></Tag>
-                <Tag type="select" txt="dry"></Tag>
-                <Tag type="select" txt="light"></Tag>
-                <Tag type="select" txt="acidic"></Tag>
-                <Tag type="select" txt="acidic"></Tag>
-              </div>
-            </div>
+            )}
 
             <div className="detail__reviewContent">
               Great autumn wine. Clean leather, mint, cherry, blackberry and
               chocolate. Worth opening ahead of drinking - smooth and mellow.
             </div>
-            <div className="detail__review-post"> post a review </div>
+            {editReview && (
+              <div className="detail__reviewPost"> post a review </div>
+            )}
+
             <div></div>
           </div>
 
@@ -188,6 +220,8 @@ const WineDetailPage = (
   );
 };
 
-// <img alt="Meiomi Pinot Noir" src="//images.vivino.com/thumbs/fjBaM_ZHTxqQtDa5Qj94JQ_pb_x600.png" height="500" width="147">
+{
+  /* <img alt="Meiomi Pinot Noir" src="//images.vivino.com/thumbs/fjBaM_ZHTxqQtDa5Qj94JQ_pb_x600.png" height="500" width="147"> */
+}
 
 export default WineDetailPage;

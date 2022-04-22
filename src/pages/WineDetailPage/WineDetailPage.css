@@ -3,7 +3,6 @@ button:hover {
 }
 
 .detail__wine {
-
   /* width: calc(100% - 3rem); */
   height: 100%;
   margin-top: var(--margin-out);
@@ -20,7 +19,6 @@ button:hover {
   margin: 0rem 3rem 0rem 0rem;
 }
 
-
 .detail__wineImage > img {
   height: 100%;
 }
@@ -35,8 +33,14 @@ button:hover {
   font-size: 2rem;
   text-align: right;
   margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
+.detail__grapeTitle {
+  font-size: 2rem;
+  text-align: right;
+  margin-bottom: 0.5rem;
+}
 
 .detail__wineTags {
   display: flex;
@@ -51,7 +55,6 @@ button:hover {
   font-weight: bold;
 }
 
-
 .detail__winePrice {
   font-size: 2rem;
 }
@@ -60,7 +63,6 @@ button:hover {
   margin-bottom: 20px;
   width: 100%;
 }
-
 
 /* .detail__wineChar {
   height: 24px;
@@ -79,7 +81,6 @@ button:hover {
   height: 8px;
   border-radius: 5px;
 }
-
 
 .detail__wineRangeSpan {
   width: 20%;
@@ -105,7 +106,8 @@ button:hover {
   align-items: center;
 }
 
-.detail__review-addtag {
+.detail__reviewStar > span {
+  color: var(--primary);
 }
 
 .detail__reviewTagcont {
@@ -114,6 +116,15 @@ button:hover {
   justify-content: space-between;
   border-bottom: 1px solid grey;
   margin: 5px 0;
+}
+
+.detail__reviewIcon--active {
+  color: var(--primary);
+  margin: 0 3px;
+}
+.detail__reviewIcon--inactive {
+  color: var(--bg-20);
+  margin: 0 3px;
 }
 
 .detail__reviewInput {
@@ -160,7 +171,6 @@ button:hover {
   border: 1px solid var(--primary);
   color: var(--primary);
 } */
-
 
 .detail__wineRecommTitle,
 .detail__reviewTitle,
