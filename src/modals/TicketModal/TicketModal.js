@@ -18,9 +18,9 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
       >
         <div className="ticketModal__container">
           <div className="ticketModal__header">
-            <div className="ticketModal__header-title">view tickets</div>
+            <div className="ticketModal__headerTitle">view tickets</div>
             <BsXLg
-              className="ticketModal__top-close"
+              className="ticketModal__topClose"
               onClick={toggleTicketModal}
             />
           </div>
@@ -29,7 +29,7 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
           </div>
 
           <Ticket
-            type="ticketModal"
+            type="ticket"
             ticketStatus={0}
             title={"Trouble Logging in"}
             question={"I have trouble logging in with my account"}
@@ -38,7 +38,7 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
             }
           />
           <Ticket
-            type="ticketModal"
+            type="ticket"
             ticketStatus={1}
             title={"Trouble Logging in"}
             question={"I have trouble logging in with my account"}

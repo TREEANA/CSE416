@@ -62,7 +62,7 @@ const FaqPage = () => {
             "Please click on forgot my password button to reset your password."
           }
         />
-        <div>back to home</div>
+        {/* <div>back to home</div> */}
       </div>
     </>
   );
