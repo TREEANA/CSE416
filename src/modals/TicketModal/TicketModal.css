@@ -31,11 +31,11 @@
   height: 80px;
   margin-bottom: 2rem;
 }
-.ticketModal__header-title {
+.ticketModal__headerTitle {
   font-size: var(--size-title);
 }
 
-.ticketModal__top-close {
+.ticketModal__topClose {
   font-size: 1.5rem;
   display: flex;
   font-weight: bold;
@@ -59,7 +59,7 @@
   margin-right: 0.5rem;
 }
 
-.ticketModal_box_container {
+.ticketModal_boxContainer {
   color: var(--text-100);
   border-radius: 30px;
   display: flex;

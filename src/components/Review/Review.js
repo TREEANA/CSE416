@@ -28,7 +28,7 @@ const getTags = (tags) => {
   return tagsResult;
 };
 
-const Review = ({ userstatus }) => {
+const Review = ({ userstatus, review = { dumyReviewdata } }) => {
   // userstatus = 1;
   return (
     <>
@@ -42,8 +42,7 @@ const Review = ({ userstatus }) => {
             <div className="review__user-info">
               <div className="review__user-name">{dumyReviewdata.name}</div>
               <div className="review__user-date">
-                {" "}
-                {dumyReviewdata.createdAt}{" "}
+                {dumyReviewdata.createdAt}
               </div>
             </div>
             <div className="review__user-icon">

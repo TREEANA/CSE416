@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./Ticket.css";
-// import $ from "jquery";
 import {
   BsXLg,
   BsFilePlusFill,
   BsFillCheckCircleFill,
   BsThreeDots,
 } from "react-icons/bs";
+
+const ticketDummyData = {};
 
 const Ticket = ({ type, ticketStatus, title, question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,7 @@ const Ticket = ({ type, ticketStatus, title, question, answer }) => {
     if (type === "faq") {
       return (
         <div className="ticket__answer">
-          <b>A</b>
+          <b>A.</b>
           {answer}
         </div>
       );
@@ -44,7 +45,7 @@ const Ticket = ({ type, ticketStatus, title, question, answer }) => {
       if (ticketStatus === 0) {
         return (
           <div className="ticket__answer">
-            <b>A</b>
+            <b>A.</b>
             {answer}
           </div>
         );
@@ -71,6 +72,7 @@ const Ticket = ({ type, ticketStatus, title, question, answer }) => {
           <b>Q</b>
           {question}
         </div>
+        <hr></hr>
         {displayAnswer()}
       </div>
     </div>

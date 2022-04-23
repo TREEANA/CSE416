@@ -37,8 +37,8 @@ const ApplyModal = ({ applyModalStatus, toggleApplyModal }) => {
             <BsFilePlusFill
               className="becomesommlier__create__icon"
               onClick={choose}
-            />{" "}
-            Choose a photo of your sommlier certiticate to be verified{" "}
+            />
+            Choose a photo of your sommlier certiticate to be verified
           </div>
           <div className="becomesommlier__history" onClick={gohistroy}>
             view request history
