@@ -4,6 +4,7 @@ import Tag from "../../components/Tag/Tag";
 import "./MainPage.css";
 
 const MainPage = () => {
+  // tag명과 status를 key, value로 준 객체를 생성
   const [list, setList] = useState({
     acidic: false,
     picnic: false,
@@ -12,6 +13,7 @@ const MainPage = () => {
     rose: false,
     cherry: false,
   });
+  // 버튼을 클릭하면 토글되도록 변경
   function onBtnClick() {
     setList({ ...list, [this.txt]: !list[this.txt] });
   }
@@ -24,7 +26,7 @@ const MainPage = () => {
             type="selected"
             txt={each}
             isFilled={true}
-            onClickIn={onBtnClick.bind({ txt: each })}
+            onClick={onBtnClick.bind({ txt: each })}
           />
         );
       }
@@ -39,7 +41,7 @@ const MainPage = () => {
           <Tag
             type="selected"
             txt={each}
-            onClickIn={onBtnClick.bind({ txt: each })}
+            onClick={onBtnClick.bind({ txt: each })}
           />
         );
       }
@@ -53,6 +55,7 @@ const MainPage = () => {
         <WineList />
         <WineList />
         <WineList />
+        {/* 선택된 태그를 먼저 display하고 이후에 선택되지 않은 태그들을 display */}
         {displaySelectedTags()}
         {displayUnselectedTags()}
       </main>
