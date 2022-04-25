@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Tag.css";
 
-const Tag = ({ type = "wineButton", isFilled = false, txt }) => {
-  const [isSelected, setIsSelected] = useState(false);
+const Tag = ({ type = "wineButton", isFilled = false, txt, onClickIn }) => {
   const onClickSelect = () => {
-    console.log("onClickSelect");
-    setIsSelected(!isSelected);
+    onClickIn();
   };
   return type === "wineButton" ? (
     <Link to={`/wines/${txt}`}>
@@ -18,10 +16,10 @@ const Tag = ({ type = "wineButton", isFilled = false, txt }) => {
     </Link>
   ) : (
     <div
-      className={isSelected ? "tag tag--filled" : "tag"}
+      className={isFilled ? "tag tag--filled" : "tag"}
       onClick={onClickSelect}
     >
-      {isSelected ? txt + " x" : txt}
+      {isFilled ? txt + " x" : txt}
     </div>
   );
 };
