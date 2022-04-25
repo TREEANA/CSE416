@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsXLg, BsFilePlusFill } from "react-icons/bs";
 import "./ApplyModal.css";
-import Faqbox from "../../components/Faqbox/Faqbox";
+import SommHistory from "../../components/SommHistory/SommHistory";
 {
   /* <img
 className="becomesommlier_poto"
@@ -37,8 +37,8 @@ const ApplyModal = ({ applyModalStatus, toggleApplyModal }) => {
             <BsFilePlusFill
               className="becomesommlier__create__icon"
               onClick={choose}
-            />{" "}
-            Choose a photo of your sommlier certiticate to be verified{" "}
+            />
+            Choose a photo of your sommlier certiticate to be verified
           </div>
           <div className="becomesommlier__history" onClick={gohistroy}>
             view request history
@@ -89,13 +89,16 @@ const ApplyModal = ({ applyModalStatus, toggleApplyModal }) => {
     } else if (step === 3) {
       return (
         <div className="becomesommlier__section1">
-          <div className="becomesommlier__create">History</div>
-          <Faqbox num={2}></Faqbox>
-          <Faqbox num={0}></Faqbox>
-          <Faqbox num={0}></Faqbox>
-          <div className="becomesommlier__history" onClick={close}>
-            Back to the apply
+          <div className="becomesommelier__title">
+            <div className="becomesommlier__create">History</div>
+            <div className="becomesommlier__history" onClick={close}>
+              Back to apply
+            </div>
           </div>
+
+          <SommHistory num={2} />
+          <SommHistory num={0} />
+          <SommHistory num={0} />
         </div>
       );
     }

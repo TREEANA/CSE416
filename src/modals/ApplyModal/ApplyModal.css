@@ -59,14 +59,21 @@
   cursor: pointer;
 }
 
+.becomesommelier__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--margin-out);
+}
+
 .becomesommlier__create {
-  margin-left: var(--margin-out);
+  /* margin-left: var(--margin-out); */
   align-self: flex-start;
   font-size: 1.5rem;
   text-decoration: none;
   color: var(--primary);
   font-weight: bold;
-  margin-bottom: var(--margin-out);
+  /* margin-bottom: var(--margin-out); */
   display: flex;
   align-items: center;
 }
@@ -80,7 +87,7 @@
   color: var(--text-50);
   font-size: var(--size-txt);
   justify-content: flex-end;
-  margin-right: var(--margin-out);
+  /* margin-right: var(--margin-out); */
 }
 
 .becomesommlier_poto {

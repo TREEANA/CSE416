@@ -26,7 +26,7 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 
 const App = () => {
   const [status, setStatus] = useState({
-    user: 3,
+    user: 1,
     sideBarModal: false,
     searchBarModal: false,
     loginModal: false,
@@ -112,7 +112,8 @@ const App = () => {
             element={<SearchPage status={status} toggleStatus={toggleStatus} />}
           />
           <Route path="/faq" element={<FaqPage />} />
-          <Route path="verifysomm" element={<VerifyPage />} />
+          <Route path="/verifysomm" element={<VerifyPage />} />
+          {/* <Route path="/"></Route> */}
         </Routes>
       </div>
 
