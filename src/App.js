@@ -11,7 +11,6 @@ import SideBarModal from "./modals/SideBarModal/SideBarModal";
 import SearchBarModal from "./modals/SearchBarModal/SearchBarModal";
 import ApplyModal from "./modals/ApplyModal/ApplyModal";
 import TicketModal from "./modals/TicketModal/TicketModal";
-import CreateModal from "./modals/CreateModal/CreateModal";
 import CommentModal from "./modals/CommentModal/CommentModal";
 
 import MainPage from "./pages/MainPage/MainPage";
@@ -23,10 +22,11 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import FaqPage from "./pages/FaqPage/FaqPage";
 import VerifyPage from "./pages/VerifyPage/VerifyPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
+import CreatePage from "./pages/CreatePage/CreatePage";
 
 const App = () => {
   const [status, setStatus] = useState({
-    user: 1,
+    user: 2,
     sideBarModal: false,
     searchBarModal: false,
     loginModal: false,
@@ -35,7 +35,6 @@ const App = () => {
     ticketModal: false,
     filterModal: false,
     sortModal: false,
-    createModal: false,
     applyModal: false,
     commentModal: false,
   });
@@ -64,10 +63,6 @@ const App = () => {
         applyModalStatus={status.applyModal}
         toggleApplyModal={() => toggleStatus("applyModal")}
       ></ApplyModal>
-      <CreateModal
-        CreateModalStatus={status.createModal}
-        toggleCreateModal={() => toggleStatus("createModal")}
-      ></CreateModal>
       <CommentModal
         commentModalStatus={status.commentModal}
         togglecommentModal={() => toggleStatus("commentModal")}
@@ -110,6 +105,10 @@ const App = () => {
           <Route
             path="/search/*"
             element={<SearchPage status={status} toggleStatus={toggleStatus} />}
+          />
+          <Route
+            path="/create"
+            element={<CreatePage status={status} toggleStatus={toggleStatus} />}
           />
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/verifysomm" element={<VerifyPage />} />

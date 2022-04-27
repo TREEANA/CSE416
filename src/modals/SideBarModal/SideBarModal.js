@@ -81,14 +81,17 @@ const SideBarModal = ({ status, toggleStatus }) => {
               onClick={() => toggleStatus("sideBarModal")}
             />
           </div>
-          <div className="sidebar__create">
-            <BsFillPlusCircleFill
+          <Link to="/create">
+            <div
+              className="sidebar__create"
               onClick={() => {
-                toggleStatus("sideBarModal", "createModal");
+                toggleStatus("sideBarModal");
               }}
-            />{" "}
-            create wine list
-          </div>
+            >
+              <BsFillPlusCircleFill />
+              create wine list
+            </div>
+          </Link>
           <hr className="sidebar__hr"></hr>
         </div>
       );
