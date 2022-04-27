@@ -106,9 +106,10 @@ const CreatePage = ({ status, toggleStatus }) => {
   };
   const displayUnselectedTags = () => {
     const result = [];
-    if (search.tag !== "") {
+    const formattedTag = search.tag.toLowerCase();
+    if (formattedTag !== "") {
       for (let each in tags) {
-        if (each.indexOf(search.tag) === 0 && tags[each] === false) {
+        if (each.indexOf(formattedTag) === 0 && tags[each] === false) {
           result.push(
             <Tag
               type="selected"
