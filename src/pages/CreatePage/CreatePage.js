@@ -8,6 +8,7 @@ import {
   BsFonts,
   BsX,
 } from "react-icons/bs";
+import axios from "axios";
 import "./CreatePage.css";
 
 const CreatePage = ({ status, toggleStatus }) => {
@@ -29,6 +30,7 @@ const CreatePage = ({ status, toggleStatus }) => {
     wine: "",
     tag: "",
   });
+  const [wines, setWines] = useState([]);
   function onTagClick() {
     const newTag = [];
     for (let each in tags) {
@@ -46,6 +48,32 @@ const CreatePage = ({ status, toggleStatus }) => {
       tag: "",
     });
   }
+  const debounce = (func, timeout = 300) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, timeout);
+    };
+  };
+  const searchWines = async () => {
+    const temp = await axios.get("api/wines/search");
+    console.log(temp.data);
+    setWines(temp.data);
+  };
+  const onChange = (e) => {
+    setNewList({
+      ...newList,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const onSearchChange = (e) => {
+    setSearch({
+      ...search,
+      [e.target.name]: e.target.value,
+    });
+  };
   const displaySelectedTags = () => {
     const result = [];
     for (let each in tags) {
@@ -80,18 +108,7 @@ const CreatePage = ({ status, toggleStatus }) => {
 
     return result;
   };
-  const onChange = (e) => {
-    setNewList({
-      ...newList,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const onSearchChange = (e) => {
-    setSearch({
-      ...search,
-      [e.target.name]: e.target.value,
-    });
-  };
+
   return (
     <>
       <div className="create">
@@ -108,7 +125,10 @@ const CreatePage = ({ status, toggleStatus }) => {
 
         <div className="create__subtitle">Wines</div>
         <div className="create__searchCont">
-          <BsSearch className="create__searchIcon" />
+          <BsSearch
+            className="create__searchIcon"
+            onClick={debounce(searchWines)}
+          />
           <input
             className="create__search"
             name="wine"
@@ -181,14 +201,6 @@ const CreatePage = ({ status, toggleStatus }) => {
           {displaySelectedTags()}
           {displayUnselectedTags()}
         </div>
-        {/* <div
-          className={
-            search.tag !== "" && newList.tags.length !== 0
-              ? "create__tag create__tag--inactive"
-              : "create__tag"
-          }
-        >
-        </div> */}
 
         <div className="create__subtitle">Description</div>
         <textarea

@@ -77,6 +77,21 @@ const App = () => {
         toggleStatus={toggleStatus}
       ></RegisterModal>
 
+      <div
+        className={
+          status.sideBarModal === true || status.searchBarModal === true
+            ? "modalBackground"
+            : ""
+        }
+        onClick={() => {
+          setStatus({
+            ...status,
+            sideBarModal: false,
+            searchBarModal: false,
+          });
+        }}
+      ></div>
+
       <Header status={status} toggleStatus={toggleStatus} />
 
       <div className="article">
