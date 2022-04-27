@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Tag from "../../components/Tag/Tag";
 import {
   BsXLg,
@@ -8,7 +8,7 @@ import {
   BsFonts,
   BsX,
 } from "react-icons/bs";
-import axios from "axios";
+import axios, { CancelToken } from "axios";
 import "./CreatePage.css";
 
 const CreatePage = ({ status, toggleStatus }) => {
@@ -48,20 +48,6 @@ const CreatePage = ({ status, toggleStatus }) => {
       tag: "",
     });
   }
-  const debounce = (func, timeout = 300) => {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        func.apply(this, args);
-      }, timeout);
-    };
-  };
-  const searchWines = async () => {
-    const temp = await axios.get("api/wines/search");
-    console.log(temp.data);
-    setWines(temp.data);
-  };
   const onChange = (e) => {
     setNewList({
       ...newList,
@@ -73,6 +59,34 @@ const CreatePage = ({ status, toggleStatus }) => {
       ...search,
       [e.target.name]: e.target.value,
     });
+  };
+  const source = useRef(null);
+  const onWineSearchChange = async (e) => {
+    setSearch({
+      ...search,
+      [e.target.name]: e.target.value,
+    });
+    if (source.current !== null) {
+      source.current.cancel();
+    }
+    source.current = CancelToken.source();
+    try {
+      if (e.target.value === "") {
+        setWines([]);
+      } else {
+        const res = await axios.get(
+          `api/wines/search?keyword=${e.target.value}`,
+          {
+            cancelToken: source.current.token,
+          }
+        );
+        if (res.status === 200) {
+          setWines(res.data);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   const displaySelectedTags = () => {
     const result = [];
@@ -105,8 +119,24 @@ const CreatePage = ({ status, toggleStatus }) => {
         }
       }
     }
-
     return result;
+  };
+  const displaySearchedWines = () => {
+    return wines.map((each) => (
+      <div className="create__select">
+        <div className="create__wineImageCont">
+          <img className="create__wineImage" src={each.images[0]} />
+        </div>
+        <div className="create__wineContent">
+          <div className="create__winery">{each.winery}</div>
+          <div className="create__name">{each.name}</div>
+        </div>
+        <div className="create__iconCont">
+          <BsX className="create__wineDelete" />
+          <BsFonts className="create__wineComment" />
+        </div>
+      </div>
+    ));
   };
 
   return (
@@ -127,64 +157,17 @@ const CreatePage = ({ status, toggleStatus }) => {
         <div className="create__searchCont">
           <BsSearch
             className="create__searchIcon"
-            onClick={debounce(searchWines)}
+            // onClick={debounce(searchWines)}
           />
           <input
             className="create__search"
             name="wine"
             placeholder="search a wine to add"
             value={search.wine}
-            onChange={onSearchChange}
+            onChange={onWineSearchChange}
           ></input>
         </div>
-        <div className="create__selectCont">
-          <div className="create__select">
-            <div className="create_wine__box">
-              <div className="create_wine__profile_box">
-                <img
-                  src="https://images.vivino.com/thumbs/MhiwIbE4TmSLMfjD-EKYjg_pb_x300.png"
-                  className="create_wineImage"
-                />
-              </div>
-              <div className="create_wine__description_box">
-                <div className="create_wine__description_font">
-                  Matsu <br></br>El Viejo 2018
-                </div>
-              </div>
-            </div>
-            <div className="create_wine__icon_box">
-              <div className="create_wine__icon">
-                <BsFonts className="create_wine__icon__text" />
-              </div>
-              <div className="create_wine__icon">
-                <BsX className="create_wine__icon__text" />
-              </div>
-            </div>
-          </div>
-          <div className="create__select">
-            <div className="create_wine__box">
-              <div className="create_wine__profile_box">
-                <img
-                  src="https://images.vivino.com/thumbs/MhiwIbE4TmSLMfjD-EKYjg_pb_x300.png"
-                  className="create_wineImage"
-                />
-              </div>
-              <div className="create_wine__description_box">
-                <div className="create_wine__description_font">
-                  Matsu <br></br>El Viejo 2018
-                </div>
-              </div>
-            </div>
-            <div className="create_wine__icon_box">
-              <div className="create_wine__icon">
-                <BsFonts className="create_wine__icon__text" />
-              </div>
-              <div className="create_wine__icon">
-                <BsX className="create_wine__icon__text" />
-              </div>
-            </div>
-          </div>
-        </div>
+        <div className="create__selectCont">{displaySearchedWines()}</div>
 
         <div className="create__subtitle">Tags</div>
         <div className="create__searchCont">
