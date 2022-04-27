@@ -4,83 +4,76 @@ import Tag from "../../components/Tag/Tag";
 import { BsSearch, BsXLg, BsStarFill, BsStar } from "react-icons/bs";
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
+import { AlternateEmail } from "@mui/icons-material";
 
 const FilterModal = ({ filterModal, toggleFilterModal }) => {
-  const dummytaydata = [
-    "acidic",
-    "light",
-    "blackberry",
-    "picnic",
-    "chocolate",
-    "oak",
-    "vanilla",
-    "good",
-    "cherry",
-    "red fruit",
-    "strawberry",
-    "fig",
-  ];
+  // tag명과 status를 key, value로 준 객체를 생성
   const [valuePrice, setValuePrice] = useState([23000, 128000]);
   const [valueRate, setValueRate] = useState(4.5);
   const [valueSearch, setSearch] = useState("");
-  const [tagsItems, settagsItems] = useState(dummytaydata);
-  const [selectedtagsItems, setselectedtagsItems] = useState([]);
-
-  const clickTags = () => {
-    const Result = selectedtagsItems;
-    Result.push(valueSearch);
-    setselectedtagsItems(Result);
-  };
-
-  const clickSearchIcon = () => {
-    if (
-      dummytaydata.includes(valueSearch) &&
-      !selectedtagsItems.includes(valueSearch)
-    ) {
-      const Result = [];
-      for (let i = 0; i < selectedtagsItems.length; i++) {
-        Result.push(selectedtagsItems[i]);
+  const [list, setList] = useState({
+    acidic: false,
+    light: false,
+    picnic: false,
+    dry: false,
+    oak: false,
+    rose: false,
+    cherry: false,
+    blackberry: false,
+    chocolate: false,
+    vanilla: false,
+    good: false,
+    fruit: false,
+    strawberry: false,
+    fig: false,
+  });
+  // 버튼을 클릭하면 토글되도록 변경
+  function onBtnClick() {
+    setList({ ...list, [this.txt]: !list[this.txt] });
+  }
+  const clickAddIcon = () => {
+    for (const each in list) {
+      if (each === valueSearch) {
+        const copylist = list;
+        copylist[valueSearch] = true;
+        setList(copylist);
       }
-      Result.push(valueSearch);
-      setselectedtagsItems(Result);
-      settagsItems([]);
     }
   };
+  const displaySelectedTags = () => {
+    const result = [];
 
-  const getSelectedTagItemsJSX = () => {
-    return (
-      <div>
-        {selectedtagsItems.map((tag, index) => (
-          <Tag isFilled={0} txt={tag} />
-        ))}
-      </div>
-    );
+    for (let each in list) {
+      if (list[each] === true) {
+        result.push(
+          <Tag
+            type="selected"
+            txt={each}
+            isFilled={true}
+            onClick={onBtnClick.bind({ txt: each })}
+          />
+        );
+      }
+    }
+    result.sort();
+    return result;
   };
-
-  const getTagItemsJSX = () => {
-    return (
-      <div>
-        {selectedtagsItems.map((tag, index) => (
-          <Tag isFilled={0} txt={tag} />
-        ))}
-        {tagsItems.map((tag, index) => (
-          <Tag isFilled={0} txt={tag} />
-        ))}
-      </div>
-    );
-  };
-
-  const findTag = () => {
-    const Result = [];
-
-    for (let i = 0; i < dummytaydata.length; i++) {
-      if (dummytaydata[i].includes(valueSearch)) {
-        if (!selectedtagsItems.includes(dummytaydata[i])) {
-          Result.push(dummytaydata[i]);
+  const displayUnselectedTags = () => {
+    const result = [];
+    for (let each in list) {
+      if (list[each] === false) {
+        if (each.includes(valueSearch)) {
+          result.push(
+            <Tag
+              type="selected"
+              txt={each}
+              onClick={onBtnClick.bind({ txt: each })}
+            />
+          );
         }
       }
     }
-    settagsItems(Result);
+    return result;
   };
 
   const handlePriceChange = (event, newValue) => {
@@ -92,6 +85,62 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
     setValueRate(newValue);
     console.log("Rate value : ", valueRate / 20);
   };
+
+  const rate_marks = [
+    {
+      value: 0,
+      label: "0",
+    },
+    {
+      value: 1,
+      label: "1",
+    },
+    {
+      value: 2,
+      label: "2",
+    },
+    {
+      value: 3,
+      label: "3",
+    },
+
+    {
+      value: 4,
+      label: "4",
+    },
+    {
+      value: 5,
+      label: "5",
+    },
+  ];
+
+  const price_marks = [
+    {
+      value: 0,
+      label: "0",
+    },
+    {
+      value: 40000,
+      label: "40000",
+    },
+    {
+      value: 70000,
+      label: "70000",
+    },
+    {
+      value: 100000,
+      label: "100000",
+    },
+
+    {
+      value: 130000,
+      label: "130000",
+    },
+    {
+      value: 150000,
+      label: "150000",
+    },
+  ];
 
   //discriminates number by 3 digits (with comma)
   const numberFormat = (num) => {
@@ -118,20 +167,25 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
           <div className="filter__cond-tag">
             <div className="filter__cond-title"> Tags </div>
             <div className="filter__cond-search">
-              <BsSearch
-                className="filter__cond-search-icon"
-                onClick={clickSearchIcon}
-              />
+              <BsSearch className="filter__cond-search-icon" />
               <input
                 type="text"
                 className="filter__cond-search-input"
                 placeholder="search tags"
                 onChange={(event) => {
-                  setSearch(event.target.value), findTag();
+                  setSearch(event.target.value);
                 }}
               ></input>
+              <div className="detail__reviewPlus" onClick={clickAddIcon}>
+                {" "}
+                +
+              </div>
             </div>
-            <div>{getTagItemsJSX()}</div>
+            <div>
+              {" "}
+              {displaySelectedTags()}
+              {displayUnselectedTags()}
+            </div>
           </div>
 
           {/* 와인리스트에 대해서는 이부분 없애야함 */}
@@ -149,10 +203,11 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
             <Box>
               <Slider
                 className="filter__cond-price-slider"
-                getAriaLabel={() => "wine price range"}
+                // getAriaLabel={() => "wine price range"}
                 // aria-labelledby="range-slider"
                 value={valuePrice}
                 onChange={handlePriceChange}
+                marks={price_marks}
                 size="small"
                 min={0}
                 max={150000}
@@ -175,15 +230,18 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
               {/* sx = {{width : "80%"}} */}
               <Slider
                 className="filter__cond-rate-slider"
-                getAriaLabel={() => "wine rate range"}
+                // getAriaLabel={() => "wine rate range"}
                 // aria-labelledby="range-slider"
                 value={valueRate}
+                track="inverted"
                 onChange={handleRateChange}
                 size="small"
                 // aria-label = "rate-range-slider"
+                marks={rate_marks}
                 min={0}
-                step={0.1}
+                step={0.5}
                 max={5}
+                d
                 // color = "primary"
               />
             </Box>

@@ -267,49 +267,49 @@ const SideBarModal = ({ status, toggleStatus }) => {
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/picnic">Picnic</Link>
+                <Link to="/wines/picnic">Picnic</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wedding">Wedding</Link>
+                <Link to="/wines/wedding">Wedding</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/party">Party</Link>
+                <Link to="/wines/party">Party</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/christmas">Christmas</Link>
+                <Link to="/wines/christmas">Christmas</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/business">Business</Link>
+                <Link to="/wines/business">Business</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/camping">Camping</Link>
+                <Link to="/wines/camping">Camping</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/travelg">Travel</Link>
+                <Link to="/wines/travelg">Travel</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/date">Date</Link>
+                <Link to="/wines/date">Date</Link>
               </div>
             </div>
             <br></br>
@@ -320,37 +320,37 @@ const SideBarModal = ({ status, toggleStatus }) => {
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/red">Red</Link>
+                <Link to="/wines/red">Red</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/white">White</Link>
+                <Link to="/wines/white">White</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/sparkling">Sparkling</Link>
+                <Link to="/wines/sparkling">Sparkling</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/rose">Rose</Link>
+                <Link to="/wines/rose">Rose</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/dessert"> Dessert</Link>
+                <Link to="/wines/dessert"> Dessert</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/fortified">Fortified</Link>
+                <Link to="/wines/fortified">Fortified</Link>
               </div>
             </div>
             {/* 여기서 페이지 구현할때 sidebar__link 하나씩 복사해서 일단 사용 */}
