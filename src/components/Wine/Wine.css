@@ -15,18 +15,20 @@ button:hover {
 }
 
 .wine__image {
-  height: 100%;
-  margin: 0rem 3rem 0rem 0rem;
+  display: flex;
+  justify-content: center;
+  width: 30%;
 }
 
 .wine__image > img {
-  height: 100%;
+  width: 66%;
 }
 
 .wine__detail {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  width: 70%;
 }
 
 .wine__nameTitle {

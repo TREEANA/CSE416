@@ -1,6 +1,7 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from "axios";
 
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -37,7 +38,24 @@ const App = () => {
     sortModal: false,
     applyModal: false,
     commentModal: false,
+
+    exchangeRate: 0,
   });
+  const fetchCurrency = async () => {
+    try {
+      const res = await axios.get("/external/currency");
+      setStatus({
+        ...status,
+        exchangeRate: res.data.basePrice,
+      });
+      console.log(res.data.basePrice);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchCurrency();
+  }, []);
   const handleStatus = (name, value) => {
     setStatus({
       ...status,
