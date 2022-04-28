@@ -3,22 +3,24 @@ import "./Wine.css";
 import Tag from "../Tag/Tag";
 import StarIcon from "@mui/icons-material/Star";
 
-// const wineDummyData = {
-//   windID: 1,
-//   tags: ["sweet", "dry", "oak", "cherry", "picnic", "rose"],
-//   name: "La Crema Sonoma Coast ",
-//   grape: "Pinot Noir",
-//   images: ["https://images.vivino.com/thumbs/MhiwIbE4TmSLMfjD-EKYjg_pb_x300.png"],
-//   lightness: 3.5,
-//   smoothness: 2.6,
-//   sweetness: 4.5,
-//   softness: 2.1,
-//   isDeleted: false,
-//   price: 43,
-//   rate: 2.5,
-// };
+const wineDummyData = {
+  windID: 1,
+  tags: ["sweet", "dry", "oak", "cherry", "picnic", "rose"],
+  name: "La Crema Sonoma Coast ",
+  grape: "Pinot Noir",
+  images: [
+    "https://images.vivino.com/thumbs/MhiwIbE4TmSLMfjD-EKYjg_pb_x300.png",
+  ],
+  lightness: 3.5,
+  smoothness: 2.6,
+  sweetness: 4.5,
+  softness: 2.1,
+  isDeleted: false,
+  price: 43,
+  rating: 2.5,
+};
 
-const Wine = ({ wine }) => {
+const Wine = ({ wine = wineDummyData }) => {
   const formatPrice = () => {
     return Math.round((wine.price * wine.exchangeRate) / 1000) * 1000;
   };
@@ -30,7 +32,11 @@ const Wine = ({ wine }) => {
       </div>
       <div className="wine__detail">
         <div className="wine__nameTitle">{wine.name} </div>
-        <div className="wine__grapeTitle">{wine.grape} </div>
+        <div className="wine__grapeTitle">
+          {wine.grape.map((each, index) => (
+            <div>{each}</div>
+          ))}
+        </div>
         <div className="wine__tags">
           {wine.tags.slice(0, 5).map((tag, index) => (
             <Tag type="wineButton" txt={tag} key={index} />

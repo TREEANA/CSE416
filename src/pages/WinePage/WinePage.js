@@ -51,15 +51,13 @@ import "./WinePage.css";
 
 const WinePage = ({ status, toggleStatus }) => {
   const location = useLocation();
-  const [theme, setTheme] = useState(location.pathname.split("/")[2]);
+  const [theme, setTheme] = useState(formatUrl());
   const filterModal = status.filterModal;
   const sortModal = status.sortModal;
   const [wines, setWines] = useState([]);
-  const fetchWines = async () => {
+  const fetchWines = async (tag) => {
     try {
-      const res = await axios.get(
-        `/api/wines/search?tags=${formatTheme(theme)}`
-      );
+      const res = await axios.get(`/api/wines/search?tags=${tag}`);
       setWines(res.data);
       console.log(res.data);
     } catch (e) {
@@ -67,17 +65,21 @@ const WinePage = ({ status, toggleStatus }) => {
     }
   };
   useEffect(() => {
-    fetchWines();
+    fetchWines(formatTheme(theme));
   }, []);
   useEffect(() => {
-    setTheme(location.pathname.split("/")[2]);
-    fetchWines();
+    const url = formatUrl();
+    setTheme(url);
+    fetchWines(url);
   }, [location]);
   const toggleFilterModal = () => toggleStatus("filterModal");
   const toggleSortModal = () => toggleStatus("sortModal");
   const formatTheme = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
+  function formatUrl() {
+    return location.pathname.split("/")[2].replace("%20", " ");
+  }
   const displayWines = () => {
     const result = [];
     wines.forEach((each, i) => {
