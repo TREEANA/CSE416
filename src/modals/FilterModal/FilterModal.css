@@ -106,3 +106,10 @@
   margin-bottom: 20px;
   cursor: pointer;
 }
+
+.filter__reviewPlus {
+  color: var(--primary);
+  background-color: transparent;
+  font-size: var(--size-btn);
+  cursor: pointer;
+}
