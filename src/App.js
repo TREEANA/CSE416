@@ -46,9 +46,8 @@ const App = () => {
       const res = await axios.get("/external/currency");
       setStatus({
         ...status,
-        exchangeRate: res.data.basePrice,
+        exchangeRate: res.data.rates.KRW,
       });
-      console.log(res.data.basePrice);
     } catch (e) {
       console.log(e);
     }

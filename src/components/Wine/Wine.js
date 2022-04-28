@@ -20,8 +20,7 @@ import StarIcon from "@mui/icons-material/Star";
 
 const Wine = ({ wine }) => {
   const formatPrice = () => {
-    console.log(wine.price, wine.exchangeRate);
-    return wine.price * wine.exchangeRate;
+    return Math.round((wine.price * wine.exchangeRate) / 1000) * 1000;
   };
 
   return (
