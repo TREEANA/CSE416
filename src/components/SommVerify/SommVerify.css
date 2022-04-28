@@ -1,0 +1,22 @@
+.sommverify {
+  width: 100vw;
+  height: 100vh;
+}
+.sommverify__header {
+  display: flex;
+  justify-content: space-between;
+  color: var(--primary);
+  margin: var(--margin-out);
+  align-items: center;
+}
+.sommverify__info {
+}
+
+.sommverify__infoImg {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+sommverify__infoName {
+}

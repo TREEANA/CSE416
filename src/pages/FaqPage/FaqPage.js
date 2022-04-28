@@ -62,7 +62,21 @@ const FaqPage = () => {
             "Please click on forgot my password button to reset your password."
           }
         />
-        {/* <div>back to home</div> */}
+
+        {/* <Ticket
+          type="verify"
+          title={"testing for Verify ticket"}
+          question={"hello for verify !! "}
+          answer={"I hereby request for verification."}
+        />
+
+        <Ticket
+          type="ticket"
+          ticketStatus={2}
+          title={"testing for Verify ticket"}
+          question={"hello for ticket"}
+          answer={"I hereby request for verification."}
+        /> */}
       </div>
     </>
   );

@@ -7,7 +7,7 @@ import {
   BsThreeDots,
 } from "react-icons/bs";
 
-const ticketDummyData = {};
+// const ticketDummyData = {};
 
 const Ticket = ({ type, ticketStatus, title, question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +50,14 @@ const Ticket = ({ type, ticketStatus, title, question, answer }) => {
           </div>
         );
       }
+    } else if (type === "verify") {
+      if (ticketStatus === 0) {
+        return (
+          <div className="ticket__answer">
+            <b>{"hella assignment"}</b>
+          </div>
+        );
+      }
     }
   };
   return (
@@ -58,6 +66,8 @@ const Ticket = ({ type, ticketStatus, title, question, answer }) => {
         className={
           type === "faq"
             ? "ticket__button ticket__button--faq"
+            : type === "verify"
+            ? "ticket__button ticket__verify"
             : "ticket__button"
         }
         onClick={onClick}
