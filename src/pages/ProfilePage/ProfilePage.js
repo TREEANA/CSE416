@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./ProfilePage.css";
 import { Link } from "react-router-dom";
 
-const ProfilePage = () => {
+const ProfilePage = ({ status, toggleStatus }) => {
   const [profile__like, setProfile__like] = useState("profile__selected");
   const [profile__review, setProfile__review] = useState("profile__unselected");
   const click_like = () => {
@@ -40,9 +40,14 @@ const ProfilePage = () => {
             </ul>
           </div>
         </div>
-
-        <div className="profile__editporfile">Edit Profile</div>
-
+        <div
+          className="profile__editporfile"
+          onClick={() => {
+            toggleStatus("EditProfileModal");
+          }}
+        >
+          Edit Profile
+        </div>{" "}
         <div className="profile__listcontainer">
           <div className={profile__like} onClick={click_like}>
             like
