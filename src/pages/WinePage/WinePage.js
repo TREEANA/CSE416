@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 import axios from "axios";
+
 import Wine from "../../components/Wine/Wine";
+import WineList from "../../components/WineList/WineList";
 import SortModal from "../../modals/SortModal/SortModal";
 import FilterModal from "../../modals/FilterModal/FilterModal";
-import WineList from "../../components/WineList/WineList";
+
 import "./WinePage.css";
 
 // const defaultLists = [
@@ -50,28 +53,75 @@ import "./WinePage.css";
 // ];
 
 const WinePage = ({ status, toggleStatus }) => {
-  const location = useLocation();
-  const [theme, setTheme] = useState(formatUrl());
   const filterModal = status.filterModal;
   const sortModal = status.sortModal;
+  const location = useLocation();
+  const [theme, setTheme] = useState(formatUrl());
   const [wines, setWines] = useState([]);
-  const fetchWines = async (tag) => {
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [ref, inView] = useInView();
+
+  const fetchWines = async (tag, page) => {
+    setLoading(true);
     try {
-      const res = await axios.get(`/api/wines/search?tags=${tag}`);
+      const res = await axios.get(
+        `/api/wines/search?tags=${tag}&num=${page * 10}`
+      );
       setWines(res.data);
       console.log(res.data);
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
   };
+  const displayWines = () => {
+    const result = [];
+    wines.forEach((each, index) => {
+      wines.length - 1 == index
+        ? result.push(
+            <>
+              <Wine
+                wine={{
+                  ...each,
+                  exchangeRate: status.exchangeRate,
+                }}
+                key={index}
+              />
+              <div ref={ref}></div>
+            </>
+          )
+        : result.push(
+            <Wine
+              wine={{
+                ...each,
+                exchangeRate: status.exchangeRate,
+              }}
+              key={index}
+            />
+          );
+    });
+    return result;
+  };
+
   useEffect(() => {
-    fetchWines(formatTheme(theme));
-  }, []);
+    fetchWines(formatTheme(theme), page);
+  }, [page]);
+
+  useEffect(() => {
+    console.log(inView, loading);
+    if (inView && !loading) {
+      setPage(page + 1);
+    }
+  }, [inView]);
+
   useEffect(() => {
     const url = formatUrl();
     setTheme(url);
-    fetchWines(url);
+    setPage(1);
+    fetchWines(url, 1);
   }, [location]);
+
   const toggleFilterModal = () => toggleStatus("filterModal");
   const toggleSortModal = () => toggleStatus("sortModal");
   const formatTheme = (str) => {
@@ -80,20 +130,6 @@ const WinePage = ({ status, toggleStatus }) => {
   function formatUrl() {
     return location.pathname.split("/")[2].replace("%20", " ");
   }
-  const displayWines = () => {
-    const result = [];
-    wines.forEach((each, i) => {
-      result.push(
-        <Wine
-          wine={{
-            ...each,
-            exchangeRate: status.exchangeRate,
-          }}
-        />
-      );
-    });
-    return result;
-  };
   return (
     <div className="winePage">
       <div className="winePage__titleCont">
