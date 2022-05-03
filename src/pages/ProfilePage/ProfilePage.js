@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./ProfilePage.css";
 import { Link } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
 const ProfilePage = ({ status, toggleStatus }) => {
   const dummpyUserdata = {
     userID: 0,
