@@ -19,7 +19,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
     isDeleted: false,
     // rev
   };
-
   const dummpyLikedata = [{}];
   const likeimagelist = [
     { url: "https://images.unsplash.com/photo-1566331551467-0dc72cc80ec0" },
@@ -56,7 +55,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
   ];
 
   const dummpyReviewdata = [];
-
+  const [isFollowd, setFollowd] = useState(false);
   const [profile__like, setProfile__like] = useState("profile__selected");
   const [profile__review, setProfile__review] = useState("profile__unselected");
   const click_like = () => {
@@ -153,6 +152,17 @@ const ProfilePage = ({ status, toggleStatus }) => {
         >
           Edit Profile
         </div>
+
+        {/* <div
+          className={
+            isFollowd
+              ? "profile__editporfile_unfilled "
+              : "profile__editporfile"
+          }
+          onClick={() => setFollowd(!isFollowd)}
+        >
+          {isFollowd ? "following" : "follow"}
+        </div> */}
         <div className="profile__listcontainer">
           <div className={profile__like} onClick={click_like}>
             like

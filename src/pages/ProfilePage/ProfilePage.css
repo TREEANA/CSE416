@@ -75,6 +75,23 @@ li {
   padding: 1rem 0rem;
   margin-bottom: var(--margin-out);
 }
+
+.profile__editporfile_unfilled {
+  margin-left: var(--margin-out);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-0);
+  color: var(--primary);
+  font-size: 1.5rem;
+  margin: 0.5rem var(--margin-out);
+  height: 0.1rem;
+  width: 480px;
+  border-radius: 5rem;
+  border-style: none;
+  padding: 1rem 0rem;
+  margin-bottom: var(--margin-out);
+}
 .profile__listcontainer {
   display: flex;
   justify-content: space-between;
