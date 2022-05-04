@@ -40,6 +40,7 @@ const verifyDummyData = {
 
 const SommVerify = (sommdata = { verifyDummyData }) => {
   const [toggleStatus, setToggleStatus] = useState(0);
+  //   toggle status 0(closed), 1(open)
   const toggleButton = () => {
     setToggleStatus(!toggleStatus);
   };
@@ -48,7 +49,7 @@ const SommVerify = (sommdata = { verifyDummyData }) => {
   return (
     <>
       <div className="sommverify">
-        <div className="sommverify__header">
+        <div className="sommverify__header" onClick={toggleButton}>
           <div className="sommverify__info">
             <img
               className="sommverify__infoImg"
@@ -57,7 +58,14 @@ const SommVerify = (sommdata = { verifyDummyData }) => {
             <div className="sommverify__infoName">{sommdata.userID}</div>
           </div>
           <div className="sommverify__status">
-            <div className="sommverify__statusButton"> </div>
+            <div className="sommverify__verifyButton">
+              {toggleStatus && (
+                <>
+                  <div className="sommverify__verifyApprove">approve</div>
+                  <div className="sommverify__verifyReject"> reject </div>
+                </>
+              )}
+            </div>
             <div className="sommverify__statusIcon">
               {status === 0 && <BsFillCheckCircleFill />}
               {status === 1 && <BsThreeDots />}
