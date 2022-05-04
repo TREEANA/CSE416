@@ -4,20 +4,42 @@ import "./SideBarModal.css";
 import { BsXLg, BsFillPlusCircleFill } from "react-icons/bs";
 import { MdWineBar, MdSettings } from "react-icons/md";
 
+import GoogleLogin from "react-google-login";
+
 const SideBarModal = ({ status, toggleStatus }) => {
+  const onSuccess = async (response) => {
+    //여기다가 우리 로직 구현
+    console.log(response);
+  };
+
+  const onFailure = (error) => {
+    console.log(error);
+  };
+
   const displayUser = () => {
     if (status.user === 0)
       return (
         <div className="sidebar__login">
           <div className="sidebar__header">
-            <div
-              className="sidebar__status"
-              onClick={() => {
-                toggleStatus("sideBarModal", "loginModal");
-              }}
-            >
-              Login
-            </div>
+            <GoogleLogin
+              clientId="1085857977500-hci29d5464imb3l7hdau6qipmjpeqstd.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={"single_host_origin"}
+              isSignedIn={true}
+              render={(renderProps) => (
+                <div
+                  className="sidebar__status"
+                  onClick={() => {
+                    toggleStatus("sideBarModal"), renderProps.onClick();
+                  }}
+                  disabled={renderProps.disabled}
+                >
+                  login
+                </div>
+              )}
+            />
             <BsXLg
               className="sidebar__close"
               onClick={() => {
@@ -81,14 +103,17 @@ const SideBarModal = ({ status, toggleStatus }) => {
               onClick={() => toggleStatus("sideBarModal")}
             />
           </div>
-          <div className="sidebar__create">
-            <BsFillPlusCircleFill
+          <Link to="/create">
+            <div
+              className="sidebar__create"
               onClick={() => {
-                toggleStatus("sideBarModal", "createModal");
+                toggleStatus("sideBarModal");
               }}
-            />{" "}
-            create wine list
-          </div>
+            >
+              <BsFillPlusCircleFill />
+              create wine list
+            </div>
+          </Link>
           <hr className="sidebar__hr"></hr>
         </div>
       );

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import "./RegisterModal.css";
+import "./EditProfileModal.css";
 import { BsArrowLeft, BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import RegisterTag from "../RegisterTagModal/RegisterTagModal";
 import Tag from "../../components/Tag/Tag";
-
-const RegisterModal = ({ status, toggleStatus }) => {
+// RegisterModal
+const EditProfileModal = ({ status, toggleStatus }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [valueSearch, setSearch] = useState("");
   const [list, setList] = useState({
@@ -75,30 +74,30 @@ const RegisterModal = ({ status, toggleStatus }) => {
 
   return (
     <>
-      {status.registerModal && (
+      {status.EditProfileModal && (
         <div className="register">
           <div className="register__header">
             <BsArrowLeft
               className="register__back"
-              onClick={() => toggleStatus("registerModal")}
+              onClick={() => toggleStatus("EditProfileModal")}
             ></BsArrowLeft>
             <div className="register__home">
-              <Link to="/" onClick={() => toggleStatus("registerModal")}>
+              <Link to="/" onClick={() => toggleStatus("EditProfileModal")}>
                 podo
               </Link>
             </div>
           </div>
 
           <div className="register__main">
-            <div className="register__title">Register</div>
+            <div className="register__title">Edit your profile</div>
 
             <form className="register__main-content">
               <br></br>
-              <div className="register_subtitle">choose your user name</div>
+              <div className="register_subtitle">Change your user name</div>
               <input className="register__name" placeholder="username"></input>
               <div className="register__name-warning"> available username </div>
               <br></br>
-              <div className="register_subtitle">choose your photo</div>
+              <div className="register_subtitle">Change your photo</div>
               <div className="register__image__box__container">
                 {selectedImage && (
                   <img
@@ -147,7 +146,7 @@ const RegisterModal = ({ status, toggleStatus }) => {
               <div
                 className="register__register"
                 onClick={() => {
-                  toggleStatus("registerModal");
+                  toggleStatus("EditProfileModal");
                 }}
               >
                 {" "}
@@ -161,4 +160,4 @@ const RegisterModal = ({ status, toggleStatus }) => {
   );
 };
 
-export default RegisterModal;
+export default EditProfileModal;

@@ -8,40 +8,48 @@ const wineDummyData = {
   tags: ["sweet", "dry", "oak", "cherry", "picnic", "rose"],
   name: "La Crema Sonoma Coast ",
   grape: "Pinot Noir",
-  image: "https://images.vivino.com/thumbs/MhiwIbE4TmSLMfjD-EKYjg_pb_x300.png",
+  images: [
+    "https://images.vivino.com/thumbs/MhiwIbE4TmSLMfjD-EKYjg_pb_x300.png",
+  ],
   lightness: 3.5,
   smoothness: 2.6,
   sweetness: 4.5,
   softness: 2.1,
   isDeleted: false,
   price: 43,
-  rate: 2.5,
+  rating: 2.5,
 };
 
-const Wine = ({ wine = { ...wineDummyData } }) => {
-  const [tempWine, setTempWine] = useState(wine);
+const Wine = ({ wine = wineDummyData }) => {
+  const formatPrice = () => {
+    return Math.round((wine.price * wine.exchangeRate) / 1000) * 1000;
+  };
 
   return (
     <div className="wine">
       <div className="wine__image">
-        <img src={tempWine.image}></img>
+        <img src={wine.images[0]}></img>
       </div>
       <div className="wine__detail">
-        <div className="wine__nameTitle">{tempWine.name} </div>
-        <div className="wine__grapeTitle">{tempWine.grape} </div>
+        <div className="wine__nameTitle">{wine.name} </div>
+        <div className="wine__grapeTitle">
+          {wine.grape.map((each, index) => (
+            <div>{each}</div>
+          ))}
+        </div>
         <div className="wine__tags">
-          {tempWine.tags.slice(0, 5).map((tag, index) => (
+          {wine.tags.slice(0, 5).map((tag, index) => (
             <Tag type="wineButton" txt={tag} key={index} />
           ))}
         </div>
         <div className="wine__rate">
           <StarIcon sx={{ fontSize: 40 }} />
-          {tempWine.rate}
+          {wine.rating}
         </div>
         <div className="wine__price">
-          {tempWine.price.toLocaleString("en-US", {
+          {formatPrice().toLocaleString("en-US", {
             style: "currency",
-            currency: "USD",
+            currency: "KRW",
           })}
         </div>
       </div>

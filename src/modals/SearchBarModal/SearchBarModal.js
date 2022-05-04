@@ -6,6 +6,9 @@ import { MdWineBar } from "react-icons/md";
 
 const SearchBarModal = ({ toggleSearchBarModal, searchBarModalStatus }) => {
   let location = useLocation();
+
+  const [clickFollowers, setClickFollowers] = useState(true);
+  const [valueSearch, setSearch] = useState("");
   const [matchingWines, setMatchingWines] = useState([
     { wineID: 0, name: "Wine One" },
     { wineID: 1, name: "Wine Two" },
@@ -23,12 +26,67 @@ const SearchBarModal = ({ toggleSearchBarModal, searchBarModalStatus }) => {
     { winelistID: 4, name: "List Five" },
   ]);
   const [matchingPeople, setMatchingPeople] = useState([
-    { userID: 0, name: "User 1" },
-    { userID: 1, name: "User 2" },
-    { userID: 2, name: "User 3" },
-    { userID: 3, name: "User 4" },
-    { userID: 4, name: "User 5" },
+    { userID: 0, name: "User 1", follow: false },
+    { userID: 1, name: "User 2", follow: false },
+    { userID: 2, name: "User 3", follow: false },
+    { userID: 3, name: "User 4", follow: false },
+    { userID: 4, name: "User 5", follow: false },
   ]);
+
+  const [followers, setFollowers] = useState([
+    { userID: 0, name: "Follower 1", follow: true },
+    { userID: 1, name: "Follower 2", follow: true },
+    { userID: 2, name: "Follower 3", follow: true },
+    { userID: 3, name: "Follower 4", follow: true },
+    { userID: 4, name: "Follower 5", follow: true },
+  ]);
+  const [followering, setFollowering] = useState([
+    { userID: 0, name: "Followering 1", follow: true },
+    { userID: 1, name: "Followering 2", follow: true },
+    { userID: 2, name: "Followering 3", follow: true },
+    { userID: 3, name: "Followering 4", follow: true },
+    { userID: 4, name: "Followering 5", follow: true },
+  ]);
+
+  const clickMatchingListButton = (id) => {
+    const newArr = [];
+    for (let i = 0; i < matchingPeople.length; i++) {
+      const each = matchingPeople[i];
+      if (each.userID === id) {
+        each.follow = !each.follow;
+      }
+      newArr.push(each);
+    }
+
+    setMatchingPeople(newArr);
+  };
+
+  const clickFollowersButton = (id) => {
+    const newArr = [];
+    for (let i = 0; i < followers.length; i++) {
+      const each = followers[i];
+      if (each.userID === id) {
+        each.follow = !each.follow;
+      }
+      newArr.push(each);
+    }
+
+    setFollowers(newArr);
+  };
+
+  const clickFollowsButton = (id) => {
+    const newArr = [];
+    for (let i = 0; i < followers.length; i++) {
+      const each = followers[i];
+      if (each.userID === id) {
+        each.follow = !each.follow;
+      }
+      newArr.push(each);
+    }
+
+    setFollowering(newArr);
+  };
+
   const displayMatchingWines = (arr) => {
     const result = [];
     for (let i = 0; i < arr.length && i < 5; i++) {
@@ -57,20 +115,101 @@ const SearchBarModal = ({ toggleSearchBarModal, searchBarModalStatus }) => {
     const result = [];
     for (let i = 0; i < arr.length && i < 5; i++) {
       const each = arr[i];
+      if (each.name.includes(valueSearch)) {
+        result.push(
+          <div className="search__profile__container">
+            <div className="search__profile">
+              <div className="search__image">
+                <img />
+              </div>
+              <div className="search__name" id={each.userID}>
+                {each.name}
+              </div>
+              <MdWineBar />
+            </div>
+
+            <div
+              className={
+                each.follow
+                  ? "search__button search__button"
+                  : "search__button--filled"
+              }
+              onClick={() => clickMatchingListButton(each.userID)}
+            >
+              {each.follow ? "following" : "follow"}
+            </div>
+          </div>
+        );
+      }
+    }
+    return result;
+  };
+
+  const displayFollowers = (arr) => {
+    const result = [];
+    for (let i = 0; i < arr.length && i < 5; i++) {
+      const each = arr[i];
+
       result.push(
-        <div className="search__profile">
-          <div className="search__image">
-            <img />
+        <div className="search__profile__container">
+          <div className="search__profile">
+            <div className="search__image">
+              <img />
+            </div>
+            <div className="search__name" id={each.userID}>
+              {each.name}
+            </div>
+            <MdWineBar />
           </div>
-          <div className="search__name" id={each.userID}>
-            {each.name}
+
+          <div
+            className={
+              each.follow
+                ? "search__button search__button"
+                : "search__button--filled"
+            }
+            onClick={() => clickFollowersButton(each.userID)}
+          >
+            {each.follow ? "following" : "follow"}
           </div>
-          <MdWineBar />
         </div>
       );
     }
     return result;
   };
+  const displayFollowing = (arr) => {
+    const result = [];
+    for (let i = 0; i < arr.length && i < 5; i++) {
+      const each = arr[i];
+
+      result.push(
+        <div className="search__profile__container">
+          <div className="search__profile">
+            <div className="search__image">
+              <img />
+            </div>
+            <div className="search__name" id={each.userID}>
+              {each.name}
+            </div>
+            <MdWineBar />
+          </div>
+
+          <div
+            className={
+              each.follow
+                ? "search__button search__button"
+                : "search__button--filled"
+            }
+            onClick={() => clickFollowsButton(each.userID)}
+          >
+            {each.follow ? "following" : "follow"}
+          </div>
+        </div>
+      );
+    }
+    return result;
+  };
+
   return (
     <>
       {location.pathname !== "/profile" ? (
@@ -105,6 +244,9 @@ const SearchBarModal = ({ toggleSearchBarModal, searchBarModalStatus }) => {
               <input
                 className="search__text-input"
                 placeholder="find new people"
+                onChange={(event) => {
+                  setSearch(event.target.value);
+                }}
               ></input>
             </div>
             <BsXLg className="search__close" onClick={toggleSearchBarModal} />
@@ -112,6 +254,37 @@ const SearchBarModal = ({ toggleSearchBarModal, searchBarModalStatus }) => {
           <div className="search__result">
             <div className="search__result-wine">
               {displayMatchingPeople(matchingPeople)}
+
+              <div className="search__header">
+                <div
+                  className={
+                    clickFollowers
+                      ? "search__header__selected"
+                      : "search__header__unselected"
+                  }
+                  onClick={() => setClickFollowers(true)}
+                >
+                  Followers
+                </div>
+                <div
+                  className={
+                    clickFollowers
+                      ? "search__header__unselected"
+                      : "search__header__selected"
+                  }
+                  onClick={() => setClickFollowers(false)}
+                >
+                  Follows
+                </div>
+              </div>
+
+              <div className="search__followers__font">
+                {clickFollowers ? "Your Followers" : "You Following"}{" "}
+              </div>
+
+              {clickFollowers
+                ? displayFollowers(followers)
+                : displayFollowing(followering)}
             </div>
           </div>
         </div>

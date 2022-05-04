@@ -1,6 +1,7 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from "axios";
 
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -11,8 +12,8 @@ import SideBarModal from "./modals/SideBarModal/SideBarModal";
 import SearchBarModal from "./modals/SearchBarModal/SearchBarModal";
 import ApplyModal from "./modals/ApplyModal/ApplyModal";
 import TicketModal from "./modals/TicketModal/TicketModal";
-import CreateModal from "./modals/CreateModal/CreateModal";
 import CommentModal from "./modals/CommentModal/CommentModal";
+import EditProfileModal from "./modals/EditProfileModal/EditProfileModal";
 
 import MainPage from "./pages/MainPage/MainPage";
 import WinePage from "./pages/WinePage/WinePage";
@@ -23,12 +24,13 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import FaqPage from "./pages/FaqPage/FaqPage";
 import VerifyPage from "./pages/VerifyPage/VerifyPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
+import CreatePage from "./pages/CreatePage/CreatePage";
 
 import SommVerify from "./components/SommVerify/SommVerify";
 
 const App = () => {
   const [status, setStatus] = useState({
-    user: 1,
+    user: 0,
     sideBarModal: false,
     searchBarModal: false,
     loginModal: false,
@@ -37,10 +39,25 @@ const App = () => {
     ticketModal: false,
     filterModal: false,
     sortModal: false,
-    createModal: false,
     applyModal: false,
     commentModal: false,
+    exchangeRate: 0,
+    editProfileModal: false,
   });
+  const fetchCurrency = async () => {
+    try {
+      const res = await axios.get("/external/currency");
+      setStatus({
+        ...status,
+        exchangeRate: res.data.rates.KRW,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchCurrency();
+  }, []);
   const handleStatus = (name, value) => {
     setStatus({
       ...status,
@@ -66,10 +83,6 @@ const App = () => {
         applyModalStatus={status.applyModal}
         toggleApplyModal={() => toggleStatus("applyModal")}
       ></ApplyModal>
-      <CreateModal
-        CreateModalStatus={status.createModal}
-        toggleCreateModal={() => toggleStatus("createModal")}
-      ></CreateModal>
       <CommentModal
         commentModalStatus={status.commentModal}
         togglecommentModal={() => toggleStatus("commentModal")}
@@ -83,6 +96,25 @@ const App = () => {
         status={status}
         toggleStatus={toggleStatus}
       ></RegisterModal>
+      <EditProfileModal
+        status={status}
+        toggleStatus={toggleStatus}
+      ></EditProfileModal>
+
+      <div
+        className={
+          status.sideBarModal === true || status.searchBarModal === true
+            ? "modalBackground"
+            : ""
+        }
+        onClick={() => {
+          setStatus({
+            ...status,
+            sideBarModal: false,
+            searchBarModal: false,
+          });
+        }}
+      ></div>
 
       <Header status={status} toggleStatus={toggleStatus} />
 
@@ -100,7 +132,12 @@ const App = () => {
           <Route path="/wineDetail" element={<WineDetailPage />} />
           <Route path="/list/*" element={<ListDetailPage />} />
           {/* detail includes Review, Filter */}
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/profile"
+            element={
+              <ProfilePage status={status} toggleStatus={toggleStatus} />
+            }
+          />
           <Route
             path="/lists/*"
             element={<ListPage status={status} toggleStatus={toggleStatus} />}
@@ -112,6 +149,10 @@ const App = () => {
           <Route
             path="/search/*"
             element={<SearchPage status={status} toggleStatus={toggleStatus} />}
+          />
+          <Route
+            path="/create"
+            element={<CreatePage status={status} toggleStatus={toggleStatus} />}
           />
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/verifysomm" element={<VerifyPage />} />

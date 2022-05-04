@@ -9,7 +9,7 @@
   top: 0;
   background-color: var(--bg-20);
   color: var(--primary);
-  z-index: 600;
+  z-index: 500;
 }
 
 .header__menu {
