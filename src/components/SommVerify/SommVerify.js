@@ -38,7 +38,7 @@ const verifyDummyData = {
   },
 };
 
-const SommVerify = (sommdata = { verifyDummyData }) => {
+const SommVerify = (sommdata = { ...verifyDummyData }) => {
   const [toggleStatus, setToggleStatus] = useState(0);
   //   toggle status 0(closed), 1(open)
   const toggleButton = () => {
@@ -74,7 +74,20 @@ const SommVerify = (sommdata = { verifyDummyData }) => {
           </div>
         </div>
         <div className="sommverify__body">
-          <div className="sommverify__bodyGrid"></div>
+          <div className="sommverify__bodyGrid">
+            <div
+              className="sommverify__verifyImg"
+              src="https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg"
+            >
+              {/* image */}
+            </div>
+            <div className="sommverify__rightText">
+              <div className="sommverfiy__userComment">
+                {verifyDummyData.userExplanation}
+              </div>
+              <div className="sommverfiy__adminComment"></div>
+            </div>
+          </div>
         </div>
       </div>
 
