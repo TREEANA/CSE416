@@ -67,28 +67,35 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
               )}
             </div>
             <div className="sommverify__statusIcon">
+              <BsFillCheckCircleFill />
               {status === 0 && <BsFillCheckCircleFill />}
               {status === 1 && <BsThreeDots />}
               {status === 2 && <BsXLg />}
             </div>
           </div>
         </div>
-        <div className="sommverify__body">
-          <div className="sommverify__bodyGrid">
-            <div
-              className="sommverify__verifyImg"
-              src="https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg"
-            >
-              {/* image */}
-            </div>
-            <div className="sommverify__rightText">
-              <div className="sommverfiy__userComment">
-                {verifyDummyData.userExplanation}
+        {toggleStatus && (
+          <div className="sommverify__body">
+            <div className="sommverify__bodyGrid">
+              <img
+                className="sommverify__verifyImg"
+                src="https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg"
+              ></img>
+              <div className="sommverify__rightText">
+                <div className="sommverfiy__userComment">
+                  {verifyDummyData.userExplanation}
+                </div>
+
+                <form className="sommverfiy__adminComment" method="POST">
+                  <input
+                    className="sommverify__adminInput"
+                    placeholder="write a comment here"
+                  ></input>
+                </form>
               </div>
-              <div className="sommverfiy__adminComment"></div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* <div className="sommverify">

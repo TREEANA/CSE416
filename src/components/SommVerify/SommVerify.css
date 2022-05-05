@@ -8,6 +8,11 @@
   color: var(--primary);
   margin: var(--margin-out);
   align-items: center;
+  background-color: var(--bg-20);
+  border-radius: 30px;
+  height: 3rem;
+  position: relative;
+  z-index: 1;
 }
 .sommverify__info {
 }
@@ -22,15 +27,46 @@
 }
 
 .sommverify__status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  margin-right: 7px;
 }
 
+.sommverify__verifyButton {
+  display: flex;
+  align-items: row;
+  margin-right: 5px;
+}
 .sommverify__verifyApprove {
   border-radius: 30px;
   background-color: green;
-  padding: 0.3rem;
+  color: var(--bg-0);
+  padding: 0.4rem;
+  margin: 0 3px;
 }
 .sommverify__verifyReject {
   border-radius: 30px;
   background-color: var(--primary);
-  padding: 0.3rem;
+  padding: 0.4rem;
+  margin: 0 3px;
+  color: var(--bg-0);
+}
+
+.sommverify__statusIcon > svg {
+  color: black;
+  height: 1.8rem;
+  width: 1.8rem;
+}
+
+.sommverify__body {
+  background-color: var(--bg-100);
+  position: relative;
+  top: -60px;
+  margin: 0 var(--margin);
+}
+
+.sommverify__bodyGrid {
+  padding-top: 50px;
 }

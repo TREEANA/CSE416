@@ -162,7 +162,7 @@ const App = () => {
           <Route path="/verify" element={<SommVerify />}></Route>
         </Routes>
       </div>
-
+      <SommVerify />
       <Footer />
     </Router>
   );
