@@ -129,7 +129,10 @@ const App = () => {
               <RegisterModal status={status} toggleStatus={toggleStatus} />
             }
           />
-          <Route path="/wine/*" element={<WineDetailPage />} />
+          <Route
+            path="/wine/:wineID"
+            element={<WineDetailPage status={status} />}
+          />
           <Route path="/list/*" element={<ListDetailPage />} />
           {/* detail includes Review, Filter */}
           <Route

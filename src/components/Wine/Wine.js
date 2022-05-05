@@ -25,7 +25,16 @@ const wineDummyData = {
 
 const Wine = ({ wine = wineDummyData }) => {
   const formatPrice = () => {
-    return Math.round((wine.price * wine.exchangeRate) / 1000) * 1000;
+    return (
+      Math.round((wine.price * wine.exchangeRate) / 1000) * 1000
+    ).toLocaleString("en-US", {
+      style: "currency",
+      currency: "KRW",
+    });
+  };
+
+  const formatGrape = () => {
+    return wine.grape.map((each, index) => <div>{each}</div>);
   };
 
   return (
@@ -37,11 +46,7 @@ const Wine = ({ wine = wineDummyData }) => {
         <div className="wine__nameTitle">
           <Link to={`/wine/${wine.wineID}`}>{wine.name}</Link>
         </div>
-        <div className="wine__grapeTitle">
-          {wine.grape.map((each, index) => (
-            <div>{each}</div>
-          ))}
-        </div>
+        <div className="wine__grapeTitle">{formatGrape()}</div>
         <div className="wine__tags">
           {wine.tags.slice(0, 5).map((tag, index) => (
             <Tag type="wineButton" txt={tag} key={index} />
@@ -51,12 +56,7 @@ const Wine = ({ wine = wineDummyData }) => {
           <StarIcon sx={{ fontSize: 40 }} />
           {wine.rating}
         </div>
-        <div className="wine__price">
-          {formatPrice().toLocaleString("en-US", {
-            style: "currency",
-            currency: "KRW",
-          })}
-        </div>
+        <div className="wine__price">{formatPrice()}</div>
       </div>
     </div>
   );

@@ -37,6 +37,10 @@ button:hover {
   margin-bottom: 0.5rem;
   font-weight: bold;
 }
+.wine__nameTitle > a {
+  color: var(--primary);
+}
+
 .wine__grapeTitle {
   font-size: 1.5rem;
   text-align: right;
