@@ -10,6 +10,11 @@
   border: none;
 }
 
+.create__select:hover,
+.create__uploadImage:hover {
+  cursor: pointer;
+}
+
 .create {
   display: flex;
   width: 480px;
@@ -67,6 +72,10 @@
   font-size: 1.2rem;
 }
 
+.create__selectCont > .loader {
+  margin: 1rem 0;
+}
+
 .create__select {
   display: flex;
   justify-content: space-between;
@@ -122,6 +131,28 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+}
+
+.create__imageInput {
+  display: none;
+}
+
+.create__uploadImage {
+  position: relative;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  padding-bottom: 70%;
+  border: 1px var(--primary) solid;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  background-size: cover;
+}
+
+.create__uploadPlus {
+  position: absolute;
+  font-size: 5rem;
+  top: 30%;
 }
 
 .create__tag {
