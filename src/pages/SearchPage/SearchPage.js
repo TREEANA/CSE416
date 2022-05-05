@@ -79,28 +79,38 @@ const SearchPage = ({ status, toggleStatus }) => {
   const [wines, setWines] = useState([]);
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { theme } = useParams();
+  const { keyword } = useParams();
   const filterModal = status.filterModal;
   const sortModal = status.sortModal;
   const toggleFilterModal = () => toggleStatus("filterModal");
   const toggleSortModal = () => toggleStatus("sortModal");
-  const fetchWines = async (theme) => {
+  const fetchWines = async (keyword) => {
     setLoading(true);
     try {
-      const res = await axios.get(`/api/wines/search?tag=${theme}&num=5`);
-      console.log(res.data);
-      setWines(res.data);
+      const res = await axios.get(`/api/wines/search?keyword=${keyword}&num=5`);
+      console.log(res.data == null);
+      if (res.data === null || res.data === "") {
+        setWines([]);
+      } else {
+        setWines(res.data);
+      }
     } catch (e) {
       console.log(e);
     }
     setLoading(false);
   };
-  const fetchLists = async (theme) => {
+  const fetchLists = async (keyword) => {
     setLoading(true);
     try {
-      const res = await axios.get(`/api/winelists/search?tags=${theme}&num=3`);
-      console.log(res.data);
-      setLists(res.data);
+      const res = await axios.get(
+        `/api/winelists/search?keyword=${keyword}&num=3`
+      );
+      console.log(res.data == null);
+      if (res.data === null || res.data === "") {
+        setLists([]);
+      } else {
+        setLists(res.data);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -128,15 +138,15 @@ const SearchPage = ({ status, toggleStatus }) => {
   };
 
   useEffect(() => {
-    fetchWines(theme);
-    fetchLists(theme);
+    fetchWines(keyword);
+    fetchLists(keyword);
   }, []);
 
   return (
     <div className="winePage">
       <div className="winePage__titleCont">
         <div className="winePage__text">search results for</div>
-        <div className="winePage__title">{formatKeyword(theme)}</div>
+        <div className="winePage__title">{formatKeyword(keyword)}</div>
       </div>
       {loading ? (
         <Loader />
@@ -150,15 +160,27 @@ const SearchPage = ({ status, toggleStatus }) => {
               sort
             </button>
           </div>
-          {wines.length !== 0 && displayWines()}
-          <Link to={"/wines/" + theme}>
-            <div className="winePage__btn">show more wines</div>
-          </Link>
-          <hr className="winePage__hr"></hr>
-          {lists.length !== 0 && displayLists()}
-          <Link to={"/lists/" + theme}>
-            <div className="winePage__btn">show more wine lists</div>
-          </Link>
+          {wines.length === 0 ? (
+            <div className="winePage__noMatchWines">No matching wines</div>
+          ) : (
+            <>
+              {displayWines()}
+              <Link to={"/wines/" + keyword}>
+                <div className="winePage__btn">show more wines</div>
+              </Link>
+              <hr className="winePage__hr"></hr>
+            </>
+          )}
+          {lists.length === 0 ? (
+            <div className="winePage__noMatchLists">No matching winelists</div>
+          ) : (
+            <>
+              {displayLists()}
+              <Link to={"/lists/" + keyword}>
+                <div className="winePage__btn">show more wine lists</div>
+              </Link>
+            </>
+          )}
           <FilterModal
             toggleFilterModal={toggleFilterModal}
             filterModal={filterModal}
