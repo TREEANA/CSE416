@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./Wine.css";
+import { Link, useLocation } from "react-router-dom";
+
 import Tag from "../Tag/Tag";
 import StarIcon from "@mui/icons-material/Star";
+
+import "./Wine.css";
 
 const wineDummyData = {
   windID: 1,
@@ -31,7 +34,9 @@ const Wine = ({ wine = wineDummyData }) => {
         <img src={wine.images[0]}></img>
       </div>
       <div className="wine__detail">
-        <div className="wine__nameTitle">{wine.name} </div>
+        <div className="wine__nameTitle">
+          <Link to={`/wine/${wine.wineID}`}>{wine.name}</Link>
+        </div>
         <div className="wine__grapeTitle">
           {wine.grape.map((each, index) => (
             <div>{each}</div>

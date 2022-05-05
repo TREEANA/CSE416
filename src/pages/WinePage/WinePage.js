@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
 
@@ -53,23 +53,30 @@ import "./WinePage.css";
 // ];
 
 const WinePage = ({ status, toggleStatus }) => {
+  const { theme } = useParams();
+
   const filterModal = status.filterModal;
   const sortModal = status.sortModal;
-  const location = useLocation();
-  const [theme, setTheme] = useState(formatUrl());
   const [wines, setWines] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView();
 
+  const toggleFilterModal = () => toggleStatus("filterModal");
+
+  const toggleSortModal = () => toggleStatus("sortModal");
+
+  const formatTheme = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   const fetchWines = async (tag, page) => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `/api/wines/search?tags=${tag}&num=${page * 10}`
+        `/api/wines/search?tag=${tag}&num=${page * 10}`
       );
       setWines(res.data);
-      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -107,36 +114,25 @@ const WinePage = ({ status, toggleStatus }) => {
   };
 
   useEffect(() => {
-    fetchWines(formatTheme(theme), page);
+    fetchWines(theme, page);
   }, []);
 
   useEffect(() => {
-    fetchWines(formatTheme(theme), page);
+    fetchWines(theme, page);
   }, [page]);
 
   useEffect(() => {
-    console.log(inView, loading);
     if (inView && !loading) {
       setPage(page + 1);
     }
   }, [inView]);
 
   useEffect(() => {
-    const url = formatUrl();
     setWines([]);
-    setTheme(url);
     setPage(1);
-    fetchWines(url, 1);
-  }, [location]);
+    fetchWines(theme, 1);
+  }, [theme]);
 
-  const toggleFilterModal = () => toggleStatus("filterModal");
-  const toggleSortModal = () => toggleStatus("sortModal");
-  const formatTheme = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
-  function formatUrl() {
-    return location.pathname.split("/")[2].replace("%20", " ");
-  }
   return (
     <div className="winePage">
       <div className="winePage__titleCont">
