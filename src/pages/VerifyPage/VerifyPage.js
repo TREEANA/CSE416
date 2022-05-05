@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BsXLg, BsFillCheckCircleFill, BsThreeDots } from "react-icons/bs";
 import "./VerifyPage.css";
+import SommVerify from "../../components/SommVerify/SommVerify";
 
 const VerifyPage = () => {
   const [ind1Status, setInd1Status] = useState(false);
@@ -21,8 +22,12 @@ const VerifyPage = () => {
     setResStatus(resStatus);
   };
 
+  // const
+
   return (
     <>
+      {/* <SommVerify /> */}
+
       <div className="verifysomm">
         <div className="verifysomm__title">
           <div className="verifysomm__title-title"> Verify Sommelier </div>

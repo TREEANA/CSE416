@@ -123,6 +123,7 @@ const WinePage = ({ status, toggleStatus }) => {
 
   useEffect(() => {
     const url = formatUrl();
+    setWines([]);
     setTheme(url);
     setPage(1);
     fetchWines(url, 1);
@@ -150,6 +151,7 @@ const WinePage = ({ status, toggleStatus }) => {
           sort
         </button>
       </div>
+      {loading && wines.length === 0 && <Loader />}
       {displayWines()}
       <FilterModal
         toggleFilterModal={toggleFilterModal}

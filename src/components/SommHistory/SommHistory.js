@@ -66,7 +66,7 @@ const SommHistory = ({ num }) => {
           </div>
           <div className="verifysomm__verifyDetailComment">
             <div className="verifysomm_verifyUserComment">
-              Submitting my sommelier certificate, contact me
+              Submitting my sommelier certificate, contact me if any issue
             </div>
             <div className="verifysomm__verfiyAdminComment">
               Your certificate regarded valid, your user status will be promoted
