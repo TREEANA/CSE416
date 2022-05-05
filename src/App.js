@@ -150,7 +150,7 @@ const App = () => {
             element={<WinePage status={status} toggleStatus={toggleStatus} />}
           />
           <Route
-            path="/search/*"
+            path="/search/:theme"
             element={<SearchPage status={status} toggleStatus={toggleStatus} />}
           />
           <Route
