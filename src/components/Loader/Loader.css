@@ -1,0 +1,8 @@
+.loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin-top: var(--margin-out);
+}

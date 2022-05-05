@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import axios from "axios";
 
 import Wine from "../../components/Wine/Wine";
-import WineList from "../../components/WineList/WineList";
+import Loader from "../../components/Loader/Loader";
 import SortModal from "../../modals/SortModal/SortModal";
 import FilterModal from "../../modals/FilterModal/FilterModal";
 
@@ -75,8 +75,10 @@ const WinePage = ({ status, toggleStatus }) => {
     }
     setLoading(false);
   };
+
   const displayWines = () => {
     const result = [];
+    if (wines.length === 0) return;
     wines.forEach((each, index) => {
       wines.length - 1 == index
         ? result.push(
@@ -88,7 +90,7 @@ const WinePage = ({ status, toggleStatus }) => {
                 }}
                 key={index}
               />
-              <div ref={ref}></div>
+              <div ref={ref}>{loading && <Loader />}</div>
             </>
           )
         : result.push(
@@ -103,6 +105,10 @@ const WinePage = ({ status, toggleStatus }) => {
     });
     return result;
   };
+
+  useEffect(() => {
+    fetchWines(formatTheme(theme), page);
+  }, []);
 
   useEffect(() => {
     fetchWines(formatTheme(theme), page);
