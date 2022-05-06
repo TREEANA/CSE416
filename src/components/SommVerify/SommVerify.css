@@ -1,6 +1,6 @@
 .sommverify {
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw; */
+  /* height: 100vh; */
 }
 .sommverify__header {
   display: flex;
@@ -34,6 +34,11 @@
   margin-right: 7px;
 }
 
+.sommverfy__statusIcon {
+  display: flex;
+  align-items: center;
+}
+
 .sommverify__verifyButton {
   display: flex;
   align-items: row;
@@ -64,9 +69,67 @@
   background-color: var(--bg-100);
   position: relative;
   top: -60px;
-  margin: 0 var(--margin);
+  margin: 0 var(--margin-out);
+  border: 1px solid black;
+  padding: 0 10px 10px 10px;
+  height: 300px;
 }
 
 .sommverify__bodyGrid {
-  padding-top: 50px;
+  padding-top: 35px;
+  border: 1px solid blue;
+  /* margin: 0 var(--margin-out); */
+  height: inherit;
+  display: flex;
+}
+
+.sommverify__img {
+  display: flex;
+  align-items: center;
+  height: inherit;
+  width: 50%;
+}
+.sommverify__verifyImg {
+  width: 80%;
+  height: fit-content;
+  margin: 0 5px;
+  display: flex;
+  align-items: center;
+}
+
+.sommverify__comment {
+  margin: 0 5px;
+  height: inherit;
+}
+.sommverify__userComment {
+  border: 1px solid green;
+  /* width:; */
+  height: 40%;
+  margin-bottom: 5px;
+  padding: 10px;
+  border-radius: 20px;
+}
+.sommverify__adminComment {
+  border: 1px solid red;
+  height: 40%;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 20px;
+}
+.sommverify__adminInput {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  /* border: none;
+  outline: none; */
+  border: 1px dotted purple;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: flex-start;
+}
+.sommverify__adminInput:hover,
+.sommverify__adminInput:not(:hover) {
+  outline: none;
 }

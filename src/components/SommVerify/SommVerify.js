@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BsXLg, BsFillCheckCircleFill, BsThreeDots } from "react-icons/bs";
+import {
+  BsXLg,
+  BsFillCheckCircleFill,
+  BsThreeDots,
+  BsFillXCircleFill,
+} from "react-icons/bs";
 import "./SommVerify.css";
 
 const verifyDummyData = {
@@ -8,7 +13,7 @@ const verifyDummyData = {
     userID: 0,
     adminID: 1,
     verificationImage: "",
-    userExplanation: "hi i uploaded my verification1",
+    userExplanatio: "hi i uploaded my verification1",
     status: 2,
     adminFeedback: "",
     createdAt: "1011.01.11",
@@ -44,8 +49,10 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
   const toggleButton = () => {
     setToggleStatus(!toggleStatus);
   };
-  const [status, setStatus] = useState(sommdata.status);
+  //   const [status, setStatus] = useState(sommdata.status);
   //   status : 0(approved),1(pending), 2(rejected)
+  //   const [userExp, setUserExp] = useState(sommdata.userExplanation);
+  const [sommData, setSommData] = useState(verifyDummyData);
   return (
     <>
       <div className="sommverify">
@@ -67,26 +74,36 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
               )}
             </div>
             <div className="sommverify__statusIcon">
-              <BsFillCheckCircleFill />
-              {status === 0 && <BsFillCheckCircleFill />}
+              {/* <BsFillCheckCircleFill /> */}
+              {status === 0 ? (
+                <BsFillCheckCircleFill />
+              ) : status === 1 ? (
+                <BsThreeDots />
+              ) : (
+                <BsFillXCircleFill />
+              )}
+              {/* {status === 0 && <BsFillCheckCircleFill />}
               {status === 1 && <BsThreeDots />}
-              {status === 2 && <BsXLg />}
+              {status === 2 && <BsXLg />} */}
             </div>
           </div>
         </div>
         {toggleStatus && (
           <div className="sommverify__body">
             <div className="sommverify__bodyGrid">
-              <img
-                className="sommverify__verifyImg"
-                src="https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg"
-              ></img>
-              <div className="sommverify__rightText">
-                <div className="sommverfiy__userComment">
-                  {verifyDummyData.userExplanation}
+              <div className="sommverify__img">
+                <img
+                  className="sommverify__verifyImg"
+                  src="https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg"
+                ></img>
+              </div>
+              <div className="sommverify__comment">
+                <div className="sommverify__userComment">
+                  {/* {verifyDummyData.userExplanation} */}
+                  Hello this is sommelier woohyun park.
                 </div>
 
-                <form className="sommverfiy__adminComment" method="POST">
+                <form className="sommverify__adminComment" method="POST">
                   <input
                     className="sommverify__adminInput"
                     placeholder="write a comment here"
