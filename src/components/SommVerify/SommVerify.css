@@ -5,7 +5,6 @@
 .sommverify__header {
   display: flex;
   justify-content: space-between;
-  color: var(--primary);
   margin: var(--margin-out);
   align-items: center;
   background-color: var(--bg-20);
@@ -14,18 +13,17 @@
   position: relative;
   z-index: 1;
   background-color: var(--bg-0);
+  /* width: 100%; */
 }
 .sommverify__info {
+  margin: 0 15px;
 }
-
+/* 
 .sommverify__infoImg {
   border-radius: 50%;
   width: 20px;
   height: 20px;
-}
-
-.sommverify__infoName {
-}
+} */
 
 .sommverify__status {
   display: flex;
@@ -61,10 +59,25 @@
   color: var(--bg-0);
 }
 
-.sommverify__statusIcon > svg {
-  color: black;
+.sommverify__statusIcon0,
+.sommverify__statusIcon1,
+.sommverify__statusIcon2 {
   height: 1.8rem;
   width: 1.8rem;
+  border-radius: 50%;
+}
+
+.sommverify__statusIcon0 {
+  background-color: green;
+  color: white;
+}
+.sommverify__statusIcon1 {
+  background-color: #f9e000;
+  color: white;
+}
+.sommverify__statusIcon0 {
+  background-color: red;
+  color: white;
 }
 
 .sommverify__body {
@@ -90,6 +103,7 @@
 .sommverify__img {
   display: flex;
   align-items: center;
+  justify-content: center;
   height: inherit;
   width: 50%;
   /* border: 1px solid orange; */

@@ -13,7 +13,7 @@ const verifyDummyData = {
   adminID: 1,
   verificationImage: "",
   userExplanatio: "hi i uploaded my verification1",
-  status: 2,
+  status: 1,
   adminFeedback: "",
   createdAt: "1011.01.11",
   lastUpdatedAt: "1011.11.11",
@@ -34,11 +34,12 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
       <div className="sommverify">
         <div className="sommverify__header" onClick={toggleButton}>
           <div className="sommverify__info">
-            <img
+            {/* <img
               className="sommverify__infoImg"
-              src={sommdata.VerificationImage}
-            />
-            <div className="sommverify__infoName">{sommdata.userID}</div>
+              src={sommdata.verificationImage}
+            /> */}
+            {/* <div className="sommverify__infoName">somm1</div> */}
+            {sommData.userID}
           </div>
           <div className="sommverify__status">
             <div className="sommverify__verifyButton">
@@ -51,12 +52,12 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
             </div>
             <div className="sommverify__statusIcon">
               {/* <BsFillCheckCircleFill /> */}
-              {status === 0 ? (
-                <BsFillCheckCircleFill />
-              ) : status === 1 ? (
-                <BsThreeDots />
+              {sommData.status === 0 ? (
+                <BsFillCheckCircleFill className="sommverify__statusIcon0" />
+              ) : sommData.status === 1 ? (
+                <BsThreeDots className="sommverify__statusIcon1" />
               ) : (
-                <BsFillXCircleFill />
+                <BsFillXCircleFill className="sommverify__statusIcon2" />
               )}
               {/* {status === 0 && <BsFillCheckCircleFill />}
               {status === 1 && <BsThreeDots />}

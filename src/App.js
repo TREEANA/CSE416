@@ -30,7 +30,7 @@ import CreatePage from "./pages/CreatePage/CreatePage";
 
 const App = () => {
   const [status, setStatus] = useState({
-    user: 0,
+    user: 1,
     sideBarModal: false,
     searchBarModal: false,
     loginModal: false,
