@@ -26,7 +26,7 @@ import VerifyPage from "./pages/VerifyPage/VerifyPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import CreatePage from "./pages/CreatePage/CreatePage";
 
-import SommVerify from "./components/SommVerify/SommVerify";
+// import SommVerify from "./components/SommVerify/SommVerify";
 
 const App = () => {
   const [status, setStatus] = useState({
@@ -159,10 +159,9 @@ const App = () => {
           />
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/verifysomm" element={<VerifyPage />} />
-          <Route path="/verify" element={<SommVerify />}></Route>
+          {/* <Route path="/verify" element={<SommVerify />}></Route> */}
         </Routes>
       </div>
-      <SommVerify />
       <Footer />
     </Router>
   );

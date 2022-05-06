@@ -133,6 +133,8 @@ const VerifyPage = () => {
             </div>
           )}
         </div>
+        <SommVerify />
+        {/* <SommVerify /> */}
       </div>
     </>
   );

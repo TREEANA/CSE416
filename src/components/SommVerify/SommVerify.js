@@ -8,39 +8,15 @@ import {
 import "./SommVerify.css";
 
 const verifyDummyData = {
-  0: {
-    ticketID: 0,
-    userID: 0,
-    adminID: 1,
-    verificationImage: "",
-    userExplanatio: "hi i uploaded my verification1",
-    status: 2,
-    adminFeedback: "",
-    createdAt: "1011.01.11",
-    lastUpdatedAt: "1011.11.11",
-  },
-  1: {
-    ticketID: 1,
-    userID: 1,
-    adminID: 1,
-    verificationImage: "",
-    userExplanation: "hi i uploaded my verification2",
-    status: 1,
-    adminFeedback: "",
-    createdAt: "2022.02.22",
-    lastUpdatedAt: "2022.02.20",
-  },
-  2: {
-    ticketID: 2,
-    userID: 1,
-    adminID: 1,
-    verificationImage: "",
-    userExplanation: "hi i uploaded my verification3",
-    status: 2,
-    adminFeedback: "",
-    createdAt: "3033.03.03",
-    lastUpdatedAt: "3033.03.33",
-  },
+  ticketID: 0,
+  userID: 0,
+  adminID: 1,
+  verificationImage: "",
+  userExplanatio: "hi i uploaded my verification1",
+  status: 2,
+  adminFeedback: "",
+  createdAt: "1011.01.11",
+  lastUpdatedAt: "1011.11.11",
 };
 
 const SommVerify = (sommdata = { ...verifyDummyData }) => {
@@ -66,7 +42,7 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
           </div>
           <div className="sommverify__status">
             <div className="sommverify__verifyButton">
-              {toggleStatus && (
+              {toggleStatus && sommData.status !== 1 && (
                 <>
                   <div className="sommverify__verifyApprove">approve</div>
                   <div className="sommverify__verifyReject"> reject </div>
@@ -100,14 +76,18 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
               <div className="sommverify__comment">
                 <div className="sommverify__userComment">
                   {/* {verifyDummyData.userExplanation} */}
-                  Hello this is sommelier woohyun park.
+                  Hello this is sommelier woohyun park. i would like to get my
+                  sommelier badge by using this image. This is the certificate I
+                  got from my home country, I am not sure it would work here as
+                  well. Please thoroughly go over the document and let me know
+                  the result. Thank you!
                 </div>
 
                 <form className="sommverify__adminComment" method="POST">
-                  <input
+                  <textarea
                     className="sommverify__adminInput"
                     placeholder="write a comment here"
-                  ></input>
+                  ></textarea>
                 </form>
               </div>
             </div>
