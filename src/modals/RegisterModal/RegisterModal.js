@@ -4,8 +4,10 @@ import { BsArrowLeft, BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import RegisterTag from "../RegisterTagModal/RegisterTagModal";
 import Tag from "../../components/Tag/Tag";
+import axios, { CancelToken } from "axios";
 
-const RegisterModal = ({ status, toggleStatus }) => {
+const RegisterModal = ({ status, toggleStatus, setStatus }) => {
+  const [isavailable, setAvailable] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [valueSearch, setSearch] = useState("");
   const [list, setList] = useState({
@@ -25,6 +27,20 @@ const RegisterModal = ({ status, toggleStatus }) => {
     fig: false,
   });
   // 버튼을 클릭하면 토글되도록 변경
+
+  const onNameChange = async (e) => {
+    try {
+      const res = await axios.get(
+        `api/users/username-duplicate-check?username=${e.target.value}`
+      );
+      if (res.status === 200) {
+        setAvailable(!res.data.duplicate);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   function onBtnClick() {
     setList({ ...list, [this.txt]: !list[this.txt] });
   }
@@ -95,10 +111,16 @@ const RegisterModal = ({ status, toggleStatus }) => {
             <form className="register__main-content">
               <br></br>
               <div className="register_subtitle">choose your user name</div>
-              <input className="register__name" placeholder="username"></input>
-              <div className="register__name-warning"> available username </div>
+              <input
+                className="register__name"
+                placeholder="username"
+                onChange={onNameChange}
+              ></input>
+              <div className="register__name-warning">
+                {isavailable ? "available username" : "unavailable username"}
+              </div>
               <br></br>
-              <div className="register_subtitle">choose your photo</div>
+              {/* <div className="register_subtitle">choose your photo</div>
               <div className="register__image__box__container">
                 {selectedImage && (
                   <img
@@ -115,7 +137,7 @@ const RegisterModal = ({ status, toggleStatus }) => {
                     setSelectedImage(event.target.files[0]);
                   }}
                 />
-              </div>
+              </div> */}
               <div className="register_subtitle">
                 {" "}
                 choose the tags you are interested{" "}
@@ -143,16 +165,19 @@ const RegisterModal = ({ status, toggleStatus }) => {
                   {displayUnselectedTags()}
                 </div>
               </div>
-
-              <div
-                className="register__register"
-                onClick={() => {
-                  toggleStatus("registerModal");
-                }}
-              >
-                {" "}
-                register
-              </div>
+              {isavailable ? (
+                <div
+                  className="register__register"
+                  onClick={() => {
+                    toggleStatus("registerModal");
+                  }}
+                >
+                  {" "}
+                  register
+                </div>
+              ) : (
+                <div className="register__register_unavailable"> register</div>
+              )}
             </form>
           </div>
         </div>

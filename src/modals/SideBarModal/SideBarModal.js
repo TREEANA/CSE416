@@ -5,11 +5,55 @@ import { BsXLg, BsFillPlusCircleFill } from "react-icons/bs";
 import { MdWineBar, MdSettings } from "react-icons/md";
 
 import GoogleLogin from "react-google-login";
+import axios from "axios";
 
-const SideBarModal = ({ status, toggleStatus }) => {
+const SideBarModal = ({ status, toggleStatus, setStatus }) => {
+  const getProfileimage = async () => {
+    const imagelink = "";
+    try {
+      const res = await axios.get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${status.accesstoken}`
+      );
+
+      if (res.status === 200) {
+        return res.data.picture;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    return imagelink;
+  };
   const onSuccess = async (response) => {
     //여기다가 우리 로직 구현
-    console.log(response);
+    const email = response.profileObj.email;
+    const imageUrl = response.profileObj.imageUrl;
+    const accesstoken = response.accessToken;
+    // `https://podo-backend.herokuapp.com/users/email-duplicate-check?email=${email}`
+    //toggleStatus("sideBarModal");
+    try {
+      const res = await axios.get(
+        `api/users/login?access_token=${accesstoken}`
+
+        // `api/users/email-duplicate-check?email=${email}`
+        // https://podo-backend.herokuapp.com/users/username-duplicate-check?username=rr
+      );
+      if (res.status === 200) {
+        if (res.data.userID === -1) {
+          toggleStatus("sideBarModal", "registerModal");
+        } else {
+          setStatus({
+            ...status,
+            accesstoken: accesstoken,
+            userID: res.data.userID,
+          });
+
+          console.log(res.data);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onFailure = (error) => {
@@ -32,7 +76,7 @@ const SideBarModal = ({ status, toggleStatus }) => {
                 <div
                   className="sidebar__status"
                   onClick={() => {
-                    toggleStatus("sideBarModal"), renderProps.onClick();
+                    renderProps.onClick();
                   }}
                   disabled={renderProps.disabled}
                 >

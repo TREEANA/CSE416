@@ -31,6 +31,8 @@ import SommVerify from "./components/SommVerify/SommVerify";
 const App = () => {
   const [status, setStatus] = useState({
     user: 0,
+    userID: -1,
+    accesstoken: -1,
     sideBarModal: false,
     searchBarModal: false,
     loginModal: false,
@@ -74,7 +76,11 @@ const App = () => {
 
   return (
     <Router>
-      <SideBarModal status={status} toggleStatus={toggleStatus}></SideBarModal>
+      <SideBarModal
+        status={status}
+        toggleStatus={toggleStatus}
+        setStatus={setStatus}
+      ></SideBarModal>
       <TicketModal
         ticketModalStatus={status.ticketModal}
         toggleTicketModal={() => toggleStatus("ticketModal")}
@@ -94,6 +100,7 @@ const App = () => {
       ></SearchBarModal>
       <RegisterModal
         status={status}
+        setStatus={setStatus}
         toggleStatus={toggleStatus}
       ></RegisterModal>
       <EditProfileModal
@@ -126,7 +133,11 @@ const App = () => {
           <Route
             path="/register"
             element={
-              <RegisterModal status={status} toggleStatus={toggleStatus} />
+              <RegisterModal
+                status={status}
+                toggleStatus={toggleStatus}
+                setStatus={setStatus}
+              />
             }
           />
           <Route
