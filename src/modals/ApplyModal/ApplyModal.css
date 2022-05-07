@@ -20,6 +20,40 @@
 .becomesommlier_body {
   margin: var(--margin-out);
 }
+
+.becomesommlier__name {
+  margin-left: var(--margin-out);
+  align-self: flex-start;
+  font-size: 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.becomesommlier__font {
+  margin-left: var(--margin-out);
+  align-self: flex-start;
+  font-size: 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.becomesommlier_subtitle {
+  font-weight: bold;
+  font-size: var(--size-txt);
+  margin-bottom: 10px;
+}
+
+.becomesommlier__email,
+.becomesommlier__name,
+.becomesommlier__pwd,
+.becomesommlier__pwd2 {
+  margin: 0.5rem 0;
+  height: 2rem;
+  border-radius: 5rem;
+  border-style: none;
+  font-size: var(--size-btn);
+  padding: 0.5rem 1rem;
+}
 .becomesommlier__container {
   width: 480px;
   display: flex;
@@ -104,6 +138,18 @@
 .becomesommlier__button {
   background-color: var(--primary);
   color: var(--bg-0);
+  border-radius: 30px;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: var(--margin-out);
+}
+
+.becomesommlier__button_unavailable {
+  background-color: var(--bg-0);
+  color: var(--primary);
   border-radius: 30px;
   height: 1.5rem;
   display: flex;

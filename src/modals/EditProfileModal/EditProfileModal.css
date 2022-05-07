@@ -98,6 +98,13 @@ input:not(:hover) {
   flex-direction: column;
 }
 
+.sidebar__name {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  color: var(--bg-0);
+}
+
 .register__email,
 .register__name,
 .register__pwd,
