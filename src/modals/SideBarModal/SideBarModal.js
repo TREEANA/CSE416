@@ -155,7 +155,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <Link to="/profile">
+            <Link to={`/profile/${status.userID}`}>
               <div
                 className="sidebar__profile"
                 onClick={() => {
@@ -190,7 +190,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <Link to="/profile">
+            <Link to={`/profile/${status.userID}`}>
               <div
                 className="sidebar__profile"
                 onClick={() => {

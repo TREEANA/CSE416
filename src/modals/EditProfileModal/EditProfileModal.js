@@ -3,8 +3,13 @@ import "./EditProfileModal.css";
 import { BsArrowLeft, BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import Tag from "../../components/Tag/Tag";
+import axios, { CancelToken } from "axios";
 // RegisterModal
 const EditProfileModal = ({ status, toggleStatus }) => {
+  const [userName, setUserName] = useState();
+  const [email, setEmail] = useState();
+  const [isavailable, setAvailable] = useState(false);
+  const [selectedtag, setSelectedtag] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [valueSearch, setSearch] = useState("");
   const [list, setList] = useState({
@@ -24,6 +29,56 @@ const EditProfileModal = ({ status, toggleStatus }) => {
     fig: false,
   });
   // 버튼을 클릭하면 토글되도록 변경
+
+  const onNameChange = async (e) => {
+    try {
+      const res = await axios.get(
+        `/api/users/username-duplicate-check?username=${e.target.value}`
+      );
+      if (res.status === 200) {
+        setAvailable(!res.data.duplicate);
+        setUserName(e.target.value);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onEditProfile = async () => {
+    const newlist = [];
+    for (const each in list) {
+      if (list[each] === true) {
+        newlist.push(each);
+      }
+    }
+    setSelectedtag(newlist);
+
+    try {
+      const res = await axios.get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${status.accesstoken}`
+      );
+
+      if (res.status === 200) {
+        try {
+          const res1 = await axios.put(`/api/users/${status.userID}`, {
+            username: userName,
+            email: res.data.email,
+            profileImage: res.data.picture,
+            phone: 0,
+            gender: 1,
+          });
+          console.log(res1);
+          if (res1.status === 201) {
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   function onBtnClick() {
     setList({ ...list, [this.txt]: !list[this.txt] });
   }
@@ -36,6 +91,7 @@ const EditProfileModal = ({ status, toggleStatus }) => {
       }
     }
   };
+
   const displaySelectedTags = () => {
     const result = [];
 
@@ -94,10 +150,16 @@ const EditProfileModal = ({ status, toggleStatus }) => {
             <form className="register__main-content">
               <br></br>
               <div className="register_subtitle">Change your user name</div>
-              <input className="register__name" placeholder="username"></input>
-              <div className="register__name-warning"> available username </div>
+              <input
+                className="register__name"
+                placeholder="username"
+                onChange={onNameChange}
+              ></input>
+              <div className="register__name-warning">
+                {isavailable ? "available username" : "unavailable username"}
+              </div>
               <br></br>
-              <div className="register_subtitle">Change your photo</div>
+              {/* <div className="register_subtitle">Change your photo</div>
               <div className="register__image__box__container">
                 {selectedImage && (
                   <img
@@ -114,7 +176,7 @@ const EditProfileModal = ({ status, toggleStatus }) => {
                     setSelectedImage(event.target.files[0]);
                   }}
                 />
-              </div>
+              </div> */}
               <div className="register_subtitle">
                 {" "}
                 choose the tags you are interested{" "}
@@ -143,15 +205,19 @@ const EditProfileModal = ({ status, toggleStatus }) => {
                 </div>
               </div>
 
-              <div
-                className="register__register"
-                onClick={() => {
-                  toggleStatus("EditProfileModal");
-                }}
-              >
-                {" "}
-                register
-              </div>
+              {isavailable ? (
+                <div
+                  className="register__register"
+                  onClick={() => {
+                    toggleStatus("EditProfileModal"), onEditProfile();
+                  }}
+                >
+                  {" "}
+                  register
+                </div>
+              ) : (
+                <div className="register__register_unavailable"> register</div>
+              )}
             </form>
           </div>
         </div>

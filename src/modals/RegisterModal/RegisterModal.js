@@ -93,19 +93,6 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
     } catch (e) {
       console.log(e);
     }
-
-    // try {
-    //   const res = await axios.post(`/api/users`, {
-    //     username: userName,
-    //     tags: selectedtag,
-    //     email: email,
-    //   });
-    //   if (res.status === 201) {
-    //     console.log(res);
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
 
   function onBtnClick() {

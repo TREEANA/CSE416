@@ -16,12 +16,12 @@ const ProfilePage = ({ status, toggleStatus }) => {
     phone: "01085265331",
     gender: "male",
     status: 2,
-    likedWine: [],
-    likedWinelist: [],
+    likedWines: [],
+    likedWinelists: [],
     createdAt: "2022-04-04 20:20:21",
     tags: [],
-    following: [],
-    follwer: [],
+    followings: [],
+    followers: [],
     isDeleted: false,
     // rev
   });
@@ -44,14 +44,23 @@ const ProfilePage = ({ status, toggleStatus }) => {
   };
 
   const getUserdata = async () => {
-    console.log(status.userID);
     try {
-      const res = await axios.get(
-        `/api/users/${status.userID}?requesterID=${status.userID}`
-      );
+      const res = await axios.get(`/api/users/${userID}?requesterID=${userID}`);
       if (res.status === 200) {
-        setUserData(res.data);
         console.log(res.data);
+
+        setUserData({
+          ...userData,
+          userID: res.data.userID,
+          username: res.data.username,
+          profileImage: res.data.profileImage,
+          status: res.data.status + 1,
+          likedWines: res.data.likedWines,
+          likedWinelists: res.data.likedWinelists,
+          tags: res.data.tags,
+          followings: res.data.followings,
+          followers: res.data.followers,
+        });
       }
     } catch (e) {
       console.log(e);
@@ -169,15 +178,15 @@ const ProfilePage = ({ status, toggleStatus }) => {
     <>
       {userID !== userData.userID ? (
         <div className="profile">
-          <div className="profile__name"> {dummpyUserdata.username}</div>
+          <div className="profile__name"> {userData.username}</div>
           <div className="proflie__proflie">
             <img className="profile__image" src={Profileimage}></img>
             <div className="profile__stats">
               <ul>
                 <li>
                   <span className="profile__stats__count">
-                    {dummpyUserdata.likedWine.length +
-                      dummpyUserdata.likedWinelist.length}
+                    {userData.likedWinelists.length +
+                      userData.likedWines.length}
                   </span>
                   likes
                 </li>
@@ -188,10 +197,16 @@ const ProfilePage = ({ status, toggleStatus }) => {
                   reviews
                 </li>
                 <li>
-                  <span className="profile__stats__count">181</span> followers
+                  <span className="profile__stats__count">
+                    {userData.followers.length}
+                  </span>{" "}
+                  followers
                 </li>
                 <li>
-                  <span className="profile__stats__count">114</span> follows
+                  <span className="profile__stats__count">
+                    {userData.followings.length}
+                  </span>{" "}
+                  follows
                 </li>
               </ul>
             </div>
@@ -233,18 +248,15 @@ const ProfilePage = ({ status, toggleStatus }) => {
         </div>
       ) : (
         <div className="profile">
-          <div className="profile__name"> {dummpyUserdata.username}</div>
+          <div className="profile__name"> {userData.username}</div>
           <div className="proflie__proflie">
-            <img
-              className="profile__image"
-              src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152/h=152/fit=crop/crop=faces"
-            ></img>
+            <img className="profile__image" src={userData.profileImage}></img>
             <div className="profile__stats">
               <ul>
                 <li>
                   <span className="profile__stats__count">
-                    {dummpyUserdata.likedWine.length +
-                      dummpyUserdata.likedWinelist.length}
+                    {userData.likedWinelists.length +
+                      userData.likedWines.length}
                   </span>
                   likes
                 </li>
@@ -255,10 +267,17 @@ const ProfilePage = ({ status, toggleStatus }) => {
                   reviews
                 </li>
                 <li>
-                  <span className="profile__stats__count">181</span> followers
+                  <span className="profile__stats__count">
+                    {" "}
+                    {userData.followers.length}
+                  </span>{" "}
+                  followers
                 </li>
                 <li>
-                  <span className="profile__stats__count">114</span> follows
+                  <span className="profile__stats__count">
+                    {userData.followings.length}
+                  </span>{" "}
+                  follows
                 </li>
               </ul>
             </div>

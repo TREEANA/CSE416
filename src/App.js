@@ -86,6 +86,7 @@ const App = () => {
         toggleTicketModal={() => toggleStatus("ticketModal")}
       ></TicketModal>
       <ApplyModal
+        status={status}
         applyModalStatus={status.applyModal}
         toggleApplyModal={() => toggleStatus("applyModal")}
       ></ApplyModal>
@@ -95,6 +96,7 @@ const App = () => {
       ></CommentModal>
       <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
       <SearchBarModal
+        status={status}
         searchBarModalStatus={status.searchBarModal}
         toggleSearchBarModal={() => toggleStatus("searchBarModal")}
       ></SearchBarModal>

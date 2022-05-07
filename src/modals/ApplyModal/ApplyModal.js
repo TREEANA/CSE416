@@ -8,7 +8,7 @@ className="becomesommlier_poto"
 src="https://mblogthumb-phinf.pstatic.net/MjAxOTAzMjJfMjA2/MDAxNTUzMjI3NDU5NzU0.MB7x7Bu9pbwOeZ_vXg11Q8MstK3C6MkAZ6UnhQ6ki0Yg.rOy-j6vpy3UbmWMEnBNo2LJLrV9lKzDUvMoeTGU-elAg.JPEG.onwinnersmd/2.jpg?type=w800"
 ></img> */
 }
-const ApplyModal = ({ applyModalStatus, toggleApplyModal }) => {
+const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
   const [step, setstep] = useState(0);
   const choose = () => {
     setstep(1);
