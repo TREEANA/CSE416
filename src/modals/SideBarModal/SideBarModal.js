@@ -9,21 +9,33 @@ import axios from "axios";
 
 const SideBarModal = ({ status, toggleStatus, setStatus }) => {
   const [number, setNumber] = useState(-1);
-  const getProfileimage = async () => {
-    const imagelink = "";
+  const [userName, setUserName] = useState("Default");
+  const [profileimage, setProfileimage] = useState(
+    "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+  );
+  const getProfileimage = async (accesstoken) => {
     try {
       const res = await axios.get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${status.accesstoken}`
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accesstoken}`
       );
 
       if (res.status === 200) {
-        return res.data.picture;
+        setProfileimage(res.data.picture);
       }
     } catch (e) {
       console.log(e);
     }
+  };
 
-    return imagelink;
+  const getUsername = async (userId) => {
+    try {
+      const res = await axios.get(`/api/users/${userId}?requesterID=${userId}`);
+      if (res.status === 200) {
+        setUserName(res.data.userID);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
   const onSuccess = async (response) => {
     //여기다가 우리 로직 구현
@@ -32,8 +44,6 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
     const accesstoken = response.accessToken;
     // `https://podo-backend.herokuapp.com/users/email-duplicate-check?email=${email}`
     //toggleStatus("sideBarModal");
-
-    console.log(response);
     if (number > 0) {
       try {
         const res = await axios.get(
@@ -42,7 +52,6 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           // `api/users/email-duplicate-check?email=${email}`
           // https://podo-backend.herokuapp.com/users/username-duplicate-check?username=rr
         );
-        console.log(res);
         if (res.status === 200) {
           if (res.data.userID === -1) {
             setStatus({
@@ -62,7 +71,8 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               user: res1.data.status + 1,
             });
 
-            console.log(res.data);
+            getProfileimage(accesstoken);
+            getUsername(res.data.userID);
           }
         }
       } catch (e) {
@@ -104,9 +114,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
             <BsXLg
               className="sidebar__close"
               onClick={() => {
-                console.log(status.sideBarModal);
                 toggleStatus("sideBarModal");
-                console.log(status.sideBarModal);
               }}
             />
           </div>
@@ -125,15 +133,15 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <Link to="/profile">
+            <Link to={`/profile/${status.userID}`}>
               <div
                 className="sidebar__profile"
                 onClick={() => {
                   toggleStatus("sideBarModal");
                 }}
               >
-                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-                <div className="sidebar__name">iamdooddi</div>
+                <img src={profileimage} />
+                <div className="sidebar__name">{userName}</div>
               </div>
             </Link>
             <BsXLg
@@ -154,8 +162,8 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                   toggleStatus("sideBarModal");
                 }}
               >
-                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-                <div className="sidebar__name">iamdooddi</div>
+                <img src={profileimage} />
+                <div className="sidebar__name">{userName}</div>
                 <MdWineBar className="sidebar__icon" />
               </div>
             </Link>
@@ -189,8 +197,8 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                   toggleStatus("sideBarModal");
                 }}
               >
-                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-                <div className="sidebar__name">iamdooddi</div>
+                <img src={profileimage} />
+                <div className="sidebar__name">{userName}</div>
                 <MdSettings className="sidebar__icon" />
               </div>
             </Link>

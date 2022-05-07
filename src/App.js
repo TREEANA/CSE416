@@ -153,6 +153,12 @@ const App = () => {
             }
           />
           <Route
+            path="/profile/:userID"
+            element={
+              <ProfilePage status={status} toggleStatus={toggleStatus} />
+            }
+          />
+          <Route
             path="/lists/*"
             element={<ListPage status={status} toggleStatus={toggleStatus} />}
           />
