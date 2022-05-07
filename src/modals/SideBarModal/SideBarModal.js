@@ -8,6 +8,7 @@ import GoogleLogin from "react-google-login";
 import axios from "axios";
 
 const SideBarModal = ({ status, toggleStatus, setStatus }) => {
+  const [number, setNumber] = useState(-1);
   const getProfileimage = async () => {
     const imagelink = "";
     try {
@@ -31,28 +32,44 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
     const accesstoken = response.accessToken;
     // `https://podo-backend.herokuapp.com/users/email-duplicate-check?email=${email}`
     //toggleStatus("sideBarModal");
-    try {
-      const res = await axios.get(
-        `api/users/login?access_token=${accesstoken}`
 
-        // `api/users/email-duplicate-check?email=${email}`
-        // https://podo-backend.herokuapp.com/users/username-duplicate-check?username=rr
-      );
-      if (res.status === 200) {
-        if (res.data.userID === -1) {
-          toggleStatus("sideBarModal", "registerModal");
-        } else {
-          setStatus({
-            ...status,
-            accesstoken: accesstoken,
-            userID: res.data.userID,
-          });
+    console.log(response);
+    if (number > 0) {
+      try {
+        const res = await axios.get(
+          `/api/users/login?access_token=${accesstoken}`
 
-          console.log(res.data);
+          // `api/users/email-duplicate-check?email=${email}`
+          // https://podo-backend.herokuapp.com/users/username-duplicate-check?username=rr
+        );
+        console.log(res);
+        if (res.status === 200) {
+          if (res.data.userID === -1) {
+            setStatus({
+              ...status,
+              accesstoken: accesstoken,
+              registerModal: !status.registerModal,
+              sideBarModal: !status.sideBarModal,
+            });
+          } else {
+            const res1 = await axios.get(
+              `/api/users/${res.data.userID}?requesterID=${res.data.userID}`
+            );
+            setStatus({
+              ...status,
+              accesstoken: accesstoken,
+              userID: res.data.userID,
+              user: res1.data.status + 1,
+            });
+
+            console.log(res.data);
+          }
         }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      setNumber(1);
     }
   };
 

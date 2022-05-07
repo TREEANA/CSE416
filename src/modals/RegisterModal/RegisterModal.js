@@ -7,9 +7,12 @@ import Tag from "../../components/Tag/Tag";
 import axios, { CancelToken } from "axios";
 
 const RegisterModal = ({ status, toggleStatus, setStatus }) => {
+  const [userName, setUserName] = useState();
+  const [email, setEmail] = useState();
   const [isavailable, setAvailable] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [valueSearch, setSearch] = useState("");
+  const [selectedtag, setSelectedtag] = useState([]);
   const [list, setList] = useState({
     acidic: false,
     light: false,
@@ -28,17 +31,81 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
   });
   // 버튼을 클릭하면 토글되도록 변경
 
+  const getEmail = async () => {
+    try {
+      const res = await axios.get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${status.accesstoken}`
+      );
+
+      if (res.status === 200) {
+        console.log(res.data.email);
+        setEmail(res.data.email);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const onNameChange = async (e) => {
     try {
       const res = await axios.get(
-        `api/users/username-duplicate-check?username=${e.target.value}`
+        `/api/users/username-duplicate-check?username=${e.target.value}`
       );
       if (res.status === 200) {
         setAvailable(!res.data.duplicate);
+        setUserName(e.target.value);
       }
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const onRegister = async () => {
+    const newlist = [];
+    for (const each in list) {
+      if (list[each] === true) {
+        newlist.push(each);
+      }
+    }
+    setSelectedtag(newlist);
+
+    try {
+      const res = await axios.get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${status.accesstoken}`
+      );
+
+      if (res.status === 200) {
+        console.log(userName, selectedtag, res.data.email);
+
+        try {
+          const res1 = await axios.post(`/api/users`, {
+            username: userName,
+            tags: selectedtag,
+            email: res.data.email,
+          });
+          if (res1.status === 201) {
+            console.log(res1);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    // try {
+    //   const res = await axios.post(`/api/users`, {
+    //     username: userName,
+    //     tags: selectedtag,
+    //     email: email,
+    //   });
+    //   if (res.status === 201) {
+    //     console.log(res);
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   function onBtnClick() {
@@ -169,7 +236,7 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
                 <div
                   className="register__register"
                   onClick={() => {
-                    toggleStatus("registerModal");
+                    toggleStatus("registerModal"), onRegister();
                   }}
                 >
                   {" "}
