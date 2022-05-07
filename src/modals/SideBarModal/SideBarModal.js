@@ -31,7 +31,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
     try {
       const res = await axios.get(`/api/users/${userId}?requesterID=${userId}`);
       if (res.status === 200) {
-        setUserName(res.data.userID);
+        setUserName(res.data.username);
       }
     } catch (e) {
       console.log(e);
