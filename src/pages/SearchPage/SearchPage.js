@@ -127,6 +127,7 @@ const SearchPage = ({ status, toggleStatus }) => {
       const res = await axios.get(`/api/users/${each.userID}`);
       tempAuthors.push(res.data);
     }
+    setAuthors(tempAuthors);
     console.log("fetched authors: ", tempAuthors);
   };
   const displayWines = () => {
