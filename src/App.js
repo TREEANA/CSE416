@@ -30,7 +30,9 @@ import CreatePage from "./pages/CreatePage/CreatePage";
 
 const App = () => {
   const [status, setStatus] = useState({
-    user: 1,
+    user: 0,
+    userID: -1,
+    accesstoken: -1,
     sideBarModal: false,
     searchBarModal: false,
     loginModal: false,
@@ -74,12 +76,17 @@ const App = () => {
 
   return (
     <Router>
-      <SideBarModal status={status} toggleStatus={toggleStatus}></SideBarModal>
+      <SideBarModal
+        status={status}
+        toggleStatus={toggleStatus}
+        setStatus={setStatus}
+      ></SideBarModal>
       <TicketModal
         ticketModalStatus={status.ticketModal}
         toggleTicketModal={() => toggleStatus("ticketModal")}
       ></TicketModal>
       <ApplyModal
+        status={status}
         applyModalStatus={status.applyModal}
         toggleApplyModal={() => toggleStatus("applyModal")}
       ></ApplyModal>
@@ -89,11 +96,13 @@ const App = () => {
       ></CommentModal>
       <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
       <SearchBarModal
+        status={status}
         searchBarModalStatus={status.searchBarModal}
         toggleSearchBarModal={() => toggleStatus("searchBarModal")}
       ></SearchBarModal>
       <RegisterModal
         status={status}
+        setStatus={setStatus}
         toggleStatus={toggleStatus}
       ></RegisterModal>
       <EditProfileModal
@@ -126,7 +135,11 @@ const App = () => {
           <Route
             path="/register"
             element={
-              <RegisterModal status={status} toggleStatus={toggleStatus} />
+              <RegisterModal
+                status={status}
+                toggleStatus={toggleStatus}
+                setStatus={setStatus}
+              />
             }
           />
           <Route
@@ -137,6 +150,12 @@ const App = () => {
           {/* detail includes Review, Filter */}
           <Route
             path="/profile"
+            element={
+              <ProfilePage status={status} toggleStatus={toggleStatus} />
+            }
+          />
+          <Route
+            path="/profile/:userID"
             element={
               <ProfilePage status={status} toggleStatus={toggleStatus} />
             }

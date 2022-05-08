@@ -98,6 +98,13 @@ input:not(:hover) {
   flex-direction: column;
 }
 
+.sidebar__name {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  color: var(--bg-0);
+}
+
 .register__email,
 .register__name,
 .register__pwd,
@@ -129,6 +136,20 @@ input:not(:hover) {
   background-color: var(--primary);
   border: 1px var(--primary) solid;
   color: var(--bg-0);
+  font-size: var(--size-btn);
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+  margin: var(--margin-out) 0;
+  border-radius: 30px;
+}
+
+.register__register_unavailable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-0);
+  border: 1px var(--primary) solid;
+  color: var(--primary);
   font-size: var(--size-btn);
   height: 2.5rem;
   padding: 0.5rem 1rem;
