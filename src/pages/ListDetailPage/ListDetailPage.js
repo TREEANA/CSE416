@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import axio from "axios";
+
 import Tag from "../../components/Tag/Tag";
 import Carousel from "../../components/Carousel/Carousel";
+
 import "./ListDetailPage.css";
 
 const defaultWineList = {
@@ -83,8 +87,10 @@ const ListDetailPage = ({
   wines = defaultWines,
   sommlierPick = defaultSommlierPick,
 }) => {
+  const { winelistID } = useParams();
   const [curPage, setCurPage] = useState(0);
   const [likeStatus, setLikeStatus] = useState(0);
+
   const onLikeClick = () => {
     setLikeStatus(!likeStatus);
   };
@@ -94,9 +100,11 @@ const ListDetailPage = ({
   const onRightClick = () => {
     if (curPage < wineList.images.length - 2) setCurPage(curPage + 1);
   };
+
   const formatPrice = (price) => {
     return price.toLocaleString();
   };
+
   const displayTags = () => {
     const result = [];
     wines[curPage].tags.forEach((each, i) => {
@@ -106,6 +114,7 @@ const ListDetailPage = ({
     });
     return result;
   };
+
   return (
     <>
       <div className="wineListDetail">

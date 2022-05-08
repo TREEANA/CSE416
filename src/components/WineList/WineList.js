@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import "./WineList.css";
+import { Link } from "react-router-dom";
+
 import { BsCircleFill, BsCircle } from "react-icons/bs";
-// import axios from "axios";
+
+import "./WineList.css";
 
 const defaultWineList = {
   wineListID: 0,
@@ -26,6 +28,7 @@ const defaultAuthor = {
 const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
   const [likeStatus, setLikeStatus] = useState(0);
   const [curPage, setCurPage] = useState(0);
+
   const onPageClick = (num) => {
     setCurPage(num);
   };
@@ -46,18 +49,11 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
   const onLikeClick = () => {
     setLikeStatus(!likeStatus);
   };
-  const onImageClick = () => {
-    //go to winelist page
-    console.log("onImageClick");
-  };
-  const onTitleClick = () => {
-    //go to winelist page
-    console.log("onTitleClick");
-  };
   const onProfileClick = () => {
     //go to author's profile page
     console.log("onProfileClick");
   };
+
   const displayPageButton = () => {
     let result = [];
     for (let i = 0; i < wineList.images.length + 1; i++) {
@@ -73,13 +69,17 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
     const result = [];
     result.push(
       <div className="wineList__bgCont--main">
-        <img src={wineList.thumbnailImage} />
+        <Link to={"/list/" + wineList.winelistID}>
+          <img src={wineList.thumbnailImage} />
+        </Link>
       </div>
     );
     wineList.images.forEach((each, i) => {
       result.push(
         <div className="wineList__bgCont--wine">
-          <img src={each} />
+          <Link to={"/list/" + wineList.winelistID}>
+            <img src={each} />
+          </Link>
         </div>
       );
     });
@@ -95,7 +95,6 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
           className={
             curPage ? `wineList__bg wineList__bg--${curPage}` : "wineList__bg"
           }
-          onClick={onImageClick}
         >
           {displayImages()}
         </div>
@@ -120,9 +119,9 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
         </div>
       </div>
       <div className="wineList__txt">
-        <div className="wineList__title" onClick={onTitleClick}>
-          {wineList.title}
-        </div>
+        <Link to={"/list/" + wineList.winelistID}>
+          <div className="wineList__title">{wineList.title}</div>
+        </Link>
         <div className="wineList__subTitle">{wineList.content}</div>
         <div className="wineList__carousel">
           <div className="wineList__leftArrow" onClick={onLeftArrowClick}>
