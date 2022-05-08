@@ -73,10 +73,11 @@ const WinePage = ({ status, toggleStatus }) => {
   const fetchWines = async (tag, page) => {
     setLoading(true);
     try {
-      const res = await axios.get(
-        `/api/wines/search?tag=${tag}&num=${page * 10}`
-      );
+      const url = `/api/wines/search?tag=${tag}&num=${page * 10}`;
+      console.log("Fetching wines: ", url);
+      const res = await axios.get(url);
       setWines(res.data);
+      console.log("Wines fetched: ", res.data);
     } catch (e) {
       console.log(e);
     }

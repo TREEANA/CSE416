@@ -68,3 +68,11 @@
   margin-left: -50%;
   margin-top: 2rem;
 }
+
+.winePage__noMatchWines {
+  margin-top: 2rem;
+}
+
+.winePage__noMatchLists {
+  margin-top: 1rem;
+}
