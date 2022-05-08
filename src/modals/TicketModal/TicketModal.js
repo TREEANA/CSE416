@@ -50,7 +50,11 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
             <div className="ticketModal__temp">
               <div className="ticketModal__title">
                 <div className="ticketModal__titleTitle">New Ticket</div>
-                <button className="ticketModal__tempSubmit">Submit</button>
+                {/* <button className="ticketModal__tempSubmit">Submit</button> */}
+                <BsXLg
+                  className="ticketModal__close"
+                  onClick={toggleTempTicket}
+                />
               </div>
               {/* <hr></hr> */}
               <div className="ticketModal__tempTitle">
@@ -69,6 +73,15 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
                   className="ticketModal__tempContentInput"
                   placeholder="Have any issues? Feel free to report it to us! \n 사실 지금 새벽 두시반.. 졸라리 늦은ㅅ ㅣ간.. 눈이 너무 감기는데 한게 없어서 감기면 안돼.. 진짜로..."
                 ></input>
+              </div>
+              <div className="ticketModal__button">
+                {/* <div></div> */}
+                <button
+                  className="ticketModal__tempSubmit"
+                  onClick={toggleTempTicket}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </>

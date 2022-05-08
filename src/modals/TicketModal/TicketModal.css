@@ -75,14 +75,6 @@
   justify-content: space-between;
 }
 
-.ticketModal__tempSubmit {
-  border: none;
-  background-color: var(--primary);
-  border-radius: 30px;
-  color: var(--bg-0);
-  padding: 5px;
-}
-
 .ticketModal__tempTitle {
   display: flex;
   align-items: center;
@@ -125,12 +117,27 @@
   width: 99%;
   /* overflow: auto; */
   /* text-overflow: ellipsis; */
-  white-space: normal;
+  white-space: pre-wrap;
   border: 0.5px solid grey;
   outline: none;
   background-color: transparent;
   min-height: 4rem;
   /* border: none; */
+}
+
+.ticketModal__button {
+  margin: 5px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ticketModal__tempSubmit {
+  border: none;
+  background-color: var(--primary);
+  border-radius: 30px;
+  color: var(--bg-0);
+  padding: 5px;
+  font-size: 15px;
 }
 
 /*  */
