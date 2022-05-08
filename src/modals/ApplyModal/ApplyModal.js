@@ -2,19 +2,47 @@ import React, { useState } from "react";
 import { BsXLg, BsFilePlusFill } from "react-icons/bs";
 import "./ApplyModal.css";
 import SommHistory from "../../components/SommHistory/SommHistory";
+import axios, { CancelToken } from "axios";
 {
   /* <img
 className="becomesommlier_poto"
 src="https://mblogthumb-phinf.pstatic.net/MjAxOTAzMjJfMjA2/MDAxNTUzMjI3NDU5NzU0.MB7x7Bu9pbwOeZ_vXg11Q8MstK3C6MkAZ6UnhQ6ki0Yg.rOy-j6vpy3UbmWMEnBNo2LJLrV9lKzDUvMoeTGU-elAg.JPEG.onwinnersmd/2.jpg?type=w800"
 ></img> */
 }
-const ApplyModal = ({ applyModalStatus, toggleApplyModal }) => {
+const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
+  const [title, settitle] = useState("");
+  const [description, setDescription] = useState("");
   const [step, setstep] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const createverification = async (e) => {
+    const formData = new FormData();
+    formData.append("file", selectedImage);
+    console.log(formData);
+    setstep(2);
+    // try {
+    //   const res = await axios.post(`/api/verification-tickets`, {
+    //     userID: status.userID,
+    //     title: title,
+    //     verificationImage: URL.createObjectURL(selectedImage),
+    //     userExplanation: description,
+    //   });
+    //   console.log(res);
+    //   if (res.status === 200) {
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
   const choose = () => {
     setstep(1);
   };
 
   const submit = () => {
+    setstep(4);
+  };
+
+  const result = () => {
     setstep(2);
   };
 
@@ -25,8 +53,6 @@ const ApplyModal = ({ applyModalStatus, toggleApplyModal }) => {
   const gohistroy = () => {
     setstep(3);
   };
-
-  const [selectedImage, setSelectedImage] = useState(null);
 
   const getPagebystep = () => {
     if (step === 0) {
@@ -48,6 +74,7 @@ const ApplyModal = ({ applyModalStatus, toggleApplyModal }) => {
     } else if (step === 1) {
       return (
         <div className="becomesommlier__section2">
+          <div className="becomesommlier__name">Uplode your certiticate</div>
           <div className="becomesommlier_poto__container">
             {selectedImage && (
               <img
@@ -72,15 +99,25 @@ const ApplyModal = ({ applyModalStatus, toggleApplyModal }) => {
             />
           </div>
 
-          <div className="becomesommlier__button" onClick={submit}>
-            Submit
-          </div>
+          {selectedImage ? (
+            <div className="becomesommlier__button" onClick={submit}>
+              {" "}
+              Next
+            </div>
+          ) : (
+            <div className="becomesommlier__button_unavailable"> Next</div>
+          )}
         </div>
       );
     } else if (step === 2) {
       return (
         <div className="becomesommlier__section3">
-          <div className="becomesommlier__section3_font" onClick={close}>
+          <div
+            className="becomesommlier__section3_font"
+            onClick={() => {
+              close(), setSelectedImage(null);
+            }}
+          >
             Submission complete!<br></br>
             The rsult will be notified in 2-3 businness days
           </div>
@@ -99,6 +136,41 @@ const ApplyModal = ({ applyModalStatus, toggleApplyModal }) => {
           <SommHistory num={2} />
           <SommHistory num={0} />
           <SommHistory num={0} />
+        </div>
+      );
+    } else if (step === 4) {
+      return (
+        <div className="becomesommlier__section1">
+          <div className="becomesommlier__name">Title</div>
+          <input
+            className="becomesommlier__name"
+            placeholder="title"
+            onChange={(event) => {
+              settitle(event.target.value);
+            }}
+          ></input>
+          <div className="becomesommlier__name">Description</div>
+          <input
+            className="becomesommlier__name"
+            placeholder="Description"
+            onChange={(event) => {
+              setDescription(event.target.value);
+            }}
+          ></input>
+
+          {title !== "" && description !== "" ? (
+            <div
+              className="becomesommlier__button"
+              onClick={() => {
+                createverification();
+              }}
+            >
+              {" "}
+              Submit
+            </div>
+          ) : (
+            <div className="becomesommlier__button_unavailable"> Submit</div>
+          )}
         </div>
       );
     }

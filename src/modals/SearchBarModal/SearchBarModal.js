@@ -1,11 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./SearchBarModal.css";
 import { BsSearch, BsXLg } from "react-icons/bs";
 import { MdWineBar } from "react-icons/md";
+import axios from "axios";
 
-const SearchBarModal = ({ toggleSearchBarModal, searchBarModalStatus }) => {
+const SearchBarModal = ({
+  status,
+  toggleSearchBarModal,
+  searchBarModalStatus,
+}) => {
   let location = useLocation();
+
+  const [userData, setUserData] = useState({
+    followings: [],
+    followers: [],
+  });
+
+  const getUserdata = async () => {
+    try {
+      const res = await axios.get(
+        `/api/users/${status.userID}?requesterID=${status.userID}`
+      );
+      if (res.status === 200) {
+        setUserData({
+          ...userData,
+          followings: res.data.followings,
+          followers: res.data.followers,
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const [clickFollowers, setClickFollowers] = useState(true);
   const [valueSearch, setSearch] = useState("");
@@ -32,6 +59,115 @@ const SearchBarModal = ({ toggleSearchBarModal, searchBarModalStatus }) => {
     { userID: 3, name: "User 4", follow: false },
     { userID: 4, name: "User 5", follow: false },
   ]);
+
+  const getMatchingUserdata = async (e) => {
+    // 매칭할 유저 찾기
+    const Followinglist = [];
+
+    for (let i = 0; i < userData.followings.length && i < 3; i++) {
+      const followinguserID = userData.followings[i];
+
+      try {
+        const res = await axios.get(
+          `/api/users/${followinguserID}?requesterID=${followinguserID}`
+        );
+        if (res.status === 200) {
+          const item = {
+            userID: res.data.userID,
+            username: res.data.username,
+            follow: true,
+            status: res.data.status + 1,
+          };
+          Followinglist.push(item);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    console.log(Followinglist);
+    // setFollowering(Followinglist);
+  };
+
+  const follow = async (id, isfollow) => {
+    try {
+      const follow = "following";
+      if (isfollow === false) {
+        follow = "follower";
+      }
+      const res = await axios.get(
+        `/api/users/${status.userID}/follow?targetUserID=${id}?followOption=${follow}`
+      );
+      if (res.status === 200) {
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getFollowingsdata = async () => {
+    // 팔로잉 하고있는 유저 찾기
+    const Followinglist = [];
+
+    for (let i = 0; i < userData.followings.length && i < 3; i++) {
+      const followinguserID = userData.followings[i];
+
+      try {
+        const res = await axios.get(
+          `/api/users/${followinguserID}?requesterID=${followinguserID}`
+        );
+        if (res.status === 200) {
+          const item = {
+            userID: res.data.userID,
+            username: res.data.username,
+            follow: true,
+            status: res.data.status + 1,
+          };
+          Followinglist.push(item);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    console.log(Followinglist);
+    // setFollowering(Followinglist);
+  };
+
+  const getFollowsdata = async () => {
+    // 나를 팔로우하는 유저 찾기
+    const followerslist = [];
+
+    for (let i = 0; i < userData.followers.length && i < 3; i++) {
+      const followersuserID = userData.followers[i];
+
+      try {
+        const res = await axios.get(
+          `/api/users/${followersuserID}?requesterID=${followersuserID}`
+        );
+        if (res.status === 200) {
+          const item = {
+            userID: res.data.userID,
+            username: res.data.username,
+            follow: true,
+            status: res.data.status + 1,
+          };
+          followerslist.push(item);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    console.log(followerslist);
+    // setFollowers(Followinglist);
+  };
+
+  useEffect(() => {
+    getUserdata();
+    getFollowingsdata();
+    getFollowsdata();
+  }, []);
 
   const [followers, setFollowers] = useState([
     { userID: 0, name: "Follower 1", follow: true },
@@ -212,7 +348,7 @@ const SearchBarModal = ({ toggleSearchBarModal, searchBarModalStatus }) => {
 
   return (
     <>
-      {location.pathname !== "/profile" ? (
+      {!location.pathname.includes("profile") ? (
         <div className={searchBarModalStatus ? "search" : "search--inactive"}>
           <div className="search__bar">
             <div className="search__textbar">

@@ -31,7 +31,11 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-scripts": "latest"
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "babel-loader": "^8.2.5",
+    "react-scripts": "latest",
+    "webpack": "^5.72.0"
   },
   "browserslist": {
     "production": [
