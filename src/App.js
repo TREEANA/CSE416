@@ -33,6 +33,7 @@ const App = () => {
     user: 0,
     userID: -1,
     accesstoken: -1,
+    profileimage: "",
     sideBarModal: false,
     searchBarModal: false,
     loginModal: false,
