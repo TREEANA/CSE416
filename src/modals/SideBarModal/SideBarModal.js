@@ -5,11 +5,82 @@ import { BsXLg, BsFillPlusCircleFill } from "react-icons/bs";
 import { MdWineBar, MdSettings } from "react-icons/md";
 
 import GoogleLogin from "react-google-login";
+import axios from "axios";
 
-const SideBarModal = ({ status, toggleStatus }) => {
+const SideBarModal = ({ status, toggleStatus, setStatus }) => {
+  const [number, setNumber] = useState(-1);
+  const [userName, setUserName] = useState("Default");
+  const [profileimage, setProfileimage] = useState(
+    "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+  );
+  const getProfileimage = async (accesstoken) => {
+    try {
+      const res = await axios.get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accesstoken}`
+      );
+
+      if (res.status === 200) {
+        setProfileimage(res.data.picture);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getUsername = async (userId) => {
+    try {
+      const res = await axios.get(`/api/users/${userId}?requesterID=${userId}`);
+      if (res.status === 200) {
+        setUserName(res.data.username);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const onSuccess = async (response) => {
     //여기다가 우리 로직 구현
-    console.log(response);
+    const email = response.profileObj.email;
+    const imageUrl = response.profileObj.imageUrl;
+    const accesstoken = response.accessToken;
+    // `https://podo-backend.herokuapp.com/users/email-duplicate-check?email=${email}`
+    //toggleStatus("sideBarModal");
+    if (number > 0) {
+      try {
+        const res = await axios.get(
+          `/api/users/login?access_token=${accesstoken}`
+
+          // `api/users/email-duplicate-check?email=${email}`
+          // https://podo-backend.herokuapp.com/users/username-duplicate-check?username=rr
+        );
+        if (res.status === 200) {
+          if (res.data.userID === -1) {
+            setStatus({
+              ...status,
+              accesstoken: accesstoken,
+              registerModal: !status.registerModal,
+              sideBarModal: !status.sideBarModal,
+            });
+          } else {
+            const res1 = await axios.get(
+              `/api/users/${res.data.userID}?requesterID=${res.data.userID}`
+            );
+            setStatus({
+              ...status,
+              accesstoken: accesstoken,
+              userID: res.data.userID,
+              user: res1.data.status + 1,
+            });
+
+            getProfileimage(accesstoken);
+            getUsername(res.data.userID);
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      setNumber(1);
+    }
   };
 
   const onFailure = (error) => {
@@ -32,7 +103,7 @@ const SideBarModal = ({ status, toggleStatus }) => {
                 <div
                   className="sidebar__status"
                   onClick={() => {
-                    toggleStatus("sideBarModal"), renderProps.onClick();
+                    renderProps.onClick();
                   }}
                   disabled={renderProps.disabled}
                 >
@@ -43,9 +114,7 @@ const SideBarModal = ({ status, toggleStatus }) => {
             <BsXLg
               className="sidebar__close"
               onClick={() => {
-                console.log(status.sideBarModal);
                 toggleStatus("sideBarModal");
-                console.log(status.sideBarModal);
               }}
             />
           </div>
@@ -64,15 +133,15 @@ const SideBarModal = ({ status, toggleStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <Link to="/profile">
+            <Link to={`/profile/${status.userID}`}>
               <div
                 className="sidebar__profile"
                 onClick={() => {
                   toggleStatus("sideBarModal");
                 }}
               >
-                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-                <div className="sidebar__name">iamdooddi</div>
+                <img src={profileimage} />
+                <div className="sidebar__name">{userName}</div>
               </div>
             </Link>
             <BsXLg
@@ -86,15 +155,15 @@ const SideBarModal = ({ status, toggleStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <Link to="/profile">
+            <Link to={`/profile/${status.userID}`}>
               <div
                 className="sidebar__profile"
                 onClick={() => {
                   toggleStatus("sideBarModal");
                 }}
               >
-                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-                <div className="sidebar__name">iamdooddi</div>
+                <img src={profileimage} />
+                <div className="sidebar__name">{userName}</div>
                 <MdWineBar className="sidebar__icon" />
               </div>
             </Link>
@@ -121,15 +190,15 @@ const SideBarModal = ({ status, toggleStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <Link to="/profile">
+            <Link to={`/profile/${status.userID}`}>
               <div
                 className="sidebar__profile"
                 onClick={() => {
                   toggleStatus("sideBarModal");
                 }}
               >
-                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
-                <div className="sidebar__name">iamdooddi</div>
+                <img src={profileimage} />
+                <div className="sidebar__name">{userName}</div>
                 <MdSettings className="sidebar__icon" />
               </div>
             </Link>

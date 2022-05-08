@@ -17,7 +17,7 @@ const Header = ({ status, toggleStatus }) => {
             <b>p</b>odo
           </h1>
         </Link>
-        {location.pathname !== "/profile" ? (
+        {!location.pathname.includes("profile") ? (
           <BsSearch
             className="header__search"
             onClick={() => {
