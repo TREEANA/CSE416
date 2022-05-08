@@ -54,6 +54,7 @@ const defaultLists = [
 const ListPage = ({ status, toggleStatus }) => {
   const { keyword } = useParams();
   const [lists, setLists] = useState([]);
+  const [authors, setAuthors] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [ref, inView] = useInView();
@@ -64,17 +65,16 @@ const ListPage = ({ status, toggleStatus }) => {
       lists.length - 1 === index
         ? result.push(
             <>
-              <WineList wineList={each} />
+              <WineList wineList={each} author={authors[index]} />
               <div ref={ref}>{loading && <Loader />}</div>
             </>
           )
-        : result.push(<WineList wineList={each} />);
+        : result.push(<WineList wineList={each} author={authors[index]} />);
     });
     return result;
   };
 
   const fetchLists = async (keyword, page) => {
-    setLoading(true);
     try {
       const url = `/api/winelists/search?keyword=${keyword}&num=${page * 10}`;
       console.log("Fetching lists: ", url);
@@ -96,23 +96,34 @@ const ListPage = ({ status, toggleStatus }) => {
     } catch (e) {
       console.log(e);
     }
-    setLoading(false);
+  };
+  const fetchAuthors = async () => {
+    const tempAuthors = [];
+    for await (const each of lists) {
+      const res = await axios.get(`/api/users/${each.userID}`);
+      tempAuthors.push(res.data);
+    }
+    setAuthors(tempAuthors);
+    console.log("fetched authors: ", tempAuthors);
   };
 
-  useEffect(() => {
-    fetchLists(keyword, page);
+  useEffect(async () => {
+    setLoading(true);
+    await fetchLists(keyword, page);
+    await fetchAuthors();
+    setLoading(false);
   }, []);
-
-  useEffect(() => {
-    fetchLists(keyword, page);
+  useEffect(async () => {
+    setLoading(true);
+    await fetchLists(keyword, page);
+    await fetchAuthors();
+    setLoading(false);
   }, [page]);
-
   useEffect(() => {
     if (inView && !loading) {
       setPage(page + 1);
     }
   }, [inView]);
-
   useEffect(() => {
     setLists([]);
     setPage(1);
