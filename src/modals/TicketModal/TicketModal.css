@@ -115,7 +115,7 @@
 
 .ticketModal__tempContentInput {
   width: 99%;
-  /* overflow: auto; */
+  overflow: auto;
   /* text-overflow: ellipsis; */
   white-space: pre-wrap;
   border: 0.5px solid grey;

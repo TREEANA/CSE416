@@ -52,7 +52,7 @@ const SommHistory = ({ num }) => {
 
   return (
     <>
-      <div className="verifysomm__ver;ifyInd" onClick={toggleInd2Status}>
+      <div className="verifysomm__verifyInd" onClick={toggleInd2Status}>
         <div className="verifysomm__verifyInfo">
           <img src="https://img.jamieoliver.com/home/wp-content/uploads/features-import/2015/09/feature-header8.jpg"></img>
           <div className="verifysomm__verifyName"> {dummyData.createdAt}</div>

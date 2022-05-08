@@ -15,7 +15,7 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
     visible: false,
     ticketTitle: "",
     ticketContent: "",
-    lastUpdatedAt: "",
+    createdAt: "",
   });
 
   const toggleTempTicket = () => {
@@ -26,6 +26,16 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
       [tempTicket.visible]: !tempTicket.visible,
     });
     console.log("after setTempTicket: ", tempTicket);
+  };
+
+  const onChange = (event) => {
+    const { title, content } = event.target;
+    console.log(title);
+    setTempTicket({
+      ...tempTicket,
+      [ticketTitle]: title,
+      [ticketContent]: content,
+    });
   };
 
   return (
