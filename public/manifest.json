@@ -1,6 +1,7 @@
 {
   "short_name": "416podo",
-  "name": "Podo: where you can meet professional sommeliers",
+  "name": "[One Ego] CSE416 PODO",
+  "description": "Podo: where you can meet professonal sommeliers from around the world",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +19,10 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://cse416-podo.web.app/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "manifest_version": 2,
+  "version": "0.1"
 }
