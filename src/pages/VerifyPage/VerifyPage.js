@@ -4,34 +4,31 @@ import "./VerifyPage.css";
 import SommVerify from "../../components/SommVerify/SommVerify";
 
 const VerifyPage = () => {
-  const [ind1Status, setInd1Status] = useState(false);
-  const toggleInd1Status = () => {
-    setInd1Status(!ind1Status);
-  };
-  const [ind2Status, setInd2Status] = useState(false);
-  const toggleInd2Status = () => {
-    setInd2Status(!ind2Status);
-  };
-  const [ind3Status, setInd3Status] = useState(false);
-  const toggleInd3Status = () => {
-    setInd3Status(!ind3Status);
-  };
+  // const [ind1Status, setInd1Status] = useState(false);
+  // const toggleInd1Status = () => {
+  //   setInd1Status(!ind1Status);
+  // };
+  // const [ind2Status, setInd2Status] = useState(false);
+  // const toggleInd2Status = () => {
+  //   setInd2Status(!ind2Status);
+  // };
+  // const [ind3Status, setInd3Status] = useState(false);
+  // const toggleInd3Status = () => {
+  //   setInd3Status(!ind3Status);
+  // };
 
-  const [resStatus, setResStatus] = useState(false);
-  const toggleResStatus = () => {
-    setResStatus(resStatus);
-  };
-
-  // const
+  // const [resStatus, setResStatus] = useState(false);
+  // const toggleResStatus = () => {
+  //   setResStatus(resStatus);
+  // };
 
   return (
     <>
-      {/* <SommVerify /> */}
-
+      {/* verify sommelier from admin view */}
+      {/* 
       <div className="verifysomm">
         <div className="verifysomm__title">
           <div className="verifysomm__title-title"> Verify Sommelier </div>
-          {/* <BsXLg></BsXLg> */}
         </div>
         <div className="verifysomm__verify">
           <div className="verifysomm__verify-ind" onClick={toggleInd1Status}>
@@ -136,6 +133,10 @@ const VerifyPage = () => {
             </div>
           )}
         </div>
+        <SommVerify />
+        {/* <SommVerify /> */}
+      <div>
+        <SommVerify />
       </div>
     </>
   );
