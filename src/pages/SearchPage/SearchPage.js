@@ -86,7 +86,7 @@ const SearchPage = ({ status, toggleStatus }) => {
   const toggleFilterModal = () => toggleStatus("filterModal");
   const toggleSortModal = () => toggleStatus("sortModal");
   const fetchWines = async (keyword) => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const res = await axios.get(`/api/wines/search?keyword=${keyword}&num=5`);
       if (res.data === null || res.data === "") {
@@ -97,10 +97,10 @@ const SearchPage = ({ status, toggleStatus }) => {
     } catch (e) {
       console.log(e);
     }
-    setLoading(false);
+    // setLoading(false);
   };
   const fetchLists = async (keyword) => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const res = await axios.get(
         `/api/winelists/search?keyword=${keyword}&num=3`
@@ -113,15 +113,19 @@ const SearchPage = ({ status, toggleStatus }) => {
         temp[0].images = [
           "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
         ];
+        temp[1].images = [
+          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
+          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
+        ];
         setLists(temp);
       }
     } catch (e) {
       console.log(e);
     }
-    setLoading(false);
+    // setLoading(false);
   };
   const fetchAuthors = async () => {
-    setLoading(true);
+    // setLoading(true);
     const tempAuthors = [];
     await lists.forEach(async (each, i) => {
       const res = await axios.get(`/api/users/${each.userID}`);
@@ -129,7 +133,7 @@ const SearchPage = ({ status, toggleStatus }) => {
       console.log(tempAuthors);
     });
     setAuthors(tempAuthors);
-    setLoading(false);
+    // setLoading(false);
   };
   const displayWines = () => {
     const result = [];
@@ -152,10 +156,12 @@ const SearchPage = ({ status, toggleStatus }) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  useEffect(() => {
-    fetchWines(keyword);
-    fetchLists(keyword);
-    fetchAuthors();
+  useEffect(async () => {
+    setLoading(true);
+    await fetchWines(keyword);
+    await fetchLists(keyword);
+    await fetchAuthors();
+    setLoading(false);
   }, []);
 
   return (
