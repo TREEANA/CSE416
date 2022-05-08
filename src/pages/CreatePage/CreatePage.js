@@ -126,6 +126,7 @@ const CreatePage = ({ status, toggleStatus }) => {
   const onSubmit = async () => {
     const body = {
       ...newList,
+      userID: status.userID,
       wines: newList.wines.map((each) => {
         return { wineID: each.wineID, sommlierComment: each.sommlierComment };
       }),

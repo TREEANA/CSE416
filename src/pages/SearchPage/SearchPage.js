@@ -105,7 +105,7 @@ const SearchPage = ({ status, toggleStatus }) => {
       const res = await axios.get(
         `/api/winelists/search?keyword=${keyword}&num=3`
       );
-      console.log(res.data == null);
+      console.log(res.data);
       if (res.data === null || res.data === "") {
         setLists([]);
       } else {
