@@ -48,7 +48,7 @@
   text-decoration: none;
   color: var(--primary);
   font-weight: bold;
-  /* margin-bottom: var(--margin-out); */
+  margin-bottom: var(--margin-out);
   display: flex;
   align-items: center;
 }
@@ -123,8 +123,8 @@
 
 .ticketModal__tempContentInput {
   width: 99%;
-  overflow: auto;
-  text-overflow: ellipsis;
+  /* overflow: auto; */
+  /* text-overflow: ellipsis; */
   white-space: normal;
   border: 0.5px solid grey;
   outline: none;

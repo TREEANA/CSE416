@@ -19,7 +19,13 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
   });
 
   const toggleTempTicket = () => {
-    setTempTicket(!tempTicket.visible);
+    // const newTempTicket = [...tempTicket];
+    console.log("before setTempTicket: ", tempTicket);
+    setTempTicket({
+      ...tempTicket,
+      [tempTicket.visible]: !tempTicket.visible,
+    });
+    console.log("after setTempTicket: ", tempTicket);
   };
 
   return (
@@ -35,8 +41,8 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
               onClick={toggleTicketModal}
             />
           </div>
-          <div className="ticketModal__create">
-            <BsFillPlusCircleFill onClick={toggleTempTicket} />
+          <div className="ticketModal__create" onClick={toggleTempTicket}>
+            <BsFillPlusCircleFill />
             create a new ticket
           </div>
           {/* {tempTicket.visible && ( */}
