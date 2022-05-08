@@ -69,6 +69,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               accesstoken: accesstoken,
               userID: res.data.userID,
               user: res1.data.status + 1,
+              profileimage: imageUrl,
             });
 
             getProfileimage(accesstoken);

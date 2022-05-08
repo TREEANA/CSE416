@@ -8,6 +8,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
   const [isFollowd, setFollowd] = useState(false);
   const [profile__like, setProfile__like] = useState("profile__selected");
   const [profile__review, setProfile__review] = useState("profile__unselected");
+  const [islikewine, setlikewine] = useState(true);
   const [userData, setUserData] = useState({
     userID: 0,
     username: "DukYoung",
@@ -25,6 +26,20 @@ const ProfilePage = ({ status, toggleStatus }) => {
     isDeleted: false,
     // rev
   });
+
+  const follow = async (id, followOption) => {
+    try {
+      const res = await axios.post(
+        `/api/users/${status.userID}/follow?targetUserID=${id}&followOption=${followOption}`
+      );
+      if (res.status === 200) {
+        console.log(res);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const [Profileimage, setProfileimage] = useState(
     "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
   );
@@ -67,6 +82,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
     }
   };
   useEffect(() => {
+    console.log(userID, status.userID);
     getUserdata();
     getProfileimage();
   }, []);
@@ -176,41 +192,40 @@ const ProfilePage = ({ status, toggleStatus }) => {
   };
   return (
     <>
-      {userID !== userData.userID ? (
-        <div className="profile">
-          <div className="profile__name"> {userData.username}</div>
-          <div className="proflie__proflie">
-            <img className="profile__image" src={Profileimage}></img>
-            <div className="profile__stats">
-              <ul>
-                <li>
-                  <span className="profile__stats__count">
-                    {userData.likedWinelists.length +
-                      userData.likedWines.length}
-                  </span>
-                  likes
-                </li>
-                <li>
-                  <span className="profile__stats__count">
-                    {dummpyReviewdata.length}
-                  </span>
-                  reviews
-                </li>
-                <li>
-                  <span className="profile__stats__count">
-                    {userData.followers.length}
-                  </span>{" "}
-                  followers
-                </li>
-                <li>
-                  <span className="profile__stats__count">
-                    {userData.followings.length}
-                  </span>{" "}
-                  follows
-                </li>
-              </ul>
-            </div>
+      <div className="profile">
+        <div className="profile__name"> {userData.username}</div>
+        <div className="proflie__proflie">
+          <img className="profile__image" src={Profileimage}></img>
+          <div className="profile__stats">
+            <ul>
+              <li>
+                <span className="profile__stats__count">
+                  {userData.likedWinelists.length + userData.likedWines.length}
+                </span>
+                likes
+              </li>
+              <li>
+                <span className="profile__stats__count">
+                  {dummpyReviewdata.length}
+                </span>
+                reviews
+              </li>
+              <li>
+                <span className="profile__stats__count">
+                  {userData.followers.length}
+                </span>{" "}
+                followers
+              </li>
+              <li>
+                <span className="profile__stats__count">
+                  {userData.followings.length}
+                </span>{" "}
+                follows
+              </li>
+            </ul>
           </div>
+        </div>
+        {status.userID === Number(userID) ? (
           <div
             className="profile__editporfile"
             onClick={() => {
@@ -219,8 +234,22 @@ const ProfilePage = ({ status, toggleStatus }) => {
           >
             Edit Profile
           </div>
+        ) : (
+          <div
+            className={
+              isFollowd
+                ? "profile__editporfile_unfilled "
+                : "profile__editporfile"
+            }
+            onClick={() => {
+              follow(Number(userID), "following"), setFollowd(!isFollowd);
+            }}
+          >
+            {isFollowd ? "following" : "follow"}
+          </div>
+        )}
 
-          {/* <div
+        {/* <div
       className={
         isFollowd
           ? "profile__editporfile_unfilled "
@@ -230,86 +259,44 @@ const ProfilePage = ({ status, toggleStatus }) => {
     >
       {isFollowd ? "following" : "follow"}
     </div> */}
-          <div className="profile__listcontainer">
-            <div className={profile__like} onClick={click_like}>
-              like
-            </div>
-            <div className={profile__review} onClick={click__review}>
-              review
-            </div>
+        <div className="profile__listcontainer">
+          <div className={profile__like} onClick={click_like}>
+            like
           </div>
-          <div className="profile__list">
-            <div className="gallery">
-              {profile__like === "profile__selected"
-                ? displayPictures(likeimagelist)
-                : displayPictures(reviewimagelist)}
-            </div>
+          <div className={profile__review} onClick={click__review}>
+            review
           </div>
         </div>
-      ) : (
-        <div className="profile">
-          <div className="profile__name"> {userData.username}</div>
-          <div className="proflie__proflie">
-            <img className="profile__image" src={userData.profileImage}></img>
-            <div className="profile__stats">
-              <ul>
-                <li>
-                  <span className="profile__stats__count">
-                    {userData.likedWinelists.length +
-                      userData.likedWines.length}
-                  </span>
-                  likes
-                </li>
-                <li>
-                  <span className="profile__stats__count">
-                    {dummpyReviewdata.length}
-                  </span>
-                  reviews
-                </li>
-                <li>
-                  <span className="profile__stats__count">
-                    {" "}
-                    {userData.followers.length}
-                  </span>{" "}
-                  followers
-                </li>
-                <li>
-                  <span className="profile__stats__count">
-                    {userData.followings.length}
-                  </span>{" "}
-                  follows
-                </li>
-              </ul>
-            </div>
+        <div className="profile__list">
+          <div className="gallery">
+            {profile__like === "profile__selected"
+              ? displayPictures(likeimagelist)
+              : displayPictures(reviewimagelist)}
           </div>
-
+        </div>
+        {profile__like === "profile__selected" && islikewine && (
           <div
-            className={
-              isFollowd
-                ? "profile__editporfile_unfilled "
-                : "profile__editporfile"
-            }
-            onClick={() => setFollowd(!isFollowd)}
+            className="proflie__history"
+            onClick={() => {
+              setlikewine(!islikewine);
+            }}
           >
-            {isFollowd ? "following" : "follow"}
+            {" "}
+            wine
           </div>
-          <div className="profile__listcontainer">
-            <div className={profile__like} onClick={click_like}>
-              like
-            </div>
-            <div className={profile__review} onClick={click__review}>
-              review
-            </div>
+        )}
+        {profile__like === "profile__selected" && !islikewine && (
+          <div
+            className="proflie__history"
+            onClick={() => {
+              setlikewine(!islikewine);
+            }}
+          >
+            {" "}
+            winelist
           </div>
-          <div className="profile__list">
-            <div className="gallery">
-              {profile__like === "profile__selected"
-                ? displayPictures(likeimagelist)
-                : displayPictures(reviewimagelist)}
-            </div>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };

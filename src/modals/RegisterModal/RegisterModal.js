@@ -81,10 +81,19 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
           const res1 = await axios.post(`/api/users`, {
             username: userName,
             tags: selectedtag,
+            profileImage: res.data.picture,
             email: res.data.email,
           });
           if (res1.status === 201) {
             console.log(res1);
+
+            setStatus({
+              ...status,
+              userID: res1.data.userID,
+              user: res1.data.status + 1,
+              profileimage: res.data.picture,
+              registerModal: !status.registerModal,
+            });
           }
         } catch (err) {
           console.log(err);
@@ -223,7 +232,7 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
                 <div
                   className="register__register"
                   onClick={() => {
-                    toggleStatus("registerModal"), onRegister();
+                    onRegister();
                   }}
                 >
                   {" "}

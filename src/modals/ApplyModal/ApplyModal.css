@@ -117,7 +117,7 @@
   margin-right: 10px;
 }
 .becomesommlier__history {
-  display: flex;
+  align-self: flex-end;
   color: var(--text-50);
   font-size: var(--size-txt);
   justify-content: flex-end;

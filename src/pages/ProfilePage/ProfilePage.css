@@ -21,6 +21,21 @@
   margin-top: 1rem;
 }
 
+.proflie__history {
+  display: flex;
+  align-self: flex-start;
+  color: var(--primary);
+  font-size: var(--size-txt);
+  margin-top: 10px;
+  font-weight: bold;
+  justify-content: flex-end;
+  /* margin-right: var(--margin-out); */
+}
+.profile__button__container {
+  margin-top: var(--margin-out);
+  display: flex;
+}
+
 .profile__image {
   border-radius: 50%;
   width: 3.5rem;

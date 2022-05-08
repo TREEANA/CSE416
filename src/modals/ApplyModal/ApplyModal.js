@@ -10,29 +10,44 @@ src="https://mblogthumb-phinf.pstatic.net/MjAxOTAzMjJfMjA2/MDAxNTUzMjI3NDU5NzU0.
 ></img> */
 }
 const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
-  const [title, settitle] = useState("");
   const [description, setDescription] = useState("");
   const [step, setstep] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const createverification = async (e) => {
-    const formData = new FormData();
-    formData.append("file", selectedImage);
-    console.log(formData);
-    setstep(2);
+  const createverification = async () => {
+    // const formData = new FormData();
+    // formData.append("api_key", 673363115651154);
+    // formData.append("upload_preset", "ibgzg33i");
+    // formData.append("timestamp", (Date.now() / 1000) | 0);
+    // formData.append("file", selectedImage);
+
+    // const config = {
+    //   header: { "Content-Type": "multipart/form-data" },
+    // };
+
     // try {
-    //   const res = await axios.post(`/api/verification-tickets`, {
-    //     userID: status.userID,
-    //     title: title,
-    //     verificationImage: URL.createObjectURL(selectedImage),
-    //     userExplanation: description,
+    //   await axios.post("/external/image", formData, config).then((res) => {
+    //     body.verificationImage = res.data.url;
     //   });
-    //   console.log(res);
-    //   if (res.status === 200) {
-    //   }
-    // } catch (err) {
-    //   console.log(err);
+    // } catch (e) {
+    //   console.log(e);
+
+    const body = {
+      userID: status.userID,
+      verificationImage:
+        "https://mblogthumb-phinf.pstatic.net/MjAxOTAzMjJfMjA2/MDAxNTUzMjI3NDU5NzU0.MB7x7Bu9pbwOeZ_vXg11Q8MstK3C6MkAZ6UnhQ6ki0Yg.rOy-j6vpy3UbmWMEnBNo2LJLrV9lKzDUvMoeTGU-elAg.JPEG.onwinnersmd/2.jpg?type=w800",
+      userExplanation: description,
+    };
     // }
+    try {
+      await axios.post(`/api/verification-tickets`, body).then((res) => {
+        console.log(res);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    setstep(2);
   };
   const choose = () => {
     setstep(1);
@@ -141,14 +156,6 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     } else if (step === 4) {
       return (
         <div className="becomesommlier__section1">
-          <div className="becomesommlier__name">Title</div>
-          <input
-            className="becomesommlier__name"
-            placeholder="title"
-            onChange={(event) => {
-              settitle(event.target.value);
-            }}
-          ></input>
           <div className="becomesommlier__name">Description</div>
           <input
             className="becomesommlier__name"
@@ -158,7 +165,7 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
             }}
           ></input>
 
-          {title !== "" && description !== "" ? (
+          {description !== "" ? (
             <div
               className="becomesommlier__button"
               onClick={() => {
