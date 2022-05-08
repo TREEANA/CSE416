@@ -78,7 +78,8 @@ import "./SearchPage.css";
 const SearchPage = ({ status, toggleStatus }) => {
   const [wines, setWines] = useState([]);
   const [lists, setLists] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [authors, setAuthors] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { keyword } = useParams();
   const filterModal = status.filterModal;
   const sortModal = status.sortModal;
@@ -88,7 +89,6 @@ const SearchPage = ({ status, toggleStatus }) => {
     setLoading(true);
     try {
       const res = await axios.get(`/api/wines/search?keyword=${keyword}&num=5`);
-      console.log(res.data == null);
       if (res.data === null || res.data === "") {
         setWines([]);
       } else {
@@ -109,11 +109,26 @@ const SearchPage = ({ status, toggleStatus }) => {
       if (res.data === null || res.data === "") {
         setLists([]);
       } else {
-        setLists(res.data);
+        const temp = res.data;
+        temp[0].images = [
+          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
+        ];
+        setLists(temp);
       }
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
+  };
+  const fetchAuthors = async () => {
+    setLoading(true);
+    const tempAuthors = [];
+    await lists.forEach(async (each, i) => {
+      const res = await axios.get(`/api/users/${each.userID}`);
+      tempAuthors.push(res.data);
+      console.log(tempAuthors);
+    });
+    setAuthors(tempAuthors);
     setLoading(false);
   };
   const displayWines = () => {
@@ -128,7 +143,7 @@ const SearchPage = ({ status, toggleStatus }) => {
   const displayLists = () => {
     const result = [];
     lists.forEach((each, i) => {
-      result.push(<WineList wineList={each} />);
+      result.push(<WineList wineList={each} author={authors[i]} />);
     });
     return result;
   };
@@ -140,6 +155,7 @@ const SearchPage = ({ status, toggleStatus }) => {
   useEffect(() => {
     fetchWines(keyword);
     fetchLists(keyword);
+    fetchAuthors();
   }, []);
 
   return (
@@ -160,7 +176,7 @@ const SearchPage = ({ status, toggleStatus }) => {
               sort
             </button>
           </div>
-          {wines.length === 0 ? (
+          {wines.length === 0 && !loading ? (
             <div className="winePage__noMatchWines">No matching wines</div>
           ) : (
             <>
@@ -171,7 +187,7 @@ const SearchPage = ({ status, toggleStatus }) => {
               <hr className="winePage__hr"></hr>
             </>
           )}
-          {lists.length === 0 ? (
+          {lists.length === 0 && !loading ? (
             <div className="winePage__noMatchLists">No matching winelists</div>
           ) : (
             <>

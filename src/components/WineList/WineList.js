@@ -30,14 +30,14 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
     setCurPage(num);
   };
   const onLeftArrowClick = () => {
-    if (curPage <= 0 || curPage > wineList.images.length - 1) {
+    if (curPage <= 0 || curPage > wineList.images.length) {
       return;
     } else {
       setCurPage(curPage - 1);
     }
   };
   const onRightArrowClick = () => {
-    if (curPage < 0 || curPage >= wineList.images.length - 1) {
+    if (curPage < 0 || curPage >= wineList.images.length) {
       return;
     } else {
       setCurPage(curPage + 1);
@@ -60,7 +60,7 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
   };
   const displayPageButton = () => {
     let result = [];
-    for (let i = 0; i < wineList.images.length; i++) {
+    for (let i = 0; i < wineList.images.length + 1; i++) {
       if (curPage === i) {
         result.push(<BsCircleFill />);
       } else {
@@ -71,26 +71,23 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
   };
   const displayImages = () => {
     const result = [];
+    result.push(
+      <div className="wineList__bgCont--main">
+        <img src={wineList.thumbnailImage} />
+      </div>
+    );
     wineList.images.forEach((each, i) => {
-      if (i === 0) {
-        result.push(
-          <div className="wineList__bgCont--main">
-            <img src={each} />
-          </div>
-        );
-      } else {
-        result.push(
-          <div className="wineList__bgCont--wine">
-            <img src={each} />
-          </div>
-        );
-      }
+      result.push(
+        <div className="wineList__bgCont--wine">
+          <img src={each} />
+        </div>
+      );
     });
     return result;
   };
-  const formatDate = (date) => {
-    return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-  };
+  // const formatDate = (date) => {
+  //   return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+  // };
   return (
     <div className="wineList">
       <div className="wineList__topCont">
@@ -107,9 +104,7 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
             <img className="wineList__profileImg" src={author.profileImage} />
             <div className="wineList__profileTxt">
               <div className="wineList__name">{author.username}</div>
-              <div className="wineList__date">
-                {formatDate(wineList.lastUpdatedAt)}
-              </div>
+              <div className="wineList__date">{wineList.lastUpdatedAt}</div>
             </div>
           </div>
           <div
