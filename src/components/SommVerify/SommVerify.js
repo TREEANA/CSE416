@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   BsXLg,
   BsFillCheckCircleFill,
@@ -9,10 +10,10 @@ import "./SommVerify.css";
 
 const verifyDummyData = {
   ticketID: 0,
-  userID: 0,
+  userID: 53,
   adminID: 1,
   verificationImage: "",
-  userExplanatio: "hi i uploaded my verification1",
+  userExplanation: "hi i uploaded my verification1",
   status: 1,
   adminFeedback: "",
   createdAt: "1011.01.11",
@@ -27,8 +28,57 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
   };
   //   const [status, setStatus] = useState(sommdata.status);
   //   status : 0(approved),1(pending), 2(rejected)
-  //   const [userExp, setUserExp] = useState(sommdata.userExplanation);
+
+  const [tempRequest, setTempRequest] = useState({});
+  useEffect(() => {
+    setTempRequest(sommdata);
+  }, [sommdata]);
+
   const [sommData, setSommData] = useState(verifyDummyData);
+  // const updateUser = () => {
+  //   setSommData(...sommdata);
+  // };
+
+  // const res = await axios.get(`https://podo-backend.herokuapp.com/users/${userId}?requesterID=${userId}`)
+  // if (res.status === 200){
+  //   setSommData(
+  //     ...sommdata,
+  //     [res.username]= res.username)
+  // }
+
+  const getUserName = async () => {
+    try {
+      return await axios.get(
+        `https://podo-backend.herokuapp.com/users/${userId}?requesterID=${userId}`
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const form = new FormData();
+  // form.append("userID", userID);
+  // form.append("verficiationImage", verificationImage);
+  // form.append("userExplanation", userExplanation);
+  // ..
+  // form.append(adminID);
+  // form.append(ticketID);
+  // form.append(status);
+  // form.append(createdAt);
+
+  axios
+    .post(`https://podo-backend.herokuapp.comverification-tickets`, form)
+    .then((response) => {
+      console.log("response:", JSON.stringify(response, null, 2));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  const updateUser = () => {
+    setSommData(...sommdata, ([username] = getUserName.username));
+  };
+
   return (
     <>
       <div className="sommverify">
@@ -43,7 +93,7 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
           </div>
           <div className="sommverify__status">
             <div className="sommverify__verifyButton">
-              {toggleStatus && sommData.status !== 1 && (
+              {toggleStatus && sommData.status !== 0 && sommData.status !== 2 && (
                 <>
                   <div className="sommverify__verifyApprove">approve</div>
                   <div className="sommverify__verifyReject"> reject </div>
@@ -59,9 +109,9 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
               ) : (
                 <BsFillXCircleFill className="sommverify__statusIcon2" />
               )}
-              {/* {status === 0 && <BsFillCheckCircleFill />}
-              {status === 1 && <BsThreeDots />}
-              {status === 2 && <BsXLg />} */}
+              {/* {status === 0 && <BsFillCheckCircleFill className="sommverify__statusIcon0" />}
+              {status === 1 && <BsThreeDots className="sommverify__statusIcon1" />}
+              {status === 2 && <BsXLg  className="sommverify__statusIcon2"  />} */}
             </div>
           </div>
         </div>
@@ -76,12 +126,12 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
               </div>
               <div className="sommverify__comment">
                 <div className="sommverify__userComment">
-                  {/* {verifyDummyData.userExplanation} */}
-                  Hello this is sommelier woohyun park. i would like to get my
+                  {sommdata.userExplanation}
+                  {/* Hello this is sommelier woohyun park. i would like to get my
                   sommelier badge by using this image. This is the certificate I
                   got from my home country, I am not sure it would work here as
                   well. Please thoroughly go over the document and let me know
-                  the result. Thank you!
+                  the result. Thank you! */}
                 </div>
 
                 <form className="sommverify__adminComment" method="POST">
