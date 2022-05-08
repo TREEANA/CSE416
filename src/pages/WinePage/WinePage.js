@@ -53,10 +53,9 @@ import "./WinePage.css";
 // ];
 
 const WinePage = ({ status, toggleStatus }) => {
-  const { theme } = useParams();
-
   const filterModal = status.filterModal;
   const sortModal = status.sortModal;
+  const { theme } = useParams();
   const [wines, setWines] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);

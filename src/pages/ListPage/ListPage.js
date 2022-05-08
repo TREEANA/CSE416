@@ -1,7 +1,12 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+import axios from "axios";
+
+import Loader from "../../components/Loader/Loader";
 import WineList from "../../components/WineList/WineList";
 import FilterModal from "../../modals/FilterModal/FilterModal";
+
 import "./ListPage.css";
 
 const defaultLists = [
@@ -16,7 +21,7 @@ const defaultLists = [
       "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
     ],
     content: "Content 1",
-    lastUpdatedAt: new Date(),
+    lastUpdatedAt: "2022-05-09",
   },
   {
     wineListID: 1,
@@ -29,7 +34,7 @@ const defaultLists = [
       "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
     ],
     content: "Content 2",
-    lastUpdatedAt: new Date(),
+    lastUpdatedAt: "2022-05-09",
   },
   {
     wineListID: 2,
@@ -42,47 +47,107 @@ const defaultLists = [
       "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
     ],
     content: "Content 3",
-    lastUpdatedAt: new Date(),
+    lastUpdatedAt: "2022-05-09",
   },
 ];
 
 const ListPage = ({ status, toggleStatus }) => {
-  const location = useLocation();
-  const theme = location.pathname.split("/")[2];
-  const list = defaultLists;
+  const { keyword } = useParams();
+  const [lists, setLists] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [ref, inView] = useInView();
+
   const displayLists = () => {
     const result = [];
-    list.forEach((each, i) => {
-      result.push(<WineList wineList={each} />);
+    lists.forEach((each, index) => {
+      lists.length - 1 === index
+        ? result.push(
+            <>
+              <WineList wineList={each} />
+              <div ref={ref}>{loading && <Loader />}</div>
+            </>
+          )
+        : result.push(<WineList wineList={each} />);
     });
     return result;
   };
-  const formatTheme = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+
+  const fetchLists = async (keyword, page) => {
+    setLoading(true);
+    try {
+      const url = `/api/winelists/search?keyword=${keyword}&num=${page * 10}`;
+      console.log("Fetching lists: ", url);
+      const res = await axios.get(url);
+      if (res.data === null || res.data === "") {
+        setLists([]);
+      } else {
+        const temp = res.data;
+        temp[0].images = [
+          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
+        ];
+        temp[1].images = [
+          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
+          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
+        ];
+        setLists(temp);
+      }
+      console.log("Lists fetched: ", res.data);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
   };
+
+  useEffect(() => {
+    fetchLists(keyword, page);
+  }, []);
+
+  useEffect(() => {
+    fetchLists(keyword, page);
+  }, [page]);
+
+  useEffect(() => {
+    if (inView && !loading) {
+      setPage(page + 1);
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    setLists([]);
+    setPage(1);
+    fetchLists(keyword, 1);
+  }, [keyword]);
+
   return (
     <>
-      <div className="wineListPage">
-        <div className="wineListPage__titleCont">
-          <div className="wineListPage__text">Wine Lists</div>
-          <div className="wineListPage__title">{formatTheme(theme)}</div>
-        </div>
-        <div className="wineListPage__btnCont">
-          <button
-            className="wineListPage__filter"
-            onClick={() => {
-              toggleStatus("filterModal");
-            }}
-          >
-            filter
-          </button>
-        </div>
-        {displayLists()}
-      </div>
-      <FilterModal
-        filterModal={status.filterModal}
-        toggleFilterModal={() => toggleStatus("filterModal")}
-      />
+      {loading && page === 1 ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="wineListPage">
+            <div className="wineListPage__titleCont">
+              <div className="wineListPage__text">Wine Lists</div>
+              <div className="wineListPage__title">{keyword}</div>
+            </div>
+            <div className="wineListPage__btnCont">
+              <button
+                className="wineListPage__filter"
+                onClick={() => {
+                  toggleStatus("filterModal");
+                }}
+              >
+                filter
+              </button>
+            </div>
+            {displayLists()}
+          </div>
+          <FilterModal
+            filterModal={status.filterModal}
+            toggleFilterModal={() => toggleStatus("filterModal")}
+          />
+        </>
+      )}
     </>
   );
 };

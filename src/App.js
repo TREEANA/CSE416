@@ -162,7 +162,7 @@ const App = () => {
             }
           />
           <Route
-            path="/lists/*"
+            path="/lists/:keyword"
             element={<ListPage status={status} toggleStatus={toggleStatus} />}
           />
           <Route
