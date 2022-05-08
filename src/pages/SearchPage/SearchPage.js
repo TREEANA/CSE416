@@ -86,7 +86,6 @@ const SearchPage = ({ status, toggleStatus }) => {
   const toggleFilterModal = () => toggleStatus("filterModal");
   const toggleSortModal = () => toggleStatus("sortModal");
   const fetchWines = async (keyword) => {
-    // setLoading(true);
     try {
       const res = await axios.get(`/api/wines/search?keyword=${keyword}&num=5`);
       if (res.data === null || res.data === "") {
@@ -94,18 +93,16 @@ const SearchPage = ({ status, toggleStatus }) => {
       } else {
         setWines(res.data);
       }
+      console.log("fetched wines: ", res.data);
     } catch (e) {
       console.log(e);
     }
-    // setLoading(false);
   };
   const fetchLists = async (keyword) => {
-    // setLoading(true);
     try {
       const res = await axios.get(
         `/api/winelists/search?keyword=${keyword}&num=3`
       );
-      console.log(res.data);
       if (res.data === null || res.data === "") {
         setLists([]);
       } else {
@@ -119,21 +116,18 @@ const SearchPage = ({ status, toggleStatus }) => {
         ];
         setLists(temp);
       }
+      console.log("fetched lists: ", res.data);
     } catch (e) {
       console.log(e);
     }
-    // setLoading(false);
   };
   const fetchAuthors = async () => {
-    // setLoading(true);
     const tempAuthors = [];
-    await lists.forEach(async (each, i) => {
+    for await (const each of lists) {
       const res = await axios.get(`/api/users/${each.userID}`);
       tempAuthors.push(res.data);
-      console.log(tempAuthors);
-    });
-    setAuthors(tempAuthors);
-    // setLoading(false);
+    }
+    console.log("fetched authors: ", tempAuthors);
   };
   const displayWines = () => {
     const result = [];
@@ -158,9 +152,9 @@ const SearchPage = ({ status, toggleStatus }) => {
 
   useEffect(async () => {
     setLoading(true);
-    await fetchWines(keyword);
-    await fetchLists(keyword);
-    await fetchAuthors();
+    fetchWines(keyword);
+    fetchLists(keyword);
+    fetchAuthors();
     setLoading(false);
   }, []);
 
