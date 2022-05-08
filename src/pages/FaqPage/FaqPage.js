@@ -1,37 +1,20 @@
 import React, { useState } from "react";
 import "./FaqPage.css";
-import $ from "jquery";
 import Ticket from "../../components/Ticket/Ticket";
 
 const FaqPage = () => {
-  const [FAQ_resetStatus, setFAQ_reset] = useState(0);
-  const reset = () => {
-    setFAQ_reset(!FAQ_resetStatus);
-    if (FAQ_resetStatus) {
-      $(".FAQ_reset").hide();
-    } else {
-      $(".FAQ_reset").show();
-    }
-  };
-
-  const [FAQ_modifyStatus, setFAQ_modify] = useState(0);
-  const modify = () => {
-    setFAQ_modify(!FAQ_modifyStatus);
-    if (FAQ_modifyStatus) {
-      $(".FAQ_modify").hide();
-    } else {
-      $(".FAQ_modify").show();
-    }
-  };
-  const [FAQ_deleteStatus, setFAQ_delete] = useState(0);
-  const hide = () => {
-    setFAQ_delete(!FAQ_deleteStatus);
-    if (FAQ_deleteStatus) {
-      $(".FAQ_delete").hide();
-    } else {
-      $(".FAQ_delete").show();
-    }
-  };
+  // const [faq1, setFaq1] = useState(0);
+  // const [faq2, setFaq2] = useState(0);
+  // const [faq3, setFaq3] = useState(0);
+  // const toggleFAQ = ({ faq }) => {
+  //   if (faq === faq1) {
+  //     setFaq1(!faq1);
+  //   } else if (faq === faq2) {
+  //     setFaq2(!faq2);
+  //   } else if (faq === faq3) {
+  //     setFaq3(!faq3);
+  //   }
+  // };
 
   return (
     <>
@@ -45,6 +28,7 @@ const FaqPage = () => {
           answer={
             "Please click on forgot my password button to reset your password."
           }
+          // onClick={toggleFAQ(faq1)}
         />
         <Ticket
           type="faq"
@@ -53,6 +37,7 @@ const FaqPage = () => {
           answer={
             "Please click on forgot my password button to reset your password."
           }
+          // onClick={toggleFAQ(faq2)}
         />
         <Ticket
           type="faq"
@@ -61,6 +46,7 @@ const FaqPage = () => {
           answer={
             "Please click on forgot my password button to reset your password."
           }
+          // onClick={toggleFAQ(faq3)}
         />
 
         {/* <Ticket

@@ -58,6 +58,89 @@
   height: 30px;
   margin-right: 0.5rem;
 }
+/* tempTicket (사용자가 새로 입력하는 내용에 대한 css 추가*/
+.ticketModal__temp {
+  /* border: 1px solid black; */
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 30px;
+  background-color: var(--bg-0);
+}
+
+.ticketModal__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ticketModal__tempTitle {
+  display: flex;
+  align-items: center;
+}
+
+.ticketModal__tempTitleTitle,
+.ticketModal__tempTitleInput {
+  margin: 0 3px;
+}
+
+.ticketModal__tempTitleTitle {
+  width: 30px;
+}
+
+.ticketModal__tempTitleInput {
+  width: 90%;
+  overflow: auto;
+  text-overflow: ellipsis;
+  white-space: normal;
+  border: none;
+  /* border-bottom: 1.5px solid grey; */
+  border: 0.5px solid grey;
+  outline: none;
+  background-color: transparent;
+}
+
+.ticketModal__tempContent {
+  /* display: flex; */
+}
+.ticketModal__tempContentTitle,
+.ticketModal__tempContentInput {
+  margin: 3px 0;
+}
+
+.ticketModal__tempContentTitle {
+  width: 30px;
+}
+
+.ticketModal__tempContentInput {
+  width: 99%;
+  overflow: auto;
+  /* text-overflow: ellipsis; */
+  white-space: pre-wrap;
+  border: 0.5px solid grey;
+  outline: none;
+  background-color: transparent;
+  min-height: 4rem;
+  /* border: none; */
+}
+
+.ticketModal__button {
+  margin: 5px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ticketModal__tempSubmit {
+  border: none;
+  background-color: var(--primary);
+  border-radius: 30px;
+  color: var(--bg-0);
+  padding: 5px;
+  font-size: 15px;
+}
+
+/*  */
 
 .ticketModal_boxContainer {
   color: var(--text-100);

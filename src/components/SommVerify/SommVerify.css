@@ -1,36 +1,169 @@
 .sommverify {
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw; */
+  /* height: 100vh; */
 }
 .sommverify__header {
   display: flex;
   justify-content: space-between;
-  color: var(--primary);
   margin: var(--margin-out);
   align-items: center;
+  background-color: var(--bg-20);
+  border-radius: 30px;
+  height: 3rem;
+  position: relative;
+  z-index: 1;
+  background-color: var(--bg-0);
+  /* width: 100%; */
 }
 .sommverify__info {
+  margin: 0 15px;
 }
-
+/* 
 .sommverify__infoImg {
   border-radius: 50%;
   width: 20px;
   height: 20px;
-}
-
-.sommverify__infoName {
-}
+} */
 
 .sommverify__status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  margin-right: 7px;
+}
+
+.sommverify__statusIcon {
+  display: flex;
+  align-items: center;
+}
+
+.sommverify__verifyButton {
+  display: flex;
+  align-items: row;
+  margin-right: 5px;
 }
 
 .sommverify__verifyApprove {
   border-radius: 30px;
   background-color: green;
-  padding: 0.3rem;
+  color: var(--bg-0);
+  padding: 0.4rem;
+  margin: 0 3px;
 }
 .sommverify__verifyReject {
   border-radius: 30px;
   background-color: var(--primary);
-  padding: 0.3rem;
+  padding: 0.4rem;
+  margin: 0 3px;
+  color: var(--bg-0);
+}
+
+.sommverify__statusIcon0,
+.sommverify__statusIcon1,
+.sommverify__statusIcon2 {
+  height: 1.8rem;
+  width: 1.8rem;
+  border-radius: 50%;
+}
+
+.sommverify__statusIcon0 {
+  background-color: green;
+  color: white;
+}
+.sommverify__statusIcon1 {
+  background-color: #f9e000;
+  color: white;
+}
+.sommverify__statusIcon0 {
+  background-color: red;
+  color: white;
+}
+
+.sommverify__body {
+  background-color: var(--bg-100);
+  position: relative;
+  top: -70px;
+  margin: 0 var(--margin-out);
+  /* border: 1px solid black; */
+  padding: 45px 10px 10px 10px;
+  height: 300px;
+  border-radius: 30px;
+}
+
+.sommverify__bodyGrid {
+  /* padding-top: 35px; */
+  /* border: 1px solid blue; */
+  /* margin: 0 var(--margin-out); */
+  height: inherit;
+  display: flex;
+  justify-content: space-around;
+}
+
+.sommverify__img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+  width: 50%;
+  /* border: 1px solid orange; */
+}
+
+.sommverify__verifyImg {
+  width: 90%;
+  height: fit-content;
+  margin: 0 5px;
+  display: flex;
+  align-items: center;
+}
+
+.sommverify__comment {
+  margin: 0 5px;
+  height: inherit;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sommverify__userComment {
+  /* border: 1px solid green; */
+  width: 100%;
+  height: 40%;
+  margin-bottom: 5px;
+  padding: 10px;
+  border-radius: 20px;
+  text-overflow: ellipsis;
+  overflow: auto;
+  white-space: normal;
+  background-color: var(--bg-20);
+}
+
+.sommverify__adminComment {
+  /* border: 1px solid red; */
+  height: 40%;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 20px;
+  width: 100%;
+  background-color: var(--bg-20);
+}
+
+.sommverify__adminInput {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  /* border: 1px dotted purple; */
+  text-overflow: ellipsis;
+  overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  font-size: large;
+}
+
+.sommverify__adminInput:hover,
+.sommverify__adminInput:not(:hover) {
+  outline: none;
 }
