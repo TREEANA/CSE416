@@ -12,30 +12,27 @@ import Ticket from "../../components/Ticket/Ticket";
 
 const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
   const [tempTicket, setTempTicket] = useState({
-    visible: false,
     ticketTitle: "",
     ticketContent: "",
     createdAt: "",
   });
 
+  const [ticketVisible, setTicketVisible] = useState(0);
   const toggleTempTicket = () => {
-    // const newTempTicket = [...tempTicket];
-    console.log("before setTempTicket: ", tempTicket);
-    setTempTicket({
-      ...tempTicket,
-      [tempTicket.visible]: !tempTicket.visible,
-    });
-    console.log("after setTempTicket: ", tempTicket);
+    setTicketVisible(!ticketVisible);
   };
 
-  const onChange = (event) => {
-    const { title, content } = event.target;
-    console.log(title);
-    setTempTicket({
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    console.log(name);
+    console.log(value);
+    let newTempTicket = {
       ...tempTicket,
-      [ticketTitle]: title,
-      [ticketContent]: content,
-    });
+      [name]: value,
+    };
+    setTempTicket(newTempTicket);
+    // console.log(newTempTicket);
+    // saveQuestionsOnServer(newTempQuestion);
   };
 
   return (
@@ -55,47 +52,53 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
             <BsFillPlusCircleFill />
             create a new ticket
           </div>
-          {/* {tempTicket.visible && ( */}
-          <>
-            <div className="ticketModal__temp">
-              <div className="ticketModal__title">
-                <div className="ticketModal__titleTitle">New Ticket</div>
-                {/* <button className="ticketModal__tempSubmit">Submit</button> */}
-                <BsXLg
-                  className="ticketModal__close"
-                  onClick={toggleTempTicket}
-                />
+          {ticketVisible && (
+            <>
+              <div className="ticketModal__temp">
+                <div className="ticketModal__title">
+                  <div className="ticketModal__titleTitle">New Ticket</div>
+                  {/* <button className="ticketModal__tempSubmit">Submit</button> */}
+                  <BsXLg
+                    className="ticketModal__close"
+                    onClick={toggleTempTicket}
+                  />
+                </div>
+                {/* <hr></hr> */}
+                <div className="ticketModal__tempTitle">
+                  <div className="ticketModal__tempTitleTitle">Title </div>
+                  <input
+                    name="ticketTitle"
+                    type="text"
+                    className="ticketModal__tempTitleInput"
+                    placeholder="Title"
+                    onChange={onChange}
+                    value={tempTicket.ticketTitle || ""}
+                  ></input>
+                </div>
+                <hr></hr>
+                <div className="ticketModal__tempContent">
+                  <div className="ticketModal__tempContentTitle">Content</div>
+                  <input
+                    name="ticketContent"
+                    type="text"
+                    className="ticketModal__tempContentInput"
+                    placeholder="Have any issues? Feel free to report it to us! \n 사실 지금 새벽 두시반.. 졸라리 늦은ㅅ ㅣ간.. 눈이 너무 감기는데 한게 없어서 감기면 안돼.. 진짜로..."
+                    onChange={onChange}
+                    value={tempTicket.ticketContent || ""}
+                  ></input>
+                </div>
+                <div className="ticketModal__button">
+                  {/* <div></div> */}
+                  <button
+                    className="ticketModal__tempSubmit"
+                    onClick={toggleTempTicket}
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
-              {/* <hr></hr> */}
-              <div className="ticketModal__tempTitle">
-                <div className="ticketModal__tempTitleTitle">Title </div>
-                <input
-                  type="text"
-                  className="ticketModal__tempTitleInput"
-                  placeholder="Title"
-                ></input>
-              </div>
-              <hr></hr>
-              <div className="ticketModal__tempContent">
-                <div className="ticketModal__tempContentTitle">Content</div>
-                <input
-                  type="text"
-                  className="ticketModal__tempContentInput"
-                  placeholder="Have any issues? Feel free to report it to us! \n 사실 지금 새벽 두시반.. 졸라리 늦은ㅅ ㅣ간.. 눈이 너무 감기는데 한게 없어서 감기면 안돼.. 진짜로..."
-                ></input>
-              </div>
-              <div className="ticketModal__button">
-                {/* <div></div> */}
-                <button
-                  className="ticketModal__tempSubmit"
-                  onClick={toggleTempTicket}
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
-          </>
-          {/* )} */}
+            </>
+          )}
           <Ticket
             type="ticket"
             ticketStatus={0}
