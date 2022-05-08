@@ -153,9 +153,9 @@ const SearchPage = ({ status, toggleStatus }) => {
 
   useEffect(async () => {
     setLoading(true);
-    fetchWines(keyword);
-    fetchLists(keyword);
-    fetchAuthors();
+    await fetchWines(keyword);
+    await fetchLists(keyword);
+    await fetchAuthors();
     setLoading(false);
   }, []);
 

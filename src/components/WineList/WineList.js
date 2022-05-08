@@ -14,7 +14,7 @@ const defaultWineList = {
     "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
   ],
   content: "Content 1",
-  lastUpdatedAt: new Date(),
+  lastUpdatedAt: "2022-05-09",
 };
 const defaultAuthor = {
   userID: 0,
