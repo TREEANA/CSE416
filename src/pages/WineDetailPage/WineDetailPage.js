@@ -78,6 +78,33 @@ const WineDetailPage = ({ status }) => {
     setEditReview(!editReview);
   };
 
+  const [showComment, setShowComment] = useState(0);
+  const toggleComment = () => {
+    setShowComment(!showComment);
+  };
+
+  const form = new FormData();
+  // form.append("userID", userID);
+  // form.append("content", content);
+  // form.append("rating", rating);
+  // form.append("tags", tags);
+
+  const [tempReview, setTempReview] = useState({
+    content: "",
+    rating: 0,
+    like: "false",
+    tags: [],
+  });
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    let newTempReview = {
+      ...tempReview,
+      [name]: value,
+    };
+    setTempReview(newTempReview);
+  };
+
   return (
     <>
       {wine === false ? (
@@ -172,6 +199,7 @@ const WineDetailPage = ({ status }) => {
                     precision={0.5}
                     size="large"
                     // fontSize="large"
+                    name="rating"
                     defaultValue={2.5}
                     readOnly={editReview ? false : true}
                     sx={{ fontSize: 40 }}
@@ -249,10 +277,13 @@ const WineDetailPage = ({ status }) => {
                     ))}
                 </div>
               )}
-
               <div className="detail__reviewContent">
-                Great autumn wine. Clean leather, mint, cherry, blackberry and
-                chocolate. Worth opening ahead of drinking - smooth and mellow.
+                <input
+                  className="detail__reviewContentInput"
+                  readOnly={editReview ? false : true}
+                  placeholder="waiting for your review here :)"
+                  name="content"
+                ></input>
               </div>
               {editReview && (
                 <div className="detail__reviewPost" onClick={toggleEditReview}>
