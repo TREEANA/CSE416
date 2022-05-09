@@ -87,7 +87,7 @@ const WineDetailPage = ({ status }) => {
           <div>
             <div className="detail__wine">
               <div className="detail__wineImage">
-                <img src="https://images.vivino.com/thumbs/MhiwIbE4TmSLMfjD-EKYjg_pb_x300.png"></img>
+                <img src={wine.images[0]}></img>
               </div>
 
               <div className="detail__wineDetail">

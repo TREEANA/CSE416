@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import Loader from "../../components/Loader/Loader";
@@ -176,8 +177,7 @@ const ListDetailPage = ({
               ❤
             </div>
           </div>
-          {/* <div className="wineListDetail__carousel">{displayImages()}</div> */}
-          <Carousel images={list.images} curPage={curPage} />
+          <Carousel images={list.images} curPage={curPage} wines={list.wines} />
           <div className="wineListDetail__scrollCont">
             <div
               className={
@@ -189,9 +189,11 @@ const ListDetailPage = ({
             >
               {"<"}
             </div>
-            <div className="wineListDetail__wineName">
-              {list.wines[curPage].name}
-            </div>
+            <Link to={"/wine/" + list.wines[curPage].wineID}>
+              <div className="wineListDetail__wineName">
+                {list.wines[curPage].name}
+              </div>
+            </Link>
             <div
               className={
                 curPage < list.images.length - 1
