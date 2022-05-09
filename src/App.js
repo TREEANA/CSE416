@@ -30,7 +30,9 @@ import CreatePage from "./pages/CreatePage/CreatePage";
 
 const App = () => {
   let sessionStorage = window.sessionStorage;
-  let newuserinfo = {
+  const userID = sessionStorage.getItem("userID");
+  const accesstoken = sessionStorage.getItem("accesstoken");
+  const [userinfo, setUserinfo] = useState({
     followers: [],
     followings: [],
     likedWinelists: [],
@@ -42,17 +44,10 @@ const App = () => {
     userID: -1,
     accesstoken: -1,
     username: "",
-  };
-  const userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
-
-  if (userinfo) {
-    newuserinfo = userinfo;
-  }
-  const userID = sessionStorage.getItem("userID");
-  const accesstoken = sessionStorage.getItem("accesstoken");
+  });
 
   const [status, setStatus] = useState({
-    userinfo: newuserinfo,
+    userinfo,
     user: 0,
     userID: userID,
     accesstoken: accesstoken,
@@ -70,6 +65,18 @@ const App = () => {
     exchangeRate: 0,
     editProfileModal: false,
   });
+
+  useEffect(async () => {
+    const res = await axios.get(`/api/users/${userID}?requesterID=${userID}`);
+    setUserinfo(res.data);
+  }, []);
+
+  useEffect(() => {
+    setStatus({
+      ...status,
+      userinfo,
+    });
+  }, [userinfo]);
 
   const fetchCurrency = async () => {
     try {
@@ -154,7 +161,10 @@ const App = () => {
 
       <div className="article">
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route
+            path="/"
+            element={<MainPage status={status} setStatus={setStatus} />}
+          />
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
           <Route path="/login" element={<LoginModal />} />
           <Route
@@ -173,11 +183,11 @@ const App = () => {
           />
           <Route
             path="/list/:winelistID"
-            element={<ListDetailPage status={status} />}
+            element={<ListDetailPage status={status} setStatus={setStatus} />}
           />
           {/* detail includes Review, Filter */}
           <Route
-            path="/profile"
+            path="/profile/:userID"
             element={
               <ProfilePage status={status} toggleStatus={toggleStatus} />
             }
@@ -198,7 +208,13 @@ const App = () => {
           />
           <Route
             path="/search/:keyword"
-            element={<SearchPage status={status} toggleStatus={toggleStatus} />}
+            element={
+              <SearchPage
+                status={status}
+                toggleStatus={toggleStatus}
+                setStatus={setStatus}
+              />
+            }
           />
           <Route
             path="/create"

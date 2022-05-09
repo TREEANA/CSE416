@@ -146,7 +146,7 @@ const SearchBarModal = ({
             <Link to={`/profile/${each.userID}`}>
               <div className="search__profile" onClick={toggleSearchBarModal}>
                 <div className="search__image">
-                  <img src={each.profileImage} />
+                  <img className="search__image" src={each.profileImage} />
                 </div>
                 <div className="search__name" id={each.userID}>
                   {each.username}
@@ -183,7 +183,7 @@ const SearchBarModal = ({
           <Link to={`/profile/${each.userID}`}>
             <div className="search__profile" onClick={toggleSearchBarModal}>
               <div className="search__image">
-                <img src={each.profileImage} />
+                <img className="search__image" src={each.profileImage} />
               </div>
               <div className="search__name" id={each.userID}>
                 {each.username}
@@ -219,7 +219,7 @@ const SearchBarModal = ({
           <Link to={`/profile/${each.userID}`}>
             <div className="search__profile" onClick={toggleSearchBarModal}>
               <div className="search__image">
-                <img src={each.profileImage} />
+                <img className="search__image" src={each.profileImage} />
               </div>
               <div className="search__name" id={each.userID}>
                 {each.username}
@@ -274,7 +274,7 @@ const SearchBarModal = ({
   useEffect(() => {
     getUserdata();
     getAllUserList();
-  }, []);
+  }, [status.userID]);
 
   const clickFollowersButton = (id) => {
     const newArr = [];

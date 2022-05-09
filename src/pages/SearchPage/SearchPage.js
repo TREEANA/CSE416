@@ -75,7 +75,7 @@ import "./SearchPage.css";
 //   },
 // ];
 
-const SearchPage = ({ status, toggleStatus }) => {
+const SearchPage = ({ status, toggleStatus, setStatus }) => {
   const [wines, setWines] = useState([]);
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -125,7 +125,9 @@ const SearchPage = ({ status, toggleStatus }) => {
   const displayLists = () => {
     const result = [];
     lists.forEach((each, i) => {
-      result.push(<WineList wineList={each} />);
+      result.push(
+        <WineList wineList={each} status={status} setStatus={setStatus} />
+      );
     });
     return result;
   };
