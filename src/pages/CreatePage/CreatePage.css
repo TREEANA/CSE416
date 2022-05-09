@@ -188,6 +188,7 @@ textarea::-webkit-scrollbar {
 .create__tag {
   display: flex;
   margin-bottom: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .create__tag:first-of-type {

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios, { CancelToken } from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -18,12 +18,12 @@ const CreatePage = ({ status, toggleStatus }) => {
     wines: [],
   });
   const [tags, setTags] = useState({
-    acidic: false,
-    picnic: false,
-    dry: false,
-    oak: false,
-    rose: false,
-    cherry: false,
+    // acidic: false,
+    // picnic: false,
+    // dry: false,
+    // oak: false,
+    // rose: false,
+    // cherry: false,
   });
   const [search, setSearch] = useState({
     wineKeyword: "",
@@ -34,6 +34,20 @@ const CreatePage = ({ status, toggleStatus }) => {
   const [tempFile, setTempFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [creating, setCreating] = useState(false);
+
+  const fetchTags = async () => {
+    const res = await axios.get("/api/tags/list");
+    const tempTags = {};
+    res.data.forEach((each) => {
+      tempTags[each] = false;
+    });
+    setTags(tempTags);
+  };
+
+  useEffect(() => {
+    fetchTags();
+  }, []);
+
   function onTagClick() {
     const newTag = [];
     for (let each in tags) {
@@ -197,7 +211,10 @@ const CreatePage = ({ status, toggleStatus }) => {
     const formattedTag = search.tagKeyword.toLowerCase();
     if (formattedTag !== "") {
       for (let each in tags) {
-        if (each.indexOf(formattedTag) === 0 && tags[each] === false) {
+        if (
+          each.toLowerCase().indexOf(formattedTag) === 0 &&
+          tags[each] === false
+        ) {
           result.push(
             <Tag
               type="selected"
@@ -206,6 +223,16 @@ const CreatePage = ({ status, toggleStatus }) => {
             />
           );
         }
+      }
+    } else {
+      for (let each in tags) {
+        result.push(
+          <Tag
+            type="selected"
+            txt={each}
+            onClick={onTagClick.bind({ txt: each })}
+          />
+        );
       }
     }
     return result;
