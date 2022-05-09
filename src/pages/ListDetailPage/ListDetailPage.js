@@ -117,7 +117,7 @@ const ListDetailPage = ({
 
   const displayTags = () => {
     const result = [];
-    wines[curPage].tags.forEach((each, i) => {
+    list.wines[curPage].tags.forEach((each, i) => {
       if (i < 3)
         result.push(<Tag type="wineButton" isFilled={true} txt={each} />);
       else result.push(<Tag type="wineButton" isFilled={false} txt={each} />);

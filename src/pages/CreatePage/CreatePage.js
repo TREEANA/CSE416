@@ -1,18 +1,15 @@
 import React, { useState, useRef } from "react";
+import axios, { CancelToken } from "axios";
+import { useNavigate } from "react-router-dom";
+
 import Loader from "../../components/Loader/Loader";
 import Tag from "../../components/Tag/Tag";
-import {
-  BsXLg,
-  BsSearch,
-  BsPlus,
-  BsPlusLg,
-  BsFonts,
-  BsX,
-} from "react-icons/bs";
-import axios, { CancelToken } from "axios";
+import { BsSearch, BsFonts, BsX } from "react-icons/bs";
+
 import "./CreatePage.css";
 
 const CreatePage = ({ status, toggleStatus }) => {
+  const navigate = useNavigate();
   const [newList, setNewList] = useState({
     title: "",
     tags: [],
@@ -36,6 +33,7 @@ const CreatePage = ({ status, toggleStatus }) => {
   const [tempImage, setTempImage] = useState("");
   const [tempFile, setTempFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [creating, setCreating] = useState(false);
   function onTagClick() {
     const newTag = [];
     for (let each in tags) {
@@ -124,6 +122,7 @@ const CreatePage = ({ status, toggleStatus }) => {
   };
 
   const onSubmit = async () => {
+    setCreating(true);
     const body = {
       ...newList,
       userID: status.userID,
@@ -145,10 +144,10 @@ const CreatePage = ({ status, toggleStatus }) => {
       body.thumbnailImage = res.data.url;
     });
 
-    console.log(body);
-
     await axios.post("/api/winelists", body).then((res) => {
-      console.log(res);
+      console.log(res.data.wineListID);
+      setCreating(false);
+      navigate("/list/" + res.data.winelistID);
     });
   };
 
@@ -216,10 +215,6 @@ const CreatePage = ({ status, toggleStatus }) => {
           <div className="create__winery">{each.winery}</div>
           <div className="create__name">{each.name}</div>
         </div>
-        {/* <div className="create__iconCont">
-          <BsX className="create__wineDelete" />
-          <BsFonts className="create__wineComment" />
-        </div> */}
       </div>
     ));
   };
@@ -252,80 +247,84 @@ const CreatePage = ({ status, toggleStatus }) => {
 
   return (
     <>
-      <div className="create">
-        <div className="create__header">Create Winelist</div>
+      {creating ? (
+        <Loader />
+      ) : (
+        <div className="create">
+          <div className="create__header">Create Winelist</div>
 
-        <div className="create__subtitle">Title</div>
-        <input
-          className="create__title"
-          type="text"
-          name="title"
-          placeholder="enter a title"
-          value={newList.title}
-          onChange={onChange}
-        ></input>
-
-        <div className="create__subtitle">Image</div>
-        <input
-          ref={imageInput}
-          type="file"
-          className="create__imageInput"
-          accept="image/*"
-          onChange={onImageChange}
-        />
-        <div
-          className="create__uploadImage"
-          onClick={onImgInputBtnClick}
-          style={{ backgroundImage: `url(${tempImage})` }}
-        >
-          {tempImage === "" && <div className="create__uploadPlus">+</div>}
-        </div>
-
-        <div className="create__subtitle">Wines</div>
-        <div className="create__selectCont">{displaySelectedWines()}</div>
-        <div className="create__searchCont">
-          <BsSearch className="create__searchIcon" />
+          <div className="create__subtitle">Title</div>
           <input
-            className="create__search"
-            name="wineKeyword"
-            placeholder="search a wine to add"
-            value={search.wineKeyword}
-            onChange={onWineSearchChange}
+            className="create__title"
+            type="text"
+            name="title"
+            placeholder="enter a title"
+            value={newList.title}
+            onChange={onChange}
           ></input>
-        </div>
-        <div className="create__selectCont">
-          {loading ? <Loader /> : <>{displaySearchedWines()}</>}
-        </div>
 
-        <div className="create__subtitle">Tags</div>
-        <div className="create__searchCont">
-          <BsSearch className="create__searchIcon" />
+          <div className="create__subtitle">Image</div>
           <input
-            className="create__search"
-            name="tagKeyword"
-            placeholder="search tags"
-            value={search.tagKeyword}
-            onChange={onSearchChange}
+            ref={imageInput}
+            type="file"
+            className="create__imageInput"
+            accept="image/*"
+            onChange={onImageChange}
           />
-        </div>
-        <div className="create__tag">
-          {displaySelectedTags()}
-          {displayUnselectedTags()}
-        </div>
+          <div
+            className="create__uploadImage"
+            onClick={onImgInputBtnClick}
+            style={{ backgroundImage: `url(${tempImage})` }}
+          >
+            {tempImage === "" && <div className="create__uploadPlus">+</div>}
+          </div>
 
-        <div className="create__subtitle">Description</div>
-        <textarea
-          className="create__comment"
-          name="content"
-          placeholder="enter description of your winelist"
-          value={newList.content}
-          onChange={onChange}
-        />
+          <div className="create__subtitle">Wines</div>
+          <div className="create__selectCont">{displaySelectedWines()}</div>
+          <div className="create__searchCont">
+            <BsSearch className="create__searchIcon" />
+            <input
+              className="create__search"
+              name="wineKeyword"
+              placeholder="search a wine to add"
+              value={search.wineKeyword}
+              onChange={onWineSearchChange}
+            ></input>
+          </div>
+          <div className="create__selectCont">
+            {loading ? <Loader /> : <>{displaySearchedWines()}</>}
+          </div>
 
-        <div className="create__submit" onClick={onSubmit}>
-          submit
+          <div className="create__subtitle">Tags</div>
+          <div className="create__searchCont">
+            <BsSearch className="create__searchIcon" />
+            <input
+              className="create__search"
+              name="tagKeyword"
+              placeholder="search tags"
+              value={search.tagKeyword}
+              onChange={onSearchChange}
+            />
+          </div>
+          <div className="create__tag">
+            {displaySelectedTags()}
+            {displayUnselectedTags()}
+          </div>
+
+          <div className="create__subtitle">Description</div>
+          <textarea
+            className="create__comment"
+            name="content"
+            placeholder="enter description of your winelist"
+            value={newList.content}
+            onChange={onChange}
+          />
+
+          <div className="create__submit" onClick={onSubmit}>
+            submit
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
