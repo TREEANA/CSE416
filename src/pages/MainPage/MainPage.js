@@ -7,37 +7,19 @@ import Loader from "../../components/Loader/Loader";
 
 import "./MainPage.css";
 
-const MainPage = () => {
+const MainPage = ({ status, setStatus }) => {
   const [lists, setLists] = useState([]);
-  const [authors, setAuthors] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [ref, inView] = useInView();
 
   const fetchLists = async () => {
     try {
-      const res = await axios.get(`/api/winelists/search?num=${page * 2}`);
+      const res = await axios.get(`/api/winelists/search?num=${page * 3}`);
       if (res.data === null || res.data === "") {
         setLists([]);
-        setAuthors([]);
       } else {
-        //이미지 불러올때까지만 임시코드
-        const temp = res.data;
-        temp.forEach((each) => {
-          each.images = each.wines.map(
-            (each) =>
-              "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png"
-          );
-        });
-        setLists(temp);
-
-        const tempAuthors = [];
-        for await (const each of temp) {
-          const res = await axios.get(`/api/users/${each.userID}`);
-          tempAuthors.push(res.data);
-        }
-        setAuthors(tempAuthors);
-        console.log("fetched authors: ", tempAuthors);
+        setLists(res.data);
       }
       console.log("fetched lists: ", res.data);
     } catch (e) {
@@ -73,11 +55,19 @@ const MainPage = () => {
             {lists.map((each, i) => {
               return lists.length - 1 == i ? (
                 <>
-                  <WineList wineList={each} author={authors[i]} />
+                  <WineList
+                    wineList={each}
+                    status={status}
+                    setStatus={setStatus}
+                  />
                   <div ref={ref}>{loading && <Loader />}</div>
                 </>
               ) : (
-                <WineList wineList={each} author={authors[i]} />
+                <WineList
+                  wineList={each}
+                  status={status}
+                  setStatus={setStatus}
+                />
               );
             })}
           </main>
