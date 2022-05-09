@@ -169,10 +169,14 @@ button:hover {
 }
 
 .detail__reviewContent {
+  width: 100%;
+}
+.detail__reviewContentInput {
   border-radius: 30px;
   margin: 10px 0;
   border: 1px solid var(--primary);
   padding: 15px 10px;
+  width: 95%;
 }
 
 .detail__reviewPost {

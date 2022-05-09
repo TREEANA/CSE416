@@ -44,7 +44,7 @@ const WineDetailPage = ({ status }) => {
     try {
       const res = await axios.get(`/api/wines/${wineId}`);
       setWine(res.data);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -76,6 +76,34 @@ const WineDetailPage = ({ status }) => {
   const [editReview, setEditReview] = useState(false);
   const toggleEditReview = () => {
     setEditReview(!editReview);
+  };
+
+  const [showComment, setShowComment] = useState(0);
+  const toggleComment = () => {
+    setShowComment(!showComment);
+  };
+
+  const form = new FormData();
+  // form.append("userID", userID);
+  // form.append("content", content);
+  // form.append("rating", rating);
+  // form.append("tags", tags);
+
+  const [tempReview, setTempReview] = useState({
+    content: "",
+    rating: 0,
+    like: likes,
+    tags: [],
+  });
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    let newTempReview = {
+      ...tempReview,
+      [name]: value,
+    };
+    setTempReview(newTempReview);
+    console.log(newTempReview);
   };
 
   return (
@@ -172,7 +200,9 @@ const WineDetailPage = ({ status }) => {
                     precision={0.5}
                     size="large"
                     // fontSize="large"
-                    defaultValue={2.5}
+                    name="rating"
+                    onChange={onChange}
+                    // defaultValue={2.5}
                     readOnly={editReview ? false : true}
                     sx={{ fontSize: 40 }}
                     emptyIcon={
@@ -194,6 +224,8 @@ const WineDetailPage = ({ status }) => {
                         : "detail__reviewIcon--inactive"
                     }
                     onClick={toggleLikes}
+                    name="like"
+                    onChange={onChange}
                   />
                   <BsFillPencilFill
                     className={
@@ -249,10 +281,14 @@ const WineDetailPage = ({ status }) => {
                     ))}
                 </div>
               )}
-
               <div className="detail__reviewContent">
-                Great autumn wine. Clean leather, mint, cherry, blackberry and
-                chocolate. Worth opening ahead of drinking - smooth and mellow.
+                <input
+                  className="detail__reviewContentInput"
+                  readOnly={editReview ? false : true}
+                  placeholder="waiting for your review here :)"
+                  name="content"
+                  onChange={onChange}
+                ></input>
               </div>
               {editReview && (
                 <div className="detail__reviewPost" onClick={toggleEditReview}>
