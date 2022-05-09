@@ -28,14 +28,14 @@ const WineList = ({ wineList = defaultWineList }) => {
   };
   const onLeftArrowClick = () => {
     if (curPage <= 0 || curPage > wineList.wines.length) {
-      return;
+      setCurPage(wineList.wines.length);
     } else {
       setCurPage(curPage - 1);
     }
   };
   const onRightArrowClick = () => {
     if (curPage < 0 || curPage >= wineList.wines.length) {
-      return;
+      setCurPage(0);
     } else {
       setCurPage(curPage + 1);
     }
