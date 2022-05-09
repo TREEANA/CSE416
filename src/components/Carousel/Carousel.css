@@ -42,7 +42,8 @@
   transform: translateX(-1000%);
 }
 
-.carousel__image {
+.carousel__image,
+.carousel__image > a {
   display: flex;
   justify-content: center;
   min-width: 100%;

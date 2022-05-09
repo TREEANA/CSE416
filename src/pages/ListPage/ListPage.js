@@ -1,7 +1,12 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+import axios from "axios";
+
+import Loader from "../../components/Loader/Loader";
 import WineList from "../../components/WineList/WineList";
 import FilterModal from "../../modals/FilterModal/FilterModal";
+
 import "./ListPage.css";
 
 const defaultLists = [
@@ -16,7 +21,7 @@ const defaultLists = [
       "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
     ],
     content: "Content 1",
-    lastUpdatedAt: new Date(),
+    lastUpdatedAt: "2022-05-09",
   },
   {
     wineListID: 1,
@@ -29,7 +34,7 @@ const defaultLists = [
       "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
     ],
     content: "Content 2",
-    lastUpdatedAt: new Date(),
+    lastUpdatedAt: "2022-05-09",
   },
   {
     wineListID: 2,
@@ -42,30 +47,80 @@ const defaultLists = [
       "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
     ],
     content: "Content 3",
-    lastUpdatedAt: new Date(),
+    lastUpdatedAt: "2022-05-09",
   },
 ];
 
 const ListPage = ({ status, toggleStatus }) => {
-  const location = useLocation();
-  const theme = location.pathname.split("/")[2];
-  const list = defaultLists;
+  const { keyword } = useParams();
+  const [lists, setLists] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [ref, inView] = useInView();
+
   const displayLists = () => {
     const result = [];
-    list.forEach((each, i) => {
-      result.push(<WineList wineList={each} />);
+    lists.forEach((each, index) => {
+      lists.length - 1 === index
+        ? result.push(
+            <>
+              <WineList wineList={each} />
+              <div ref={ref}></div>
+              {loading && <Loader />}
+            </>
+          )
+        : result.push(<WineList wineList={each} />);
     });
     return result;
   };
-  const formatTheme = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+
+  const fetchLists = async (keyword, page) => {
+    try {
+      const res = await axios.get(
+        `/api/winelists/search?keyword=${keyword}&num=${page * 10}`
+      );
+      if (res.data === null || res.data === "") {
+        setLists([]);
+      } else {
+        setLists(res.data);
+      }
+      console.log("fetched lists: ", res.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
+
+  useEffect(async () => {
+    setLoading(true);
+    await fetchLists(keyword, page);
+    setLoading(false);
+  }, []);
+
+  useEffect(async () => {
+    setLoading(true);
+    await fetchLists(keyword, page);
+    setLoading(false);
+  }, [page]);
+
+  useEffect(async () => {
+    console.log(page);
+    if (inView && !loading) {
+      setPage(page + 1);
+    }
+  }, [inView]);
+
+  useEffect(async () => {
+    setLists([]);
+    setPage(1);
+    await fetchLists(keyword, 1);
+  }, [keyword]);
+
   return (
     <>
       <div className="wineListPage">
         <div className="wineListPage__titleCont">
           <div className="wineListPage__text">Wine Lists</div>
-          <div className="wineListPage__title">{formatTheme(theme)}</div>
+          <div className="wineListPage__title">{keyword}</div>
         </div>
         <div className="wineListPage__btnCont">
           <button
@@ -77,7 +132,7 @@ const ListPage = ({ status, toggleStatus }) => {
             filter
           </button>
         </div>
-        {displayLists()}
+        {loading && page === 1 ? <Loader /> : <>{displayLists()}</>}
       </div>
       <FilterModal
         filterModal={status.filterModal}

@@ -9,48 +9,15 @@ import axios from "axios";
 
 const SideBarModal = ({ status, toggleStatus, setStatus }) => {
   const [number, setNumber] = useState(-1);
-  const [userName, setUserName] = useState("Default");
-  const [profileimage, setProfileimage] = useState(
-    "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-  );
-  const getProfileimage = async (accesstoken) => {
-    try {
-      const res = await axios.get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accesstoken}`
-      );
-
-      if (res.status === 200) {
-        setProfileimage(res.data.picture);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const getUsername = async (userId) => {
-    try {
-      const res = await axios.get(`/api/users/${userId}?requesterID=${userId}`);
-      if (res.status === 200) {
-        setUserName(res.data.username);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
   const onSuccess = async (response) => {
-    //여기다가 우리 로직 구현
     const email = response.profileObj.email;
     const imageUrl = response.profileObj.imageUrl;
     const accesstoken = response.accessToken;
-    // `https://podo-backend.herokuapp.com/users/email-duplicate-check?email=${email}`
-    //toggleStatus("sideBarModal");
+
     if (number > 0) {
       try {
         const res = await axios.get(
           `/api/users/login?access_token=${accesstoken}`
-
-          // `api/users/email-duplicate-check?email=${email}`
-          // https://podo-backend.herokuapp.com/users/username-duplicate-check?username=rr
         );
         if (res.status === 200) {
           if (res.data.userID === -1) {
@@ -64,15 +31,33 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
             const res1 = await axios.get(
               `/api/users/${res.data.userID}?requesterID=${res.data.userID}`
             );
+            const userinfo = {
+              followers: res1.data.followers,
+              followings: res1.data.followings,
+              likedWinelists: res1.data.likedWinelists,
+              likedWines: res1.data.likedWines,
+              profileImage: res1.data.profileImage,
+              status: res1.data.status,
+              tags: res1.data.tags,
+              userID: res1.data.userID,
+              accesstoken: accesstoken,
+              username: res1.data.username,
+            };
+
+            console.log(userinfo);
             setStatus({
               ...status,
               accesstoken: accesstoken,
               userID: res.data.userID,
               user: res1.data.status + 1,
+              profileimage: imageUrl,
+              userinfo: userinfo,
             });
 
-            getProfileimage(accesstoken);
-            getUsername(res.data.userID);
+            let sessionStorage = window.sessionStorage;
+            sessionStorage.setItem("userinfo", JSON.stringify(userinfo));
+            sessionStorage.setItem("userID", res.data.userID);
+            sessionStorage.setItem("accesstoken", accesstoken);
           }
         }
       } catch (e) {
@@ -88,7 +73,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
   };
 
   const displayUser = () => {
-    if (status.user === 0)
+    if (status.userinfo.status === -1)
       return (
         <div className="sidebar__login">
           <div className="sidebar__header">
@@ -129,7 +114,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           </div>
         </div>
       );
-    else if (status.user === 1) {
+    else if (status.userinfo.status === 0) {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
@@ -140,8 +125,8 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                   toggleStatus("sideBarModal");
                 }}
               >
-                <img src={profileimage} />
-                <div className="sidebar__name">{userName}</div>
+                <img src={status.userinfo.profileImage} />
+                <div className="sidebar__name">{status.userinfo.username}</div>
               </div>
             </Link>
             <BsXLg
@@ -151,7 +136,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           </div>
         </div>
       );
-    } else if (status.user === 2) {
+    } else if (status.userinfo.status === 1) {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
@@ -162,8 +147,8 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                   toggleStatus("sideBarModal");
                 }}
               >
-                <img src={profileimage} />
-                <div className="sidebar__name">{userName}</div>
+                <img src={status.userinfo.profileImage} />
+                <div className="sidebar__name">{status.userinfo.username}</div>
                 <MdWineBar className="sidebar__icon" />
               </div>
             </Link>
@@ -186,7 +171,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           <hr className="sidebar__hr"></hr>
         </div>
       );
-    } else if (status.user === 3) {
+    } else if (status.userinfo.status === 2) {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
@@ -197,8 +182,8 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                   toggleStatus("sideBarModal");
                 }}
               >
-                <img src={profileimage} />
-                <div className="sidebar__name">{userName}</div>
+                <img src={status.userinfo.profileImage} />
+                <div className="sidebar__name">{status.userinfo.username}</div>
                 <MdSettings className="sidebar__icon" />
               </div>
             </Link>
@@ -212,9 +197,9 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
     }
   };
   const displayFunction = () => {
-    if (status.user === 0) {
+    if (status.userinfo.status === -1) {
       return <></>;
-    } else if (status.user === 1) {
+    } else if (status.userinfo.status === 0) {
       return (
         <>
           <hr className="sidebar__hr"></hr>
@@ -234,7 +219,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           </div>
         </>
       );
-    } else if (status.user === 2) {
+    } else if (status.userinfo.status === 1) {
       return (
         <>
           <hr className="sidebar__hr"></hr>
@@ -248,7 +233,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           </div>
         </>
       );
-    } else if (status.user === 3) {
+    } else if (status.userinfo.status === 2) {
       return (
         <>
           <hr className="sidebar__hr"></hr>

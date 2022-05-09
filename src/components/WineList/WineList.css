@@ -88,13 +88,26 @@
   background: linear-gradient(var(--primary) 30%, var(--bg-100) 100%);
 }
 
-.wineList__bgCont--main > img {
+.wineList__bgCont--main > a {
+  width: inherit;
+  height: inherit;
+}
+
+.wineList__bgCont--main > a > img {
   width: inherit;
   height: inherit;
   object-fit: cover;
 }
 
-.wineList__bgCont--wine > img {
+.wineList__bgCont--wine > a {
+  width: inherit;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wineList__bgCont--wine > a > img {
   width: 90%;
   height: 90%;
   object-fit: contain;

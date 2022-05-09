@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import "./Carousel.css";
 
-const Carousel = ({ images, curPage }) => {
+const Carousel = ({ images, curPage, wines }) => {
   const displayPages = () => {
     const result = [];
     images.forEach((each, i) => {
-      if (i !== 0)
-        result.push(
-          <div className="carousel__image">
+      result.push(
+        <div className="carousel__image">
+          <Link to={"/wine/" + wines[i].wineID}>
             <img src={each} />
-          </div>
-        );
+          </Link>
+        </div>
+      );
     });
     return result;
   };
