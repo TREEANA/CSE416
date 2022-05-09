@@ -63,9 +63,7 @@ const WineList = ({ wineList = defaultWineList }) => {
     const result = [];
     result.push(
       <div className="wineList__bgCont--main">
-        <Link to={"/list/" + wineList.winelistID}>
-          <img src={wineList.thumbnailImage} />
-        </Link>
+        <img src={wineList.thumbnailImage} />
       </div>
     );
     wineList.wines.forEach((each, i) => {
@@ -94,9 +92,16 @@ const WineList = ({ wineList = defaultWineList }) => {
         </div>
         <div className="wineList__profileCont">
           <div className="wineList__profile" onClick={onProfileClick}>
-            <img className="wineList__profileImg" src={wineList.profileImage} />
+            <Link to={"/profile/" + wineList.userID}>
+              <img
+                className="wineList__profileImg"
+                src={wineList.profileImage}
+              />
+            </Link>
             <div className="wineList__profileTxt">
-              <div className="wineList__name">{wineList.username}</div>
+              <Link to={"/profile/" + wineList.userID}>
+                <div className="wineList__name">{wineList.username}</div>
+              </Link>
               <div className="wineList__date">
                 {formatDate(wineList.lastUpdatedAt)}
               </div>

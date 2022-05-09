@@ -153,7 +153,7 @@ const App = () => {
           />
           {/* detail includes Review, Filter */}
           <Route
-            path="/profile"
+            path="/profile/:userID"
             element={
               <ProfilePage status={status} toggleStatus={toggleStatus} />
             }

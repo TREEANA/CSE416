@@ -1,6 +1,7 @@
-.wineList__profile:hover,
+.wineList__name:hover,
+.wineList__profileImg:hover,
 .wineList__like:hover,
-.wineList__topCont:hover,
+/* .wineList__topCont:hover, */
 .wineList__title:hover,
 .wineList__leftArrow:hover,
 .wineList__rightArrow:hover,
@@ -88,12 +89,7 @@
   background: linear-gradient(var(--primary) 30%, var(--bg-100) 100%);
 }
 
-.wineList__bgCont--main > a {
-  width: inherit;
-  height: inherit;
-}
-
-.wineList__bgCont--main > a > img {
+.wineList__bgCont--main > img {
   width: inherit;
   height: inherit;
   object-fit: cover;
@@ -124,7 +120,8 @@
 }
 
 .wineList__profileImg,
-.wineList__like {
+.wineList__like,
+.wineList__profile > a {
   width: 36px;
   height: 36px;
   border-radius: 30px;
@@ -133,10 +130,21 @@
 }
 
 .wineList__profileImg {
+  object-fit: cover;
 }
 
-.wineList__profileTxt {
+.wineList__profileTxt,
+.wineList__profileTxt > a {
   color: var(--bg-0);
+}
+
+.wineList__name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.wineList__date {
+  font-size: 1rem;
 }
 
 .wineList__like {
