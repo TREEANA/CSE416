@@ -59,6 +59,15 @@ const CreatePage = ({ status, toggleStatus }) => {
     });
   };
 
+  const onEachCommentChange = (e) => {
+    const tempWines = newList.wines.slice();
+    tempWines[e.target.id].sommelierComment = e.target.value;
+    setNewList({
+      ...newList,
+      wines: tempWines,
+    });
+  };
+
   const onSearchChange = (e) => {
     setSearch({
       ...search,
@@ -109,7 +118,7 @@ const CreatePage = ({ status, toggleStatus }) => {
 
   const onSearchedWineClick = (wine) => (e) => {
     const tempWines = [...newList.wines];
-    tempWines.push({ ...wine, sommlierComment: "" });
+    tempWines.push({ ...wine, sommelierComment: "" });
     setNewList({
       ...newList,
       wines: tempWines,
@@ -127,7 +136,7 @@ const CreatePage = ({ status, toggleStatus }) => {
       ...newList,
       userID: status.userID,
       wines: newList.wines.map((each) => {
-        return { wineID: each.wineID, sommlierComment: each.sommlierComment };
+        return { wineID: each.wineID, sommelierComment: each.sommelierComment };
       }),
     };
     const formData = new FormData();
@@ -144,8 +153,9 @@ const CreatePage = ({ status, toggleStatus }) => {
       body.thumbnailImage = res.data.url;
     });
 
+    console.log(body);
+
     await axios.post("/api/winelists", body).then((res) => {
-      console.log(res.data.wineListID);
       setCreating(false);
       navigate("/list/" + res.data.winelistID);
     });
@@ -204,7 +214,7 @@ const CreatePage = ({ status, toggleStatus }) => {
   const displaySearchedWines = () => {
     return search.wines.map((each) => (
       <div
-        className="create__select"
+        className="create__searched"
         key={each.wineID}
         onClick={onSearchedWineClick(each)}
       >
@@ -222,25 +232,34 @@ const CreatePage = ({ status, toggleStatus }) => {
   const displaySelectedWines = () => {
     return newList.wines.map((each, index) => (
       <div className="create__select" key={each.wineID}>
-        <div className="create__wineImageCont">
-          <img className="create__wineImage" src={each.images[0]} />
+        <div className="create__selectFirst">
+          <div className="create__wineImageCont">
+            <img className="create__wineImage" src={each.images[0]} />
+          </div>
+          <div className="create__wineContent">
+            <div className="create__winery">{each.winery}</div>
+            <div className="create__name">{each.name}</div>
+          </div>
+          <div className="create__iconCont">
+            <BsX
+              className="create__wineDelete"
+              onClick={() => {
+                setNewList({
+                  ...newList,
+                  wines: newList.wines.filter((each, i) => i !== index),
+                });
+              }}
+            />
+          </div>
         </div>
-        <div className="create__wineContent">
-          <div className="create__winery">{each.winery}</div>
-          <div className="create__name">{each.name}</div>
-        </div>
-        <div className="create__iconCont">
-          <BsX
-            className="create__wineDelete"
-            onClick={() => {
-              setNewList({
-                ...newList,
-                wines: newList.wines.filter((each, i) => i !== index),
-              });
-            }}
-          />
-          <BsFonts className="create__wineComment" />
-        </div>
+        <textarea
+          className="create__each"
+          placeholder="enter description of the wine"
+          name="sommelierComment"
+          value={each.sommelierComment}
+          id={index}
+          onChange={onEachCommentChange}
+        />
       </div>
     ));
   };

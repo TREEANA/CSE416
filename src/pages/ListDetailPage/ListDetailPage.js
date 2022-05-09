@@ -212,7 +212,7 @@ const ListDetailPage = ({
               {formatPrice(list.wines[curPage].price)}
             </div>
             <div className="wineListDetail__comment">
-              {list.wines[curPage].sommlierComment}
+              {list.wines[curPage].sommelierComment}
             </div>
           </div>
         </div>
