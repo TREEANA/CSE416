@@ -182,7 +182,7 @@ const App = () => {
           />
           <Route
             path="/list/:winelistID"
-            element={<ListDetailPage status={status} />}
+            element={<ListDetailPage status={status} setStatus={setStatus} />}
           />
           {/* detail includes Review, Filter */}
           <Route
@@ -207,7 +207,13 @@ const App = () => {
           />
           <Route
             path="/search/:keyword"
-            element={<SearchPage status={status} toggleStatus={toggleStatus} />}
+            element={
+              <SearchPage
+                status={status}
+                toggleStatus={toggleStatus}
+                setStatus={setStatus}
+              />
+            }
           />
           <Route
             path="/create"

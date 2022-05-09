@@ -8,96 +8,36 @@ import Tag from "../../components/Tag/Tag";
 import Carousel from "../../components/Carousel/Carousel";
 
 import "./ListDetailPage.css";
+import WineList from "../../components/WineList/WineList";
 
-const defaultWineList = {
-  wineListID: 0,
-  userID: 0,
-  title: "Title 1",
-  images: [
-    "https://images.unsplash.com/photo-1566995541428-f2246c17cda1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
-    "https://images.vivino.com/thumbs/ZtkKCO8kRbCD-VuoEkNFXQ_pb_x600.png",
-    "https://images.vivino.com/thumbs/R2UZlQseRbe4LsWg50L3Lg_pb_x600.png",
-    "https://images.vivino.com/thumbs/TPHfdpsGSju8rPWLCEjKew_pb_x600.png",
-    "https://images.vivino.com/thumbs/N6mBEVGCSjm3Icmui0zI-g_pb_x600.png",
-    "https://images.vivino.com/thumbs/Ki7znlmVT7iu_na3qUqRpw_pb_x600.png",
-  ],
-  content: "Content 1",
-  lastUpdatedAt: new Date(),
-};
-const defaultWines = [
-  {
-    wineID: 0,
-    tags: ["picnic"],
-    name: "Wine 1",
-    rating: 4.1,
-    price: 17000,
-  },
-  {
-    wineID: 1,
-    tags: ["picnic", "dry"],
-    name: "Wine 2",
-    rating: 4.2,
-    price: 27000,
-  },
-  {
-    wineID: 2,
-    tags: ["picnic", "dry", "steak"],
-    name: "Wine 3",
-    rating: 4.3,
-    price: 37000,
-  },
-  {
-    wineID: 3,
-    tags: ["picnic", "dry", "steak", "oak"],
-    name: "Wine 4",
-    rating: 4.4,
-    price: 47000,
-  },
-  {
-    wineID: 4,
-    tags: ["picnic", "dry", "steak", "oak", "rose"],
-    name: "Wine 5",
-    rating: 4.5,
-    price: 57000,
-  },
-];
-const defaultSommlierPick = [
-  {
-    wineID: 0,
-    sommlierComment: "This is Wine 1",
-  },
-  {
-    wineID: 1,
-    sommlierComment: "This is Wine 2",
-  },
-  {
-    wineID: 2,
-    sommlierComment: "This is Wine 3",
-  },
-  {
-    wineID: 3,
-    sommlierComment: "This is Wine 4",
-  },
-  {
-    wineID: 4,
-    sommlierComment: "This is Wine 5",
-  },
-];
-
-const ListDetailPage = ({
-  wineList = defaultWineList,
-  wines = defaultWines,
-  sommlierPick = defaultSommlierPick,
-  status,
-}) => {
+const ListDetailPage = ({ status, setStatus }) => {
   const { winelistID } = useParams();
   const [list, setList] = useState({});
   const [curPage, setCurPage] = useState(0);
-  const [likeStatus, setLikeStatus] = useState(0);
+  const [likeStatus, setLikeStatus] = useState(false);
+  useEffect(() => {
+    setLikeStatus(
+      status.userinfo.likedWinelists.filter((each) => each === winelistID / 1)
+        .length === 1
+        ? true
+        : false
+    );
+  }, [status]);
   const [loading, setLoading] = useState(true);
 
-  const onLikeClick = () => {
+  const onLikeClick = async () => {
     setLikeStatus(!likeStatus);
+    const res = await axios.post(
+      `/api/users/${status.userID}/like-winelist?winelistID=${winelistID}`
+    );
+    console.log(res.data);
+    setStatus({
+      ...status,
+      userinfo: {
+        ...status.userinfo,
+        likedWinelists: res.data.likedWinelists,
+      },
+    });
   };
   const onLeftClick = () => {
     if (curPage > 0) setCurPage(curPage - 1);

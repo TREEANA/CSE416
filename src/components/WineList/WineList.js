@@ -7,14 +7,7 @@ import { BsCircleFill, BsCircle } from "react-icons/bs";
 import "./WineList.css";
 
 const WineList = ({ wineList, status, setStatus }) => {
-  console.log(status.userinfo);
-  const [likeStatus, setLikeStatus] = useState(
-    status.userinfo.likedWinelists.filter(
-      (each) => each === wineList.winelistID
-    ).length === 1
-      ? true
-      : false
-  );
+  const [likeStatus, setLikeStatus] = useState(false);
   useEffect(() => {
     setLikeStatus(
       status.userinfo.likedWinelists.filter(
@@ -45,9 +38,6 @@ const WineList = ({ wineList, status, setStatus }) => {
   };
   const onLikeClick = async () => {
     setLikeStatus(!likeStatus);
-    console.log(
-      `/api/users/${status.userID}/like-winelist?winelistID=${wineList.winelistID}`
-    );
     const res = await axios.post(
       `/api/users/${status.userID}/like-winelist?winelistID=${wineList.winelistID}`
     );
@@ -56,7 +46,7 @@ const WineList = ({ wineList, status, setStatus }) => {
       ...status,
       userinfo: {
         ...status.userinfo,
-        likedWinelist: res.data.likedWinelist,
+        likedWinelists: res.data.likedWinelists,
       },
     });
   };
