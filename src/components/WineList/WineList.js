@@ -72,9 +72,7 @@ const WineList = ({ wineList, status, setStatus }) => {
     wineList.wines.forEach((each, i) => {
       result.push(
         <div className="wineList__bgCont--wine">
-          <Link to={"/list/" + wineList.winelistID}>
-            <img src={each.images[0]} />
-          </Link>
+          <img src={each.images[0]} />
         </div>
       );
     });
