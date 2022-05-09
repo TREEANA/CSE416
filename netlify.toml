@@ -1,0 +1,40 @@
+[[redirects]]
+  from = "/api/users/*"
+  to = "https://podo-backend.herokuapp.com/users/:splat"  
+  status = 200
+[[redirects]]
+  from = "/api/wines/*"
+  to = "https://podo-backend.herokuapp.com/wines/:splat"  
+  status = 200
+[[redirects]]
+  from = "/api/reviews/*"
+  to = "https://podo-backend.herokuapp.com/reviews/:splat"  
+  status = 200
+[[redirects]]
+  from = "/api/winelists/*"
+  to = "https://podo-backend.herokuapp.com/winelists/:splat"  
+  status = 200
+[[redirects]]
+  from = "/api/support-tickets/*"
+  to = "https://podo-backend.herokuapp.com/support-tickets/:splat"  
+  status = 200
+[[redirects]]
+  from = "/api/verification-tickets/*"
+  to = "https://podo-backend.herokuapp.com/verification-tickets/:splat"  
+  status = 200
+[[redirects]]
+  from = "/api/carousel/*"
+  to = "https://podo-backend.herokuapp.com/carousel/:splat"  
+  status = 200
+[[redirects]]
+  from = "/external/currency"
+  to = "https://api.currencyfreaks.com/latest?apikey=b158cab8f2dc4fc3be4972f79b642122"  
+  status = 200
+[[redirects]]
+  from = "/external/image"
+  to = "https://api.cloudinary.com/v1_1/dx0q9mebc/image/upload"  
+  status = 200
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200

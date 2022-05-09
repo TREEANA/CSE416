@@ -381,6 +381,7 @@ const SearchBarModal = ({
     source.current = CancelToken.source();
     try {
       setLoading(true);
+      console.log("fetching: ", `/api/wines/search?keyword=${e.target.value}`);
       const resWines = await axios.get(
         `/api/wines/search?keyword=${e.target.value}`,
         { cancelToken: source.current.token }
