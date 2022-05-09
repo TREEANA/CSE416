@@ -24,32 +24,31 @@ import "./WineDetailPage.css";
 //   price: 1030,
 //   grape: "Pinot Noir",
 //   likes: 33,
+//   rating:0,
 //   //tags 는 쓸데없는거였음.. 이건 좀 더 생각 해봐야겠우
 // };
 
 const WineDetailPage = ({ status }) => {
-  //개인유저가 이 와인을 마음에 들어했는지, 아닌지를 하트로 판단
-  //전체숫자에 더해주고, 이 사람의 liked list 에 넣어줘야함.
   const [wine, setWine] = useState(false);
   const { wineID } = useParams();
-
+  //개인유저가 이 와인을 마음에 들어했는지, 아닌지를 하트로 판단
+  //전체숫자에 더해주고, 이 사람의 liked list 에 넣어줘야함.
   const [likes, setLikes] = useState(0);
-  const [selectedTags, setSelectedTags] = useState(["steak", "blueberry"]);
-
   const toggleLikes = () => {
     setLikes(!likes);
   };
-
+  //wineID로 와인 가져오기
   const fetchWine = async (wineId) => {
     try {
       const res = await axios.get(`/api/wines/${wineId}`);
       setWine(res.data);
-      // console.log(res.data);
     } catch (e) {
       console.log(e);
     }
   };
 
+  //price 나타내주기 current currency price 긁어와서 계산
+  //vivino에서 달러로 긁어와서 바꿔줘야함
   const formatPrice = () => {
     return (
       Math.round((wine.price * status.exchangeRate) / 1000) * 1000
@@ -59,6 +58,7 @@ const WineDetailPage = ({ status }) => {
     });
   };
 
+  //grape 품종 (퍼센트와 품명) 대로 가져와서 display
   const formatGrape = () => {
     return wine.grape.map((each, index) => <div>{each}</div>);
   };
@@ -67,43 +67,112 @@ const WineDetailPage = ({ status }) => {
     fetchWine(wineID);
   }, []);
 
+  //tags display
   const displayTags = () => {
     return wine.tags.map((each) => (
       <Tag type="wineButton" key={each.id} txt={each} />
     ));
   };
 
+  //Edit Review available 한지 안한지 구분
   const [editReview, setEditReview] = useState(false);
   const toggleEditReview = () => {
     setEditReview(!editReview);
   };
-
+  //winePage 에서 각 review 에 대한 comment 로 넘어가기
   const [showComment, setShowComment] = useState(0);
   const toggleComment = () => {
     setShowComment(!showComment);
   };
+  //전체 tag list
+  const [tags, setTags] = useState({});
+  //tag list 불러오기
+  const fetchTags = async () => {
+    const res = await axios.get("/api/tags/list");
+    const tempTags = {};
+    res.data.forEach((each) => {
+      tempTags[each] = false;
+    });
+    setTags(tempTags);
+  };
 
-  const form = new FormData();
-  // form.append("userID", userID);
-  // form.append("content", content);
-  // form.append("rating", rating);
-  // form.append("tags", tags);
+  useEffect(() => {
+    fetchTags();
+  }, []);
 
-  const [tempReview, setTempReview] = useState({
+  //tag 클릭하면 newTag에 넣음
+  function onTagClick() {
+    const newTag = [];
+    for (let each in tags) {
+      if (tags[each] === true) {
+        newTag.push(each);
+      }
+    }
+    setTags({ ...tags, [this.txt]: !tags[this.txt] });
+    setNewReview({
+      ...newReview,
+      tags: newTag,
+    });
+    // setSearch({
+    //   ...search,
+    //   tag: "",
+    // });
+  }
+
+  // const [search, setSearch] = useState("");
+
+  //user가 새로 create 하는 리뷰
+  const [newReview, setNewReview] = useState({
     content: "",
     rating: 0,
     like: likes,
     tags: [],
   });
 
+  //리뷰 content 가 바뀔때마다 업데이트
   const onChange = (e) => {
     const { value, name } = e.target;
     let newTempReview = {
-      ...tempReview,
+      ...newReview,
       [name]: value,
     };
-    setTempReview(newTempReview);
+    setNewReview(newTempReview);
     console.log(newTempReview);
+  };
+
+  const onSubmit = async () => {
+    // setCreating(true);
+    const body = {
+      ...newReview,
+      userID: status.userID,
+      wines: newList.wines.map((each) => {
+        return { wineID: each.wineID, sommelierComment: each.sommelierComment };
+      }),
+    };
+
+    const formData = new FormData();
+    // form.append("userID", userID);
+    // form.append("content", content);
+    // form.append("rating", rating);
+    // form.append("tags", tags);
+
+    const config = {
+      header: { "Content-Type": "multipart/form-data" },
+    };
+
+    // await axios.post("/external/image", formData, config).then((res) => {
+    //   body.thumbnailImage = res.data.url;
+    // });
+
+    console.log(body);
+    await axios
+      .post(`/api/wines/${wineID}/reviews`, form)
+      .then((response) => {
+        console.log("response : ", JSON.stringify(response, null));
+      })
+      .catch((error) => {
+        console.log("failed", error);
+      });
   };
 
   return (
@@ -123,7 +192,7 @@ const WineDetailPage = ({ status }) => {
                 <div className="detail__grapeTitle">{formatGrape()}</div>
                 <div className="detail__wineTags">{displayTags()}</div>
                 <div className="detail__wineRate">
-                  <StarIcon fontSize="40" /> 4.5
+                  <StarIcon fontSize="40" /> {wine.rating}
                 </div>
                 <div className="detail__winePrice">{formatPrice()}</div>
               </div>
@@ -197,7 +266,7 @@ const WineDetailPage = ({ status }) => {
                 <div className="detail__reviewStar">
                   {/* <Box> */}
                   <Rating
-                    precision={0.5}
+                    // precision={0.5}
                     size="large"
                     // fontSize="large"
                     name="rating"
@@ -241,9 +310,9 @@ const WineDetailPage = ({ status }) => {
               <div className="detail__reviewTags">
                 {!editReview && (
                   <div>
-                    {selectedTags.map((each) => (
+                    {/* {selectedTags.map((each) => (
                       <Tag type="wineButton" txt={each} />
-                    ))}
+                    ))} */}
                   </div>
                 )}
               </div>
@@ -261,12 +330,12 @@ const WineDetailPage = ({ status }) => {
                     {/* 여기 매우 몹시 이상한데 일단 넘어가.... */}
                     {/* selected 처리할수 있게되면 그때 다시 하겠음 */}
                     {/* 우형이형이한거 보고 다시 할 예정*/}
-                    {selectedTags.map((each) => (
+                    {/* {selectedTags.map((each) => (
                       <Tag type="wineButton" txt={each} isFilled />
                     ))}
                     {wine.tags.map((each) => (
                       <Tag key={each.id} txt={each} />
-                    ))}
+                    ))} */}
                   </div>
                 </div>
               )}

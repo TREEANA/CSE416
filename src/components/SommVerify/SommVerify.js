@@ -49,9 +49,7 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
 
   const getUserName = async () => {
     try {
-      return await axios.get(
-        `https://podo-backend.herokuapp.com/users/${userId}?requesterID=${userId}`
-      );
+      return await axios.get(`/api/users/${userId}?requesterID=${userId}`);
     } catch (err) {
       console.error(err);
     }
@@ -69,7 +67,7 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
   // form.append(createdAt);
 
   axios
-    .post(`https://podo-backend.herokuapp.com/verification-tickets`, form)
+    .post(`/api/verification-tickets`, form)
     .then((response) => {
       console.log("response:", JSON.stringify(response, null, 2));
     })
@@ -130,12 +128,12 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
               </div>
               <div className="sommverify__comment">
                 <div className="sommverify__userComment">
-                  {/* {tempRequest.userExplanation} */}
-                  Hello this is sommelier woohyun park. i would like to get my
+                  {tempRequest.userExplanation}
+                  {/* Hello this is sommelier woohyun park. i would like to get my
                   sommelier badge by using this image. This is the certificate I
                   got from my home country, I am not sure it would work here as
                   well. Please thoroughly go over the document and let me know
-                  the result. Thank you!
+                  the result. Thank you! */}
                 </div>
 
                 <form className="sommverify__adminComment" method="POST">
