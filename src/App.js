@@ -47,7 +47,7 @@ const App = () => {
   if (userinfo) {
     newuserinfo = userinfo;
   }
-  const userID = sessionStorage.getItem("userID");
+  const userID = Number(sessionStorage.getItem("userID"));
   const accesstoken = sessionStorage.getItem("accesstoken");
 
   const [status, setStatus] = useState({

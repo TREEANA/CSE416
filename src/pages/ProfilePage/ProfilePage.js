@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ProfilePage.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { set } from "lodash";
 const ProfilePage = ({ status, toggleStatus }) => {
   const dummpyReviewdata = [];
   const { userID } = useParams();
@@ -10,21 +11,15 @@ const ProfilePage = ({ status, toggleStatus }) => {
   const [profile__review, setProfile__review] = useState("profile__unselected");
   const [islikewine, setlikewine] = useState(true);
   const [userData, setUserData] = useState({
-    userID: 0,
-    username: "DukYoung",
-    email: "amdy1997@gmail.com",
-    profileImage: "https://s3.bucket.somewhere.myprofile.jpg",
-    phone: "01085265331",
-    gender: "male",
-    status: 2,
-    likedWines: [],
-    likedWinelists: [],
-    createdAt: "2022-04-04 20:20:21",
-    tags: [],
-    followings: [],
     followers: [],
-    isDeleted: false,
-    // rev
+    followings: [],
+    likedWinelists: [],
+    likedWines: [],
+    profileImage: "",
+    status: -1,
+    tags: [],
+    userID: -1,
+    username: "",
   });
 
   const follow = async (id, followOption) => {
@@ -40,10 +35,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
     }
   };
 
-  const [Profileimage, setProfileimage] = useState(
-    "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-  );
-
   const getProfileimage = async () => {
     try {
       const res = await axios.get(
@@ -51,7 +42,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
       );
 
       if (res.status === 200) {
-        setProfileimage(res.data.picture);
+        console.log(res.data.picture);
       }
     } catch (e) {
       console.log(e);
@@ -62,14 +53,12 @@ const ProfilePage = ({ status, toggleStatus }) => {
     try {
       const res = await axios.get(`/api/users/${userID}?requesterID=${userID}`);
       if (res.status === 200) {
-        console.log(res.data);
-
         setUserData({
           ...userData,
           userID: res.data.userID,
           username: res.data.username,
           profileImage: res.data.profileImage,
-          status: res.data.status + 1,
+          status: res.data.status,
           likedWines: res.data.likedWines,
           likedWinelists: res.data.likedWinelists,
           tags: res.data.tags,
@@ -84,26 +73,28 @@ const ProfilePage = ({ status, toggleStatus }) => {
   useEffect(() => {
     console.log(userID, status.userID);
     getUserdata();
-    getProfileimage();
-  }, []);
+  }, [userID]);
 
-  const dummpyUserdata = {
-    userID: 0,
-    username: "DukYoung",
-    email: "amdy1997@gmail.com",
-    profileImage: "https://s3.bucket.somewhere.myprofile.jpg",
-    phone: "01085265331",
-    gender: "male",
-    status: 2,
-    likedWine: [],
-    likedWinelist: [],
-    createdAt: "2022-04-04 20:20:21",
-    tags: [],
-    following: [],
-    follwer: [],
-    isDeleted: false,
-    // rev
+  const checkfollow = async () => {
+    if (status.userID !== Number(userID)) {
+      const res = await axios.get(
+        `/api/users/${status.userID}?requesterID=${status.userID}`
+      );
+
+      let check = false;
+      for (let i = 0; i < res.data.followings.length; i++) {
+        const each = res.data.followings[i];
+        if (each === Number(userID)) {
+          check = true;
+        }
+      }
+      setFollowd(check);
+    }
   };
+  useEffect(() => {
+    checkfollow();
+  }, [userID]);
+
   const dummpyLikedata = [{}];
   const likeimagelist = [
     { url: "https://images.unsplash.com/photo-1566331551467-0dc72cc80ec0" },
@@ -195,7 +186,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
       <div className="profile">
         <div className="profile__name"> {userData.username}</div>
         <div className="proflie__proflie">
-          <img className="profile__image" src={Profileimage}></img>
+          <img className="profile__image" src={userData.profileImage}></img>
           <div className="profile__stats">
             <ul>
               <li>
@@ -225,6 +216,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
             </ul>
           </div>
         </div>
+
         {status.userID === Number(userID) ? (
           <div
             className="profile__editporfile"
