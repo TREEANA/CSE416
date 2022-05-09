@@ -177,8 +177,12 @@ const SearchPage = ({ status, toggleStatus }) => {
               sort
             </button>
           </div>
+          <div className="winePage__subtitle">Wines</div>
           {wines.length === 0 && !loading ? (
-            <div className="winePage__noMatchWines">No matching wines</div>
+            <>
+              <div className="winePage__noMatchWines">No matching wines</div>
+              <hr className="winePage__hr"></hr>
+            </>
           ) : (
             <>
               {displayWines()}
@@ -188,8 +192,14 @@ const SearchPage = ({ status, toggleStatus }) => {
               <hr className="winePage__hr"></hr>
             </>
           )}
+          <div className="winePage__subtitle">Winelists</div>
           {lists.length === 0 && !loading ? (
-            <div className="winePage__noMatchLists">No matching winelists</div>
+            <>
+              <div className="winePage__noMatchLists">
+                No matching winelists
+              </div>
+              <hr className="winePage__hr"></hr>
+            </>
           ) : (
             <>
               {displayLists()}

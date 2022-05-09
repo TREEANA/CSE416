@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axio from "axios";
+import axios from "axios";
 
+import Loader from "../../components/Loader/Loader";
 import Tag from "../../components/Tag/Tag";
 import Carousel from "../../components/Carousel/Carousel";
 
@@ -86,10 +87,13 @@ const ListDetailPage = ({
   wineList = defaultWineList,
   wines = defaultWines,
   sommlierPick = defaultSommlierPick,
+  status,
 }) => {
   const { winelistID } = useParams();
+  const [list, setList] = useState({});
   const [curPage, setCurPage] = useState(0);
   const [likeStatus, setLikeStatus] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const onLikeClick = () => {
     setLikeStatus(!likeStatus);
@@ -98,11 +102,16 @@ const ListDetailPage = ({
     if (curPage > 0) setCurPage(curPage - 1);
   };
   const onRightClick = () => {
-    if (curPage < wineList.images.length - 2) setCurPage(curPage + 1);
+    if (curPage < list.images.length - 1) setCurPage(curPage + 1);
   };
 
   const formatPrice = (price) => {
-    return price.toLocaleString();
+    return (
+      Math.round((price * status.exchangeRate) / 1000) * 1000
+    ).toLocaleString("en-US", {
+      style: "currency",
+      currency: "KRW",
+    });
   };
 
   const displayTags = () => {
@@ -115,61 +124,97 @@ const ListDetailPage = ({
     return result;
   };
 
+  const fetchList = async () => {
+    try {
+      const resList = await axios.get(`/api/winelists/${winelistID}`);
+      if (resList.data === null || resList.data === "") {
+        setList({});
+      } else {
+        const temp = resList.data;
+        const tempWines = [];
+        for await (const each of resList.data.wines) {
+          const resWines = await axios.get(`/api/wines/${each.wineID}`);
+          tempWines.push(resWines.data);
+        }
+        tempWines.forEach((each, i) => {
+          each.sommelierComment = temp.wines[i].sommelierComment;
+        });
+        temp.images = tempWines.map((each) => each.images[0]);
+        setList({ ...temp, wines: tempWines });
+        console.log("fetched list: ", { ...resList.data, wines: tempWines });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(async () => {
+    setLoading(true);
+    await fetchList();
+    setLoading(false);
+  }, []);
+
   return (
     <>
-      <div className="wineListDetail">
-        <div className="wineListDetail__firstCont">
-          <div className="wineListDetail__titleCont">
-            <div className="wineListDetail__title">{wineList.title}</div>
-            <div className="wineListDetail__subTitle">{wineList.content}</div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="wineListDetail">
+          <div className="wineListDetail__firstCont">
+            <div className="wineListDetail__titleCont">
+              <div className="wineListDetail__title">{list.title}</div>
+              <div className="wineListDetail__subTitle">{list.content}</div>
+            </div>
+            <div
+              className={
+                likeStatus
+                  ? "wineListDetail__like wineListDetail__like--filled"
+                  : "wineListDetail__like"
+              }
+              onClick={onLikeClick}
+            >
+              ❤
+            </div>
           </div>
-          <div
-            className={
-              likeStatus
-                ? "wineListDetail__like wineListDetail__like--filled"
-                : "wineListDetail__like"
-            }
-            onClick={onLikeClick}
-          >
-            ❤
+          {/* <div className="wineListDetail__carousel">{displayImages()}</div> */}
+          <Carousel images={list.images} curPage={curPage} />
+          <div className="wineListDetail__scrollCont">
+            <div
+              className={
+                curPage > 0
+                  ? "wineListDetail__leftArrow"
+                  : "wineListDetail__leftArrow wineListDetail--inactive"
+              }
+              onClick={onLeftClick}
+            >
+              {"<"}
+            </div>
+            <div className="wineListDetail__wineName">
+              {list.wines[curPage].name}
+            </div>
+            <div
+              className={
+                curPage < list.images.length - 1
+                  ? "wineListDetail__rightArrow"
+                  : "wineListDetail__rightArrow wineListDetail--inactive"
+              }
+              onClick={onRightClick}
+            >
+              {">"}
+            </div>
+          </div>
+          <div className="wineListDetail__detail">
+            <div className="wineListDetail__tags">{displayTags()}</div>
+            <div className="wineListDetail__rate">{`★${list.wines[curPage].rating}`}</div>
+            <div className="wineListDetail__price">
+              {formatPrice(list.wines[curPage].price)}
+            </div>
+            <div className="wineListDetail__comment">
+              {list.wines[curPage].sommlierComment}
+            </div>
           </div>
         </div>
-        {/* <div className="wineListDetail__carousel">{displayImages()}</div> */}
-        <Carousel images={wineList.images} curPage={curPage} />
-        <div className="wineListDetail__scrollCont">
-          <div
-            className={
-              curPage > 0
-                ? "wineListDetail__leftArrow"
-                : "wineListDetail__leftArrow wineListDetail--inactive"
-            }
-            onClick={onLeftClick}
-          >
-            {"<"}
-          </div>
-          <div className="wineListDetail__wineName">{wines[curPage].name}</div>
-          <div
-            className={
-              curPage < wineList.images.length - 2
-                ? "wineListDetail__rightArrow"
-                : "wineListDetail__rightArrow wineListDetail--inactive"
-            }
-            onClick={onRightClick}
-          >
-            {">"}
-          </div>
-        </div>
-        <div className="wineListDetail__detail">
-          <div className="wineListDetail__tags">{displayTags()}</div>
-          <div className="wineListDetail__rate">{`★${wines[curPage].rating}`}</div>
-          <div className="wineListDetail__price">{`₩${formatPrice(
-            wines[curPage].price
-          )}`}</div>
-          <div className="wineListDetail__comment">
-            {sommlierPick[curPage].sommlierComment}
-          </div>
-        </div>
-      </div>
+      )}
     </>
   );
 };

@@ -15,11 +15,11 @@ const MainPage = () => {
   const [ref, inView] = useInView();
 
   const fetchLists = async () => {
-    setLoading(true);
     try {
       const res = await axios.get(`/api/winelists/search?num=${page * 2}`);
       if (res.data === null || res.data === "") {
         setLists([]);
+        setAuthors([]);
       } else {
         const temp = res.data;
         temp[0].images = [
@@ -30,32 +30,30 @@ const MainPage = () => {
           "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
         ];
         setLists(temp);
+        const tempAuthors = [];
+        for await (const each of temp) {
+          const res = await axios.get(`/api/users/${each.userID}`);
+          tempAuthors.push(res.data);
+        }
+        setAuthors(tempAuthors);
+        console.log("fetched authors: ", tempAuthors);
       }
       console.log("fetched lists: ", res.data);
     } catch (e) {
       console.log(e);
     }
-    setLoading(false);
-  };
-
-  const fetchAuthors = async () => {
-    const tempAuthors = [];
-    for await (const each of lists) {
-      const res = await axios.get(`/api/users/${each.userID}`);
-      tempAuthors.push(res.data);
-    }
-    setAuthors(tempAuthors);
-    console.log("fetched authors: ", tempAuthors);
   };
 
   useEffect(async () => {
-    fetchLists();
-    fetchAuthors();
+    setLoading(true);
+    await fetchLists();
+    setLoading(false);
   }, []);
 
   useEffect(async () => {
-    fetchLists();
-    fetchAuthors();
+    setLoading(true);
+    await fetchLists();
+    setLoading(false);
   }, [page]);
 
   useEffect(() => {

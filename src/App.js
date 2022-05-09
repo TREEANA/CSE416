@@ -147,7 +147,10 @@ const App = () => {
             path="/wine/:wineID"
             element={<WineDetailPage status={status} />}
           />
-          <Route path="/list/:winelistID" element={<ListDetailPage />} />
+          <Route
+            path="/list/:winelistID"
+            element={<ListDetailPage status={status} />}
+          />
           {/* detail includes Review, Filter */}
           <Route
             path="/profile"

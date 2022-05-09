@@ -48,6 +48,13 @@
   background-color: var(--bg-20);
 }
 
+.winePage__subtitle {
+  color: var(--primary);
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: -1rem;
+}
+
 .winePage__btn {
   width: 100%;
   height: 2rem;
@@ -70,9 +77,9 @@
 }
 
 .winePage__noMatchWines {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .winePage__noMatchLists {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }

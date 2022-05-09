@@ -5,12 +5,11 @@ const Carousel = ({ images, curPage }) => {
   const displayPages = () => {
     const result = [];
     images.forEach((each, i) => {
-      if (i !== 0)
-        result.push(
-          <div className="carousel__image">
-            <img src={each} />
-          </div>
-        );
+      result.push(
+        <div className="carousel__image">
+          <img src={each} />
+        </div>
+      );
     });
     return result;
   };
