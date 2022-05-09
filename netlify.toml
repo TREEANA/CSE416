@@ -1,0 +1,13 @@
+[[redirects]]
+from = "/api/*"
+  to = "https://podo-backend.herokuapp.com:splat"  
+  status = 200
+  force = true
+from = "/external/currency"
+  to = "https://api.currencyfreaks.com/latest?apikey=b158cab8f2dc4fc3be4972f79b642122"  
+  status = 200
+  force = true
+from = "/external/image"
+  to = "https://api.cloudinary.com/v1_1/dx0q9mebc/image/upload"  
+  status = 200
+  force = true
