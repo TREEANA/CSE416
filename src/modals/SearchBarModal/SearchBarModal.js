@@ -353,7 +353,7 @@ const SearchBarModal = ({
     return result;
   };
 
-  // Woohyun's
+  // Woohyun's from here
   const [matchingWines, setMatchingWines] = useState([]);
   const [matchingLists, setMatchingLists] = useState([]);
   const [searchWines, setSearchWines] = useState("");
@@ -428,6 +428,7 @@ const SearchBarModal = ({
     }
     return result;
   };
+  //Woohyun's to here
 
   return (
     <>
