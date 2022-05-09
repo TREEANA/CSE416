@@ -25,10 +25,12 @@ import "./WineDetailPage.css";
 //   grape: "Pinot Noir",
 //   likes: 33,
 //   rating:0,
-//   //tags 는 쓸데없는거였음.. 이건 좀 더 생각 해봐야겠우
+//   reviews : []
+//   tags : []
 // };
 
 const WineDetailPage = ({ status }) => {
+  const userID = status.userID;
   const [wine, setWine] = useState(false);
   const { wineID } = useParams();
   //개인유저가 이 와인을 마음에 들어했는지, 아닌지를 하트로 판단
@@ -46,6 +48,20 @@ const WineDetailPage = ({ status }) => {
       console.log(e);
     }
   };
+  //review중에 userID로 쓴 리뷰가 있는지 확인
+  const [existReview, setExistReview] = useState(0);
+  // 들어온 리뷰 중에 userID 겹치는게 있는지 확인
+  const checkReview = (userID) => {
+    wine.reviews.forEach((review) => {
+      if (review.userId === userID) {
+        setExistReview(1);
+      }
+    });
+  };
+  //처음에 불러올때 확인
+  useEffect(() => {
+    checkReview(userID);
+  }, []);
 
   //price 나타내주기 current currency price 긁어와서 계산
   //vivino에서 달러로 긁어와서 바꿔줘야함
@@ -142,37 +158,45 @@ const WineDetailPage = ({ status }) => {
 
   const onSubmit = async () => {
     // setCreating(true);
-    const body = {
-      ...newReview,
-      userID: status.userID,
-      wines: newList.wines.map((each) => {
-        return { wineID: each.wineID, sommelierComment: each.sommelierComment };
-      }),
-    };
+    // const body = {
+    //   ...newReview,
+    //   // userID: status.userID,
+    //   wines: newReview.wines.map((each) => {
+    //     return { wineID: each.wineID };
+    //   }),
+    // };
 
     const formData = new FormData();
-    // form.append("userID", userID);
-    // form.append("content", content);
-    // form.append("rating", rating);
-    // form.append("tags", tags);
+    form.append("userID", userID);
+    // form.append("wineID", wineID);
+    form.append("content", newReview.content);
+    form.append("rating", newReview.rating);
+    form.append("tags", newReview.tags);
 
     const config = {
       header: { "Content-Type": "multipart/form-data" },
     };
 
-    // await axios.post("/external/image", formData, config).then((res) => {
-    //   body.thumbnailImage = res.data.url;
-    // });
-
-    console.log(body);
-    await axios
-      .post(`/api/wines/${wineID}/reviews`, form)
-      .then((response) => {
-        console.log("response : ", JSON.stringify(response, null));
-      })
-      .catch((error) => {
-        console.log("failed", error);
-      });
+    // console.log(body);
+    if (existReview) {
+      await axios
+        .put(`/api/wines/${wineID}/reviews`, form)
+        .then((response) => {
+          console.log("response : ", JSON.stringify(response, null));
+        })
+        .catch((error) => {
+          console.log("failed", error);
+        });
+    } else {
+      await axios
+        .post(`/api/wines/${wineID}/reviews`, form)
+        .then((response) => {
+          console.log("response : ", JSON.stringify(response, null));
+        })
+        .catch((error) => {
+          console.log("failed", error);
+        });
+    }
   };
 
   return (
