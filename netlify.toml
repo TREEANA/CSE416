@@ -1,8 +1,4 @@
 [[redirects]]
-  from = "/*"
-  to = "/"
-  status = 200
-[[redirects]]
   from = "/api/users/*"
   to = "https://podo-backend.herokuapp.com/users/:splat"  
   status = 200
@@ -37,4 +33,8 @@
 [[redirects]]
   from = "/external/image"
   to = "https://api.cloudinary.com/v1_1/dx0q9mebc/image/upload"  
+  status = 200
+[[redirects]]
+  from = "/*"
+  to = "/"
   status = 200
