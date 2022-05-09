@@ -1,26 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import { BsCircleFill, BsCircle } from "react-icons/bs";
 
 import "./WineList.css";
 
-const defaultWineList = {
-  wineListID: 0,
-  userID: 0,
-  title: "Title 1",
-  images: [
-    "https://images.unsplash.com/photo-1566995541428-f2246c17cda1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
-    "https://images.vivino.com/thumbs/ygTg4K4vR5GYCjWTFocWng_pb_x600.png",
-    "https://images.vivino.com/thumbs/8grEUdS1S4K9s7DQhmqyfg_pb_x600.png",
-    "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-  ],
-  content: "Content 1",
-  lastUpdatedAt: "2022-05-09",
-};
-
-const WineList = ({ wineList = defaultWineList }) => {
-  const [likeStatus, setLikeStatus] = useState(0);
+const WineList = ({ wineList, status, setStatus }) => {
+  console.log(status.userinfo);
+  const [likeStatus, setLikeStatus] = useState(
+    status.userinfo.likedWinelists.filter(
+      (each) => each === wineList.winelistID
+    ).length === 1
+      ? true
+      : false
+  );
+  useEffect(() => {
+    setLikeStatus(
+      status.userinfo.likedWinelists.filter(
+        (each) => each === wineList.winelistID
+      ).length === 1
+        ? true
+        : false
+    );
+  }, [status]);
   const [curPage, setCurPage] = useState(0);
 
   const onPageClick = (num) => {
@@ -40,12 +43,22 @@ const WineList = ({ wineList = defaultWineList }) => {
       setCurPage(curPage + 1);
     }
   };
-  const onLikeClick = () => {
+  const onLikeClick = async () => {
     setLikeStatus(!likeStatus);
-  };
-  const onProfileClick = () => {
-    //go to author's profile page
-    console.log("onProfileClick");
+    console.log(
+      `/api/users/${status.userID}/like-winelist?winelistID=${wineList.winelistID}`
+    );
+    const res = await axios.post(
+      `/api/users/${status.userID}/like-winelist?winelistID=${wineList.winelistID}`
+    );
+    console.log(res.data);
+    setStatus({
+      ...status,
+      userinfo: {
+        ...status.userinfo,
+        likedWinelist: res.data.likedWinelist,
+      },
+    });
   };
 
   const displayPageButton = () => {
@@ -91,7 +104,7 @@ const WineList = ({ wineList = defaultWineList }) => {
           {displayImages()}
         </div>
         <div className="wineList__profileCont">
-          <div className="wineList__profile" onClick={onProfileClick}>
+          <div className="wineList__profile">
             <Link to={"/profile/" + wineList.userID}>
               <img
                 className="wineList__profileImg"

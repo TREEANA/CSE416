@@ -7,7 +7,7 @@ import Loader from "../../components/Loader/Loader";
 
 import "./MainPage.css";
 
-const MainPage = () => {
+const MainPage = ({ status, setStatus }) => {
   const [lists, setLists] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -55,11 +55,19 @@ const MainPage = () => {
             {lists.map((each, i) => {
               return lists.length - 1 == i ? (
                 <>
-                  <WineList wineList={each} />
+                  <WineList
+                    wineList={each}
+                    status={status}
+                    setStatus={setStatus}
+                  />
                   <div ref={ref}>{loading && <Loader />}</div>
                 </>
               ) : (
-                <WineList wineList={each} />
+                <WineList
+                  wineList={each}
+                  status={status}
+                  setStatus={setStatus}
+                />
               );
             })}
           </main>
