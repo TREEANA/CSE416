@@ -1,4 +1,8 @@
 [[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
+[[redirects]]
   from = "/api/users/*"
   to = "https://podo-backend.herokuapp.com/users/:splat"  
   status = 200
