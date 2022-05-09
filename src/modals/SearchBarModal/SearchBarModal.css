@@ -61,6 +61,7 @@
 .search__text-input:not(:hover),
 .search__text-input:focus {
   outline: none;
+  border: none;
 }
 
 .search__text-input .search__close {
@@ -89,6 +90,11 @@
   margin: 0 var(--margin-out);
 }
 
+.search__result-wine > .loader,
+.search__result-winelist > .loader {
+  margin-top: 0;
+}
+
 .search__result-title {
   font-weight: bolder;
   padding-bottom: 5px;
@@ -97,10 +103,15 @@
 .search__result-subtitle {
   font-weight: lighter;
   font-size: smaller;
+  margin-bottom: 0.2rem;
 }
 
 .search__result-subtitle:hover {
   cursor: pointer;
+}
+
+.search__result-subtitle > a {
+  color: var(--primary);
 }
 
 .search__profile {

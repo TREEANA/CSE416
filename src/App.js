@@ -147,13 +147,13 @@ const App = () => {
             ? "modalBackground"
             : ""
         }
-        onClick={() => {
-          setStatus({
-            ...status,
-            sideBarModal: false,
-            searchBarModal: false,
-          });
-        }}
+        // onClick={() => {
+        //   setStatus({
+        //     ...status,
+        //     sideBarModal: false,
+        //     searchBarModal: false,
+        //   });
+        // }}
       ></div>
 
       <Header status={status} toggleStatus={toggleStatus} />

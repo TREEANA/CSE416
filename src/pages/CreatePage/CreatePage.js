@@ -17,14 +17,7 @@ const CreatePage = ({ status, toggleStatus }) => {
     content: "",
     wines: [],
   });
-  const [tags, setTags] = useState({
-    // acidic: false,
-    // picnic: false,
-    // dry: false,
-    // oak: false,
-    // rose: false,
-    // cherry: false,
-  });
+  const [tags, setTags] = useState({});
   const [search, setSearch] = useState({
     wineKeyword: "",
     tagKeyword: "",

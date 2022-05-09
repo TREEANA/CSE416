@@ -13,9 +13,9 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modalBackground:hover {
+/* .modalBackground:hover {
   cursor: pointer;
-}
+} */
 
 .modalBackground--inactive {
   display: none;
