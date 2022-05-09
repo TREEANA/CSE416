@@ -130,12 +130,12 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
               </div>
               <div className="sommverify__comment">
                 <div className="sommverify__userComment">
-                  {/* {tempRequest.userExplanation} */}
-                  Hello this is sommelier woohyun park. i would like to get my
+                  {tempRequest.userExplanation}
+                  {/* Hello this is sommelier woohyun park. i would like to get my
                   sommelier badge by using this image. This is the certificate I
                   got from my home country, I am not sure it would work here as
                   well. Please thoroughly go over the document and let me know
-                  the result. Thank you!
+                  the result. Thank you! */}
                 </div>
 
                 <form className="sommverify__adminComment" method="POST">
