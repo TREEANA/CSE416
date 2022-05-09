@@ -9,13 +9,15 @@ import "./WineList.css";
 const WineList = ({ wineList, status, setStatus }) => {
   const [likeStatus, setLikeStatus] = useState(false);
   useEffect(() => {
-    setLikeStatus(
-      status.userinfo.likedWinelists.filter(
-        (each) => each === wineList.winelistID
-      ).length === 1
-        ? true
-        : false
-    );
+    status !== undefined
+      ? setLikeStatus(
+          status.userinfo.likedWinelists.filter(
+            (each) => each === wineList.winelistID
+          ).length === 1
+            ? true
+            : false
+        )
+      : setLikeStatus(false);
   }, [status]);
   const [curPage, setCurPage] = useState(0);
 
@@ -72,9 +74,7 @@ const WineList = ({ wineList, status, setStatus }) => {
     wineList.wines.forEach((each, i) => {
       result.push(
         <div className="wineList__bgCont--wine">
-          <Link to={"/list/" + wineList.winelistID}>
-            <img src={each.images[0]} />
-          </Link>
+          <img src={each.images[0]} />
         </div>
       );
     });

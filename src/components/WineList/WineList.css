@@ -95,7 +95,7 @@
   object-fit: cover;
 }
 
-.wineList__bgCont--wine > a {
+.wineList__bgCont--wine {
   width: inherit;
   height: inherit;
   display: flex;
@@ -103,7 +103,7 @@
   align-items: center;
 }
 
-.wineList__bgCont--wine > a > img {
+.wineList__bgCont--wine > img {
   width: 90%;
   height: 90%;
   object-fit: contain;

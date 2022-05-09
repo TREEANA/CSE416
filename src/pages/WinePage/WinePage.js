@@ -72,6 +72,8 @@ const WinePage = ({ status, toggleStatus }) => {
   const fetchWines = async (tag, page) => {
     setLoading(true);
     try {
+      // 덕용맨이 tags로 바꿔주면 해당 라인으로 교체할것
+      // const url = `/api/wines/search?tags=${tag}&num=${page * 10}`;
       const url = `/api/wines/search?tag=${tag}&num=${page * 10}`;
       console.log("Fetching wines: ", url);
       const res = await axios.get(url);
