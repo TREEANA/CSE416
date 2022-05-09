@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
@@ -29,10 +29,32 @@ import CreatePage from "./pages/CreatePage/CreatePage";
 // import SommVerify from "./components/SommVerify/SommVerify";
 
 const App = () => {
-  const [status, setStatus] = useState({
-    user: 0,
-    userID: 53,
+  let sessionStorage = window.sessionStorage;
+  let newuserinfo = {
+    followers: [],
+    followings: [],
+    likedWinelists: [],
+    likedWines: [],
+    profileImage: "",
+    status: -1,
+    tags: [],
+    userID: -1,
     accesstoken: -1,
+    username: "",
+  };
+  const userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+
+  if (userinfo) {
+    newuserinfo = userinfo;
+  }
+  const userID = sessionStorage.getItem("userID");
+  const accesstoken = sessionStorage.getItem("accesstoken");
+
+  const [status, setStatus] = useState({
+    userinfo: newuserinfo,
+    user: 0,
+    userID: userID,
+    accesstoken: accesstoken,
     profileimage: "",
     sideBarModal: false,
     searchBarModal: false,
@@ -47,6 +69,7 @@ const App = () => {
     exchangeRate: 0,
     editProfileModal: false,
   });
+
   const fetchCurrency = async () => {
     try {
       const res = await axios.get("/external/currency");

@@ -75,8 +75,6 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
       );
 
       if (res.status === 200) {
-        console.log(userName, selectedtag, res.data.email);
-
         try {
           const res1 = await axios.post(`/api/users`, {
             username: userName,
@@ -85,15 +83,35 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
             email: res.data.email,
           });
           if (res1.status === 201) {
-            console.log(res1);
-
+            const res2 = await axios.get(
+              `/api/users/${res1.data.userID}?requesterID=${res1.data.userID}`
+            );
+            const userinfo = {
+              followers: res2.data.followers,
+              followings: res2.data.followings,
+              likedWinelists: res2.data.likedWinelists,
+              likedWines: res2.data.likedWines,
+              profileImage: res2.data.profileImage,
+              status: res2.data.status,
+              tags: res2.data.tags,
+              userID: res2.data.userID,
+              accesstoken: status.accesstoken,
+              username: res2.data.username,
+            };
+            console.log(userinfo);
             setStatus({
               ...status,
-              userID: res1.data.userID,
-              user: res1.data.status + 1,
-              profileimage: res.data.picture,
+              accesstoken: status.accesstoken,
+              userID: res2.data.userID,
+              user: res2.data.status + 1,
+              profileimage: res2.data.picture,
               registerModal: !status.registerModal,
+              userinfo: userinfo,
             });
+            let sessionStorage = window.sessionStorage;
+            sessionStorage.setItem("userinfo", JSON.stringify(userinfo));
+            sessionStorage.setItem("userID", res.data.userID);
+            sessionStorage.setItem("accesstoken", accesstoken);
           }
         } catch (err) {
           console.log(err);
