@@ -21,15 +21,16 @@ const MainPage = () => {
         setLists([]);
         setAuthors([]);
       } else {
+        //이미지 불러올때까지만 임시코드
         const temp = res.data;
-        temp[0].images = [
-          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-        ];
-        temp[1].images = [
-          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-        ];
+        temp.forEach((each) => {
+          each.images = each.wines.map(
+            (each) =>
+              "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png"
+          );
+        });
         setLists(temp);
+
         const tempAuthors = [];
         for await (const each of temp) {
           const res = await axios.get(`/api/users/${each.userID}`);

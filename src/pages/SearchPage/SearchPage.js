@@ -105,30 +105,30 @@ const SearchPage = ({ status, toggleStatus }) => {
       );
       if (res.data === null || res.data === "") {
         setLists([]);
+        setAuthors([]);
       } else {
+        //이미지 불러올때까지만 임시코드
         const temp = res.data;
-        temp[0].images = [
-          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-        ];
-        temp[1].images = [
-          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-        ];
+        temp.forEach((each) => {
+          each.images = each.wines.map(
+            (each) =>
+              "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png"
+          );
+        });
         setLists(temp);
+
+        const tempAuthors = [];
+        for await (const each of temp) {
+          const res = await axios.get(`/api/users/${each.userID}`);
+          tempAuthors.push(res.data);
+        }
+        setAuthors(tempAuthors);
+        console.log("fetched authors: ", tempAuthors);
       }
       console.log("fetched lists: ", res.data);
     } catch (e) {
       console.log(e);
     }
-  };
-  const fetchAuthors = async () => {
-    const tempAuthors = [];
-    for await (const each of lists) {
-      const res = await axios.get(`/api/users/${each.userID}`);
-      tempAuthors.push(res.data);
-    }
-    setAuthors(tempAuthors);
-    console.log("fetched authors: ", tempAuthors);
   };
   const displayWines = () => {
     const result = [];
@@ -155,7 +155,7 @@ const SearchPage = ({ status, toggleStatus }) => {
     setLoading(true);
     await fetchWines(keyword);
     await fetchLists(keyword);
-    await fetchAuthors();
+    // await fetchAuthors();
     setLoading(false);
   }, []);
 

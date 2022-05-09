@@ -76,47 +76,45 @@ const ListPage = ({ status, toggleStatus }) => {
 
   const fetchLists = async (keyword, page) => {
     try {
-      const url = `/api/winelists/search?keyword=${keyword}&num=${page * 10}`;
-      console.log("Fetching lists: ", url);
-      const res = await axios.get(url);
+      const res = await axios.get(
+        `/api/winelists/search?keyword=${keyword}&num=${page * 10}`
+      );
       if (res.data === null || res.data === "") {
         setLists([]);
+        setAuthors([]);
       } else {
+        //이미지 불러올때까지만 임시코드
         const temp = res.data;
-        temp[0].images = [
-          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-        ];
-        temp[1].images = [
-          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-          "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-        ];
+        temp.forEach((each) => {
+          each.images = each.wines.map(
+            (each) =>
+              "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png"
+          );
+        });
         setLists(temp);
+
+        const tempAuthors = [];
+        for await (const each of temp) {
+          const res = await axios.get(`/api/users/${each.userID}`);
+          tempAuthors.push(res.data);
+        }
+        setAuthors(tempAuthors);
+        console.log("fetched authors: ", tempAuthors);
       }
-      console.log("Lists fetched: ", res.data);
+      console.log("fetched lists: ", res.data);
     } catch (e) {
       console.log(e);
     }
-  };
-  const fetchAuthors = async () => {
-    const tempAuthors = [];
-    for await (const each of lists) {
-      const res = await axios.get(`/api/users/${each.userID}`);
-      tempAuthors.push(res.data);
-    }
-    setAuthors(tempAuthors);
-    console.log("fetched authors: ", tempAuthors);
   };
 
   useEffect(async () => {
     setLoading(true);
     await fetchLists(keyword, page);
-    await fetchAuthors();
     setLoading(false);
   }, []);
   useEffect(async () => {
     setLoading(true);
     await fetchLists(keyword, page);
-    await fetchAuthors();
     setLoading(false);
   }, [page]);
   useEffect(() => {
