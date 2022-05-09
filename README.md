@@ -67,6 +67,6 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 # Deploy Link
 
-We uesd netlify for hosting.
+We use netlify for hosting.
 
 [Click here](https://podoofficial.netlify.app/)
