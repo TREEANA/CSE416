@@ -44,7 +44,7 @@ const WineDetailPage = ({ status }) => {
     try {
       const res = await axios.get(`/api/wines/${wineId}`);
       setWine(res.data);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -92,7 +92,7 @@ const WineDetailPage = ({ status }) => {
   const [tempReview, setTempReview] = useState({
     content: "",
     rating: 0,
-    like: "false",
+    like: likes,
     tags: [],
   });
 
@@ -103,6 +103,7 @@ const WineDetailPage = ({ status }) => {
       [name]: value,
     };
     setTempReview(newTempReview);
+    console.log(newTempReview);
   };
 
   return (
@@ -200,7 +201,8 @@ const WineDetailPage = ({ status }) => {
                     size="large"
                     // fontSize="large"
                     name="rating"
-                    defaultValue={2.5}
+                    onChange={onChange}
+                    // defaultValue={2.5}
                     readOnly={editReview ? false : true}
                     sx={{ fontSize: 40 }}
                     emptyIcon={
@@ -222,6 +224,8 @@ const WineDetailPage = ({ status }) => {
                         : "detail__reviewIcon--inactive"
                     }
                     onClick={toggleLikes}
+                    name="like"
+                    onChange={onChange}
                   />
                   <BsFillPencilFill
                     className={
@@ -283,6 +287,7 @@ const WineDetailPage = ({ status }) => {
                   readOnly={editReview ? false : true}
                   placeholder="waiting for your review here :)"
                   name="content"
+                  onChange={onChange}
                 ></input>
               </div>
               {editReview && (

@@ -11,17 +11,30 @@ import {
 import Ticket from "../../components/Ticket/Ticket";
 
 const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
+  //
+  // const { ticketID } = useParams();
+  // const fetchTicket = async (ticketID) => {
+  //   try {
+  //     const res = await axios.get(`/api/support-tickets/${ticketID}`);
+  //     setTicket(res.data);
+  //     console.log(res.data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+  //새로 만드는 ticket에 관한 useState
   const [tempTicket, setTempTicket] = useState({
     ticketTitle: "",
     ticketContent: "",
     createdAt: "",
   });
-
+  //새로 만드는 ticket의 visibility property
   const [ticketVisible, setTicketVisible] = useState(0);
   const toggleTempTicket = () => {
     setTicketVisible(!ticketVisible);
   };
-
+  //새로 만드는 Ticket의 input onChange
+  //근데 아직 서버에 저장은 안하는,, 로컬에만 저장됨
   const onChange = (e) => {
     const { value, name } = e.target;
     console.log(name);
