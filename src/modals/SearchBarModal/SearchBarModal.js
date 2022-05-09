@@ -51,7 +51,7 @@ const SearchBarModal = ({
 
   const [userList, setUserList] = useState([]);
 
-  const getAllUserList = async (e) => {
+  const getAllUserList = async () => {
     // 매칭할 유저 찾기
     const adminId = 0;
     const userList = [];
@@ -171,6 +171,77 @@ const SearchBarModal = ({
         );
       }
     }
+    return result;
+  };
+
+  const displayfollowings2222 = () => {
+    const result = [];
+    for (let i = 0; i < followering.length && i < 5; i++) {
+      const each = followering[i];
+      result.push(
+        <div className="search__profile__container">
+          <Link to={`/profile/${each.userID}`}>
+            <div className="search__profile" onClick={toggleSearchBarModal}>
+              <div className="search__image">
+                <img src={each.profileImage} />
+              </div>
+              <div className="search__name" id={each.userID}>
+                {each.username}
+              </div>
+              {each.status === 1 && <MdWineBar />}
+            </div>
+          </Link>
+
+          <div
+            className={
+              each.isFollowing
+                ? "search__button search__button"
+                : "search__button--filled"
+            }
+            onClick={() =>
+              clickMatchingList2222Button(each.userID, "following")
+            }
+          >
+            {each.isFollowing ? "following" : "follow"}
+          </div>
+        </div>
+      );
+    }
+
+    return result;
+  };
+  const displayfollowers2222 = () => {
+    const result = [];
+    for (let i = 0; i < followers.length && i < 5; i++) {
+      const each = followers[i];
+      result.push(
+        <div className="search__profile__container">
+          <Link to={`/profile/${each.userID}`}>
+            <div className="search__profile" onClick={toggleSearchBarModal}>
+              <div className="search__image">
+                <img src={each.profileImage} />
+              </div>
+              <div className="search__name" id={each.userID}>
+                {each.username}
+              </div>
+              {each.status === 1 && <MdWineBar />}
+            </div>
+          </Link>
+
+          <div
+            className={
+              each.isFollowing
+                ? "search__button search__button"
+                : "search__button--filled"
+            }
+            onClick={() => clickMatchingList2222Button(each.userID, "follower")}
+          >
+            {each.isFollowing ? "following" : "follow"}
+          </div>
+        </div>
+      );
+    }
+
     return result;
   };
 
@@ -333,7 +404,12 @@ const SearchBarModal = ({
                 placeholder="search wines and winelists"
               ></input>
             </div>
-            <BsXLg className="search__close" onClick={toggleSearchBarModal} />
+            <BsXLg
+              className="search__close"
+              onClick={() => {
+                getAllUserList(), toggleSearchBarModal;
+              }}
+            />
           </div>
           <div className="search__result">
             <div className="search__result-wine">
@@ -394,9 +470,9 @@ const SearchBarModal = ({
                 {clickFollowers ? "Your Followers" : "You Following"}{" "}
               </div>
 
-              {/* {clickFollowers
-                ? displayFollowers(followers)
-                : displayFollowing(followering)} */}
+              {clickFollowers
+                ? displayfollowings2222()
+                : displayfollowers2222()}
             </div>
           </div>
         </div>
