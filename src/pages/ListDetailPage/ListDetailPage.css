@@ -1,5 +1,3 @@
-.wineListDetail__title:hover,
-.wineListDetail__subTitle:hover,
 .wineListDetail__like:hover,
 .wineListDetail__leftArrow:hover,
 .wineListDetail__rightArrow:hover,
@@ -71,7 +69,7 @@
   align-items: center;
 }
 
-.wineListDetail__scrollCont > a {
+.wineListDetail__wineName {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--primary);

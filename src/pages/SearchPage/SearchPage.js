@@ -78,7 +78,6 @@ import "./SearchPage.css";
 const SearchPage = ({ status, toggleStatus }) => {
   const [wines, setWines] = useState([]);
   const [lists, setLists] = useState([]);
-  const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(true);
   const { keyword } = useParams();
   const filterModal = status.filterModal;
@@ -107,23 +106,7 @@ const SearchPage = ({ status, toggleStatus }) => {
         setLists([]);
         setAuthors([]);
       } else {
-        //이미지 불러올때까지만 임시코드
-        const temp = res.data;
-        temp.forEach((each) => {
-          each.images = each.wines.map(
-            (each) =>
-              "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png"
-          );
-        });
-        setLists(temp);
-
-        const tempAuthors = [];
-        for await (const each of temp) {
-          const res = await axios.get(`/api/users/${each.userID}`);
-          tempAuthors.push(res.data);
-        }
-        setAuthors(tempAuthors);
-        console.log("fetched authors: ", tempAuthors);
+        setLists(res.data);
       }
       console.log("fetched lists: ", res.data);
     } catch (e) {
@@ -142,7 +125,7 @@ const SearchPage = ({ status, toggleStatus }) => {
   const displayLists = () => {
     const result = [];
     lists.forEach((each, i) => {
-      result.push(<WineList wineList={each} author={authors[i]} />);
+      result.push(<WineList wineList={each} />);
     });
     return result;
   };
@@ -155,7 +138,6 @@ const SearchPage = ({ status, toggleStatus }) => {
     setLoading(true);
     await fetchWines(keyword);
     await fetchLists(keyword);
-    // await fetchAuthors();
     setLoading(false);
   }, []);
 
@@ -165,18 +147,18 @@ const SearchPage = ({ status, toggleStatus }) => {
         <div className="winePage__text">search results for</div>
         <div className="winePage__title">{formatKeyword(keyword)}</div>
       </div>
+      <div className="winePage__btnCont">
+        <button className="winePage__filter" onClick={toggleFilterModal}>
+          filter
+        </button>
+        <button className="winePage__sort" onClick={toggleSortModal}>
+          sort
+        </button>
+      </div>
       {loading ? (
         <Loader />
       ) : (
         <>
-          <div className="winePage__btnCont">
-            <button className="winePage__filter" onClick={toggleFilterModal}>
-              filter
-            </button>
-            <button className="winePage__sort" onClick={toggleSortModal}>
-              sort
-            </button>
-          </div>
           <div className="winePage__subtitle">Wines</div>
           {wines.length === 0 && !loading ? (
             <>

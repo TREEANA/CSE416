@@ -65,11 +65,11 @@ const MainPage = () => {
 
   return (
     <>
-      <main className="main">
-        {loading && page === 1 ? (
-          <Loader />
-        ) : (
-          <>
+      {loading && page === 1 ? (
+        <Loader />
+      ) : (
+        <>
+          <main className="main">
             {lists.map((each, i) => {
               return lists.length - 1 == i ? (
                 <>
@@ -80,9 +80,9 @@ const MainPage = () => {
                 <WineList wineList={each} author={authors[i]} />
               );
             })}
-          </>
-        )}
-      </main>
+          </main>
+        </>
+      )}
     </>
   );
 };

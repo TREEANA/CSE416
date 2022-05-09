@@ -189,11 +189,9 @@ const ListDetailPage = ({
             >
               {"<"}
             </div>
-            <Link to={"/wine/" + list.wines[curPage].wineID}>
-              <div className="wineListDetail__wineName">
-                {list.wines[curPage].name}
-              </div>
-            </Link>
+            <div className="wineListDetail__wineName">
+              {list.wines[curPage].name}
+            </div>
             <div
               className={
                 curPage < list.images.length - 1

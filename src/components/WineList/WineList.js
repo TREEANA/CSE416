@@ -18,14 +18,8 @@ const defaultWineList = {
   content: "Content 1",
   lastUpdatedAt: "2022-05-09",
 };
-const defaultAuthor = {
-  userID: 0,
-  username: "Woohyun Park",
-  profileImage:
-    "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-};
 
-const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
+const WineList = ({ wineList = defaultWineList }) => {
   const [likeStatus, setLikeStatus] = useState(0);
   const [curPage, setCurPage] = useState(0);
 
@@ -33,14 +27,14 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
     setCurPage(num);
   };
   const onLeftArrowClick = () => {
-    if (curPage <= 0 || curPage > wineList.images.length) {
+    if (curPage <= 0 || curPage > wineList.wines.length) {
       return;
     } else {
       setCurPage(curPage - 1);
     }
   };
   const onRightArrowClick = () => {
-    if (curPage < 0 || curPage >= wineList.images.length) {
+    if (curPage < 0 || curPage >= wineList.wines.length) {
       return;
     } else {
       setCurPage(curPage + 1);
@@ -56,7 +50,7 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
 
   const displayPageButton = () => {
     let result = [];
-    for (let i = 0; i < wineList.images.length + 1; i++) {
+    for (let i = 0; i < wineList.wines.length + 1; i++) {
       if (curPage === i) {
         result.push(<BsCircleFill />);
       } else {
@@ -74,20 +68,20 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
         </Link>
       </div>
     );
-    wineList.images.forEach((each, i) => {
+    wineList.wines.forEach((each, i) => {
       result.push(
         <div className="wineList__bgCont--wine">
           <Link to={"/list/" + wineList.winelistID}>
-            <img src={each} />
+            <img src={each.images[0]} />
           </Link>
         </div>
       );
     });
     return result;
   };
-  // const formatDate = (date) => {
-  //   return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-  // };
+  const formatDate = (date) => {
+    return date.split(" ")[0];
+  };
   return (
     <div className="wineList">
       <div className="wineList__topCont">
@@ -100,10 +94,12 @@ const WineList = ({ wineList = defaultWineList, author = defaultAuthor }) => {
         </div>
         <div className="wineList__profileCont">
           <div className="wineList__profile" onClick={onProfileClick}>
-            <img className="wineList__profileImg" src={author.profileImage} />
+            <img className="wineList__profileImg" src={wineList.profileImage} />
             <div className="wineList__profileTxt">
-              <div className="wineList__name">{author.username}</div>
-              <div className="wineList__date">{wineList.lastUpdatedAt}</div>
+              <div className="wineList__name">{wineList.username}</div>
+              <div className="wineList__date">
+                {formatDate(wineList.lastUpdatedAt)}
+              </div>
             </div>
           </div>
           <div

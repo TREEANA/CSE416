@@ -54,7 +54,6 @@ const defaultLists = [
 const ListPage = ({ status, toggleStatus }) => {
   const { keyword } = useParams();
   const [lists, setLists] = useState([]);
-  const [authors, setAuthors] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [ref, inView] = useInView();
@@ -65,11 +64,12 @@ const ListPage = ({ status, toggleStatus }) => {
       lists.length - 1 === index
         ? result.push(
             <>
-              <WineList wineList={each} author={authors[index]} />
-              <div ref={ref}>{loading && <Loader />}</div>
+              <WineList wineList={each} />
+              <div ref={ref}></div>
+              {loading && <Loader />}
             </>
           )
-        : result.push(<WineList wineList={each} author={authors[index]} />);
+        : result.push(<WineList wineList={each} />);
     });
     return result;
   };
@@ -81,25 +81,8 @@ const ListPage = ({ status, toggleStatus }) => {
       );
       if (res.data === null || res.data === "") {
         setLists([]);
-        setAuthors([]);
       } else {
-        //이미지 불러올때까지만 임시코드
-        const temp = res.data;
-        temp.forEach((each) => {
-          each.images = each.wines.map(
-            (each) =>
-              "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png"
-          );
-        });
-        setLists(temp);
-
-        const tempAuthors = [];
-        for await (const each of temp) {
-          const res = await axios.get(`/api/users/${each.userID}`);
-          tempAuthors.push(res.data);
-        }
-        setAuthors(tempAuthors);
-        console.log("fetched authors: ", tempAuthors);
+        setLists(res.data);
       }
       console.log("fetched lists: ", res.data);
     } catch (e) {
@@ -112,51 +95,49 @@ const ListPage = ({ status, toggleStatus }) => {
     await fetchLists(keyword, page);
     setLoading(false);
   }, []);
+
   useEffect(async () => {
     setLoading(true);
     await fetchLists(keyword, page);
     setLoading(false);
   }, [page]);
-  useEffect(() => {
+
+  useEffect(async () => {
+    console.log(page);
     if (inView && !loading) {
       setPage(page + 1);
     }
   }, [inView]);
-  useEffect(() => {
+
+  useEffect(async () => {
     setLists([]);
     setPage(1);
-    fetchLists(keyword, 1);
+    await fetchLists(keyword, 1);
   }, [keyword]);
 
   return (
     <>
-      {loading && page === 1 ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="wineListPage">
-            <div className="wineListPage__titleCont">
-              <div className="wineListPage__text">Wine Lists</div>
-              <div className="wineListPage__title">{keyword}</div>
-            </div>
-            <div className="wineListPage__btnCont">
-              <button
-                className="wineListPage__filter"
-                onClick={() => {
-                  toggleStatus("filterModal");
-                }}
-              >
-                filter
-              </button>
-            </div>
-            {displayLists()}
-          </div>
-          <FilterModal
-            filterModal={status.filterModal}
-            toggleFilterModal={() => toggleStatus("filterModal")}
-          />
-        </>
-      )}
+      <div className="wineListPage">
+        <div className="wineListPage__titleCont">
+          <div className="wineListPage__text">Wine Lists</div>
+          <div className="wineListPage__title">{keyword}</div>
+        </div>
+        <div className="wineListPage__btnCont">
+          <button
+            className="wineListPage__filter"
+            onClick={() => {
+              toggleStatus("filterModal");
+            }}
+          >
+            filter
+          </button>
+        </div>
+        {loading && page === 1 ? <Loader /> : <>{displayLists()}</>}
+      </div>
+      <FilterModal
+        filterModal={status.filterModal}
+        toggleFilterModal={() => toggleStatus("filterModal")}
+      />
     </>
   );
 };
