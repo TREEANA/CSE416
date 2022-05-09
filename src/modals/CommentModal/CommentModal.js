@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./CommentModal.css";
+
 import Review from "../../components/Review/Review";
 import Wine from "../../components/Wine/Wine";
 import WineList from "../../components/WineList/WineList";
@@ -71,60 +72,43 @@ const CommentModal = ({
 }) => {
   //comment에 있는 userID 바탕으로 userInfo가져오기 (username, status, isDeleted?)
 
+  const [tempComment, setTempComment] = useState();
+
+  const onChange = (e) => {
+    const { value } = e.target;
+    setTempComment(value);
+  };
+
+  // const handleKeyPress = (e) =>{
+  //   if(e.key === 'Enter'){
+  //     this.handleClick();
+  //   }
+  // }
+
   return (
     <>
       <div className={commentModalStatus ? "comment" : "comment--inactive"}>
         <div className="comment__container">
           <div className="comment__header">
-            <div className="comment__header__title">Comment</div>
+            <div className="comment__headerTitle">Comment</div>
             <BsReplyFill
               className="comment__close"
               onClick={togglecommentModal}
             />
           </div>
-          <div className="comment__review_container">
+          <div className="comment__reviewContainer">
             <Review userstatus={1} />
           </div>
-          <div className="comment__comment__container">
-            <div className="comment__user">
-              <div className="comment__user-info">
-                <div className="comment__user-name">Marc Almert</div>
-                <div className="comment__user-date"> 2022.02.27 </div>
-              </div>
-              <div className="comment__user-icon">
-                {" "}
-                <BsPatchCheckFill />
-              </div>
-            </div>
-            <div className="comment__comment__font">Great comment</div>
-          </div>
-          <div className="comment__comment__container">
-            <div className="comment__user">
-              <div className="comment__user-info">
-                <div className="comment__user-name">Mr.eom</div>
-                <div className="comment__user-date"> 2022.02.27 </div>
-              </div>
-            </div>
-            <div className="comment__comment__font">I totally agree.</div>
-          </div>
-          <div className="comment__comment__container">
-            <div className="comment__user">
-              <div className="comment__user-info">
-                <div className="comment__user-name">zzaerynn</div>
-                <div className="comment__user-date"> 2022.02.29 </div>
-              </div>
-            </div>
-            <div className="comment__comment__font">zzzzzzzzzz</div>
-          </div>
 
-          <div className="comment_tag_container">
-            <div className="comment__tag_button">
+          <div className="comment__tagContainer">
+            <div className="comment__tagButton">
               <input
-                className="comment__tag-input"
+                className="comment__tagInput"
                 placeholder="leave a comment"
+                onChange={onChange}
               ></input>
             </div>
-            <BsPlus className="comment__plus_icon" />
+            <BsPlus className="comment__plusIcon" />
           </div>
         </div>
       </div>

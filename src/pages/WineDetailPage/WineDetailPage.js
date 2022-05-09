@@ -38,6 +38,7 @@ const WineDetailPage = ({ status }) => {
   const [likes, setLikes] = useState(0);
   const toggleLikes = () => {
     setLikes(!likes);
+    console.log("likes:", likes);
   };
   //wineID로 와인 가져오기
   const fetchWine = async (wineId) => {
@@ -51,17 +52,19 @@ const WineDetailPage = ({ status }) => {
   //review중에 userID로 쓴 리뷰가 있는지 확인
   const [existReview, setExistReview] = useState(0);
   // 들어온 리뷰 중에 userID 겹치는게 있는지 확인
-  const checkReview = (userID) => {
-    wine.reviews.forEach((review) => {
-      if (review.userId === userID) {
-        setExistReview(1);
-      }
-    });
-  };
-  //처음에 불러올때 확인
-  useEffect(() => {
-    checkReview(userID);
-  }, []);
+
+  // const wineReviews = wine.review;
+  // const checkReview = (userID) => {
+  //   wine.review.forEach((review) => {
+  //     if (review.userID === userID) {
+  //       setExistReview(1);
+  //     }
+  //   });
+  // };
+  // //처음에 불러올때 확인
+  // useEffect(() => {
+  //   checkReview(userID);
+  // }, []);
 
   //price 나타내주기 current currency price 긁어와서 계산
   //vivino에서 달러로 긁어와서 바꿔줘야함
@@ -95,45 +98,124 @@ const WineDetailPage = ({ status }) => {
   const toggleEditReview = () => {
     setEditReview(!editReview);
   };
-  //winePage 에서 각 review 에 대한 comment 로 넘어가기
-  const [showComment, setShowComment] = useState(0);
-  const toggleComment = () => {
-    setShowComment(!showComment);
-  };
-  //전체 tag list
-  const [tags, setTags] = useState({});
-  //tag list 불러오기
-  const fetchTags = async () => {
-    const res = await axios.get("/api/tags/list");
-    const tempTags = {};
-    res.data.forEach((each) => {
-      tempTags[each] = false;
-    });
-    setTags(tempTags);
-  };
+  // // winePage 에서 각 review 에 대한 comment 로 넘어가기
+  // // 근데 이 내용이 app.js에 있음 이거 어떻게 업데이트 할지 생각해보기
+  // const [showComment, setShowComment] = useState(0);
+  // const toggleComment = () => {
+  //   setShowComment(!showComment);
+  // };
 
-  useEffect(() => {
-    fetchTags();
-  }, []);
+  // //전체 tag list
+  // const [tags, setTags] = useState({});
+  // //tag list 불러오기
+  // const fetchTags = async () => {
+  //   const res = await axios.get("/api/tags/list");
+  //   const tempTags = {};
+  //   res.data.forEach((each) => {
+  //     tempTags[each] = false;
+  //   });
+  //   setTags(tempTags);
+  // };
+
+  // useEffect(() => {
+  //   fetchTags();
+  // }, []);
+
+  const [tagList, setTagList] = useState({
+    acidic: false,
+    light: false,
+    picnic: false,
+    dry: false,
+    oak: false,
+    rose: false,
+    cherry: false,
+    blackberry: false,
+    chocolate: false,
+    vanilla: false,
+    good: false,
+    fruit: false,
+    strawberry: false,
+    fig: false,
+  });
+
+  const [selectedTag, setSelectedTag] = useState({});
+
+  const newlist = [];
+  for (const each in tagList) {
+    if (tagList[each] === true) {
+      newlist.push(each);
+    }
+  }
+  setSelectedTag(newlist);
+
+  // function onTagClick() {
+  //   setTagList({ ...tagList, [this.txt]: !tagList[this.txt] });
+  // }
 
   //tag 클릭하면 newTag에 넣음
   function onTagClick() {
-    const newTag = [];
-    for (let each in tags) {
-      if (tags[each] === true) {
-        newTag.push(each);
+    // const newTag = [];
+    // for (let each in tags) {
+    //   if (tags[each] === true) {
+    //     newTag.push(each);
+    //   }
+    // }
+    const newlist = [];
+    for (const each in tagList) {
+      if (tagList[each] === true) {
+        newlist.push(each);
       }
     }
-    setTags({ ...tags, [this.txt]: !tags[this.txt] });
+    setSelectedTag(newlist);
+
+    // setTags({ ...tags, [this.txt]: !tags[this.txt] });
+    setTagList({ ...tagList, [this.txt]: !tagList[this.txt] });
     setNewReview({
       ...newReview,
-      tags: newTag,
+      tags: selectedTag,
     });
     // setSearch({
     //   ...search,
     //   tag: "",
     // });
   }
+
+  const displaySelectedTags = () => {
+    const result = [];
+
+    for (let each in tagList) {
+      if (tagList[each] === true) {
+        result.push(
+          <Tag
+            type="selected"
+            txt={each}
+            isFilled={true}
+            onClick={onTagClick.bind({ txt: each })}
+          />
+        );
+      }
+    }
+    result.sort();
+    return result;
+  };
+
+  const displayUnselectedTags = () => {
+    const result = [];
+    for (let each in tagList) {
+      if (list[each] === false) {
+        if (each.includes(valueSearch)) {
+          result.push(
+            <Tag
+              type="selected"
+              txt={each}
+              onClick={onBtnClick.bind({ txt: each })}
+            />
+          );
+        }
+      }
+    }
+    return result;
+  };
 
   // const [search, setSearch] = useState("");
 
@@ -178,25 +260,25 @@ const WineDetailPage = ({ status }) => {
     };
 
     // console.log(body);
-    if (existReview) {
-      await axios
-        .put(`/api/wines/${wineID}/reviews`, form)
-        .then((response) => {
-          console.log("response : ", JSON.stringify(response, null));
-        })
-        .catch((error) => {
-          console.log("failed", error);
-        });
-    } else {
-      await axios
-        .post(`/api/wines/${wineID}/reviews`, form)
-        .then((response) => {
-          console.log("response : ", JSON.stringify(response, null));
-        })
-        .catch((error) => {
-          console.log("failed", error);
-        });
-    }
+    // if (existReview) {
+    //   await axios
+    //     .put(`/api/wines/${wineID}/reviews`, form)
+    //     .then((response) => {
+    //       console.log("response : ", JSON.stringify(response, null));
+    //     })
+    //     .catch((error) => {
+    //       console.log("failed", error);
+    //     });
+    // } else {
+    //   await axios
+    //     .post(`/api/wines/${wineID}/reviews`, form)
+    //     .then((response) => {
+    //       console.log("response : ", JSON.stringify(response, null));
+    //     })
+    //     .catch((error) => {
+    //       console.log("failed", error);
+    //     });
+    // }
   };
 
   return (
@@ -288,26 +370,21 @@ const WineDetailPage = ({ status }) => {
             <form className="detail__oneReview" method="POST">
               <div className="detail__reviewTitle">
                 <div className="detail__reviewStar">
-                  {/* <Box> */}
                   <Rating
                     // precision={0.5}
                     size="large"
-                    // fontSize="large"
                     name="rating"
                     onChange={onChange}
-                    // defaultValue={2.5}
                     readOnly={editReview ? false : true}
                     sx={{ fontSize: 40 }}
                     emptyIcon={
                       <StarIcon
                         style={{ color: "var(--bg-20)" }}
-                        // fontSize=""
                         sx={{ fontSize: 40 }}
                       />
                     }
                     // emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit"}
                   />
-                  {/* </Box> */}
                 </div>
                 <div className="detail__reviewIcons">
                   <BsHeartFill
@@ -334,9 +411,9 @@ const WineDetailPage = ({ status }) => {
               <div className="detail__reviewTags">
                 {!editReview && (
                   <div>
-                    {/* {selectedTags.map((each) => (
+                    {newReview.tags.map((each) => (
                       <Tag type="wineButton" txt={each} />
-                    ))} */}
+                    ))}
                   </div>
                 )}
               </div>
@@ -351,15 +428,8 @@ const WineDetailPage = ({ status }) => {
                     <div className="detail__reviewPlus"> +</div>
                   </div>
                   <div>
-                    {/* 여기 매우 몹시 이상한데 일단 넘어가.... */}
-                    {/* selected 처리할수 있게되면 그때 다시 하겠음 */}
-                    {/* 우형이형이한거 보고 다시 할 예정*/}
-                    {/* {selectedTags.map((each) => (
-                      <Tag type="wineButton" txt={each} isFilled />
-                    ))}
-                    {wine.tags.map((each) => (
-                      <Tag key={each.id} txt={each} />
-                    ))} */}
+                    {displaySelectedTags()}
+                    {displayUnselectedTags()}
                   </div>
                 </div>
               )}
