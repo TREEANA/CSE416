@@ -437,37 +437,37 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/red">Red</Link>
+                <Link to="/wines/Red wine">Red</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/white">White</Link>
+                <Link to="/wines/White wine">White</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/sparkling">Sparkling</Link>
+                <Link to="/wines/Sparkling wine">Sparkling</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/rose">Rose</Link>
+                <Link to="/wines/Rosé wine">Rose</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/dessert"> Dessert</Link>
+                <Link to="/wines/Dessert wine"> Dessert</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/fortified">Fortified</Link>
+                <Link to="/wines/Fortified wine">Fortified</Link>
               </div>
             </div>
             {/* 여기서 페이지 구현할때 sidebar__link 하나씩 복사해서 일단 사용 */}
