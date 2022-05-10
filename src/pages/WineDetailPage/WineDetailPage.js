@@ -25,8 +25,20 @@ import "./WineDetailPage.css";
 //   grape: "Pinot Noir",
 //   likes: 33,
 //   rating:0,
-//   reviews : []
-//   tags : []
+//   reviews : [
+//     wineID:1,
+//     reviewID:202,
+//     userID:35,
+//     username:testUser2,
+//     rating:3,
+//     content : "this is good",
+//     isDeleted:false,
+//     createdAt:,
+//     lastUpdatedAt:,
+//     tags:[],
+//     comments:[]
+//   ],
+//   // tags : [],
 // };
 
 const WineDetailPage = ({ status }) => {
@@ -137,29 +149,39 @@ const WineDetailPage = ({ status }) => {
     strawberry: false,
     fig: false,
   });
-
+  const [valueSearch, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState({});
 
-  const newlist = [];
-  for (const each in tagList) {
-    if (tagList[each] === true) {
-      newlist.push(each);
+  useEffect(() => {
+    const newlist = [];
+    for (const each in tagList) {
+      if (tagList[each] === true) {
+        newlist.push(each);
+      }
     }
-  }
-  setSelectedTag(newlist);
+    setSelectedTag(newlist);
+  }, [tagList]);
 
-  // function onTagClick() {
-  //   setTagList({ ...tagList, [this.txt]: !tagList[this.txt] });
-  // }
+  const clickAddIcon = () => {
+    for (const each in tagList) {
+      if (each === valueSearch) {
+        const copyTagList = tagList;
+        copyTagList[valueSearch] = true;
+        setTagList(copyTagList);
+      }
+    }
+  };
 
   //tag 클릭하면 newTag에 넣음
   function onTagClick() {
+    //우현이거
     // const newTag = [];
     // for (let each in tags) {
     //   if (tags[each] === true) {
     //     newTag.push(each);
     //   }
     // }
+    //우형이형거
     const newlist = [];
     for (const each in tagList) {
       if (tagList[each] === true) {
@@ -174,10 +196,6 @@ const WineDetailPage = ({ status }) => {
       ...newReview,
       tags: selectedTag,
     });
-    // setSearch({
-    //   ...search,
-    //   tag: "",
-    // });
   }
 
   const displaySelectedTags = () => {
@@ -202,13 +220,13 @@ const WineDetailPage = ({ status }) => {
   const displayUnselectedTags = () => {
     const result = [];
     for (let each in tagList) {
-      if (list[each] === false) {
+      if (tagList[each] === false) {
         if (each.includes(valueSearch)) {
           result.push(
             <Tag
               type="selected"
               txt={each}
-              onClick={onBtnClick.bind({ txt: each })}
+              onClick={onTagClick.bind({ txt: each })}
             />
           );
         }
@@ -411,9 +429,10 @@ const WineDetailPage = ({ status }) => {
               <div className="detail__reviewTags">
                 {!editReview && (
                   <div>
-                    {newReview.tags.map((each) => (
+                    {/* {newReview.tags.map((each) => (
                       <Tag type="wineButton" txt={each} />
-                    ))}
+                    ))} */}
+                    {displaySelectedTags()}
                   </div>
                 )}
               </div>
@@ -425,7 +444,9 @@ const WineDetailPage = ({ status }) => {
                       className="detail__reviewInput"
                       placeholder="add tags "
                     ></input>
-                    <div className="detail__reviewPlus"> +</div>
+                    <div className="detail__reviewPlus" onClick={clickAddIcon}>
+                      +
+                    </div>
                   </div>
                   <div>
                     {displaySelectedTags()}
@@ -464,6 +485,7 @@ const WineDetailPage = ({ status }) => {
 
             <Review userstatus={1} />
             <Review userStatus={0} />
+            <div className="detail__moreReview"> view more reviews</div>
           </div>
           <hr className="detail__line"></hr>
           <div className="detail__wineRecomm">
