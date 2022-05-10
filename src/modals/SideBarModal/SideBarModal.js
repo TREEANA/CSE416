@@ -9,6 +9,38 @@ import axios from "axios";
 
 const SideBarModal = ({ status, toggleStatus, setStatus }) => {
   const [number, setNumber] = useState(-1);
+  const onlogout = () => {
+    console.log("Hi");
+    let sessionStorage = window.sessionStorage;
+    sessionStorage.removeItem("userinfo");
+    sessionStorage.removeItem("userID");
+    sessionStorage.removeItem("accesstoken");
+    sessionStorage.clear();
+    location.reload();
+
+    const userinfo = {
+      followers: [],
+      followings: [],
+      likedWinelists: [],
+      likedWines: [],
+      profileImage: "",
+      status: -1,
+      tags: [],
+      userID: -1,
+      accesstoken: -1,
+      username: "",
+    };
+
+    setStatus({
+      ...status,
+      sideBarModal: !status.sideBarModal,
+      accesstoken: -1,
+      userID: -1,
+      user: -1,
+      userinfo: userinfo,
+    });
+  };
+
   const onSuccess = async (response) => {
     const email = response.profileObj.email;
     const imageUrl = response.profileObj.imageUrl;
@@ -118,17 +150,18 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <Link to={`/profile/${status.userID}`}>
-              <div
-                className="sidebar__profile"
-                onClick={() => {
-                  toggleStatus("sideBarModal");
-                }}
-              >
-                <img src={status.userinfo.profileImage} />
-                <div className="sidebar__name">{status.userinfo.username}</div>
-              </div>
-            </Link>
+            <div
+              className="sidebar__profile"
+              onClick={() => {
+                toggleStatus("sideBarModal");
+              }}
+            >
+              <img src={status.userinfo.profileImage} />
+              <Link to={`/profile/${status.userID}`}> </Link>
+              <div className="sidebar__name">{status.userinfo.username}</div>
+              <BsXLg className="sidebar__close" onClick={() => onlogout()} />
+            </div>
+
             <BsXLg
               className="sidebar__close"
               onClick={() => toggleStatus("sideBarModal")}
@@ -140,18 +173,20 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <Link to={`/profile/${status.userID}`}>
-              <div
-                className="sidebar__profile"
-                onClick={() => {
-                  toggleStatus("sideBarModal");
-                }}
-              >
-                <img src={status.userinfo.profileImage} />
-                <div className="sidebar__name">{status.userinfo.username}</div>
-                <MdWineBar className="sidebar__icon" />
-              </div>
-            </Link>
+            <div
+              className="sidebar__profile"
+              onClick={() => {
+                toggleStatus("sideBarModal");
+              }}
+            >
+              <img src={status.userinfo.profileImage} />
+              <Link to={`/profile/${status.userID}`}>
+                <div className="sidebar__name">{status.userinfo.username}</div>{" "}
+              </Link>
+              <MdWineBar className="sidebar__icon" />
+              <BsXLg className="sidebar__close" onClick={() => onlogout()} />
+            </div>
+
             <BsXLg
               className="sidebar__close"
               onClick={() => toggleStatus("sideBarModal")}
@@ -175,18 +210,20 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
       return (
         <div className="sidebar__topCont">
           <div className="sidebar__profileCont">
-            <Link to={`/profile/${status.userID}`}>
-              <div
-                className="sidebar__profile"
-                onClick={() => {
-                  toggleStatus("sideBarModal");
-                }}
-              >
-                <img src={status.userinfo.profileImage} />
+            <div
+              className="sidebar__profile"
+              onClick={() => {
+                toggleStatus("sideBarModal");
+              }}
+            >
+              <img src={status.userinfo.profileImage} />
+              <Link to={`/profile/${status.userID}`}>
                 <div className="sidebar__name">{status.userinfo.username}</div>
-                <MdSettings className="sidebar__icon" />
-              </div>
-            </Link>
+              </Link>{" "}
+              <MdSettings className="sidebar__icon" />
+              <BsXLg className="sidebar__close" onClick={() => onlogout()} />
+            </div>
+
             <BsXLg
               className="sidebar__close"
               onClick={() => toggleStatus("sideBarModal")}
