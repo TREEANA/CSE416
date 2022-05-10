@@ -62,7 +62,7 @@ const App = () => {
     sortModal: false,
     applyModal: false,
     commentModal: false,
-    exchangeRate: 0,
+    exchangeRate: 1275,
     editProfileModal: false,
   });
 
@@ -89,9 +89,12 @@ const App = () => {
       console.log(e);
     }
   };
-  useEffect(() => {
-    fetchCurrency();
-  }, []);
+
+  // enable later
+  // useEffect(() => {
+  //   fetchCurrency();
+  // }, []);
+
   const handleStatus = (name, value) => {
     setStatus({
       ...status,
