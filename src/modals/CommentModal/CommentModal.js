@@ -69,6 +69,7 @@ const CommentModal = ({
   commentModalStatus,
   togglecommentModal,
   commentData = commentDummyData,
+  status,
 }) => {
   //comment에 있는 userID 바탕으로 userInfo가져오기 (username, status, isDeleted?)
 
@@ -85,6 +86,15 @@ const CommentModal = ({
   //   }
   // }
 
+  const getComments = (arr) => {
+    return arr
+      .slice()
+      .reverse()
+      .map((each) => {
+        return <Comment status={status} />;
+      });
+  };
+
   return (
     <>
       <div className={commentModalStatus ? "comment" : "comment--inactive"}>
@@ -99,7 +109,7 @@ const CommentModal = ({
           <div className="comment__reviewContainer">
             <Review userstatus={1} />
           </div>
-
+          {/* <div>{getComments()}</div> */}
           <div className="comment__tagContainer">
             <div className="comment__tagButton">
               <input

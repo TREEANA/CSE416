@@ -6,6 +6,7 @@ import Tag from "../../components/Tag/Tag";
 import Loader from "../../components/Loader/Loader";
 import Wine from "../../components/Wine/Wine";
 import WineList from "../../components/WineList/WineList";
+import CommentModal from "../../modals/CommentModal/CommentModal";
 import Review from "../../components/Review/Review";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
@@ -47,7 +48,7 @@ const WineDetailPage = ({ status }) => {
   const { wineID } = useParams();
   //개인유저가 이 와인을 마음에 들어했는지, 아닌지를 하트로 판단
   //전체숫자에 더해주고, 이 사람의 liked list 에 넣어줘야함.
-  const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState(false);
   const toggleLikes = () => {
     setLikes(!likes);
     console.log("likes:", likes);
