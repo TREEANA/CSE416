@@ -49,9 +49,7 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
 
   const getUserName = async () => {
     try {
-      return await axios.get(
-        `https://podo-backend.herokuapp.com/users/${userId}?requesterID=${userId}`
-      );
+      return await axios.get(`/api/users/${userId}?requesterID=${userId}`);
     } catch (err) {
       console.error(err);
     }
@@ -69,7 +67,7 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
   // form.append(createdAt);
 
   axios
-    .post(`https://podo-backend.herokuapp.com/verification-tickets`, form)
+    .post(`/api/verification-tickets`, form)
     .then((response) => {
       console.log("response:", JSON.stringify(response, null, 2));
     })

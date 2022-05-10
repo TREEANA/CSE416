@@ -3,8 +3,14 @@ import "./ProfilePage.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { set } from "lodash";
+import { Link } from "react-router-dom";
 const ProfilePage = ({ status, toggleStatus }) => {
   const dummpyReviewdata = [];
+
+  const [likesWinesdata, setlikesWinesdata] = useState([]);
+  const [likesWinelists, setlikesWinelists] = useState([]);
+  const [reviewWineList, setreviewWineList] = useState([]);
+
   const { userID } = useParams();
   const [isFollowd, setFollowd] = useState(false);
   const [profile__like, setProfile__like] = useState("profile__selected");
@@ -49,9 +55,206 @@ const ProfilePage = ({ status, toggleStatus }) => {
     }
   };
 
+  const getReview = async () => {
+    try {
+      const res = await axios.get(`/api/users/${userID}/reviews?num=20&page=1`);
+      const newreviewWineList = [];
+      console.log(res.data);
+      if (res.status === 200) {
+        const arr = res.data;
+        for (let i = 0; i < arr.length; i++) {
+          const wineID = arr[i].wineID;
+          const res1 = await axios.get(`/api/wines/${wineID}`);
+          console.log(res1);
+          const reviewwineitem = res1.data;
+          newreviewWineList.push(reviewwineitem);
+        }
+        setreviewWineList(newreviewWineList);
+        console.log(reviewWineList);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // useEffect(() => {
+  //   getReview();
+  // }, [userID]);
+
+  useEffect(() => {
+    getlikewinelist();
+  }, [userID]);
+
+  const displayWines = (arr) => {
+    console.log(arr);
+    const result = [];
+    for (let i = 0; i < arr.length; i = i + 3) {
+      if (i === arr.length - 1) {
+        result.push(
+          <div className="gallery__cont">
+            <div className="gallery__imageCont">
+              <Link to={`/wine/${arr[i].wineID}`}>
+                <img className="gallery__image" src={arr[i].images[0]}></img>
+              </Link>
+            </div>
+          </div>
+        );
+      } else if (i === arr.length - 2) {
+        result.push(
+          <div className="gallery__cont">
+            <div className="gallery__imageCont">
+              <Link to={`/wine/${arr[i].wineID}`}>
+                <img className="gallery__image" src={arr[i].images[0]}></img>
+              </Link>
+            </div>
+            <div className="gallery__imageCont">
+              <Link to={`/wine/${arr[i + 1].wineID}`}>
+                <img
+                  className="gallery__image"
+                  src={arr[i + 1].images[0]}
+                ></img>
+              </Link>
+            </div>
+          </div>
+        );
+      } else {
+        result.push(
+          <div className="gallery__cont">
+            <div className="gallery__imageCont">
+              <Link to={`/wine/${arr[i].wineID}`}>
+                <img className="gallery__image" src={arr[i].images[0]}></img>
+              </Link>
+            </div>
+            <div className="gallery__imageCont">
+              <Link to={`/wine/${arr[i + 1].wineID}`}>
+                <img
+                  className="gallery__image"
+                  src={arr[i + 1].images[0]}
+                ></img>
+              </Link>
+            </div>
+            <div className="gallery__imageCont">
+              <Link to={`/wine/${arr[i + 2].wineID}`}>
+                <img
+                  className="gallery__image"
+                  src={arr[i + 2].images[0]}
+                ></img>
+              </Link>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    return result;
+  };
+
+  const displayWineslist = (arr) => {
+    console.log(arr);
+    const result = [];
+    for (let i = 0; i < arr.length; i = i + 3) {
+      if (i === arr.length - 1) {
+        result.push(
+          <div className="gallery__cont">
+            <div className="gallery__imageCont">
+              <Link to={`/list/${arr[i].winelistID}`}>
+                <img
+                  className="gallery__image"
+                  src={arr[i].thumbnailImage}
+                ></img>
+              </Link>
+            </div>
+          </div>
+        );
+      } else if (i === arr.length - 2) {
+        result.push(
+          <div className="gallery__cont">
+            <div className="gallery__imageCont">
+              <Link to={`/list/${arr[i].winelistID}`}>
+                <img
+                  className="gallery__image"
+                  src={arr[i].thumbnailImage}
+                ></img>
+              </Link>
+            </div>
+            <div className="gallery__imageCont">
+              <Link to={`/list/${arr[i + 1].winelistID}`}>
+                <img
+                  className="gallery__image"
+                  src={arr[i + 1].thumbnailImage}
+                ></img>
+              </Link>
+            </div>
+          </div>
+        );
+      } else {
+        result.push(
+          <div className="gallery__cont">
+            <div className="gallery__imageCont">
+              <Link to={`/list/${arr[i].winelistID}`}>
+                <img
+                  className="gallery__image"
+                  src={arr[i].thumbnailImage}
+                ></img>
+              </Link>
+            </div>
+            <div className="gallery__imageCont">
+              <Link to={`/list/${arr[i + 1].winelistID}`}>
+                <img
+                  className="gallery__image"
+                  src={arr[i + 1].thumbnailImage}
+                ></img>
+              </Link>
+            </div>
+            <div className="gallery__imageCont">
+              <Link to={`/list/${arr[i + 2].winelistID}`}>
+                <img
+                  className="gallery__image"
+                  src={arr[i + 2].thumbnailImage}
+                ></img>
+              </Link>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    return result;
+  };
+
+  const getlikewine = async () => {
+    const newlikesWinesdata = [];
+    const arr = userData.likedWines;
+    for (let i = 0; i < arr.length; i++) {
+      const wineID = arr[i];
+      const res = await axios.get(`/api/wines/${wineID}`);
+      console.log(res);
+      const likesWinesitem = res.data;
+      newlikesWinesdata.push(likesWinesitem);
+    }
+    setlikesWinesdata(newlikesWinesdata);
+    console.log(likesWinesdata);
+  };
+
+  const getlikewinelist = async () => {
+    // console.log("hu");
+    const likesWinelistsa = [];
+    const arr = userData.likedWinelists;
+    for (let i = 0; i < arr.length; i++) {
+      const winelistID = arr[i];
+      const res = await axios.get(`/api/winelists/${winelistID}`);
+      const likesWineitem = res.data;
+      likesWinelistsa.push(likesWineitem);
+    }
+    console.log(likesWinelistsa);
+    setlikesWinelists(likesWinelistsa);
+  };
+
   const getUserdata = async () => {
     try {
       const res = await axios.get(`/api/users/${userID}?requesterID=${userID}`);
+
+      console.log(res);
       if (res.status === 200) {
         setUserData({
           ...userData,
@@ -71,7 +274,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
     }
   };
   useEffect(() => {
-    console.log(userID, status.userID);
     getUserdata();
   }, [userID]);
 
@@ -261,9 +463,11 @@ const ProfilePage = ({ status, toggleStatus }) => {
         </div>
         <div className="profile__list">
           <div className="gallery">
-            {profile__like === "profile__selected"
+            {profile__like === "profile__selected" && islikewine
               ? displayPictures(likeimagelist)
-              : displayPictures(reviewimagelist)}
+              : profile__like === "profile__selected" && !islikewine
+              ? displayPictures(likeimagelist)
+              : displayWineslist(likesWinelists)}
           </div>
         </div>
         {profile__like === "profile__selected" && islikewine && (
