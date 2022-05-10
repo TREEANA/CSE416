@@ -236,6 +236,21 @@ const WineDetailPage = ({ status }) => {
     return result;
   };
 
+  const displaySelectedTagsonReview = () => {
+    const result = [];
+    for (let each in selectedTag) {
+      result.push(
+        <Tag
+          type="wineButton"
+          txt={each}
+          isFilled="true"
+          onClick={onTagClick.bind({ txt: each })}
+        />
+      );
+    }
+    return result;
+  };
+
   // const [search, setSearch] = useState("");
 
   //user가 새로 create 하는 리뷰
@@ -433,6 +448,7 @@ const WineDetailPage = ({ status }) => {
                     {/* {newReview.tags.map((each) => (
                       <Tag type="wineButton" txt={each} />
                     ))} */}
+                    {/* {displaySelectedTagsonReview()} */}
                     {displaySelectedTags()}
                   </div>
                 )}
