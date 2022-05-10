@@ -69,12 +69,10 @@ const WinePage = ({ status, toggleStatus }) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  const fetchWines = async (tag, page) => {
+  const fetchWines = async (page) => {
     setLoading(true);
     try {
-      // 덕용맨이 tags로 바꿔주면 해당 라인으로 교체할것
-      // const url = `/api/wines/search?tags=${tag}&num=${page * 10}`;
-      const url = `/api/wines/search?tag=${tag}&num=${page * 10}`;
+      const url = `/api/wines/search?tags=${theme}&num=${page * 10}`;
       console.log("Fetching wines: ", url);
       const res = await axios.get(url);
       setWines(res.data);
@@ -116,11 +114,11 @@ const WinePage = ({ status, toggleStatus }) => {
   };
 
   useEffect(() => {
-    fetchWines(theme, page);
+    fetchWines(page);
   }, []);
 
   useEffect(() => {
-    fetchWines(theme, page);
+    fetchWines(page);
   }, [page]);
 
   useEffect(() => {
@@ -132,7 +130,7 @@ const WinePage = ({ status, toggleStatus }) => {
   useEffect(() => {
     setWines([]);
     setPage(1);
-    fetchWines(theme, 1);
+    fetchWines(1);
   }, [theme]);
 
   return (
