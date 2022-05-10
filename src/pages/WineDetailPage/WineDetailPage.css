@@ -190,6 +190,17 @@ button:hover {
   align-items: center;
 }
 
+.detail__moreReview {
+  cursor: pointer;
+  border-radius: 30px;
+  color: var(--bg-0);
+  background-color: var(--primary);
+  display: flex;
+  justify-content: center;
+  height: 1.5rem;
+  align-items: center;
+}
+
 /* 
 .tag {
   background-color: transparent;

@@ -27,6 +27,7 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import CreatePage from "./pages/CreatePage/CreatePage";
 
 // import SommVerify from "./components/SommVerify/SommVerify";
+import Comment from "./components/Comment/Comment";
 
 const App = () => {
   let sessionStorage = window.sessionStorage;
@@ -40,7 +41,6 @@ const App = () => {
     profileImage: "",
     status: -1,
     tags: [],
-
     userID: -1,
     accesstoken: -1,
     username: "",
@@ -225,6 +225,7 @@ const App = () => {
           {/* <Route path="/verify" element={<SommVerify />}></Route> */}
         </Routes>
       </div>
+      {/* <Comment /> */}
       <Footer />
     </Router>
   );

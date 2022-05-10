@@ -48,6 +48,26 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
     // saveQuestionsOnServer(newTempQuestion);
   };
 
+  // <div className="view_body">
+  //   <div className="view_graph">
+  //     <div className="view_wrapper">
+  //       <div className="view_graphWrapper">
+  //         {tempQuestions
+  //           .slice()
+  //           .reverse()
+  //           .map((question) => (
+  //             // displayData(question)
+  //             <ViewData
+  //               question={question}
+  //               responses={tempResponses}
+  //               key={question._id}
+  //             />
+  //           ))}
+  //       </div>
+  //     </div>
+  //   </div>
+  // </div>;
+
   return (
     <>
       <div
