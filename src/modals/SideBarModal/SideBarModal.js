@@ -157,8 +157,9 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               }}
             >
               <img src={status.userinfo.profileImage} />
-              <Link to={`/profile/${status.userID}`}> </Link>
-              <div className="sidebar__name">{status.userinfo.username}</div>
+              <Link to={`/profile/${status.userID}`}>
+                <div className="sidebar__name">{status.userinfo.username}</div>
+              </Link>
               <BsXLg className="sidebar__close" onClick={() => onlogout()} />
             </div>
 
