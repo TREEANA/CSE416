@@ -27,7 +27,6 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import CreatePage from "./pages/CreatePage/CreatePage";
 
 // import SommVerify from "./components/SommVerify/SommVerify";
-import Comment from "./components/Comment/Comment";
 
 const App = () => {
   let sessionStorage = window.sessionStorage;
@@ -62,7 +61,7 @@ const App = () => {
     sortModal: false,
     applyModal: false,
     commentModal: false,
-    exchangeRate: 1275,
+    exchangeRate: 0,
     editProfileModal: false,
   });
 
@@ -89,12 +88,9 @@ const App = () => {
       console.log(e);
     }
   };
-
-  // enable later
-  // useEffect(() => {
-  //   fetchCurrency();
-  // }, []);
-
+  useEffect(() => {
+    fetchCurrency();
+  }, []);
   const handleStatus = (name, value) => {
     setStatus({
       ...status,
@@ -151,13 +147,13 @@ const App = () => {
             ? "modalBackground"
             : ""
         }
-        // onClick={() => {
-        //   setStatus({
-        //     ...status,
-        //     sideBarModal: false,
-        //     searchBarModal: false,
-        //   });
-        // }}
+        onClick={() => {
+          setStatus({
+            ...status,
+            sideBarModal: false,
+            searchBarModal: false,
+          });
+        }}
       ></div>
 
       <Header status={status} toggleStatus={toggleStatus} />
@@ -228,7 +224,6 @@ const App = () => {
           {/* <Route path="/verify" element={<SommVerify />}></Route> */}
         </Routes>
       </div>
-      {/* <Comment /> */}
       <Footer />
     </Router>
   );

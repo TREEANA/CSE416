@@ -183,3 +183,10 @@ input:not(:hover) {
   height: var(--size-btn);
   background-color: transparent;
 }
+
+.create__search {
+  width: 100%;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.2rem;
+}

@@ -136,14 +136,14 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
             />
           </div>
 
-          <div
+          {/* <div
             className="sidebar__register"
             onClick={() => {
               toggleStatus("sideBarModal", "registerModal");
             }}
           >
             don't have an account?
-          </div>
+          </div> */}
         </div>
       );
     else if (status.userinfo.status === 0) {

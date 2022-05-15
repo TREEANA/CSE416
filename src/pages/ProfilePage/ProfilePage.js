@@ -13,6 +13,8 @@ const ProfilePage = ({ status, toggleStatus }) => {
 
   const { userID } = useParams();
   const [isFollowd, setFollowd] = useState(false);
+  const [userClick, setuserClick] = useState("winelist");
+  // winelist, wine, review
   const [profile__like, setProfile__like] = useState("profile__selected");
   const [profile__review, setProfile__review] = useState("profile__unselected");
   const [islikewine, setlikewine] = useState(true);
@@ -82,7 +84,18 @@ const ProfilePage = ({ status, toggleStatus }) => {
   // }, [userID]);
 
   useEffect(() => {
+    getUserdata();
+  }, [userID, userClick]);
+  useEffect(() => {
+    getUserdata();
+  }, [status]);
+
+  useEffect(() => {
     getlikewinelist();
+  }, [userData, userClick]);
+
+  useEffect(() => {
+    checkfollow();
   }, [userID]);
 
   const displayWines = (arr) => {
@@ -150,7 +163,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
   };
 
   const displayWineslist = (arr) => {
-    console.log(arr);
     const result = [];
     for (let i = 0; i < arr.length; i = i + 3) {
       if (i === arr.length - 1) {
@@ -246,15 +258,12 @@ const ProfilePage = ({ status, toggleStatus }) => {
       const likesWineitem = res.data;
       likesWinelistsa.push(likesWineitem);
     }
-    console.log(likesWinelistsa);
     setlikesWinelists(likesWinelistsa);
   };
 
   const getUserdata = async () => {
     try {
       const res = await axios.get(`/api/users/${userID}?requesterID=${userID}`);
-
-      console.log(res);
       if (res.status === 200) {
         setUserData({
           ...userData,
@@ -273,9 +282,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
       console.log(e);
     }
   };
-  useEffect(() => {
-    getUserdata();
-  }, [userID]);
 
   const checkfollow = async () => {
     if (status.userID !== Number(userID)) {
@@ -293,9 +299,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
       setFollowd(check);
     }
   };
-  useEffect(() => {
-    checkfollow();
-  }, [userID]);
 
   const dummpyLikedata = [{}];
   const likeimagelist = [
@@ -443,31 +446,42 @@ const ProfilePage = ({ status, toggleStatus }) => {
           </div>
         )}
 
-        {/* <div
-      className={
-        isFollowd
-          ? "profile__editporfile_unfilled "
-          : "profile__editporfile"
-      }
-      onClick={() => setFollowd(!isFollowd)}
-    >
-      {isFollowd ? "following" : "follow"}
-    </div> */}
         <div className="profile__listcontainer">
-          <div className={profile__like} onClick={click_like}>
-            like
-          </div>
-          <div className={profile__review} onClick={click__review}>
-            review
-          </div>
+          {userClick !== "review" ? (
+            <>
+              {" "}
+              <div className="profile__selected">like</div>
+              <div
+                className="profile__unselected"
+                onClick={() => {
+                  setuserClick("review");
+                }}
+              >
+                review
+              </div>
+            </>
+          ) : (
+            <>
+              {" "}
+              <div
+                className="profile__unselected"
+                onClick={() => {
+                  setuserClick("winelist");
+                }}
+              >
+                like
+              </div>
+              <div className="profile__selected">review</div>
+            </>
+          )}
         </div>
         <div className="profile__list">
           <div className="gallery">
-            {profile__like === "profile__selected" && islikewine
+            {userClick === "winelist"
+              ? displayWineslist(likesWinelists)
+              : userClick === "wine"
               ? displayPictures(likeimagelist)
-              : profile__like === "profile__selected" && !islikewine
-              ? displayPictures(likeimagelist)
-              : displayWineslist(likesWinelists)}
+              : displayPictures(likeimagelist)}
           </div>
         </div>
         {profile__like === "profile__selected" && islikewine && (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./RegisterModal.css";
 import { BsArrowLeft, BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -8,42 +8,78 @@ import axios, { CancelToken } from "axios";
 
 const RegisterModal = ({ status, toggleStatus, setStatus }) => {
   const [userName, setUserName] = useState();
-  const [email, setEmail] = useState();
   const [isavailable, setAvailable] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [valueSearch, setSearch] = useState("");
   const [selectedtag, setSelectedtag] = useState([]);
-  const [list, setList] = useState({
-    acidic: false,
-    light: false,
-    picnic: false,
-    dry: false,
-    oak: false,
-    rose: false,
-    cherry: false,
-    blackberry: false,
-    chocolate: false,
-    vanilla: false,
-    good: false,
-    fruit: false,
-    strawberry: false,
-    fig: false,
-  });
-  // 버튼을 클릭하면 토글되도록 변경
+  const [tags, setTags] = useState({});
 
-  const getEmail = async () => {
-    try {
-      const res = await axios.get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${status.accesstoken}`
-      );
+  function onBtnClick() {
+    setTags({ ...tags, [this.txt]: !tags[this.txt] });
+  }
+  const fetchTags = async () => {
+    const res = await axios.get("/api/tags/list");
+    const tempTags = {};
+    res.data.forEach((each) => {
+      tempTags[each] = false;
+    });
+    setTags(tempTags);
+  };
 
-      if (res.status === 200) {
-        console.log(res.data.email);
-        setEmail(res.data.email);
+  useEffect(() => {
+    fetchTags();
+  }, []);
+
+  const displaySelectedTags = () => {
+    const result = [];
+
+    for (let each in tags) {
+      if (tags[each] === true) {
+        result.push(
+          <Tag
+            type="selected"
+            txt={each}
+            isFilled={true}
+            onClick={onBtnClick.bind({ txt: each })}
+          />
+        );
       }
-    } catch (e) {
-      console.log(e);
     }
+    result.sort();
+    return result;
+  };
+
+  const displayUnselectedTags = () => {
+    const result = [];
+    const formattedTag = valueSearch.toLowerCase();
+    if (formattedTag !== "") {
+      for (let each in tags) {
+        if (
+          each.toLowerCase().indexOf(formattedTag) === 0 &&
+          tags[each] === false
+        ) {
+          result.push(
+            <Tag
+              type="selected"
+              txt={each}
+              onClick={onBtnClick.bind({ txt: each })}
+            />
+          );
+        }
+      }
+    } else {
+      for (let each in tags) {
+        if (tags[each] === false) {
+          result.push(
+            <Tag
+              type="selected"
+              txt={each}
+              onClick={onBtnClick.bind({ txt: each })}
+            />
+          );
+        }
+      }
+    }
+    return result;
   };
 
   const onNameChange = async (e) => {
@@ -62,8 +98,8 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
 
   const onRegister = async () => {
     const newlist = [];
-    for (const each in list) {
-      if (list[each] === true) {
+    for (const each in tags) {
+      if (tags[each] === true) {
         newlist.push(each);
       }
     }
@@ -73,7 +109,6 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
       const res = await axios.get(
         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${status.accesstoken}`
       );
-
       if (res.status === 200) {
         try {
           const res1 = await axios.post(`/api/users`, {
@@ -122,54 +157,6 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
     }
   };
 
-  function onBtnClick() {
-    setList({ ...list, [this.txt]: !list[this.txt] });
-  }
-  const clickAddIcon = () => {
-    for (const each in list) {
-      if (each === valueSearch) {
-        const copylist = list;
-        copylist[valueSearch] = true;
-        setList(copylist);
-      }
-    }
-  };
-  const displaySelectedTags = () => {
-    const result = [];
-
-    for (let each in list) {
-      if (list[each] === true) {
-        result.push(
-          <Tag
-            type="selected"
-            txt={each}
-            isFilled={true}
-            onClick={onBtnClick.bind({ txt: each })}
-          />
-        );
-      }
-    }
-    result.sort();
-    return result;
-  };
-  const displayUnselectedTags = () => {
-    const result = [];
-    for (let each in list) {
-      if (list[each] === false) {
-        if (each.includes(valueSearch)) {
-          result.push(
-            <Tag
-              type="selected"
-              txt={each}
-              onClick={onBtnClick.bind({ txt: each })}
-            />
-          );
-        }
-      }
-    }
-    return result;
-  };
-
   return (
     <>
       {status.registerModal && (
@@ -201,24 +188,6 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
                 {isavailable ? "available username" : "unavailable username"}
               </div>
               <br></br>
-              {/* <div className="register_subtitle">choose your photo</div>
-              <div className="register__image__box__container">
-                {selectedImage && (
-                  <img
-                    className="register__image__box"
-                    alt="not fount"
-                    src={URL.createObjectURL(selectedImage)}
-                  />
-                )}
-                <input
-                  type="file"
-                  className="register__poto__file"
-                  accept="image/*"
-                  onChange={(event) => {
-                    setSelectedImage(event.target.files[0]);
-                  }}
-                />
-              </div> */}
               <div className="register_subtitle">
                 {" "}
                 choose the tags you are interested{" "}
@@ -234,10 +203,6 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
                       setSearch(event.target.value);
                     }}
                   ></input>
-                  <div className="register__Plus" onClick={clickAddIcon}>
-                    {" "}
-                    +
-                  </div>
                 </div>
 
                 <div>
