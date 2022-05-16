@@ -7,7 +7,7 @@ import StarIcon from "@mui/icons-material/Star";
 import "./Wine.css";
 
 const wineDummyData = {
-  windID: 1,
+  wineID: 1,
   tags: ["sweet", "dry", "oak", "cherry", "picnic", "rose"],
   name: "La Crema Sonoma Coast ",
   grape: "Pinot Noir",

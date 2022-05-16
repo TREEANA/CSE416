@@ -42,7 +42,7 @@ import "./WineDetailPage.css";
 //   // tags : [],
 // };
 
-const WineDetailPage = ({ status }) => {
+const WineDetailPage = ({ status, toggleStatus }) => {
   const userID = status.userID;
   const [wine, setWine] = useState(false);
   const { wineID } = useParams();
