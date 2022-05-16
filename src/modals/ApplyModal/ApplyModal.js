@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { BsXLg, BsFilePlusFill } from "react-icons/bs";
 import "./ApplyModal.css";
 import SommHistory from "../../components/SommHistory/SommHistory";
@@ -10,34 +10,49 @@ src="https://mblogthumb-phinf.pstatic.net/MjAxOTAzMjJfMjA2/MDAxNTUzMjI3NDU5NzU0.
 ></img> */
 }
 const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
-  const [description, setDescription] = useState("");
   const [step, setstep] = useState(0);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState("");
+  const [description, setDescription] = useState("");
+  const [tempImage, setTempImage] = useState("");
+  const [tempFile, setTempFile] = useState(null);
+  const imageInput = useRef();
+
+  const onImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setTempImage(reader.result);
+      setTempFile(e.target.files[0]);
+    };
+  };
+
+  const onImgInputBtnClick = () => {
+    imageInput.current.click();
+  };
 
   const createverification = async () => {
-    // const formData = new FormData();
-    // formData.append("api_key", 673363115651154);
-    // formData.append("upload_preset", "ibgzg33i");
-    // formData.append("timestamp", (Date.now() / 1000) | 0);
-    // formData.append("file", selectedImage);
-
-    // const config = {
-    //   header: { "Content-Type": "multipart/form-data" },
-    // };
-
-    // try {
-    //   await axios.post("/external/image", formData, config).then((res) => {
-    //     body.verificationImage = res.data.url;
-    //   });
-    // } catch (e) {
-    //   console.log(e);
-
-    const body = {
+    let body = {
       userID: status.userID,
       verificationImage:
         "https://mblogthumb-phinf.pstatic.net/MjAxOTAzMjJfMjA2/MDAxNTUzMjI3NDU5NzU0.MB7x7Bu9pbwOeZ_vXg11Q8MstK3C6MkAZ6UnhQ6ki0Yg.rOy-j6vpy3UbmWMEnBNo2LJLrV9lKzDUvMoeTGU-elAg.JPEG.onwinnersmd/2.jpg?type=w800",
       userExplanation: description,
     };
+
+    const formData = new FormData();
+    formData.append("api_key", 673363115651154);
+    formData.append("upload_preset", "ibgzg33i");
+    formData.append("timestamp", (Date.now() / 1000) | 0);
+    formData.append("file", tempFile);
+
+    const config = {
+      header: { "Content-Type": "multipart/form-data" },
+    };
+
+    await axios.post("/external/image", formData, config).then((res) => {
+      body.verificationImage = res.data.url;
+    });
+
     // }
     try {
       await axios.post(`/api/verification-tickets`, body).then((res) => {
@@ -46,7 +61,9 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     } catch (error) {
       console.log(error);
     }
-
+    setDescription("");
+    setTempImage("");
+    setTempFile(null);
     setstep(2);
   };
   const choose = () => {
@@ -89,7 +106,23 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     } else if (step === 1) {
       return (
         <div className="becomesommlier__section2">
-          <div className="becomesommlier__name">Uplode your certiticate</div>
+          <div className="create__subtitle">Image</div>
+          <input
+            ref={imageInput}
+            type="file"
+            className="create__imageInput"
+            accept="image/*"
+            onChange={onImageChange}
+          />
+          <div
+            className="create__uploadImage"
+            onClick={onImgInputBtnClick}
+            style={{ backgroundImage: `url(${tempImage})` }}
+          >
+            {tempImage === "" && <div className="create__uploadPlus">+</div>}
+          </div>
+
+          {/* <div className="becomesommlier__name">Uplode your certiticate</div>
           <div className="becomesommlier_poto__container">
             {selectedImage && (
               <img
@@ -112,9 +145,9 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
                 setSelectedImage(event.target.files[0]);
               }}
             />
-          </div>
+          </div> */}
 
-          {selectedImage ? (
+          {tempImage ? (
             <div className="becomesommlier__button" onClick={submit}>
               {" "}
               Next
@@ -155,15 +188,17 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
       );
     } else if (step === 4) {
       return (
-        <div className="becomesommlier__section1">
-          <div className="becomesommlier__name">Description</div>
-          <input
-            className="becomesommlier__name"
-            placeholder="Description"
+        <div className="create">
+          <div className="create__subtitle">Description</div>
+          <textarea
+            className="create__comment"
+            name="content"
+            placeholder="enter description of your winelist"
+            value={description}
             onChange={(event) => {
               setDescription(event.target.value);
             }}
-          ></input>
+          />
 
           {description !== "" ? (
             <div
@@ -196,7 +231,9 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
             <BsXLg
               className="becomesommlier__top-close"
               onClick={() => {
-                toggleApplyModal(), close(), setSelectedImage(null);
+                toggleApplyModal(), close(), setDescription("");
+                setTempImage("");
+                setTempFile(null);
               }}
             />
           </div>

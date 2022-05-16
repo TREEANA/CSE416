@@ -36,19 +36,21 @@ const SearchBarModal = ({
   ]);
 
   const getUserdata = async () => {
-    try {
-      const res = await axios.get(
-        `/api/users/${status.userID}?requesterID=${status.userID}`
-      );
-      if (res.status === 200) {
-        setUserData({
-          ...userData,
-          followings: res.data.followings,
-          followers: res.data.followers,
-        });
+    if (status.userID !== -1) {
+      try {
+        const res = await axios.get(
+          `/api/users/${status.userID}?requesterID=${status.userID}`
+        );
+        if (res.status === 200) {
+          setUserData({
+            ...userData,
+            followings: res.data.followings,
+            followers: res.data.followers,
+          });
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
     }
   };
 
@@ -60,53 +62,54 @@ const SearchBarModal = ({
     const userList = [];
     const followingUserList = [];
     const followUserList = [];
+    if (status.userID !== -1) {
+      try {
+        const res = await axios.get(`/api/users?userID=${adminId}`);
+        if (res.status === 200) {
+          console.log(res.data);
+          for (let i = 0; i < res.data.length; i++) {
+            const each = res.data[i];
+            const followingslist = userData.followings;
+            let isFollowing = false;
 
-    try {
-      const res = await axios.get(`/api/users?userID=${adminId}`);
-      if (res.status === 200) {
-        console.log(res.data);
-        for (let i = 0; i < res.data.length; i++) {
-          const each = res.data[i];
-          const followingslist = userData.followings;
-          let isFollowing = false;
+            for (let i = 0; i < followingslist.length; i++) {
+              if (followingslist[i] === each.userID) {
+                isFollowing = true;
+              }
+            }
+            const followerslist = userData.followers;
+            let isFollows = false;
 
-          for (let i = 0; i < followingslist.length; i++) {
-            if (followingslist[i] === each.userID) {
-              isFollowing = true;
+            for (let i = 0; i < followerslist.length; i++) {
+              if (followerslist[i] === each.userID) {
+                isFollows = true;
+              }
+            }
+            const item = {
+              userID: each.userID,
+              username: each.username,
+              profileImage: each.profileImage,
+              status: each.status + 1,
+              isFollowing: isFollowing,
+              isFollows: isFollows,
+            };
+            if (each.userID !== status.userId) {
+              userList.push(item);
+            }
+            if (isFollowing) {
+              followingUserList.push(item);
+            }
+            if (isFollows) {
+              followUserList.push(item);
             }
           }
-          const followerslist = userData.followers;
-          let isFollows = false;
-
-          for (let i = 0; i < followerslist.length; i++) {
-            if (followerslist[i] === each.userID) {
-              isFollows = true;
-            }
-          }
-          const item = {
-            userID: each.userID,
-            username: each.username,
-            profileImage: each.profileImage,
-            status: each.status + 1,
-            isFollowing: isFollowing,
-            isFollows: isFollows,
-          };
-          if (each.userID !== status.userId) {
-            userList.push(item);
-          }
-          if (isFollowing) {
-            followingUserList.push(item);
-          }
-          if (isFollows) {
-            followUserList.push(item);
-          }
+          setUserList(userList);
+          setFollowers(followUserList);
+          setFollowering(followingUserList);
         }
-        setUserList(userList);
-        setFollowers(followUserList);
-        setFollowering(followingUserList);
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
     }
   };
   const follow = async (id, followOption) => {
@@ -261,7 +264,7 @@ const SearchBarModal = ({
   useEffect(() => {
     getUserdata();
     getAllUserList();
-  }, [status.userID]);
+  }, [status.searchBarModal]);
 
   const clickFollowersButton = (id) => {
     const newArr = [];

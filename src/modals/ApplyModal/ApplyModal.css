@@ -166,3 +166,48 @@
   font-size: var(--size-txt);
   margin: var(--margin-out);
 }
+
+.create__subtitle {
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.create__imageInput {
+  display: none;
+}
+
+.create__uploadImage {
+  position: relative;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  padding-bottom: 70%;
+  border: 1px var(--primary) solid;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  background-size: cover;
+}
+.create__uploadPlus {
+  position: absolute;
+  font-size: 5rem;
+  top: 30%;
+}
+.create__comment {
+  display: flex;
+  height: 10rem;
+  font-size: var(--size-txt);
+  color: var(--text-100);
+  margin-bottom: 1rem;
+  border-radius: 30px;
+  padding: 1rem;
+  border: none;
+}
+
+.create {
+  display: flex;
+  background-color: var(--bg-20);
+  color: var(--primary);
+  flex-direction: column;
+}
