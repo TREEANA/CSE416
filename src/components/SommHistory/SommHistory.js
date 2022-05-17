@@ -16,6 +16,33 @@ const dummyData = {
   // 날짜를 쓰자
 };
 
+const dummy = [
+  //returns list of verification tickets
+  {
+    ticketID: 1,
+    userID: 1,
+    adminID: 9999,
+    verificationImage: "https://s3.bucket.podo/verficationImage/1/1.jpg",
+    userExplanation: "I got my sommelier degree from Canada",
+    adminFeedback:
+      "Image is somewhat blurry please upload the more clear image",
+    createdAt: "2022-04-04 18:11:12",
+    lastUpdatedAt: "2022-04-05 18:11:12",
+    status: 0, //declined
+  },
+  {
+    ticketID: 2,
+    userID: 1,
+    adminID: "",
+    verificationImage: "https://s3.bucket.podo/verficationImage/1/2.jpg",
+    userExplanation: "I got my sommelier degree from Canada",
+    adminFeedback: "",
+    createdAt: "2022-04-05 20:11:12",
+    lastUpdatedAt: "2022-04-05 20:11:12",
+    status: 2, // pending
+  },
+];
+
 const SommHistory = ({ num }) => {
   const [ind2Status, setInd2Status] = useState(false);
 

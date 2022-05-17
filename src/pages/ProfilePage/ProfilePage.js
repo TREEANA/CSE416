@@ -15,9 +15,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
   const [isFollowd, setFollowd] = useState(false);
   const [userClick, setuserClick] = useState("winelist");
   // winelist, wine, review
-  const [profile__like, setProfile__like] = useState("profile__selected");
-  const [profile__review, setProfile__review] = useState("profile__unselected");
-  const [islikewine, setlikewine] = useState(true);
   const [userData, setUserData] = useState({
     followers: [],
     followings: [],
@@ -43,24 +40,11 @@ const ProfilePage = ({ status, toggleStatus }) => {
     }
   };
 
-  const getProfileimage = async () => {
-    try {
-      const res = await axios.get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${status.accesstoken}`
-      );
-
-      if (res.status === 200) {
-        console.log(res.data.picture);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const getReview = async () => {
     try {
       const res = await axios.get(`/api/users/${userID}/reviews?num=20&page=1`);
       const newreviewWineList = [];
+      // 에러있는거
       console.log(res.data);
       if (res.status === 200) {
         const arr = res.data;
@@ -86,12 +70,21 @@ const ProfilePage = ({ status, toggleStatus }) => {
   useEffect(() => {
     getUserdata();
   }, [userID, userClick]);
+
   useEffect(() => {
     getUserdata();
   }, [status]);
 
   useEffect(() => {
     getlikewinelist();
+  }, [userData, userClick]);
+
+  useEffect(() => {
+    getlikewine();
+  }, [userData, userClick]);
+
+  useEffect(() => {
+    getReview();
   }, [userData, userClick]);
 
   useEffect(() => {
@@ -300,7 +293,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
     }
   };
 
-  const dummpyLikedata = [{}];
   const likeimagelist = [
     { url: "https://images.unsplash.com/photo-1566331551467-0dc72cc80ec0" },
     { url: "https://images.unsplash.com/photo-1566331551467-0dc72cc80ec0" },
@@ -313,37 +305,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
     { url: "https://images.unsplash.com/photo-1566331551467-0dc72cc80ec0" },
     { url: "https://images.unsplash.com/photo-1566331551467-0dc72cc80ec0" },
   ];
-
-  const reviewimagelist = [
-    {
-      url: "https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152/h=152/fit=crop/crop=faces",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152/h=152/fit=crop/crop=faces",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152/h=152/fit=crop/crop=faces",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152/h=152/fit=crop/crop=faces",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152/h=152/fit=crop/crop=faces",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152/h=152/fit=crop/crop=faces",
-    },
-  ];
-
-  const click_like = () => {
-    setProfile__like("profile__selected");
-    setProfile__review("profile__unselected");
-  };
-
-  const click__review = () => {
-    setProfile__like("profile__unselected");
-    setProfile__review("profile__selected");
-  };
 
   const displayPictures = (arr) => {
     const result = [];
@@ -446,6 +407,29 @@ const ProfilePage = ({ status, toggleStatus }) => {
           </div>
         )}
 
+        {userClick === "winelist" && (
+          <div
+            className="proflie__history"
+            onClick={() => {
+              setuserClick("wine");
+            }}
+          >
+            {" "}
+            Winelist
+          </div>
+        )}
+        {userClick === "wine" && (
+          <div
+            className="proflie__history"
+            onClick={() => {
+              setuserClick("winelist");
+            }}
+          >
+            {" "}
+            Wine
+          </div>
+        )}
+
         <div className="profile__listcontainer">
           {userClick !== "review" ? (
             <>
@@ -480,32 +464,10 @@ const ProfilePage = ({ status, toggleStatus }) => {
             {userClick === "winelist"
               ? displayWineslist(likesWinelists)
               : userClick === "wine"
-              ? displayPictures(likeimagelist)
-              : displayPictures(likeimagelist)}
+              ? displayWines(likesWinesdata)
+              : displayWines(reviewWineList)}
           </div>
         </div>
-        {profile__like === "profile__selected" && islikewine && (
-          <div
-            className="proflie__history"
-            onClick={() => {
-              setlikewine(!islikewine);
-            }}
-          >
-            {" "}
-            wine
-          </div>
-        )}
-        {profile__like === "profile__selected" && !islikewine && (
-          <div
-            className="proflie__history"
-            onClick={() => {
-              setlikewine(!islikewine);
-            }}
-          >
-            {" "}
-            winelist
-          </div>
-        )}
       </div>
     </>
   );
