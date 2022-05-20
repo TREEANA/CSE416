@@ -26,9 +26,12 @@
   align-self: flex-start;
   color: var(--primary);
   font-size: var(--size-txt);
-  margin-top: 10px;
   font-weight: bold;
   justify-content: flex-end;
+
+  margin-left: var(--margin-out);
+  margin-bottom: 10px;
+
   /* margin-right: var(--margin-out); */
 }
 .profile__button__container {

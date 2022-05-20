@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BsXLg, BsFilePlusFill } from "react-icons/bs";
 import "./ApplyModal.css";
 import SommHistory from "../../components/SommHistory/SommHistory";
@@ -16,6 +16,21 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
   const [tempImage, setTempImage] = useState("");
   const [tempFile, setTempFile] = useState(null);
   const imageInput = useRef();
+  const [userHistory, setUserHistory] = useState([]);
+
+  const fetchHistory = async () => {
+    if (status.userID !== -1) {
+      const res = await axios.get(
+        `/api/verification-tickets?userID=${status.userID}`
+      );
+      console.log(res.data);
+      setUserHistory();
+    }
+  };
+
+  useEffect(() => {
+    fetchHistory();
+  }, [status.userID]);
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
@@ -85,6 +100,20 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
   const gohistroy = () => {
     setstep(3);
   };
+
+  const displayHistory = () => {
+    const result = [];
+
+    for (let each in userHistory) {
+        result.push(
+          <SommHistory data={each} />
+        );
+      
+    }
+
+    return result;
+  };
+
 
   const getPagebystep = () => {
     if (step === 0) {
@@ -163,7 +192,7 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
           <div
             className="becomesommlier__section3_font"
             onClick={() => {
-              close(), setSelectedImage(null);
+              close();
             }}
           >
             Submission complete!<br></br>
@@ -180,7 +209,7 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
               Back to apply
             </div>
           </div>
-
+         
           <SommHistory num={2} />
           <SommHistory num={0} />
           <SommHistory num={0} />
