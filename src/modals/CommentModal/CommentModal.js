@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import "./CommentModal.css";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import Review from "../../components/Review/Review";
 import Wine from "../../components/Wine/Wine";
 import WineList from "../../components/WineList/WineList";
 import Tag from "../../components/Tag/Tag";
 import Comment from "../../components/Comment/Comment";
+
+import "./CommentModal.css";
 
 import {
   BsHeart,
@@ -74,25 +77,41 @@ const CommentModal = ({
 }) => {
   //comment에 있는 userID 바탕으로 userInfo가져오기 (username, status, isDeleted?)
 
-  const [tempComment, setTempComment] = useState(commentData);
+  //get reviewID
+  const { wineID, reviewID } = useParams();
+
+  // 유저가 지금 작성중인 comment - submit 하지 않은
+  const [tempComment, setTempComment] = useState({});
+
+  // 다른 사람들이 이미 작성한 comment
+  const [comments, setComments] = useState({});
+  //comment 가져오기
+  const fetchComments = async (reviewID, wineID) => {
+    try {
+      const res = axios.get(
+        `/api/wines/${wineID}/reviews/${reviewID}/comments`
+      );
+      console.log("fetchComments : ", res.data);
+      setComments(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchComments(reviewID);
+  }, []);
 
   const onChange = (e) => {
     const { value } = e.target;
     setTempComment(value);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      this.handleClick();
-    }
-  };
-
-  const getComments = (arr) => {
-    return arr
+  const displayComments = (comments) => {
+    return comments
       .slice()
       .reverse()
       .map((each) => {
-        return <Comment status={status} />;
+        return <Comment status={status} key={each.id} comments={each} />;
       });
   };
 
@@ -103,6 +122,10 @@ const CommentModal = ({
           commentModalStatus ? "commentModal" : "commentModal--inactive"
         }
       >
+        <div>
+          {/* <div className="commentModal__title"> Comments </div> */}
+          {/* <div className="commentModal__back"> back to wine </div> */}
+        </div>
         <div className="commentModal__container">
           <div className="commentModal__header">
             <div className="commentModal__headerTitle">Comment</div>
@@ -114,21 +137,19 @@ const CommentModal = ({
           <div className="commentModal__reviewContainer">
             <Review userstatus={1} />
           </div>
-          {/* <div>{getComments()}</div> */}
-          <div className="commentModal__tagContainer">
-            <div className="commentModal__tagButton">
+          {/* <div>{displayComments(comments)}</div> */}
+          <Comment status={0} />
+          <Comment status={1} />
+          <div className="commentModal__commentContainer">
+            <div className="commentModal__button">
               <input
-                className="commentModal__tagInput"
+                className="commentModal__input"
                 placeholder="leave a comment"
-                onChange={() => {
-                  onChange();
-                  handleKeyPress();
-                }}
+                onChange={onChange}
               ></input>
             </div>
             <BsPlus className="commentModal__plusIcon" />
           </div>
-          <div></div>
         </div>
       </div>
     </>

@@ -2,11 +2,19 @@ button:hover {
   cursor: pointer;
 }
 
+.commentModal__title {
+  color: var(--primary);
+}
+
+.commentModal__container {
+  padding-top: 80px;
+}
+
 .commentModal__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: var(--margin-out);
+  margin: 10px var(--margin-out);
 }
 
 .commentModal__headerTitle {
@@ -26,9 +34,10 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--margin-out);
+  /* margin-bottom: var(--margin-out);
   margin-left: var(--margin-out);
-  margin-right: var(--margin-out);
+  margin-right: var(--margin-out); */
+  margin: 0 var(--margin-out);
   color: var(--text-100);
 }
 
@@ -68,8 +77,9 @@ button:hover {
   align-items: stretch;
 }
 
-.commentModal__tagContainer {
+.commentModal__commentContainer {
   display: flex;
+  flex-direction: row;
   border-bottom: var(--text-100) 1px solid;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -77,23 +87,28 @@ button:hover {
   margin-right: var(--margin-out);
   justify-content: space-between;
 }
-.commentModal__tagButton {
+
+.commentModal__button {
   display: flex;
   width: 100%;
 }
-.commentModal__tagInput {
+
+.commentModal__input {
   width: 100%;
   border: none;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  color: var(--text-50);
+  /* text-overflow:auto; */
+  /* overflow: auto; */
+  color: var(--text-100);
   background-color: var(--bg-20);
   font-size: var(--size-txt);
+  margin: 0 0 5px 0;
+  height: auto;
 }
 
-.commentModal__tagInput:hover,
-.commentModal__tagInput:not(:hover) {
+.commentModal__input:hover,
+.commentModal__input:not(:hover) {
   outline: none;
 }
 
@@ -102,6 +117,13 @@ button:hover {
   color: var(-primary);
 }
 
+.commentModal__back {
+  margin: 10px var(--margin-out);
+  color: var(--text-50);
+  font-weight: bold;
+}
+
+/* 
 .commentModal__comment {
   display: flex;
   font-size: var(--size-btn);
@@ -138,4 +160,4 @@ button:hover {
   color: var(--primary);
   width: 20px;
   height: 20px;
-}
+} */
