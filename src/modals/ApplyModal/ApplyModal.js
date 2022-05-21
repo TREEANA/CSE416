@@ -105,15 +105,11 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     const result = [];
 
     for (let each in userHistory) {
-        result.push(
-          <SommHistory data={each} />
-        );
-      
+      result.push(<SommHistory data={each} />);
     }
 
     return result;
   };
-
 
   const getPagebystep = () => {
     if (step === 0) {
@@ -209,7 +205,7 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
               Back to apply
             </div>
           </div>
-         
+
           <SommHistory num={2} />
           <SommHistory num={0} />
           <SommHistory num={0} />

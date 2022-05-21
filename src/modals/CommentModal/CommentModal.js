@@ -88,7 +88,7 @@ const CommentModal = ({
   //comment 가져오기
   const fetchComments = async (reviewID, wineID) => {
     try {
-      const res = axios.get(
+      const res = await axios.get(
         `/api/wines/${wineID}/reviews/${reviewID}/comments`
       );
       console.log("fetchComments : ", res.data);
@@ -107,12 +107,9 @@ const CommentModal = ({
   };
 
   const displayComments = (comments) => {
-    return comments
-      .slice()
-      .reverse()
-      .map((each) => {
-        return <Comment status={status} key={each.id} comments={each} />;
-      });
+    return comments.map((each) => {
+      return <Comment status={status} key={each.id} comments={each} />;
+    });
   };
 
   return (
@@ -122,10 +119,6 @@ const CommentModal = ({
           commentModalStatus ? "commentModal" : "commentModal--inactive"
         }
       >
-        <div>
-          {/* <div className="commentModal__title"> Comments </div> */}
-          {/* <div className="commentModal__back"> back to wine </div> */}
-        </div>
         <div className="commentModal__container">
           <div className="commentModal__header">
             <div className="commentModal__headerTitle">Comment</div>
@@ -138,8 +131,8 @@ const CommentModal = ({
             <Review userstatus={1} />
           </div>
           {/* <div>{displayComments(comments)}</div> */}
-          <Comment status={0} />
-          <Comment status={1} />
+          {/* <Comment status={0} />
+          <Comment status={1} /> */}
           <div className="commentModal__commentContainer">
             <div className="commentModal__button">
               <input

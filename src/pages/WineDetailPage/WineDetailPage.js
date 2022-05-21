@@ -46,11 +46,37 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   const userID = status.userID;
   const [wine, setWine] = useState(false);
   const { wineID } = useParams();
+
   //개인유저가 이 와인을 마음에 들어했는지, 아닌지를 하트로 판단
   //전체숫자에 더해주고, 이 사람의 liked list 에 넣어줘야함.
-  const [likes, setLikes] = useState(0);
+  // const [likes, setLikes] = useState(0);
+
+  //user가 새로 create 하는 리뷰
+  const [newReview, setNewReview] = useState({
+    content: "",
+    rating: 0,
+    like: false,
+    tags: [],
+  });
+
+  //리뷰 content 가 바뀔때마다 업데이트
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    let newTempReview = {
+      ...newReview,
+      [name]: value,
+    };
+    setNewReview(newTempReview);
+    console.log(newTempReview);
+  };
+
   const toggleLikes = () => {
-    setLikes(!likes);
+    // setLikes(!likes);
+    let tempReview = {
+      ...newTempReview,
+      like: !like,
+    };
+    setNewReview(tempReview);
   };
   //wineID로 와인 가져오기
   const fetchWine = async (wineId) => {
@@ -140,6 +166,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   //   strawberry: false,
   //   fig: false,
   // });
+  //
   const [valueSearch, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState({});
 
@@ -244,25 +271,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   };
 
   // const [search, setSearch] = useState("");
-
-  //user가 새로 create 하는 리뷰
-  const [newReview, setNewReview] = useState({
-    content: "",
-    rating: 0,
-    like: likes,
-    tags: [],
-  });
-
-  //리뷰 content 가 바뀔때마다 업데이트
-  const onChange = (e) => {
-    const { value, name } = e.target;
-    let newTempReview = {
-      ...newReview,
-      [name]: value,
-    };
-    setNewReview(newTempReview);
-    console.log(newTempReview);
-  };
 
   const onSubmit = async () => {
     const body = {
@@ -401,7 +409,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                 <div className="detail__reviewIcons">
                   <BsHeartFill
                     className={
-                      likes
+                      newReview.like
                         ? "detail__reviewIcon--active"
                         : "detail__reviewIcon--inactive"
                     }

@@ -1,10 +1,10 @@
 button:hover {
   cursor: pointer;
 }
-
+/* 
 .commentModal__title {
   color: var(--primary);
-}
+} */
 
 .commentModal__container {
   padding-top: 80px;
