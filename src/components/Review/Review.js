@@ -28,11 +28,14 @@ const getTags = (tags) => {
   return tagsResult;
 };
 
-const Review = ({ userstatus, review = { dumyReviewdata } }) => {
+const Review = ({ userstatus, review = { dumyReviewdata }, toggleStatus }) => {
   // userstatus = 1;
   return (
     <>
-      <div className={userstatus == 1 ? "review--somm" : "review"}>
+      <div
+        className={userstatus == 1 ? "review--somm" : "review"}
+        onClick={() => toggleStatus("commentModal")}
+      >
         <div className="review__title">
           <div className="review__user">
             <div className="review__user-image">

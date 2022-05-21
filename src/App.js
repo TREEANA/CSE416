@@ -178,7 +178,9 @@ const App = () => {
           />
           <Route
             path="/wine/:wineID"
-            element={<WineDetailPage status={status} />}
+            element={
+              <WineDetailPage status={status} toggleStatus={toggleStatus} />
+            }
           />
           <Route
             path="/list/:winelistID"

@@ -1,42 +1,52 @@
 button:hover {
   cursor: pointer;
 }
+/* 
+.commentModal__title {
+  color: var(--primary);
+} */
 
-.comment__header {
+.commentModal__container {
+  padding-top: 80px;
+}
+
+.commentModal__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: var(--margin-out);
+  margin: 10px var(--margin-out);
 }
-.comment__headerTitle {
+
+.commentModal__headerTitle {
   font-size: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
 }
-.comment__close {
+.commentModal__close {
   font-size: 2rem;
   display: flex;
   font-weight: bold;
   cursor: pointer;
 }
-.comment__reviewContainer {
+.commentModal__reviewContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--margin-out);
+  /* margin-bottom: var(--margin-out);
   margin-left: var(--margin-out);
-  margin-right: var(--margin-out);
+  margin-right: var(--margin-out); */
+  margin: 0 var(--margin-out);
   color: var(--text-100);
 }
 
-.comment__review,
-.comment__winelistrecomm {
+.commentModal__review,
+.commentModal__winelistrecomm {
   /* margin-bottom: 20px; */
   margin: 0 var(--margin-out) 20px;
 }
-.comment {
+.commentModal {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -47,16 +57,16 @@ button:hover {
   flex-direction: column;
   align-items: center;
 }
-.comment--inactive {
+.commentModal--inactive {
   display: none;
 }
 
-.comment__container {
+.commentModal__container {
   width: 480px;
   display: flex;
   flex-direction: column;
 }
-.comment__commentContainer {
+.commentModal__commentContainer {
   display: flex;
   margin-bottom: 10px;
   margin-left: var(--margin-out);
@@ -67,8 +77,9 @@ button:hover {
   align-items: stretch;
 }
 
-.comment__tagContainer {
+.commentModal__commentContainer {
   display: flex;
+  flex-direction: row;
   border-bottom: var(--text-100) 1px solid;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -76,42 +87,55 @@ button:hover {
   margin-right: var(--margin-out);
   justify-content: space-between;
 }
-.comment__tagButton {
+
+.commentModal__button {
   display: flex;
+  width: 100%;
 }
-.comment__tagInput {
+
+.commentModal__input {
   width: 100%;
   border: none;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  color: var(--text-50);
+  /* text-overflow:auto; */
+  /* overflow: auto; */
+  color: var(--text-100);
   background-color: var(--bg-20);
   font-size: var(--size-txt);
+  margin: 0 0 5px 0;
+  height: auto;
 }
 
-.comment__tagInput:hover,
-.comment__tagInput:not(:hover) {
+.commentModal__input:hover,
+.commentModal__input:not(:hover) {
   outline: none;
 }
 
-.comment__plusIcon {
+.commentModal__plusIcon {
   font-size: var(--size-txt);
   color: var(-primary);
 }
 
-.comment__comment {
+.commentModal__back {
+  margin: 10px var(--margin-out);
+  color: var(--text-50);
+  font-weight: bold;
+}
+
+/* 
+.commentModal__comment {
   display: flex;
   font-size: var(--size-btn);
   color: var(--text-100);
 }
 
-.comment__user {
+.commentModal__user {
   display: flex;
   align-items: center;
 }
 
-.comment__userImage {
+.commentModal__userImage {
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -119,21 +143,21 @@ button:hover {
   border: 1px solid var(--text-100);
 }
 
-.comment__userInfo {
+.commentModal__userInfo {
 }
 
-.comment__userName {
+.commentModal__userName {
   font-size: 15px;
   padding-bottom: 2px;
 }
 
-.comment__userDate {
+.commentModal__userDate {
   font-size: x-small;
 }
 
-.comment__userIcon > svg {
+.commentModal__userIcon > svg {
   margin: 5px;
   color: var(--primary);
   width: 20px;
   height: 20px;
-}
+} */

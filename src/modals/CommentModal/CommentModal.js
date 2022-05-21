@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import "./CommentModal.css";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import Review from "../../components/Review/Review";
 import Wine from "../../components/Wine/Wine";
 import WineList from "../../components/WineList/WineList";
 import Tag from "../../components/Tag/Tag";
+import Comment from "../../components/Comment/Comment";
+
+import "./CommentModal.css";
 
 import {
   BsHeart,
@@ -73,52 +77,71 @@ const CommentModal = ({
 }) => {
   //comment에 있는 userID 바탕으로 userInfo가져오기 (username, status, isDeleted?)
 
-  const [tempComment, setTempComment] = useState();
+  //get reviewID
+  const { wineID, reviewID } = useParams();
+
+  // 유저가 지금 작성중인 comment - submit 하지 않은
+  const [tempComment, setTempComment] = useState({});
+
+  // 다른 사람들이 이미 작성한 comment
+  const [comments, setComments] = useState({});
+  //comment 가져오기
+  const fetchComments = async (reviewID, wineID) => {
+    try {
+      const res = await axios.get(
+        `/api/wines/${wineID}/reviews/${reviewID}/comments`
+      );
+      console.log("fetchComments : ", res.data);
+      setComments(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchComments(reviewID);
+  }, []);
 
   const onChange = (e) => {
     const { value } = e.target;
     setTempComment(value);
   };
 
-  // const handleKeyPress = (e) =>{
-  //   if(e.key === 'Enter'){
-  //     this.handleClick();
-  //   }
-  // }
-
-  const getComments = (arr) => {
-    return arr
-      .slice()
-      .reverse()
-      .map((each) => {
-        return <Comment status={status} />;
-      });
+  const displayComments = (comments) => {
+    return comments.map((each) => {
+      return <Comment status={status} key={each.id} comments={each} />;
+    });
   };
 
   return (
     <>
-      <div className={commentModalStatus ? "comment" : "comment--inactive"}>
-        <div className="comment__container">
-          <div className="comment__header">
-            <div className="comment__headerTitle">Comment</div>
+      <div
+        className={
+          commentModalStatus ? "commentModal" : "commentModal--inactive"
+        }
+      >
+        <div className="commentModal__container">
+          <div className="commentModal__header">
+            <div className="commentModal__headerTitle">Comment</div>
             <BsReplyFill
-              className="comment__close"
+              className="commentModal__close"
               onClick={togglecommentModal}
             />
           </div>
-          <div className="comment__reviewContainer">
+          <div className="commentModal__reviewContainer">
             <Review userstatus={1} />
           </div>
-          {/* <div>{getComments()}</div> */}
-          <div className="comment__tagContainer">
-            <div className="comment__tagButton">
+          {/* <div>{displayComments(comments)}</div> */}
+          {/* <Comment status={0} />
+          <Comment status={1} /> */}
+          <div className="commentModal__commentContainer">
+            <div className="commentModal__button">
               <input
-                className="comment__tagInput"
+                className="commentModal__input"
                 placeholder="leave a comment"
                 onChange={onChange}
               ></input>
             </div>
-            <BsPlus className="comment__plusIcon" />
+            <BsPlus className="commentModal__plusIcon" />
           </div>
         </div>
       </div>
