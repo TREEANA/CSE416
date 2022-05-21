@@ -5,6 +5,7 @@ import Review from "../../components/Review/Review";
 import Wine from "../../components/Wine/Wine";
 import WineList from "../../components/WineList/WineList";
 import Tag from "../../components/Tag/Tag";
+import Comment from "../../components/Comment/Comment";
 
 import {
   BsHeart,
@@ -73,18 +74,18 @@ const CommentModal = ({
 }) => {
   //comment에 있는 userID 바탕으로 userInfo가져오기 (username, status, isDeleted?)
 
-  const [tempComment, setTempComment] = useState();
+  const [tempComment, setTempComment] = useState(commentData);
 
   const onChange = (e) => {
     const { value } = e.target;
     setTempComment(value);
   };
 
-  // const handleKeyPress = (e) =>{
-  //   if(e.key === 'Enter'){
-  //     this.handleClick();
-  //   }
-  // }
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      this.handleClick();
+    }
+  };
 
   const getComments = (arr) => {
     return arr
@@ -97,29 +98,37 @@ const CommentModal = ({
 
   return (
     <>
-      <div className={commentModalStatus ? "comment" : "comment--inactive"}>
-        <div className="comment__container">
-          <div className="comment__header">
-            <div className="comment__headerTitle">Comment</div>
+      <div
+        className={
+          commentModalStatus ? "commentModal" : "commentModal--inactive"
+        }
+      >
+        <div className="commentModal__container">
+          <div className="commentModal__header">
+            <div className="commentModal__headerTitle">Comment</div>
             <BsReplyFill
-              className="comment__close"
+              className="commentModal__close"
               onClick={togglecommentModal}
             />
           </div>
-          <div className="comment__reviewContainer">
+          <div className="commentModal__reviewContainer">
             <Review userstatus={1} />
           </div>
           {/* <div>{getComments()}</div> */}
-          <div className="comment__tagContainer">
-            <div className="comment__tagButton">
+          <div className="commentModal__tagContainer">
+            <div className="commentModal__tagButton">
               <input
-                className="comment__tagInput"
+                className="commentModal__tagInput"
                 placeholder="leave a comment"
-                onChange={onChange}
+                onChange={() => {
+                  onChange();
+                  handleKeyPress();
+                }}
               ></input>
             </div>
-            <BsPlus className="comment__plusIcon" />
+            <BsPlus className="commentModal__plusIcon" />
           </div>
+          <div></div>
         </div>
       </div>
     </>

@@ -48,10 +48,9 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   const { wineID } = useParams();
   //개인유저가 이 와인을 마음에 들어했는지, 아닌지를 하트로 판단
   //전체숫자에 더해주고, 이 사람의 liked list 에 넣어줘야함.
-  const [likes, setLikes] = useState(false);
+  const [likes, setLikes] = useState(0);
   const toggleLikes = () => {
     setLikes(!likes);
-    console.log("likes:", likes);
   };
   //wineID로 와인 가져오기
   const fetchWine = async (wineId) => {
@@ -74,10 +73,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   //     }
   //   });
   // };
-  // //처음에 불러올때 확인
-  // useEffect(() => {
-  //   checkReview(userID);
-  // }, []);
 
   //price 나타내주기 current currency price 긁어와서 계산
   //vivino에서 달러로 긁어와서 바꿔줘야함
@@ -97,6 +92,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
   useEffect(() => {
     fetchWine(wineID);
+    // checkReview(userID);
   }, []);
 
   //tags display
@@ -111,45 +107,39 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   const toggleEditReview = () => {
     setEditReview(!editReview);
   };
-  // // winePage 에서 각 review 에 대한 comment 로 넘어가기
-  // // 근데 이 내용이 app.js에 있음 이거 어떻게 업데이트 할지 생각해보기
-  // const [showComment, setShowComment] = useState(0);
-  // const toggleComment = () => {
-  //   setShowComment(!showComment);
-  // };
 
   // //전체 tag list
-  // const [tags, setTags] = useState({});
-  // //tag list 불러오기
-  // const fetchTags = async () => {
-  //   const res = await axios.get("/api/tags/list");
-  //   const tempTags = {};
-  //   res.data.forEach((each) => {
-  //     tempTags[each] = false;
-  //   });
-  //   setTags(tempTags);
-  // };
+  const [tagList, setTagList] = useState({});
+  //tag list 불러오기
+  const fetchTags = async () => {
+    const res = await axios.get("/api/tags/list");
+    const tempTags = {};
+    res.data.forEach((each) => {
+      tempTags[each] = false;
+    });
+    setTagList(tempTags);
+  };
 
-  // useEffect(() => {
-  //   fetchTags();
-  // }, []);
+  useEffect(() => {
+    fetchTags();
+  }, []);
 
-  const [tagList, setTagList] = useState({
-    acidic: false,
-    light: false,
-    picnic: false,
-    dry: false,
-    oak: false,
-    rose: false,
-    cherry: false,
-    blackberry: false,
-    chocolate: false,
-    vanilla: false,
-    good: false,
-    fruit: false,
-    strawberry: false,
-    fig: false,
-  });
+  // const [tagList, setTagList] = useState({
+  //   acidic: false,
+  //   light: false,
+  //   picnic: false,
+  //   dry: false,
+  //   oak: false,
+  //   rose: false,
+  //   cherry: false,
+  //   blackberry: false,
+  //   chocolate: false,
+  //   vanilla: false,
+  //   good: false,
+  //   fruit: false,
+  //   strawberry: false,
+  //   fig: false,
+  // });
   const [valueSearch, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState({});
 
@@ -247,6 +237,8 @@ const WineDetailPage = ({ status, toggleStatus }) => {
           onClick={onTagClick.bind({ txt: each })}
         />
       );
+      newReview.tags.push(each);
+      console.log(newReview);
     }
     return result;
   };
@@ -273,46 +265,34 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   };
 
   const onSubmit = async () => {
-    // setCreating(true);
-    // const body = {
-    //   ...newReview,
-    //   // userID: status.userID,
-    //   wines: newReview.wines.map((each) => {
-    //     return { wineID: each.wineID };
-    //   }),
-    // };
-
-    const formData = new FormData();
-    form.append("userID", userID);
-    // form.append("wineID", wineID);
-    form.append("content", newReview.content);
-    form.append("rating", newReview.rating);
-    form.append("tags", newReview.tags);
-
-    const config = {
-      header: { "Content-Type": "multipart/form-data" },
+    const body = {
+      ...newReview,
+      // userID: status.userID,
+      wines: newReview.wines.map((each) => {
+        return { wineID: each.wineID };
+      }),
     };
 
-    // console.log(body);
-    // if (existReview) {
-    //   await axios
-    //     .put(`/api/wines/${wineID}/reviews`, form)
-    //     .then((response) => {
-    //       console.log("response : ", JSON.stringify(response, null));
-    //     })
-    //     .catch((error) => {
-    //       console.log("failed", error);
-    //     });
-    // } else {
-    //   await axios
-    //     .post(`/api/wines/${wineID}/reviews`, form)
-    //     .then((response) => {
-    //       console.log("response : ", JSON.stringify(response, null));
-    //     })
-    //     .catch((error) => {
-    //       console.log("failed", error);
-    //     });
-    // }
+    console.log(body);
+    if (existReview) {
+      await axios
+        .put(`/api/wines/${wineID}/reviews`, body)
+        .then((res) => {
+          console.log("response : ", JSON.stringify(res, null));
+        })
+        .catch((error) => {
+          console.log("failed", error);
+        });
+    } else {
+      await axios
+        .post(`/api/wines/${wineID}/reviews`, body)
+        .then((res) => {
+          console.log("response : ", JSON.stringify(res, null));
+        })
+        .catch((error) => {
+          console.log("failed", error);
+        });
+    }
   };
 
   return (
@@ -347,7 +327,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                   max="5"
                   value={wine.lightness}
                   disable="disable"
-                  readonly
+                  readOnly
                 />
                 <div className="detail__wineCharName"> bold</div>
               </div>
@@ -361,7 +341,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                   max="5"
                   value={wine.smoothness}
                   disable="disable"
-                  readonly
+                  readOnly
                 />
                 <div className="detail__wineCharName"> tannin</div>
               </div>
@@ -375,7 +355,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                   max="5"
                   value={wine.sweetness}
                   disable="disable"
-                  readonly
+                  readOnly
                 />
                 <div className="detail__wineCharName"> dry</div>
               </div>
@@ -389,7 +369,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                   max="5"
                   value={wine.softness}
                   disable="disable"
-                  readonly
+                  readOnly
                 />
                 <div className="detail__wineCharName"> acidic</div>
               </div>
@@ -405,7 +385,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
               <div className="detail__reviewTitle">
                 <div className="detail__reviewStar">
                   <Rating
-                    // precision={0.5}
                     size="large"
                     name="rating"
                     onChange={onChange}
@@ -417,7 +396,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                         sx={{ fontSize: 40 }}
                       />
                     }
-                    // emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit"}
                   />
                 </div>
                 <div className="detail__reviewIcons">
@@ -500,8 +478,8 @@ const WineDetailPage = ({ status, toggleStatus }) => {
               <div></div>
             </form>
 
-            <Review userstatus={1} />
-            <Review userStatus={0} />
+            <Review userstatus={1} toggleStatus={toggleStatus} />
+            <Review userStatus={0} toggleStatus={toggleStatus} />
             <div className="detail__moreReview"> view more reviews</div>
           </div>
           <hr className="detail__line"></hr>
