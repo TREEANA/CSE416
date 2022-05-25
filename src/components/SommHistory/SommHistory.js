@@ -53,7 +53,10 @@ const SommHistory = ({ status, data }) => {
     <>
       <div className="verifysomm__verifyInd" onClick={toggleInd2Status}>
         <div className="verifysomm__verifyInfo">
-          <img src={status.userinfo.profileImage}></img>
+          <img
+            className="verifysomm__img"
+            src={status.userinfo.profileImage}
+          ></img>
           <div className="verifysomm__verifyName"> {data.createdAt}</div>
         </div>
         {verifybtn()}
