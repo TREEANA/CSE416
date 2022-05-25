@@ -6,8 +6,6 @@ import { MdWineBar, MdSettings } from "react-icons/md";
 
 const dumyReviewdata = {
   reviewID: 1,
-  name: "Woohyung Lee",
-  // 리뷰하는 사람의 이름, 리뷰하는 사람의 유저의 등급 (userstat필요 ),리뷰하는 사람의 이미지를 얻는다
   wineID: 1,
   userID: 1,
   content: "I love this wine, but it is more expensive than I thought",
@@ -17,6 +15,8 @@ const dumyReviewdata = {
   comments: [],
   tags: ["red", "sweet"],
   isDeleted: false,
+  userstatus: 1,
+  name: "Woohyung Lee",
 };
 const getTags = (tags) => {
   const tagsResult = [];
@@ -28,12 +28,11 @@ const getTags = (tags) => {
   return tagsResult;
 };
 
-const Review = ({ userstatus, review = { dumyReviewdata }, toggleStatus }) => {
-  // userstatus = 1;
+const Review = ({ review = { dumyReviewdata }, toggleStatus }) => {
   return (
     <>
       <div
-        className={userstatus == 1 ? "review--somm" : "review"}
+        className={dumyReviewdata.userstatus == 1 ? "review--somm" : "review"}
         onClick={() => toggleStatus("commentModal")}
       >
         <div className="review__title">
@@ -50,12 +49,18 @@ const Review = ({ userstatus, review = { dumyReviewdata }, toggleStatus }) => {
             </div>
             <div className="review__user-icon">
               {" "}
-              {userstatus == 1 ? <MdWineBar /> : <div></div>}{" "}
+              {dumyReviewdata.userstatus == 1 ? (
+                <MdWineBar />
+              ) : (
+                <div></div>
+              )}{" "}
             </div>
           </div>
           <div
             className={
-              userstatus == 1 ? "review__user-rate--somm" : "review__user-rate"
+              dumyReviewdata.userstatus == 1
+                ? "review__user-rate--somm"
+                : "review__user-rate"
             }
           >
             {" "}

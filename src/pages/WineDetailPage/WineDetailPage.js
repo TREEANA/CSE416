@@ -486,8 +486,8 @@ const WineDetailPage = ({ status, toggleStatus }) => {
               <div></div>
             </form>
 
-            <Review userstatus={1} toggleStatus={toggleStatus} />
-            <Review userStatus={0} toggleStatus={toggleStatus} />
+            <Review toggleStatus={toggleStatus} />
+            <Review toggleStatus={toggleStatus} />
             <div className="detail__moreReview"> view more reviews</div>
           </div>
           <hr className="detail__line"></hr>
