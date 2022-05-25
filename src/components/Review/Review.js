@@ -28,11 +28,18 @@ const getTags = (tags) => {
   return tagsResult;
 };
 
-const Review = ({ review = { dumyReviewdata }, toggleStatus }) => {
+const Review = ({ review, toggleStatus }) => {
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}.${month}.${day}`;
+  };
+
   return (
     <>
       <div
-        className={dumyReviewdata.userstatus == 1 ? "review--somm" : "review"}
+        className={review.userstatus == 1 ? "review--somm" : "review"}
         onClick={() => toggleStatus("commentModal")}
       >
         <div className="review__title">
@@ -42,34 +49,30 @@ const Review = ({ review = { dumyReviewdata }, toggleStatus }) => {
             </div>
             {/* <img className = "review__user-image" src = "https://mymodernmet.com/wp/wp-content/uploads/2020/08/sommelier-shutterstock-1.jpg"> </img> */}
             <div className="review__user-info">
-              <div className="review__user-name">{dumyReviewdata.name}</div>
+              <div className="review__user-name">{review.username}</div>
               <div className="review__user-date">
-                {dumyReviewdata.createdAt}
+                {formatDate(new Date(review.createdAt))}
               </div>
             </div>
             <div className="review__user-icon">
               {" "}
-              {dumyReviewdata.userstatus == 1 ? (
-                <MdWineBar />
-              ) : (
-                <div></div>
-              )}{" "}
+              {review.userstatus == 1 ? <MdWineBar /> : <div></div>}{" "}
             </div>
           </div>
           <div
             className={
-              dumyReviewdata.userstatus == 1
+              review.userstatus == 1
                 ? "review__user-rate--somm"
                 : "review__user-rate"
             }
           >
             {" "}
             <BsFillStarFill />
-            {dumyReviewdata.rating}{" "}
+            {review.rating}{" "}
           </div>
         </div>
-        <div className="review__tag">{getTags(dumyReviewdata.tags)}</div>
-        <div className="review__content"> {dumyReviewdata.content} </div>
+        <div className="review__tag">{getTags(review.tags)}</div>
+        <div className="review__content"> {review.content} </div>
       </div>
     </>
   );
