@@ -17,6 +17,8 @@ const dumyReviewdata = {
   isDeleted: false,
   userstatus: 1,
   name: "Woohyung Lee",
+  imageurl:
+    "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
 };
 const getTags = (tags) => {
   const tagsResult = [];
@@ -45,7 +47,7 @@ const Review = ({ review, toggleStatus }) => {
         <div className="review__title">
           <div className="review__user">
             <div className="review__user-image">
-              <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+              <img src={review.imageurl} />
             </div>
             {/* <img className = "review__user-image" src = "https://mymodernmet.com/wp/wp-content/uploads/2020/08/sommelier-shutterstock-1.jpg"> </img> */}
             <div className="review__user-info">
