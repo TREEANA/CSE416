@@ -19,18 +19,17 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
   const [userHistory, setUserHistory] = useState([]);
 
   const fetchHistory = async () => {
-    if (status.userID !== -1) {
+    if (status.userID) {
       const res = await axios.get(
         `/api/verification-tickets?userID=${status.userID}`
       );
-      console.log(res.data);
-      setUserHistory();
+      setUserHistory(res.data);
     }
   };
 
   useEffect(() => {
     fetchHistory();
-  }, [status.userID]);
+  }, [step]);
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
@@ -105,7 +104,7 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     const result = [];
 
     for (let each in userHistory) {
-      result.push(<SommHistory data={each} />);
+      result.push(<SommHistory status={status} data={userHistory[each]} />);
     }
 
     return result;
@@ -205,10 +204,7 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
               Back to apply
             </div>
           </div>
-
-          <SommHistory num={2} />
-          <SommHistory num={0} />
-          <SommHistory num={0} />
+          {displayHistory()}
         </div>
       );
     } else if (step === 4) {
