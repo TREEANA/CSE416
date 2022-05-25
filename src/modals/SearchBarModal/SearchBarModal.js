@@ -36,7 +36,7 @@ const SearchBarModal = ({
   ]);
 
   const getUserdata = async () => {
-    if (status.userID !== -1) {
+    if (status.userID) {
       try {
         const res = await axios.get(
           `/api/users/${status.userID}?requesterID=${status.userID}`

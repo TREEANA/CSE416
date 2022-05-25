@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./SortModal.css";
 import { BsSearch, BsXLg } from "react-icons/bs";
 
-const SortModal = ({ sortModal, toggleSortModal }) => {
+const SortModal = ({ status, setStatus }) => {
+  const [sortMethod, setSortMethod] = useState("Highest_Rating");
   const [Highest_Rating, setHighest_Rating] = useState(
     "sort__method--selected"
   );
@@ -19,6 +20,7 @@ const SortModal = ({ sortModal, toggleSortModal }) => {
     setMost_Liked("sort__method--unselected");
     setPrice_Low_to_High("sort__method--unselected");
     setPrice_High_to_Low("sort__method--unselected");
+    setSortMethod("HighestRating");
   };
 
   const click_Most_Liked = () => {
@@ -26,6 +28,7 @@ const SortModal = ({ sortModal, toggleSortModal }) => {
     setMost_Liked("sort__method--selected");
     setPrice_Low_to_High("sort__method--unselected");
     setPrice_High_to_Low("sort__method--unselected");
+    setSortMethod("MostLiked");
   };
 
   const click_Price_Low_to_High = () => {
@@ -33,6 +36,7 @@ const SortModal = ({ sortModal, toggleSortModal }) => {
     setMost_Liked("sort__method--unselected");
     setPrice_Low_to_High("sort__method--selected");
     setPrice_High_to_Low("sort__method--unselected");
+    setSortMethod("PriceLowtoHigh");
   };
 
   const click_Price_High_to_Low = () => {
@@ -40,15 +44,25 @@ const SortModal = ({ sortModal, toggleSortModal }) => {
     setMost_Liked("sort__method--unselected");
     setPrice_Low_to_High("sort__method--unselected");
     setPrice_High_to_Low("sort__method--selected");
+    setSortMethod("PriceHightoLow");
   };
 
   return (
     <>
-      <div className={sortModal ? "sort" : "sort--inactive"}>
+      <div className={status.sortModal ? "sort" : "sort--inactive"}>
         <div className="sort__top">
           <div className="sort__top-left">x</div>
           <div className="sort__top-title"> Sort </div>
-          <BsXLg className="sort__top-close" onClick={toggleSortModal} />
+          <BsXLg
+            className="sort__top-close"
+            onClick={() =>
+              setStatus({
+                ...status,
+                sortModal: !status.sortModal,
+                sortOrder: sortMethod,
+              })
+            }
+          />
         </div>
 
         <div className="sort__method">

@@ -52,7 +52,7 @@ import "./WinePage.css";
 //   },
 // ];
 
-const WinePage = ({ status, toggleStatus }) => {
+const WinePage = ({ status, toggleStatus, setStatus }) => {
   const filterModal = status.filterModal;
   const sortModal = status.sortModal;
   const { theme } = useParams();
@@ -67,6 +67,16 @@ const WinePage = ({ status, toggleStatus }) => {
 
   const formatTheme = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  const fetchFilterandSortDefault = () => {
+    setStatus({
+      ...status,
+      sortOrder: "HighestRating",
+      valuePrice: [23000, 128000],
+      valueRate: 4.5,
+      tagsForfilter: [theme],
+    });
   };
 
   const fetchWines = async (page) => {
@@ -131,6 +141,7 @@ const WinePage = ({ status, toggleStatus }) => {
     setWines([]);
     setPage(1);
     fetchWines(1);
+    fetchFilterandSortDefault();
   }, [theme]);
 
   return (
@@ -149,11 +160,8 @@ const WinePage = ({ status, toggleStatus }) => {
       </div>
       {loading && wines.length === 0 && <Loader />}
       {displayWines()}
-      <FilterModal
-        toggleFilterModal={toggleFilterModal}
-        filterModal={filterModal}
-      />
-      <SortModal sortModal={sortModal} toggleSortModal={toggleSortModal} />
+      <FilterModal status={status} setStatus={setStatus} />
+      <SortModal status={status} setStatus={setStatus} />
     </div>
   );
 };

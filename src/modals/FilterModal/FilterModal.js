@@ -1,45 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./FilterModal.css";
 import Tag from "../../components/Tag/Tag";
 import { BsSearch, BsXLg, BsStarFill, BsStar } from "react-icons/bs";
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
-import { AlternateEmail } from "@mui/icons-material";
+import axios, { CancelToken } from "axios";
 
-const FilterModal = ({ filterModal, toggleFilterModal }) => {
+import { AlternateEmail } from "@mui/icons-material";
+const FilterModal = ({ status, setStatus }) => {
   // tag명과 status를 key, value로 준 객체를 생성
   const [valuePrice, setValuePrice] = useState([23000, 128000]);
   const [valueRate, setValueRate] = useState(4.5);
   const [valueSearch, setSearch] = useState("");
-  const [list, setList] = useState({
-    acidic: false,
-    light: false,
-    picnic: false,
-    dry: false,
-    oak: false,
-    rose: false,
-    cherry: false,
-    blackberry: false,
-    chocolate: false,
-    vanilla: false,
-    good: false,
-    fruit: false,
-    strawberry: false,
-    fig: false,
-  });
+  const [list, setList] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const fetchTags = async () => {
+    const res = await axios.get("/api/tags/list");
+    const tempTags = {};
+    res.data.forEach((each) => {
+      tempTags[each] = false;
+    });
+
+    // 선택된 필터들
+    const usertag = status.tagsForfilter;
+    usertag.forEach((each) => {
+      tempTags[each] = true;
+    });
+
+    setList(tempTags);
+  };
+
+  useEffect(() => {
+    fetchTags();
+    setValueRate(status.valueRate);
+    setValuePrice(status.valuePrice);
+  }, [status.tagsForfilter]);
   // 버튼을 클릭하면 토글되도록 변경
   function onBtnClick() {
     setList({ ...list, [this.txt]: !list[this.txt] });
   }
-  const clickAddIcon = () => {
-    for (const each in list) {
-      if (each === valueSearch) {
-        const copylist = list;
-        copylist[valueSearch] = true;
-        setList(copylist);
-      }
-    }
-  };
+  // const clickAddIcon = () => {
+  //   for (const each in list) {
+  //     if (each === valueSearch) {
+  //       const copylist = list;
+  //       copylist[valueSearch] = true;
+  //       setList(copylist);
+  //     }
+  //   }
+  // };
   const displaySelectedTags = () => {
     const result = [];
 
@@ -156,11 +165,29 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
 
   return (
     <>
-      <div className={filterModal ? "filter" : "filter--inactive"}>
+      <div className={status.filterModal ? "filter" : "filter--inactive"}>
         <div className="filter__top">
           <div className="filter__top-left">x</div>
           <div className="filter__top-title"> filters </div>
-          <BsXLg className="filter__top-close" onClick={toggleFilterModal} />
+          <BsXLg
+            className="filter__top-close"
+            onClick={() => {
+              let newselectedTags = [];
+
+              for (let each in list) {
+                if (list[each] === true) {
+                  newselectedTags.push(each);
+                }
+              }
+              setStatus({
+                ...status,
+                filterModal: !status.filterModal,
+                tagsForfilter: newselectedTags,
+                valuePrice,
+                valueRate,
+              });
+            }}
+          />
         </div>
 
         <div className="filter__cond">
@@ -176,10 +203,6 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
                   setSearch(event.target.value);
                 }}
               ></input>
-              <div className="detail__reviewPlus" onClick={clickAddIcon}>
-                {" "}
-                +
-              </div>
             </div>
             <div>
               {" "}
@@ -248,7 +271,25 @@ const FilterModal = ({ filterModal, toggleFilterModal }) => {
           </div>
         </div>
         <div className="filter__button">
-          <div className="filter__button-apply" onClick={toggleFilterModal}>
+          <div
+            className="filter__button-apply"
+            onClick={() => {
+              let newselectedTags = [];
+
+              for (let each in list) {
+                if (list[each] === true) {
+                  newselectedTags.push(each);
+                }
+              }
+              setStatus({
+                ...status,
+                filterModal: !status.filterModal,
+                tagsForfilter: newselectedTags,
+                valuePrice,
+                valueRate,
+              });
+            }}
+          >
             apply filter
           </div>
         </div>

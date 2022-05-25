@@ -63,6 +63,10 @@ const App = () => {
     commentModal: false,
     exchangeRate: 0,
     editProfileModal: false,
+    sortOrder: "HighestRating",
+    valuePrice: [23000, 128000],
+    valueRate: 4.5,
+    tagsForfilter: [],
   });
 
   useEffect(async () => {
@@ -205,7 +209,13 @@ const App = () => {
           />
           <Route
             path="/wines/:theme"
-            element={<WinePage status={status} toggleStatus={toggleStatus} />}
+            element={
+              <WinePage
+                status={status}
+                setStatus={setStatus}
+                toggleStatus={toggleStatus}
+              />
+            }
           />
           <Route
             path="/search/:keyword"

@@ -17,8 +17,10 @@ const EditProfileModal = ({ status, toggleStatus }) => {
     res.data.forEach((each) => {
       tempTags[each] = false;
     });
+
     // user가 선택한 태그 보여주기
-    if (status.userID !== -1) {
+    console.log(tempTags);
+    if (status.userID) {
       const res = await axios.get(
         `/api/users/${status.userID}?requesterID=${status.userID}`
       );
@@ -33,7 +35,7 @@ const EditProfileModal = ({ status, toggleStatus }) => {
 
   useEffect(() => {
     fetchTags();
-  }, []);
+  }, [status.EditProfileModal]);
 
   function onBtnClick() {
     setList({ ...list, [this.txt]: !list[this.txt] });
