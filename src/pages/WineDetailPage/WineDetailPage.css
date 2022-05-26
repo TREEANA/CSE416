@@ -194,10 +194,11 @@ button:hover {
   cursor: pointer;
   border-radius: 30px;
   color: var(--bg-0);
+  font-size: 1.5rem;
   background-color: var(--primary);
   display: flex;
   justify-content: center;
-  height: 1.5rem;
+  height: 2.5rem;
   align-items: center;
 }
 
@@ -224,10 +225,14 @@ button:hover {
   margin: 0 var(--margin-out) 20px;
 }
 
-.tasteStructure__tasteStructure--15VDn,
+.detail__review > .tasteStructure__tasteStructure--15VDn,
 .tasteStructure__tasteCharacteristic--1rMFl,
 .tasteStructure__progressBar--hjNb2 {
   width: 100%;
+}
+
+.detail__review a {
+  color: var(--text-100);
 }
 
 .tasteStructure__tasteStructure--15VDn,

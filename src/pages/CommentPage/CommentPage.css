@@ -6,31 +6,31 @@ button:hover {
   color: var(--primary);
 } */
 
-.commentModal__container {
-  padding-top: 80px;
+.commentPage__container {
+  /* padding-top: 80px; */
 }
 
-.commentModal__header {
+.commentPage__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 10px var(--margin-out);
 }
 
-.commentModal__headerTitle {
+.commentPage__headerTitle {
   font-size: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
 }
-.commentModal__close {
+.commentPage__close {
   font-size: 2rem;
   display: flex;
   font-weight: bold;
   cursor: pointer;
 }
-.commentModal__reviewContainer {
+.commentPage__reviewContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,12 +41,12 @@ button:hover {
   color: var(--text-100);
 }
 
-.commentModal__review,
-.commentModal__winelistrecomm {
+.commentPage__review,
+.commentPage__winelistrecomm {
   /* margin-bottom: 20px; */
   margin: 0 var(--margin-out) 20px;
 }
-.commentModal {
+.commentPage {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -57,16 +57,16 @@ button:hover {
   flex-direction: column;
   align-items: center;
 }
-.commentModal--inactive {
+.commentPage--inactive {
   display: none;
 }
 
-.commentModal__container {
+.commentPage__container {
   width: 480px;
   display: flex;
   flex-direction: column;
 }
-.commentModal__commentContainer {
+.commentPage__commentContainer {
   display: flex;
   margin-bottom: 10px;
   margin-left: var(--margin-out);
@@ -77,7 +77,7 @@ button:hover {
   align-items: stretch;
 }
 
-.commentModal__commentContainer {
+.commentPage__commentContainer {
   display: flex;
   flex-direction: row;
   border-bottom: var(--text-100) 1px solid;
@@ -88,12 +88,12 @@ button:hover {
   justify-content: space-between;
 }
 
-.commentModal__button {
+.commentPage__button {
   display: flex;
   width: 100%;
 }
 
-.commentModal__input {
+.commentPage__input {
   width: 100%;
   border: none;
   overflow: hidden;
@@ -107,17 +107,17 @@ button:hover {
   height: auto;
 }
 
-.commentModal__input:hover,
-.commentModal__input:not(:hover) {
+.commentPage__input:hover,
+.ccommentPage__input:not(:hover) {
   outline: none;
 }
 
-.commentModal__plusIcon {
+.commentPage__plusIcon {
   font-size: var(--size-txt);
   color: var(-primary);
 }
 
-.commentModal__back {
+.commentPage__back {
   margin: 10px var(--margin-out);
   color: var(--text-50);
   font-weight: bold;

@@ -8,18 +8,9 @@ import WineList from "../../components/WineList/WineList";
 import Tag from "../../components/Tag/Tag";
 import Comment from "../../components/Comment/Comment";
 
-import "./CommentModal.css";
+import "./CommentPage.css";
 
-import {
-  BsHeart,
-  BsFillPencilFill,
-  BsHeartFill,
-  BsStar,
-  BsPlus,
-  BsPatchCheckFill,
-  BsStarFill,
-  BsReplyFill,
-} from "react-icons/bs";
+import { BsPlus, BsPatchCheckFill, BsReplyFill } from "react-icons/bs";
 
 const commentDummyData = {
   0: {
@@ -69,10 +60,9 @@ const userDummyData = {
   },
 };
 
-const CommentModal = ({
-  commentModalStatus,
+const CommentPage = ({
   togglecommentModal,
-  commentData = commentDummyData,
+  // commentData = commentDummyData,
   status,
 }) => {
   //comment에 있는 userID 바탕으로 userInfo가져오기 (username, status, isDeleted?)
@@ -85,7 +75,8 @@ const CommentModal = ({
 
   // 다른 사람들이 이미 작성한 comment
   const [comments, setComments] = useState({});
-  //comment 가져오기
+
+  // comment 가져오기
   const fetchComments = async (reviewID, wineID) => {
     try {
       const res = await axios.get(
@@ -101,47 +92,43 @@ const CommentModal = ({
     fetchComments(reviewID);
   }, []);
 
-  const onChange = (e) => {
-    const { value } = e.target;
-    setTempComment(value);
-  };
-
   const displayComments = (comments) => {
     return comments.map((each) => {
       return <Comment status={status} key={each.id} comments={each} />;
     });
   };
 
+  const onChange = (e) => {
+    const { value } = e.target;
+    setTempComment(value);
+  };
+
   return (
     <>
-      <div
-        className={
-          commentModalStatus ? "commentModal" : "commentModal--inactive"
-        }
-      >
-        <div className="commentModal__container">
-          <div className="commentModal__header">
-            <div className="commentModal__headerTitle">Comment</div>
+      <div className="commentPage">
+        <div className="commentPage__container">
+          <div className="commentPage__header">
+            <div className="commentPage__headerTitle">Comment</div>
             <BsReplyFill
-              className="commentModal__close"
+              className="commentPage__close"
               onClick={togglecommentModal}
             />
           </div>
-          <div className="commentModal__reviewContainer">
+          <div className="commentPage__reviewContainer">
             <Review userstatus={1} />
           </div>
           {/* <div>{displayComments(comments)}</div> */}
-          {/* <Comment status={0} />
-          <Comment status={1} /> */}
-          <div className="commentModal__commentContainer">
-            <div className="commentModal__button">
+          <Comment status={0} />
+          <Comment status={1} />
+          <div className="commentPage__commentContainer">
+            <div className="commentPage__button">
               <input
-                className="commentModal__input"
+                className="commentPage__input"
                 placeholder="leave a comment"
                 onChange={onChange}
               ></input>
             </div>
-            <BsPlus className="commentModal__plusIcon" />
+            <BsPlus className="commentPage__plusIcon" />
           </div>
         </div>
       </div>
@@ -149,4 +136,4 @@ const CommentModal = ({
   );
 };
 
-export default CommentModal;
+export default CommentPage;
