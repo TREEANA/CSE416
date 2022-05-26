@@ -12,7 +12,7 @@ import SideBarModal from "./modals/SideBarModal/SideBarModal";
 import SearchBarModal from "./modals/SearchBarModal/SearchBarModal";
 import ApplyModal from "./modals/ApplyModal/ApplyModal";
 import TicketModal from "./modals/TicketModal/TicketModal";
-import CommentModal from "./modals/CommentModal/CommentModal";
+import CommentPage from "./pages/CommentPage/CommentPage";
 import EditProfileModal from "./modals/EditProfileModal/EditProfileModal";
 
 import MainPage from "./pages/MainPage/MainPage";
@@ -60,7 +60,7 @@ const App = () => {
     filterModal: false,
     sortModal: false,
     applyModal: false,
-    commentModal: false,
+    // commentModal: false,
     exchangeRate: 0,
     editProfileModal: false,
   });
@@ -121,10 +121,10 @@ const App = () => {
         applyModalStatus={status.applyModal}
         toggleApplyModal={() => toggleStatus("applyModal")}
       ></ApplyModal>
-      <CommentModal
+      {/* <CommentModal
         commentModalStatus={status.commentModal}
         togglecommentModal={() => toggleStatus("commentModal")}
-      ></CommentModal>
+      ></CommentModal> */}
       <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
       <SearchBarModal
         status={status}
@@ -221,9 +221,13 @@ const App = () => {
             path="/create"
             element={<CreatePage status={status} toggleStatus={toggleStatus} />}
           />
+          <Route
+            path="/wine/:wineID/reviews/:reviewID"
+            element={<CommentPage status={status} />}
+          />
+
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/verifysomm" element={<VerifyPage />} />
-          {/* <Route path="/verify" element={<SommVerify />}></Route> */}
         </Routes>
       </div>
       <Footer />
