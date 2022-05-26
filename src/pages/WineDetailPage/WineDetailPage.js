@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 import Tag from "../../components/Tag/Tag";
 import Loader from "../../components/Loader/Loader";
 import Wine from "../../components/Wine/Wine";
 import WineList from "../../components/WineList/WineList";
-import CommentModal from "../../modals/CommentModal/CommentModal";
+import CommentPage from "../CommentPage/CommentPage";
 import Review from "../../components/Review/Review";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 
 import { BsFillPencilFill, BsHeartFill } from "react-icons/bs";
 import "./WineDetailPage.css";
+import { EighteenMpRounded } from "@mui/icons-material";
 
 // const defaultWineInfo = {
 //   wineID: 1,
@@ -62,21 +63,26 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   //리뷰 content 가 바뀔때마다 업데이트
   const onChange = (e) => {
     const { value, name } = e.target;
-    let newTempReview = {
-      ...newReview,
-      [name]: value,
-    };
-    setNewReview(newTempReview);
-    console.log(newTempReview);
+    if (name !== "like") {
+      let newTempReview = {
+        ...newReview,
+        [name]: value,
+      };
+      setNewReview(newTempReview);
+      console.log(newTempReview);
+    }
   };
 
-  const toggleLikes = () => {
+  const toggleLikes = (e) => {
     // setLikes(!likes);
-    let tempReview = {
-      ...newTempReview,
-      like: !like,
-    };
-    setNewReview(tempReview);
+    setNewReview({ ...newReview, like: !like });
+    // const { value, name } = e.target.parentNode.parentNode;
+    // console.log(e.target.parentNode.parentNode.value, value, name);
+    // let tempReview = {
+    //   ...newReview,
+    //   [name]: !value,
+    // };
+    // setNewReview(tempReview);
   };
   //wineID로 와인 가져오기
   const fetchWine = async (wineId) => {
@@ -87,17 +93,18 @@ const WineDetailPage = ({ status, toggleStatus }) => {
       console.log(e);
     }
   };
+
   //review중에 userID로 쓴 리뷰가 있는지 확인
   const [existReview, setExistReview] = useState(0);
-  // 들어온 리뷰 중에 userID 겹치는게 있는지 확인
 
-  // const wineReviews = wine.review;
+  // 들어온 리뷰 중에 userID 겹치는게 있는지 확인
   // const checkReview = (userID) => {
-  //   wine.review.forEach((review) => {
+  //   wine.reviews.forEach((review) => {
   //     if (review.userID === userID) {
   //       setExistReview(1);
   //     }
   //   });
+  //   console.log("checkReview result: ", existReview);
   // };
 
   //price 나타내주기 current currency price 긁어와서 계산
@@ -115,11 +122,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   const formatGrape = () => {
     return wine.grape.map((each, index) => <div>{each}</div>);
   };
-
-  useEffect(() => {
-    fetchWine(wineID);
-    // checkReview(userID);
-  }, []);
 
   //tags display
   const displayTags = () => {
@@ -147,26 +149,10 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   };
 
   useEffect(() => {
+    fetchWine(wineID);
     fetchTags();
   }, []);
 
-  // const [tagList, setTagList] = useState({
-  //   acidic: false,
-  //   light: false,
-  //   picnic: false,
-  //   dry: false,
-  //   oak: false,
-  //   rose: false,
-  //   cherry: false,
-  //   blackberry: false,
-  //   chocolate: false,
-  //   vanilla: false,
-  //   good: false,
-  //   fruit: false,
-  //   strawberry: false,
-  //   fig: false,
-  // });
-  //
   const [valueSearch, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState({});
 
@@ -218,7 +204,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
   const displaySelectedTags = () => {
     const result = [];
-
     for (let each in tagList) {
       if (tagList[each] === true) {
         result.push(
@@ -270,12 +255,48 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     return result;
   };
 
+  const displayReviews = () => {
+    return wine.reviews.map((each) => {
+      if (each.userID !== userID) {
+        // console.log("wine.reviews : ", wine.reviews);
+        return (
+          <Link to={`/wine/${wineID}/reviews/${each.reviewID}`}>
+            <Review
+              toggleStatus={toggleStatus}
+              review={each}
+              id={each.reviewID}
+              key={each.reviewID}
+            ></Review>
+          </Link>
+        );
+      }
+      // if (wine.reviews === []) {
+      //   return (
+      //     <div>
+      //       No reviews yet ^^ Fill out your own comments about this wine!
+      //     </div>
+      //   );
+      // }
+    });
+  };
+
+  // const fetchComments = async (reviewID, wineID) => {
+  //   try {
+  //     const res = await axios.get(
+  //       `/api/wines/${wineID}/reviews/${reviewID}/comments`
+  //     );
+  //     console.log("fetchComments : ", res.data);
+  //     setComments(res.data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
   // const [search, setSearch] = useState("");
 
   const onSubmit = async () => {
     const body = {
       ...newReview,
-      // userID: status.userID,
       wines: newReview.wines.map((each) => {
         return { wineID: each.wineID };
       }),
@@ -406,7 +427,11 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                     }
                   />
                 </div>
-                <div className="detail__reviewIcons">
+                <div
+                  className="detail__reviewIcons"
+                  name="like"
+                  value={newReview.like}
+                >
                   <BsHeartFill
                     className={
                       newReview.like
@@ -415,7 +440,8 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                     }
                     onClick={toggleLikes}
                     name="like"
-                    onChange={onChange}
+                    // onChange={onChange}
+                    value={newReview.like}
                   />
                   <BsFillPencilFill
                     className={
@@ -486,8 +512,9 @@ const WineDetailPage = ({ status, toggleStatus }) => {
               <div></div>
             </form>
 
-            <Review userstatus={1} toggleStatus={toggleStatus} />
-            <Review userStatus={0} toggleStatus={toggleStatus} />
+            {/* <Review userstatus={1} toggleStatus={toggleStatus} />
+            <Review userStatus={0} toggleStatus={toggleStatus} /> */}
+            {displayReviews()}
             <div className="detail__moreReview"> view more reviews</div>
           </div>
           <hr className="detail__line"></hr>
