@@ -48,7 +48,6 @@ const Comment = ({ status, comments = dummyComment }) => {
     fetchUserData(comments.userID);
   }, []);
 
-  //get
   return (
     <div className="comment">
       <div className="comment__user">
