@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import "./Review.css";
-import { BsFillStarFill, BsPatchCheckFill } from "react-icons/bs";
+import React, { useState, useEffect } from "react";
 
+import "./Review.css";
+import Tag from "../../components/Tag/Tag";
+
+import { BsFillStarFill, BsPatchCheckFill } from "react-icons/bs";
 import { MdWineBar, MdSettings } from "react-icons/md";
 
-const dumyReviewdata = {
+const dummyReview = {
   reviewID: 1,
   wineID: 1,
   userID: 1,
@@ -16,33 +18,47 @@ const dumyReviewdata = {
   tags: ["red", "sweet"],
   isDeleted: false,
   userstatus: 1,
-  name: "Woohyung Lee",
+  username: "Woohyung Lee",
   imageurl:
     "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
 };
-const getTags = (tags) => {
-  const tagsResult = [];
 
-  for (let i = 0; i < tags.length; i++) {
-    tagsResult.push(<div className="review__ind-tag"> {tags[i]}</div>);
-  }
+const Review = ({ review = dummyReview }) => {
+  // const getTags = (tags) => {
+  //   const tagsResult = [];
+  //   for (let i = 0; i < tags.length; i++) {
+  //     tagsResult.push(<div className="review__ind-tag"> {tags[i]}</div>);
+  //   }
+  //   return tagsResult;
+  // };
 
-  return tagsResult;
-};
+  const tags = review.tags;
+  const displaySelectedTags = (tags) => {
+    return tags.map((each) => {
+      return <Tag type="wineButton" txt={each} />;
+    });
+  };
 
-const Review = ({ review, toggleStatus }) => {
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const day = date.getDate().toString().padStart(2, "0");
+    // console.log(date, year, month, day);
+    // console.log("dummyReview date: ", dummyReview.createdAt);
     return `${year}.${month}.${day}`;
   };
+
+  // const [date, setDate] = useState("");
+  // useEffect(() => {
+  //   setDate(formatDate(new Date(review.lastUpdatedAt)));
+  // }, []);
 
   return (
     <>
       <div
-        className={review.userstatus == 1 ? "review--somm" : "review"}
-        onClick={() => toggleStatus("commentModal")}
+        // className={review.userstatus == 1 ? "review--somm" : "review"}
+        className={review.userID == 1 ? "review--somm" : "review"}
+        // onClick={() => toggleStatus("commentModal")}
       >
         <div className="review__title">
           <div className="review__user">
@@ -54,26 +70,28 @@ const Review = ({ review, toggleStatus }) => {
               <div className="review__user-name">{review.username}</div>
               <div className="review__user-date">
                 {formatDate(new Date(review.createdAt))}
+                {/* {date} */}
               </div>
             </div>
             <div className="review__user-icon">
-              {" "}
-              {review.userstatus == 1 ? <MdWineBar /> : <div></div>}{" "}
+              {review.userID == 1 ? <MdWineBar /> : <div></div>}
+              {/* {review.userstatus == 1 ? <MdWineBar /> : <div></div>} */}
             </div>
           </div>
           <div
             className={
-              review.userstatus == 1
-                ? "review__user-rate--somm"
+              review.userID == 1
+                ? // review.userstatus == 1
+                  "review__user-rate--somm"
                 : "review__user-rate"
             }
           >
-            {" "}
             <BsFillStarFill />
-            {review.rating}{" "}
+            {review.rating}
           </div>
         </div>
-        <div className="review__tag">{getTags(review.tags)}</div>
+        {/* <div className="review__tag">{getTags(review.tags)}</div> */}
+        {/* <div className="review__tag">{displaySelectedTags(tags)}</div> */}
         <div className="review__content"> {review.content} </div>
       </div>
     </>
