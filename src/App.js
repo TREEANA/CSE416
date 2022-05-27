@@ -169,7 +169,7 @@ const App = () => {
             element={<MainPage status={status} setStatus={setStatus} />}
           />
           {/* 여기서 페이지 구현할때 Route 하나씩 복사해서 일단 사용 */}
-          <Route path="/login" element={<LoginModal />} />
+          {/* <Route path="/login" element={<LoginModal />} /> */}
           <Route
             path="/register"
             element={
