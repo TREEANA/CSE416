@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Review from "../../components/Review/Review";
@@ -61,12 +61,12 @@ const userDummyData = {
 };
 
 const CommentPage = ({
-  togglecommentModal,
-  // commentData = commentDummyData,
   status,
+  //status data 자체는 app.js 에서 받아옴
 }) => {
   //comment에 있는 userID 바탕으로 userInfo가져오기 (username, status, isDeleted?)
 
+  const userID = status.userID;
   //get reviewID
   const { wineID, reviewID } = useParams();
 
@@ -89,7 +89,7 @@ const CommentPage = ({
     }
   };
   useEffect(() => {
-    fetchComments(reviewID);
+    fetchComments(reviewID, wineID);
   }, []);
 
   const displayComments = (comments) => {
@@ -103,6 +103,27 @@ const CommentPage = ({
     setTempComment(value);
   };
 
+  const onSubmit = async () => {
+    console.log(userID);
+    // why null man
+    const body = {
+      userID: userID,
+      content: { tempComment },
+    };
+    console.log(body);
+    await axios
+      .post(`/api/wines/${wineID}/reviews/${reviewID}/comments`, body)
+      .then((res) => {
+        console.log("response (comment): ", JSON.stringify(res, null));
+      })
+      .catch((error) => {
+        console.log("failed(comment): ", error);
+      });
+    setTempComment("");
+  };
+
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="commentPage">
@@ -111,7 +132,7 @@ const CommentPage = ({
             <div className="commentPage__headerTitle">Comment</div>
             <BsReplyFill
               className="commentPage__close"
-              onClick={togglecommentModal}
+              onClick={() => navigate(-1)}
             />
           </div>
           <div className="commentPage__reviewContainer">
@@ -128,7 +149,7 @@ const CommentPage = ({
                 onChange={onChange}
               ></input>
             </div>
-            <BsPlus className="commentPage__plusIcon" />
+            <BsPlus className="commentPage__plusIcon" onClick={onSubmit} />
           </div>
         </div>
       </div>

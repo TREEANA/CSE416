@@ -56,7 +56,8 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   const [newReview, setNewReview] = useState({
     content: "",
     rating: 0,
-    like: false,
+    userLiked: false,
+    //userLiked로 바꾸기
     tags: [],
   });
 
@@ -75,7 +76,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
   const toggleLikes = (e) => {
     // setLikes(!likes);
-    setNewReview({ ...newReview, like: !like });
+    setNewReview({ ...newReview, userLiked: !userLiked });
     // const { value, name } = e.target.parentNode.parentNode;
     // console.log(e.target.parentNode.parentNode.value, value, name);
     // let tempReview = {
@@ -305,7 +306,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     console.log(body);
     if (existReview) {
       await axios
-        .put(`/api/wines/${wineID}/reviews`, body)
+        .put(`/api/wines/${wineID}/reviews/${reviewID}`, body)
         .then((res) => {
           console.log("response : ", JSON.stringify(res, null));
         })
@@ -430,18 +431,18 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                 <div
                   className="detail__reviewIcons"
                   name="like"
-                  value={newReview.like}
+                  value={newReview.userLiked}
                 >
                   <BsHeartFill
                     className={
-                      newReview.like
+                      newReview.userLiked
                         ? "detail__reviewIcon--active"
                         : "detail__reviewIcon--inactive"
                     }
                     onClick={toggleLikes}
-                    name="like"
+                    name="userLiked"
                     // onChange={onChange}
-                    value={newReview.like}
+                    value={newReview.userLiked}
                   />
                   <BsFillPencilFill
                     className={
