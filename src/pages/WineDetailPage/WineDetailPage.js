@@ -74,9 +74,9 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     }
   };
 
-  const toggleLikes = (e) => {
+  const toggleLikes = () => {
     // setLikes(!likes);
-    setNewReview({ ...newReview, userLiked: !userLiked });
+    setNewReview({ ...newReview, userLiked: !newReview.userLiked });
     // const { value, name } = e.target.parentNode.parentNode;
     // console.log(e.target.parentNode.parentNode.value, value, name);
     // let tempReview = {
