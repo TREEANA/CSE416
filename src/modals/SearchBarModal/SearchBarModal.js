@@ -162,7 +162,7 @@ const SearchBarModal = ({
                   ? "search__button search__button"
                   : "search__button--filled"
               }
-              onClick={() => follow(each.userID, "following")}
+              onClick={() => clickMatchingListButton(each.userID, "following")}
             >
               {each.isFollowing ? "following" : "follow"}
             </div>
