@@ -89,13 +89,25 @@ const SearchBarModal = ({
     }
   };
 
+  function checkID(id) {
+    return followering.some(function (el) {
+      return el.userID === id;
+    });
+  }
+
   const clickMatchingListButton = (id, followOption) => {
     const newArr = [];
     for (let i = 0; i < userList.length; i++) {
       const each = userList[i];
       if (each.userID === id) {
         each.isFollowing = !each.isFollowing;
-
+        if (!checkID(each.userID)) {
+          setFollowering((oldArray) => [...oldArray, each]);
+        } else {
+          setFollowering(
+            followering.filter((item) => item.userID !== each.userID)
+          );
+        }
         follow(id, followOption);
       }
       newArr.push(each);

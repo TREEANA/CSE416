@@ -9,7 +9,7 @@
 }
 
 .search--inactive {
-  transform: translateY(-1000%);
+  transform: translateY(-10000%);
   background-color: var(--bg-20);
   height: 80px;
   align-items: center;
@@ -189,6 +189,7 @@
   margin-bottom: var(--margin-out);
 }
 .search__header__selected {
+  box-shadow: 10px 10px 5px lightblue;
   display: flex;
   justify-content: center;
   align-items: center;
