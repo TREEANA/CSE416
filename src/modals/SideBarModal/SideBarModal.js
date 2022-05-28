@@ -8,9 +8,7 @@ import GoogleLogin from "react-google-login";
 import axios from "axios";
 
 const SideBarModal = ({ status, toggleStatus, setStatus }) => {
-  const [number, setNumber] = useState(-1);
   const onlogout = () => {
-    console.log("Hi");
     let sessionStorage = window.sessionStorage;
     sessionStorage.removeItem("userinfo");
     sessionStorage.removeItem("userID");
@@ -42,61 +40,53 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
   };
 
   const onSuccess = async (response) => {
-    const email = response.profileObj.email;
     const imageUrl = response.profileObj.imageUrl;
     const accesstoken = response.accessToken;
+    try {
+      const res = await axios.get(
+        `/api/users/login?access_token=${accesstoken}`
+      );
+      if (res.status === 200) {
+        if (res.data.userID === -1) {
+          setStatus({
+            ...status,
+            accesstoken: accesstoken,
+            registerModal: !status.registerModal,
+            sideBarModal: !status.sideBarModal,
+          });
+        } else {
+          const res1 = await axios.get(
+            `/api/users/${res.data.userID}?requesterID=${res.data.userID}`
+          );
+          const userinfo = {
+            followers: res1.data.followers,
+            followings: res1.data.followings,
+            likedWinelists: res1.data.likedWinelists,
+            likedWines: res1.data.likedWines,
+            profileImage: res1.data.profileImage,
+            status: res1.data.status,
+            tags: res1.data.tags,
+            userID: res1.data.userID,
+            accesstoken: accesstoken,
+            username: res1.data.username,
+          };
+          setStatus({
+            ...status,
+            accesstoken: accesstoken,
+            userID: res.data.userID,
+            user: res1.data.status + 1,
+            profileimage: imageUrl,
+            userinfo: userinfo,
+          });
 
-    if (number > 0) {
-      try {
-        const res = await axios.get(
-          `/api/users/login?access_token=${accesstoken}`
-        );
-        if (res.status === 200) {
-          if (res.data.userID === -1) {
-            setStatus({
-              ...status,
-              accesstoken: accesstoken,
-              registerModal: !status.registerModal,
-              sideBarModal: !status.sideBarModal,
-            });
-          } else {
-            const res1 = await axios.get(
-              `/api/users/${res.data.userID}?requesterID=${res.data.userID}`
-            );
-            const userinfo = {
-              followers: res1.data.followers,
-              followings: res1.data.followings,
-              likedWinelists: res1.data.likedWinelists,
-              likedWines: res1.data.likedWines,
-              profileImage: res1.data.profileImage,
-              status: res1.data.status,
-              tags: res1.data.tags,
-              userID: res1.data.userID,
-              accesstoken: accesstoken,
-              username: res1.data.username,
-            };
-
-            console.log(userinfo);
-            setStatus({
-              ...status,
-              accesstoken: accesstoken,
-              userID: res.data.userID,
-              user: res1.data.status + 1,
-              profileimage: imageUrl,
-              userinfo: userinfo,
-            });
-
-            let sessionStorage = window.sessionStorage;
-            sessionStorage.setItem("userinfo", JSON.stringify(userinfo));
-            sessionStorage.setItem("userID", res.data.userID);
-            sessionStorage.setItem("accesstoken", accesstoken);
-          }
+          let sessionStorage = window.sessionStorage;
+          sessionStorage.setItem("userinfo", JSON.stringify(userinfo));
+          sessionStorage.setItem("userID", res.data.userID);
+          sessionStorage.setItem("accesstoken", accesstoken);
         }
-      } catch (e) {
-        console.log(e);
       }
-    } else {
-      setNumber(1);
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -111,11 +101,9 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           <div className="sidebar__header">
             <GoogleLogin
               clientId="1085857977500-hci29d5464imb3l7hdau6qipmjpeqstd.apps.googleusercontent.com"
-              buttonText="Login"
               onSuccess={onSuccess}
               onFailure={onFailure}
               cookiePolicy={"single_host_origin"}
-              isSignedIn={true}
               render={(renderProps) => (
                 <div
                   className="sidebar__status"
