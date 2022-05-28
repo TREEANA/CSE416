@@ -48,12 +48,13 @@ const Comment = ({ status, comments = dummyComment }) => {
     fetchUserData(comments.userID);
   }, []);
 
-  //get
   return (
     <div className="comment">
       <div className="comment__user">
         <div className="comment__userInfo">
-          <div className="comment__userName">{username}</div>
+          <div className="comment__userName">
+            {username === "" ? "undefined(deleted user)" : username}
+          </div>
           <div className="comment__userDate">{date}</div>
         </div>
         {userStatus === 1 && (

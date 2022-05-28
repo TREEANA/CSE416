@@ -13,7 +13,6 @@ import StarIcon from "@mui/icons-material/Star";
 
 import { BsFillPencilFill, BsHeartFill } from "react-icons/bs";
 import "./WineDetailPage.css";
-import { EighteenMpRounded } from "@mui/icons-material";
 
 // const defaultWineInfo = {
 //   wineID: 1,
@@ -56,7 +55,8 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   const [newReview, setNewReview] = useState({
     content: "",
     rating: 0,
-    like: false,
+    userLiked: false,
+    //userLiked로 바꾸기
     tags: [],
   });
 
@@ -73,9 +73,9 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     }
   };
 
-  const toggleLikes = (e) => {
+  const toggleLikes = () => {
     // setLikes(!likes);
-    setNewReview({ ...newReview, like: !like });
+    setNewReview({ ...newReview, userLiked: !newReview.userLiked });
     // const { value, name } = e.target.parentNode.parentNode;
     // console.log(e.target.parentNode.parentNode.value, value, name);
     // let tempReview = {
@@ -153,7 +153,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     fetchTags();
   }, []);
 
-  const [valueSearch, setSearch] = useState("");
+  const [search, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState({});
 
   useEffect(() => {
@@ -220,16 +220,50 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     return result;
   };
 
+  // const displayUnselectedTags = () => {
+  //   const result = [];
+  //   for (let each in tagList) {
+  //     if (tagList[each] === false) {
+  //       if (each.includes(valueSearch)) {
+  //         result.push(
+  //           <Tag
+  //             type="selected"
+  //             txt={each}
+  //             onClick={onTagClick.bind({ txt: each })}
+  //           />
+  //         );
+  //       }
+  //     }
+  //   }
+  //   return result;
+  // };
+
   const displayUnselectedTags = () => {
     const result = [];
-    for (let each in tagList) {
-      if (tagList[each] === false) {
-        if (each.includes(valueSearch)) {
+    const formattedTag = search.toLowerCase();
+    if (formattedTag !== "") {
+      for (let each in tagList) {
+        if (
+          each.toLowerCase().indexOf(formattedTag) === 0 &&
+          tagList[each] === false
+        ) {
           result.push(
             <Tag
               type="selected"
               txt={each}
-              onClick={onTagClick.bind({ txt: each })}
+              onClick={onBtnClick.bind({ txt: each })}
+            />
+          );
+        }
+      }
+    } else {
+      for (let each in tagList) {
+        if (tagList[each] === false) {
+          result.push(
+            <Tag
+              type="selected"
+              txt={each}
+              onClick={onBtnClick.bind({ txt: each })}
             />
           );
         }
@@ -237,6 +271,10 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     }
     return result;
   };
+
+  function onBtnClick() {
+    setTagList({ ...tagList, [this.txt]: !tagList[this.txt] });
+  }
 
   const displaySelectedTagsonReview = () => {
     const result = [];
@@ -280,20 +318,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     });
   };
 
-  // const fetchComments = async (reviewID, wineID) => {
-  //   try {
-  //     const res = await axios.get(
-  //       `/api/wines/${wineID}/reviews/${reviewID}/comments`
-  //     );
-  //     console.log("fetchComments : ", res.data);
-  //     setComments(res.data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  // const [search, setSearch] = useState("");
-
   const onSubmit = async () => {
     const body = {
       ...newReview,
@@ -305,7 +329,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     console.log(body);
     if (existReview) {
       await axios
-        .put(`/api/wines/${wineID}/reviews`, body)
+        .put(`/api/wines/${wineID}/reviews/${reviewID}`, body)
         .then((res) => {
           console.log("response : ", JSON.stringify(res, null));
         })
@@ -430,18 +454,18 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                 <div
                   className="detail__reviewIcons"
                   name="like"
-                  value={newReview.like}
+                  value={newReview.userLiked}
                 >
                   <BsHeartFill
                     className={
-                      newReview.like
+                      newReview.userLiked
                         ? "detail__reviewIcon--active"
                         : "detail__reviewIcon--inactive"
                     }
                     onClick={toggleLikes}
-                    name="like"
+                    name="userLiked"
                     // onChange={onChange}
-                    value={newReview.like}
+                    value={newReview.userLiked}
                   />
                   <BsFillPencilFill
                     className={
@@ -472,6 +496,9 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                     <input
                       className="detail__reviewInput"
                       placeholder="add tags "
+                      onChange={(e) => {
+                        setSearch(e.target.value);
+                      }}
                     ></input>
                     <div className="detail__reviewPlus" onClick={clickAddIcon}>
                       +

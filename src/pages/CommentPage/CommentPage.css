@@ -107,11 +107,6 @@ button:hover {
   height: auto;
 }
 
-.commentPage__input:hover,
-.ccommentPage__input:not(:hover) {
-  outline: none;
-}
-
 .commentPage__plusIcon {
   font-size: var(--size-txt);
   color: var(-primary);
@@ -121,6 +116,13 @@ button:hover {
   margin: 10px var(--margin-out);
   color: var(--text-50);
   font-weight: bold;
+}
+
+.commentPage__input:hover,
+.commentPage__input:not(:hover),
+.commentPage__input:focus {
+  border: none;
+  outline: none;
 }
 
 /* 
