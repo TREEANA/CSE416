@@ -13,7 +13,6 @@ import StarIcon from "@mui/icons-material/Star";
 
 import { BsFillPencilFill, BsHeartFill } from "react-icons/bs";
 import "./WineDetailPage.css";
-import { EighteenMpRounded } from "@mui/icons-material";
 
 // const defaultWineInfo = {
 //   wineID: 1,
@@ -154,7 +153,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     fetchTags();
   }, []);
 
-  const [valueSearch, setSearch] = useState("");
+  const [search, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState({});
 
   useEffect(() => {
@@ -221,16 +220,50 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     return result;
   };
 
+  // const displayUnselectedTags = () => {
+  //   const result = [];
+  //   for (let each in tagList) {
+  //     if (tagList[each] === false) {
+  //       if (each.includes(valueSearch)) {
+  //         result.push(
+  //           <Tag
+  //             type="selected"
+  //             txt={each}
+  //             onClick={onTagClick.bind({ txt: each })}
+  //           />
+  //         );
+  //       }
+  //     }
+  //   }
+  //   return result;
+  // };
+
   const displayUnselectedTags = () => {
     const result = [];
-    for (let each in tagList) {
-      if (tagList[each] === false) {
-        if (each.includes(valueSearch)) {
+    const formattedTag = search.toLowerCase();
+    if (formattedTag !== "") {
+      for (let each in tagList) {
+        if (
+          each.toLowerCase().indexOf(formattedTag) === 0 &&
+          tagList[each] === false
+        ) {
           result.push(
             <Tag
               type="selected"
               txt={each}
-              onClick={onTagClick.bind({ txt: each })}
+              onClick={onBtnClick.bind({ txt: each })}
+            />
+          );
+        }
+      }
+    } else {
+      for (let each in tagList) {
+        if (tagList[each] === false) {
+          result.push(
+            <Tag
+              type="selected"
+              txt={each}
+              onClick={onBtnClick.bind({ txt: each })}
             />
           );
         }
@@ -238,6 +271,10 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     }
     return result;
   };
+
+  function onBtnClick() {
+    setTagList({ ...tagList, [this.txt]: !tagList[this.txt] });
+  }
 
   const displaySelectedTagsonReview = () => {
     const result = [];
@@ -280,20 +317,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
       // }
     });
   };
-
-  // const fetchComments = async (reviewID, wineID) => {
-  //   try {
-  //     const res = await axios.get(
-  //       `/api/wines/${wineID}/reviews/${reviewID}/comments`
-  //     );
-  //     console.log("fetchComments : ", res.data);
-  //     setComments(res.data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  // const [search, setSearch] = useState("");
 
   const onSubmit = async () => {
     const body = {
@@ -473,6 +496,9 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                     <input
                       className="detail__reviewInput"
                       placeholder="add tags "
+                      onChange={(e) => {
+                        setSearch(e.target.value);
+                      }}
                     ></input>
                     <div className="detail__reviewPlus" onClick={clickAddIcon}>
                       +
