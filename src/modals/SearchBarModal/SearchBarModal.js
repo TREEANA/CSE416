@@ -20,6 +20,7 @@ const SearchBarModal = ({
 
   const getUserdata = async () => {
     if (status.userID) {
+      setLoading(true);
       let res = await axios.get(
         `/api/users/${status.userID}?requesterID=${status.userID}`
       );
@@ -32,6 +33,7 @@ const SearchBarModal = ({
       const followUserList = [];
 
       res = await axios.get(`/api/users?num=200&?page=2`);
+      setLoading(false);
       for (let i = 0; i < res.data.length; i++) {
         const each = res.data[i];
         let isFollowing = false;
@@ -411,7 +413,9 @@ const SearchBarModal = ({
           <div className="search__result">
             <div className="search__result-wine">
               {/* {displayMatchingPeople(matchingPeople)} */}
-              {displayMatchingPeople()}
+
+              {loading ? <Loader /> : <> {displayMatchingPeople()}</>}
+              <br></br>
 
               <div className="search__header">
                 <div
@@ -437,10 +441,17 @@ const SearchBarModal = ({
               </div>
 
               <div className="search__followers__font">
-                {clickFollowers ? "Your Followers" : "You Following"}{" "}
+                {clickFollowers ? "Your Followers" : "Your Following"}{" "}
               </div>
 
-              {clickFollowers ? displayfollowers() : displayfollowings()}
+              {loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {" "}
+                  {clickFollowers ? displayfollowers() : displayfollowings()}
+                </>
+              )}
             </div>
           </div>
         </div>
