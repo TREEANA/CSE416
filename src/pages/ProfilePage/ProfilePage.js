@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { set } from "lodash";
 import { Link } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
+
 const ProfilePage = ({ status, toggleStatus }) => {
   const dummpyReviewdata = [];
   const [reviewWineList, setreviewWineList] = useState([]);
   const [likesList, setlikesList] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   const { userID } = useParams();
   const [isFollowd, setFollowd] = useState(false);
   const [userClick, setuserClick] = useState("likes");
@@ -40,6 +42,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
 
   useEffect(
     () => {
+      setLoading(true);
       getUserdata();
     },
     [userID],
@@ -190,6 +193,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
 
   const getUserdata = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(`/api/users/${userID}?requesterID=${userID}`);
       // const newlikedWines = [10, 4, 3];
       // const newlikeswinelists = [1, 0, 2];
@@ -246,11 +250,9 @@ const ProfilePage = ({ status, toggleStatus }) => {
       setlikesList(newlikeslist);
 
       const res2 = await axios.get(`/api/users/${userID}/reviewed-wines`);
-      const newreviewWineList = [];
-      console.log(res.data);
-      if (res2.status === 200) {
-        setreviewWineList(res2.data);
-      }
+      setLoading(false);
+      console.log(res2.data);
+      setreviewWineList(res2.data);
     } catch (e) {
       console.log(e);
     }
@@ -275,101 +277,109 @@ const ProfilePage = ({ status, toggleStatus }) => {
 
   return (
     <>
-      <div className="profile">
-        <div className="profile__name"> {userData.username}</div>
-        <div className="proflie__proflie">
-          <img className="profile__image" src={userData.profileImage}></img>
-          <div className="profile__stats">
-            <ul>
-              <li>
-                <span className="profile__stats__count">
-                  {userData.likedWinelists.length + userData.likedWines.length}
-                </span>
-                likes
-              </li>
-              <li>
-                <span className="profile__stats__count">
-                  {reviewWineList.length}
-                </span>
-                reviews
-              </li>
-              <li>
-                <span className="profile__stats__count">
-                  {userData.followers.length}
-                </span>{" "}
-                followers
-              </li>
-              <li>
-                <span className="profile__stats__count">
-                  {userData.followings.length}
-                </span>{" "}
-                follows
-              </li>
-            </ul>
-          </div>
-        </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {" "}
+          <div className="profile">
+            <div className="profile__name"> {userData.username}</div>
+            <div className="proflie__proflie">
+              <img className="profile__image" src={userData.profileImage}></img>
+              <div className="profile__stats">
+                <ul>
+                  <li>
+                    <span className="profile__stats__count">
+                      {userData.likedWinelists.length +
+                        userData.likedWines.length}
+                    </span>
+                    likes
+                  </li>
+                  <li>
+                    <span className="profile__stats__count">
+                      {reviewWineList.length}
+                    </span>
+                    reviews
+                  </li>
+                  <li>
+                    <span className="profile__stats__count">
+                      {userData.followers.length}
+                    </span>{" "}
+                    followers
+                  </li>
+                  <li>
+                    <span className="profile__stats__count">
+                      {userData.followings.length}
+                    </span>{" "}
+                    follows
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-        {Number(status.userID) === Number(userID) ? (
-          <div
-            className="profile__editporfile"
-            onClick={() => {
-              toggleStatus("EditProfileModal");
-            }}
-          >
-            Edit Profile
-          </div>
-        ) : (
-          <div
-            className={
-              isFollowd
-                ? "profile__editporfile_unfilled "
-                : "profile__editporfile"
-            }
-            onClick={() => {
-              follow(Number(userID), "following"), setFollowd(!isFollowd);
-            }}
-          >
-            {isFollowd ? "following" : "follow"}
-          </div>
-        )}
-
-        <div className="profile__listcontainer">
-          {userClick !== "review" ? (
-            <>
-              {" "}
-              <div className="profile__selected">like</div>
+            {Number(status.userID) === Number(userID) ? (
               <div
-                className="profile__unselected"
+                className="profile__editporfile"
                 onClick={() => {
-                  setuserClick("review");
+                  toggleStatus("EditProfileModal");
                 }}
               >
-                review
+                Edit Profile
               </div>
-            </>
-          ) : (
-            <>
-              {" "}
+            ) : (
               <div
-                className="profile__unselected"
+                className={
+                  isFollowd
+                    ? "profile__editporfile_unfilled "
+                    : "profile__editporfile"
+                }
                 onClick={() => {
-                  setuserClick("likes");
+                  follow(Number(userID), "following"), setFollowd(!isFollowd);
                 }}
               >
-                like
+                {isFollowd ? "following" : "follow"}
               </div>
-              <div className="profile__selected">review</div>
-            </>
-          )}
-        </div>
-        <div className="profile__list">
-          <div className="gallery">
-            {userClick === "likes"
-              ? displaylikes()
-              : displayWines(reviewWineList)}
+            )}
+
+            <div className="profile__listcontainer">
+              {userClick !== "review" ? (
+                <>
+                  {" "}
+                  <div className="profile__selected">like</div>
+                  <div
+                    className="profile__unselected"
+                    onClick={() => {
+                      setuserClick("review");
+                    }}
+                  >
+                    review
+                  </div>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <div
+                    className="profile__unselected"
+                    onClick={() => {
+                      setuserClick("likes");
+                    }}
+                  >
+                    like
+                  </div>
+                  <div className="profile__selected">review</div>
+                </>
+              )}
+            </div>
+            <div className="profile__list">
+              <div className="gallery">
+                {userClick === "likes"
+                  ? displaylikes()
+                  : displayWines(reviewWineList)}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };
