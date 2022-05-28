@@ -116,17 +116,23 @@ const CommentPage = ({
   const userID = status.userID;
 
   const onSubmit = async () => {
-    // console.log(userID);
+    console.log("userID : ", userID, "type of userID: ", typeof userID);
+    console.log(
+      "tempComment : ",
+      tempComment,
+      "type of tempComment: ",
+      typeof tempComment
+    );
     // why null man
     const body = {
       userID: userID,
-      content: { tempComment },
+      content: tempComment,
     };
     console.log(body);
     await axios
       .post(`/api/wines/${wineID}/reviews/${reviewID}/comments`, body)
       .then((res) => {
-        console.log("response (comment): ", JSON.stringify(res, null));
+        console.log("response (comment): ", JSON.stringify(res.data, null));
       })
       .catch((error) => {
         console.log("failed(comment): ", error);
