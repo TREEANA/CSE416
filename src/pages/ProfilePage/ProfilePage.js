@@ -38,33 +38,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
     }
   };
 
-  const getReview = async () => {
-    // try {
-    //   const res = await axios.get(`/api/users/${userID}/reviews?num=20&page=1`);
-    //   const newreviewWineList = [];
-    //   // 에러있는거
-    //   console.log(res.data);
-    //   if (res.status === 200) {
-    //     const arr = res.data;
-    //     for (let i = 0; i < arr.length; i++) {
-    //       const wineID = arr[i].wineID;
-    //       const res1 = await axios.get(`/api/wines/${wineID}`);
-    //       console.log(res1);
-    //       const reviewwineitem = res1.data;
-    //       newreviewWineList.push(reviewwineitem);
-    //     }
-    //     setreviewWineList(newreviewWineList);
-    //     console.log(reviewWineList);
-    //   }
-    // } catch (e) {
-    //   console.log(e);
-    // }
-  };
-
-  // useEffect(() => {
-  //   getReview();
-  // }, [userID]);
-
   useEffect(
     () => {
       getUserdata();
@@ -72,10 +45,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
     [userID],
     [status]
   );
-
-  useEffect(() => {
-    getReview();
-  }, [userData, userClick]);
 
   useEffect(() => {
     checkfollow();
@@ -269,6 +238,20 @@ const ProfilePage = ({ status, toggleStatus }) => {
         }
       });
       setlikesList(newlikeslist);
+      const res2 = await axios.get(`/api/users/${userID}/reviews`);
+      const newreviewWineList = [];
+      console.log(res.data);
+      if (res2.status === 200) {
+        const arr = res2.data;
+        for (let i = 0; i < arr.length; i++) {
+          const wineID = arr[i].wineID;
+          const res1 = await axios.get(`/api/wines/${wineID}`);
+          console.log(res1);
+          const reviewwineitem = res1.data;
+          newreviewWineList.push(reviewwineitem);
+        }
+        setreviewWineList(newreviewWineList);
+      }
     } catch (e) {
       console.log(e);
     }
