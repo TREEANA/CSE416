@@ -56,7 +56,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
       if (i === likesList.length - 1) {
         result.push(
           <div className="gallery__cont">
-            <div className="gallery__imageCont">
+            <div className="gallery__wine__image">
               <Link to={`/${likesList[i].iswinelist}/${likesList[i].id}`}>
                 <img className="gallery__image" src={likesList[i].image}></img>
               </Link>
@@ -68,7 +68,10 @@ const ProfilePage = ({ status, toggleStatus }) => {
           <div className="gallery__cont">
             <div className="gallery__imageCont">
               <Link to={`/${likesList[i].iswinelist}/${likesList[i].id}`}>
-                <img className="gallery__image" src={likesList[i].image}></img>
+                <img
+                  className="gallery__wine__image"
+                  src={likesList[i].image}
+                ></img>
               </Link>
             </div>
             <div className="gallery__imageCont">
@@ -76,7 +79,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
                 to={`/${likesList[i + 1].iswinelist}/${likesList[i + 1].id}`}
               >
                 <img
-                  className="gallery__image"
+                  className="gallery__wine__image"
                   src={likesList[i + 1].image}
                 ></img>
               </Link>
@@ -88,7 +91,10 @@ const ProfilePage = ({ status, toggleStatus }) => {
           <div className="gallery__cont">
             <div className="gallery__imageCont">
               <Link to={`/${likesList[i].iswinelist}/${likesList[i].id}`}>
-                <img className="gallery__image" src={likesList[i].image}></img>
+                <img
+                  className="gallery__wine__image"
+                  src={likesList[i].image}
+                ></img>
               </Link>
             </div>
             <div className="gallery__imageCont">
@@ -96,7 +102,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
                 to={`/${likesList[i + 1].iswinelist}/${likesList[i + 1].id}`}
               >
                 <img
-                  className="gallery__image"
+                  className="gallery__wine__image"
                   src={likesList[i + 1].image}
                 ></img>
               </Link>
@@ -106,7 +112,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
                 to={`/${likesList[i + 2].iswinelist}/${likesList[i + 2].id}`}
               >
                 <img
-                  className="gallery__image"
+                  className="gallery__wine__image"
                   src={likesList[i + 2].image}
                 ></img>
               </Link>
@@ -238,19 +244,12 @@ const ProfilePage = ({ status, toggleStatus }) => {
         }
       });
       setlikesList(newlikeslist);
-      const res2 = await axios.get(`/api/users/${userID}/reviews`);
+
+      const res2 = await axios.get(`/api/users/${userID}/reviewed-wines`);
       const newreviewWineList = [];
       console.log(res.data);
       if (res2.status === 200) {
-        const arr = res2.data;
-        for (let i = 0; i < arr.length; i++) {
-          const wineID = arr[i].wineID;
-          const res1 = await axios.get(`/api/wines/${wineID}`);
-          console.log(res1);
-          const reviewwineitem = res1.data;
-          newreviewWineList.push(reviewwineitem);
-        }
-        setreviewWineList(newreviewWineList);
+        setreviewWineList(res2.data);
       }
     } catch (e) {
       console.log(e);
@@ -290,7 +289,7 @@ const ProfilePage = ({ status, toggleStatus }) => {
               </li>
               <li>
                 <span className="profile__stats__count">
-                  {dummpyReviewdata.length}
+                  {reviewWineList.length}
                 </span>
                 reviews
               </li>
