@@ -15,9 +15,15 @@ const dummy = {
   lastUpdatedAt: "2022-05-26 00:16:33",
   ticketID: 12,
 };
+
 const SommHistory = ({ status, data }) => {
   const [ind2Status, setInd2Status] = useState(false);
-
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}.${month}.${day}`;
+  };
   const toggleInd2Status = () => {
     setInd2Status(!ind2Status);
   };
@@ -57,7 +63,10 @@ const SommHistory = ({ status, data }) => {
             className="verifysomm__img"
             src={status.userinfo.profileImage}
           ></img>
-          <div className="verifysomm__verifyName"> {data.createdAt}</div>
+          <div className="verifysomm__verifyName">
+            {" "}
+            {formatDate(new Date(data.createdAt))}{" "}
+          </div>
         </div>
         {verifybtn()}
       </div>

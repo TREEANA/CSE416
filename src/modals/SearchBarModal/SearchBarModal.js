@@ -24,18 +24,14 @@ const SearchBarModal = ({
         `/api/users/${status.userID}?requesterID=${status.userID}`
       );
 
-      console.log("유저 정보를 받아오고 있습니다", status.userID);
-
       const newfollowingslist = res.data.followings;
       const newfollowerslist = res.data.followers;
 
-      const adminId = 0;
       const userList = [];
       const followingUserList = [];
       const followUserList = [];
 
-      res = await axios.get(`/api/users?userID=${adminId}`);
-
+      res = await axios.get(`/api/users?num=200&?page=2`);
       for (let i = 0; i < res.data.length; i++) {
         const each = res.data[i];
         let isFollowing = false;
@@ -165,7 +161,7 @@ const SearchBarModal = ({
                   ? "search__button search__button"
                   : "search__button--filled"
               }
-              onClick={() => follow(each.userID, "following")}
+              onClick={() => clickMatchingListButton(each.userID, "following")}
             >
               {each.isFollowing ? "following" : "follow"}
             </div>
@@ -262,8 +258,8 @@ const SearchBarModal = ({
           <div
             className={
               each.isFollowing
-                ? "search__button search__button"
-                : "search__button--filled"
+                ? "search__button--filled"
+                : "search__button search__button"
             }
             onClick={() => clickFollowsListButton(each.userID, "follower")}
           >
