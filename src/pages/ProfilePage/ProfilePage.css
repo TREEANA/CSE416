@@ -175,6 +175,12 @@ li {
   overflow: hidden;
   margin-bottom: 0.7%;
 }
+
+.gallery__imageCont > a {
+  display: flex;
+  justify-content: center;
+}
+
 .gallery__wine__image {
   position: absolute;
   width: 100%;
