@@ -89,21 +89,21 @@
   justify-content: center;
 }
 
-.ticket__progress--0 {
+.ticket__progress--1 {
   color: green;
 }
 
-.ticket__progress--0 > * {
+.ticket__progress--1 > * {
   height: 30px;
   width: 30px;
 }
 
-.ticket__progress--1 {
+.ticket__progress--0 {
   background-color: #f9e000;
   color: var(--bg-0);
 }
 
-.ticket__progress--1 > svg {
+.ticket__progress--0 > svg {
   height: 24px;
   width: 24px;
 }
