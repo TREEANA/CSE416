@@ -23,7 +23,7 @@ const dummyReview = {
   comments: [],
 };
 
-const Review = ({ review = dummyReview, toggleStatus }) => {
+const Review = ({ review = dummyReview }) => {
   const tags = review.tags;
 
   const getTags = (tags) => {
