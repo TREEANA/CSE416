@@ -17,6 +17,7 @@
   color: var(--primary);
   font-weight: bold;
   margin: 0 0 1rem 0;
+  -webkit-text-stroke: 0.5px var(--primary);
 }
 
 .footer__title:hover {
