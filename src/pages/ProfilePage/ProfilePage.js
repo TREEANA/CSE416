@@ -52,6 +52,7 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
   }, [userID]);
 
   const displaylikes = () => {
+    console.log("보자", likesList);
     const result = [];
     for (let i = 0; i < likesList.length; i = i + 3) {
       if (i === likesList.length - 1) {
@@ -329,8 +330,7 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
                 <ul>
                   <li>
                     <span className="profile__stats__count">
-                      {userData.likedWinelists.length +
-                        userData.likedWines.length}
+                      {likesList.length}
                     </span>
                     likes
                   </li>
