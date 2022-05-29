@@ -3,6 +3,8 @@ import { BsXLg, BsFilePlusFill } from "react-icons/bs";
 import "./ApplyModal.css";
 import SommHistory from "../../components/SommHistory/SommHistory";
 import axios, { CancelToken } from "axios";
+import Loader from "../../components/Loader/Loader";
+
 {
   /* <img
 className="becomesommlier_poto"
@@ -10,6 +12,7 @@ src="https://mblogthumb-phinf.pstatic.net/MjAxOTAzMjJfMjA2/MDAxNTUzMjI3NDU5NzU0.
 ></img> */
 }
 const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
+  const [loading, setLoading] = useState(false);
   const [step, setstep] = useState(0);
   const [selectedImage, setSelectedImage] = useState("");
   const [description, setDescription] = useState("");
@@ -46,6 +49,8 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
   };
 
   const createverification = async () => {
+    setLoading(true);
+
     let body = {
       userID: status.userID,
       verificationImage:
@@ -71,6 +76,8 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     try {
       await axios.post(`/api/verification-tickets`, body).then((res) => {
         console.log(res);
+
+        setLoading(false);
       });
     } catch (error) {
       console.log(error);
@@ -210,29 +217,38 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     } else if (step === 4) {
       return (
         <div className="create">
-          <div className="create__subtitle">Description</div>
-          <textarea
-            className="create__comment"
-            name="content"
-            placeholder="enter description of your winelist"
-            value={description}
-            onChange={(event) => {
-              setDescription(event.target.value);
-            }}
-          />
-
-          {description !== "" ? (
-            <div
-              className="becomesommlier__button"
-              onClick={() => {
-                createverification();
-              }}
-            >
-              {" "}
-              Submit
-            </div>
+          {loading ? (
+            <Loader />
           ) : (
-            <div className="becomesommlier__button_unavailable"> Submit</div>
+            <>
+              {" "}
+              <div className="create__subtitle">Description</div>
+              <textarea
+                className="create__comment"
+                name="content"
+                placeholder="enter description of your winelist"
+                value={description}
+                onChange={(event) => {
+                  setDescription(event.target.value);
+                }}
+              />
+              {description !== "" ? (
+                <div
+                  className="becomesommlier__button"
+                  onClick={() => {
+                    createverification();
+                  }}
+                >
+                  {" "}
+                  Submit
+                </div>
+              ) : (
+                <div className="becomesommlier__button_unavailable">
+                  {" "}
+                  Submit
+                </div>
+              )}
+            </>
           )}
         </div>
       );

@@ -5,8 +5,10 @@ import axios from "axios";
 import { set } from "lodash";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
+import FollowingModal from "../../modals/FollowingModal/FollowingModal";
+import FollowsModal from "../../modals/FollowsModal/FollowsModal";
 
-const ProfilePage = ({ status, toggleStatus }) => {
+const ProfilePage = ({ status, toggleStatus, setStatus }) => {
   const dummpyReviewdata = [];
   const [reviewWineList, setreviewWineList] = useState([]);
   const [likesList, setlikesList] = useState([]);
@@ -40,14 +42,10 @@ const ProfilePage = ({ status, toggleStatus }) => {
     }
   };
 
-  useEffect(
-    () => {
-      setLoading(true);
-      getUserdata();
-    },
-    [userID],
-    [status]
-  );
+  useEffect(() => {
+    setLoading(true);
+    getUserdata();
+  }, [userID, status]);
 
   useEffect(() => {
     checkfollow();
@@ -59,9 +57,16 @@ const ProfilePage = ({ status, toggleStatus }) => {
       if (i === likesList.length - 1) {
         result.push(
           <div className="gallery__cont">
-            <div className="gallery__wine__image">
+            <div className="gallery__imageCont">
               <Link to={`/${likesList[i].iswinelist}/${likesList[i].id}`}>
-                <img className="gallery__image" src={likesList[i].image}></img>
+                <img
+                  className={
+                    likesList[i].iswinelist === "list"
+                      ? "gallery__wine__image"
+                      : "gallery__image"
+                  }
+                  src={likesList[i].image}
+                ></img>
               </Link>
             </div>
           </div>
@@ -72,7 +77,11 @@ const ProfilePage = ({ status, toggleStatus }) => {
             <div className="gallery__imageCont">
               <Link to={`/${likesList[i].iswinelist}/${likesList[i].id}`}>
                 <img
-                  className="gallery__wine__image"
+                  className={
+                    likesList[i].iswinelist === "list"
+                      ? "gallery__wine__image"
+                      : "gallery__image"
+                  }
                   src={likesList[i].image}
                 ></img>
               </Link>
@@ -82,7 +91,11 @@ const ProfilePage = ({ status, toggleStatus }) => {
                 to={`/${likesList[i + 1].iswinelist}/${likesList[i + 1].id}`}
               >
                 <img
-                  className="gallery__wine__image"
+                  className={
+                    likesList[i + 1].iswinelist === "list"
+                      ? "gallery__wine__image"
+                      : "gallery__image"
+                  }
                   src={likesList[i + 1].image}
                 ></img>
               </Link>
@@ -95,7 +108,11 @@ const ProfilePage = ({ status, toggleStatus }) => {
             <div className="gallery__imageCont">
               <Link to={`/${likesList[i].iswinelist}/${likesList[i].id}`}>
                 <img
-                  className="gallery__wine__image"
+                  className={
+                    likesList[i].iswinelist === "list"
+                      ? "gallery__wine__image"
+                      : "gallery__image"
+                  }
                   src={likesList[i].image}
                 ></img>
               </Link>
@@ -105,7 +122,11 @@ const ProfilePage = ({ status, toggleStatus }) => {
                 to={`/${likesList[i + 1].iswinelist}/${likesList[i + 1].id}`}
               >
                 <img
-                  className="gallery__wine__image"
+                  className={
+                    likesList[i + 1].iswinelist === "list"
+                      ? "gallery__wine__image"
+                      : "gallery__image"
+                  }
                   src={likesList[i + 1].image}
                 ></img>
               </Link>
@@ -115,7 +136,11 @@ const ProfilePage = ({ status, toggleStatus }) => {
                 to={`/${likesList[i + 2].iswinelist}/${likesList[i + 2].id}`}
               >
                 <img
-                  className="gallery__wine__image"
+                  className={
+                    likesList[i + 2].iswinelist === "list"
+                      ? "gallery__wine__image"
+                      : "gallery__image"
+                  }
                   src={likesList[i + 2].image}
                 ></img>
               </Link>
@@ -195,10 +220,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
     try {
       setLoading(true);
       const res = await axios.get(`/api/users/${userID}?requesterID=${userID}`);
-      // const newlikedWines = [10, 4, 3];
-      // const newlikeswinelists = [1, 0, 2];
-      const newlikedWines = res.data.likedWines;
-      const newlikeswinelists = res.data.likedWinelists;
 
       setUserData({
         ...userData,
@@ -214,30 +235,37 @@ const ProfilePage = ({ status, toggleStatus }) => {
       });
 
       let newlikeslist = [];
+      const likedwinelists = await axios.get(
+        `/api/users/${userID}/liked-winelists`
+      );
+      const newlikeswinelists = likedwinelists.data;
 
       for (let i = 0; i < newlikeswinelists.length; i++) {
-        const winelistID = newlikeswinelists[i];
-        const res = await axios.get(`/api/winelists/${winelistID}`);
+        const each = newlikeswinelists[i];
         const likesWineitem = {
           iswinelist: "list",
-          id: res.data.winelistID,
-          image: res.data.thumbnailImage,
-          lastUpdatedAt: res.data.lastUpdatedAt,
+          id: each.winelistID,
+          image: each.thumbnailImage,
+          lastUpdatedAt: each.lastUpdatedAt,
         };
         newlikeslist.push(likesWineitem);
       }
 
+      const likedwines = await axios.get(`/api/users/${userID}/liked-wines`);
+      const newlikedWines = likedwines.data;
+
       for (let i = 0; i < newlikedWines.length; i++) {
-        const wineID = newlikedWines[i];
-        const res = await axios.get(`/api/wines/${wineID}`);
+        const each = newlikedWines[i];
         const likesWinesitem = {
           iswinelist: "wine",
-          id: res.data.wineID,
-          image: res.data.images[0],
-          lastUpdatedAt: res.data.lastUpdatedAt,
+          id: each.wineID,
+          image: each.images[0],
+          lastUpdatedAt: each.lastUpdatedAt,
         };
         newlikeslist.push(likesWinesitem);
       }
+      console.log("안녕", newlikeslist);
+
       newlikeslist.sort((a, b) => {
         if (a.lastUpdatedAt < b.lastUpdatedAt) {
           return 1;
@@ -251,7 +279,6 @@ const ProfilePage = ({ status, toggleStatus }) => {
 
       const res2 = await axios.get(`/api/users/${userID}/reviewed-wines`);
       setLoading(false);
-      console.log(res2.data);
       setreviewWineList(res2.data);
     } catch (e) {
       console.log(e);
@@ -282,6 +309,18 @@ const ProfilePage = ({ status, toggleStatus }) => {
       ) : (
         <>
           {" "}
+          <FollowingModal
+            status={status}
+            setStatus={setStatus}
+            userID={Number(userData.userID)}
+            username={userData.username}
+          ></FollowingModal>
+          <FollowsModal
+            status={status}
+            setStatus={setStatus}
+            userID={Number(userData.userID)}
+            username={userData.username}
+          ></FollowsModal>
           <div className="profile">
             <div className="profile__name"> {userData.username}</div>
             <div className="proflie__proflie">
@@ -302,13 +341,30 @@ const ProfilePage = ({ status, toggleStatus }) => {
                     reviews
                   </li>
                   <li>
-                    <span className="profile__stats__count">
+                    <span
+                      className="profile__stats__count"
+                      onClick={() => {
+                        setStatus({
+                          ...status,
+                          followsModal: !status.followsModal,
+                        });
+                      }}
+                    >
                       {userData.followers.length}
                     </span>{" "}
                     followers
                   </li>
                   <li>
-                    <span className="profile__stats__count">
+                    <span
+                      className="profile__stats__count"
+                      onClick={() => {
+                        setStatus({
+                          ...status,
+
+                          followingModal: !status.followingModal,
+                        });
+                      }}
+                    >
                       {userData.followings.length}
                     </span>{" "}
                     follows

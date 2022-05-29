@@ -12,7 +12,20 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
   const [valueSearch, setSearch] = useState("");
   const [selectedtag, setSelectedtag] = useState([]);
   const [tags, setTags] = useState({});
-
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      const formattedTag = valueSearch.toLowerCase();
+      const result = [];
+      for (let each in tags) {
+        if (each.toLowerCase().indexOf(formattedTag) === 0) {
+          result.push(each);
+        }
+      }
+      if (result.length === 1) {
+        setTags({ ...tags, [result[0]]: !tags[result[0].length] });
+      }
+    }
+  };
   function onBtnClick() {
     setTags({ ...tags, [this.txt]: !tags[this.txt] });
   }
@@ -202,6 +215,7 @@ const RegisterModal = ({ status, toggleStatus, setStatus }) => {
                     onChange={(event) => {
                       setSearch(event.target.value);
                     }}
+                    onKeyPress={handleKeyPress}
                   ></input>
                 </div>
 

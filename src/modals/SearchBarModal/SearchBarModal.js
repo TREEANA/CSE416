@@ -17,60 +17,164 @@ const SearchBarModal = ({
 
   const [followers, setFollowers] = useState([]);
   const [followering, setFollowering] = useState([]);
+  const [clickFollowers, setClickFollowers] = useState(true);
+  const [valueSearch, setSearch] = useState("");
+
+  const onValueSearchChange = async (e) => {
+    if (source.current !== null) {
+      source.current.cancel();
+    }
+    source.current = CancelToken.source();
+    try {
+      setLoading(true);
+      const res = await axios.get(
+        `/api/users?username=${e.target.value}&num=5`,
+        {
+          cancelToken: source.current.token,
+        }
+      );
+      setLoading(false);
+      setSearch(e.target.value);
+      const newmatching = res.data;
+      const newmatchinglist = [];
+      for (let i = 0; i < newmatching.length; i++) {
+        const item = {
+          userID: newmatching[i].userID,
+          username: newmatching[i].username,
+          profileImage: newmatching[i].profileImage,
+          status: newmatching[i].status,
+          isFollowing: followering.some(function (el) {
+            return el.userID === newmatching[i].userID;
+          }),
+        };
+
+        if (!(Number(newmatching[i].userID) === Number(status.userID))) {
+          newmatchinglist.push(item);
+        }
+      }
+
+      setUserList(newmatchinglist);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // const getUserdata = async () => {
+  //   if (status.userID) {
+  //     setLoading(true);
+  //     let res = await axios.get(
+  //       `/api/users/${status.userID}?requesterID=${status.userID}`
+  //     );
+
+  //     const newfollowingslist = res.data.followings;
+  //     const newfollowerslist = res.data.followers;
+
+  //     const userList = [];
+  //     const followingUserList = [];
+  //     const followUserList = [];
+
+  //     res = await axios.get(`/users?username=${valueSearch}`);
+  //     setLoading(false);
+  //     for (let i = 0; i < res.data.length; i++) {
+  //       const each = res.data[i];
+  //       let isFollowing = false;
+
+  //       for (let i = 0; i < newfollowingslist.length; i++) {
+  //         if (newfollowingslist[i] === each.userID) {
+  //           isFollowing = true;
+  //         }
+  //       }
+  //       let isFollows = false;
+
+  //       for (let i = 0; i < newfollowerslist.length; i++) {
+  //         if (newfollowerslist[i] === each.userID) {
+  //           isFollows = true;
+  //         }
+  //       }
+  //       const item = {
+  //         userID: each.userID,
+  //         username: each.username,
+  //         profileImage: each.profileImage,
+  //         status: each.status,
+  //         isFollowing: isFollowing,
+  //         isFollows: isFollows,
+  //       };
+  //       if (each.userID !== status.userID && !isFollowing && !isFollows) {
+  //         userList.push(item);
+  //       }
+  //       if (isFollowing) {
+  //         followingUserList.push(item);
+  //       }
+  //       if (isFollows) {
+  //         followUserList.push(item);
+  //       }
+  //     }
+  //     setUserList(userList);
+  //     setFollowers(followUserList);
+  //     setFollowering(followingUserList);
+  //   }
+  // };
+
+  function checkfollow(id) {
+    return followering.some(function (el) {
+      return el.userID === id;
+    });
+  }
 
   const getUserdata = async () => {
     if (status.userID) {
       setLoading(true);
-      let res = await axios.get(
-        `/api/users/${status.userID}?requesterID=${status.userID}`
-      );
+      let res = await axios.get(`/api/users/${status.userID}/followers`);
+      const newfollowers = res.data.followers;
+      const newfollowerslist = [];
 
-      const newfollowingslist = res.data.followings;
-      const newfollowerslist = res.data.followers;
-
-      const userList = [];
-      const followingUserList = [];
-      const followUserList = [];
-
-      res = await axios.get(`/api/users?num=200&?page=2`);
-      setLoading(false);
-      for (let i = 0; i < res.data.length; i++) {
-        const each = res.data[i];
-        let isFollowing = false;
-
-        for (let i = 0; i < newfollowingslist.length; i++) {
-          if (newfollowingslist[i] === each.userID) {
-            isFollowing = true;
-          }
-        }
-        let isFollows = false;
-
-        for (let i = 0; i < newfollowerslist.length; i++) {
-          if (newfollowerslist[i] === each.userID) {
-            isFollows = true;
-          }
-        }
+      for (let i = 0; i < newfollowers.length; i++) {
         const item = {
-          userID: each.userID,
-          username: each.username,
-          profileImage: each.profileImage,
-          status: each.status,
-          isFollowing: isFollowing,
-          isFollows: isFollows,
+          userID: newfollowers[i].userID,
+          username: newfollowers[i].username,
+          profileImage: newfollowers[i].profileImage,
+          status: newfollowers[i].status,
+          isFollows: true,
         };
-        if (each.userID !== status.userID && !isFollowing && !isFollows) {
-          userList.push(item);
-        }
-        if (isFollowing) {
-          followingUserList.push(item);
-        }
-        if (isFollows) {
-          followUserList.push(item);
+        newfollowerslist.push(item);
+      }
+
+      res = await axios.get(`/api/users/${status.userID}/followings`);
+      const newfollowings = res.data.followings;
+      const newfollowingslist = [];
+
+      for (let i = 0; i < newfollowings.length; i++) {
+        const item = {
+          userID: newfollowings[i].userID,
+          username: newfollowings[i].username,
+          profileImage: newfollowings[i].profileImage,
+          status: newfollowings[i].status,
+          isFollowing: true,
+        };
+        newfollowingslist.push(item);
+      }
+      res = await axios.get(`/api/users?username=${valueSearch}&num=5`);
+      setLoading(false);
+      const newmatching = res.data;
+      const newmatchinglist = [];
+      for (let i = 0; i < newmatching.length; i++) {
+        const item = {
+          userID: newmatching[i].userID,
+          username: newmatching[i].username,
+          profileImage: newmatching[i].profileImage,
+          status: newmatching[i].status,
+          isFollowing: newfollowings.some(function (el) {
+            return el.userID === newmatching[i].userID;
+          }),
+        };
+        if (!(Number(newmatching[i].userID) === Number(status.userID))) {
+          newmatchinglist.push(item);
         }
       }
-      setUserList(userList);
-      setFollowers(followUserList);
-      setFollowering(followingUserList);
+
+      setUserList(newmatchinglist);
+      setFollowers(newfollowerslist);
+      setFollowering(newfollowingslist);
     }
   };
 
@@ -89,13 +193,31 @@ const SearchBarModal = ({
     }
   };
 
+  function checkID(id) {
+    return followering.some(function (el) {
+      return el.userID === id;
+    });
+  }
+
+  function checkIDinuserList(id) {
+    return userList.some(function (el) {
+      return el.userID === id;
+    });
+  }
+
   const clickMatchingListButton = (id, followOption) => {
     const newArr = [];
     for (let i = 0; i < userList.length; i++) {
       const each = userList[i];
       if (each.userID === id) {
         each.isFollowing = !each.isFollowing;
-
+        if (!checkID(each.userID)) {
+          setFollowering((oldArray) => [...oldArray, each]);
+        } else {
+          setFollowering(
+            followering.filter((item) => item.userID !== each.userID)
+          );
+        }
         follow(id, followOption);
       }
       newArr.push(each);
@@ -108,7 +230,7 @@ const SearchBarModal = ({
     for (let i = 0; i < followers.length; i++) {
       const each = followers[i];
       if (each.userID === id) {
-        each.isFollowing = !each.isFollowing;
+        each.isFollows = !each.isFollows;
 
         follow(id, followOption);
       }
@@ -123,6 +245,12 @@ const SearchBarModal = ({
       const each = followering[i];
       if (each.userID === id) {
         each.isFollowing = !each.isFollowing;
+        // if (!checkIDinuserList(each.userID)) {
+        //   setUserList((oldArray) => [...oldArray, each]);
+        // }
+        // setFollowering(
+        //   followering.filter((item) => item.userID !== each.userID)
+        // );
 
         follow(id, followOption);
       }
@@ -133,73 +261,34 @@ const SearchBarModal = ({
 
   const displayMatchingPeople = () => {
     const result = [];
-    if (valueSearch.length !== 0) {
-      let newlistbysearch = [];
-      for (let i = 0; i < userList.length; i++) {
-        const each = userList[i];
-        if (each.username.includes(valueSearch)) {
-          newlistbysearch.push(each);
-        }
-      }
-      for (let i = 0; i < newlistbysearch.length; i++) {
-        const each = newlistbysearch[i];
-        result.push(
-          <div className="search__profile__container">
-            <Link to={`/profile/${each.userID}`}>
-              <div className="search__profile" onClick={toggleSearchBarModal}>
-                <div className="search__image">
-                  <img className="search__image" src={each.profileImage} />
-                </div>
-                <div className="search__name" id={each.userID}>
-                  {each.username}
-                </div>
-                {each.status === 1 && <MdWineBar />}
+    for (let i = 0; i < userList.length; i++) {
+      const each = userList[i];
+      result.push(
+        <div className="search__profile__container">
+          <Link to={`/profile/${each.userID}`}>
+            <div className="search__profile" onClick={toggleSearchBarModal}>
+              <div className="search__image">
+                <img className="search__image" src={each.profileImage} />
               </div>
-            </Link>
-
-            <div
-              className={
-                each.isFollowing
-                  ? "search__button search__button"
-                  : "search__button--filled"
-              }
-              onClick={() => clickMatchingListButton(each.userID, "following")}
-            >
-              {each.isFollowing ? "following" : "follow"}
-            </div>
-          </div>
-        );
-      }
-    } else {
-      for (let i = 0; i < userList.length && i < 5; i++) {
-        const each = userList[i];
-        result.push(
-          <div className="search__profile__container">
-            <Link to={`/profile/${each.userID}`}>
-              <div className="search__profile" onClick={toggleSearchBarModal}>
-                <div className="search__image">
-                  <img className="search__image" src={each.profileImage} />
-                </div>
-                <div className="search__name" id={each.userID}>
-                  {each.username}
-                </div>
-                {each.status === 1 && <MdWineBar />}
+              <div className="search__name" id={each.userID}>
+                {each.username}
               </div>
-            </Link>
-
-            <div
-              className={
-                each.isFollowing
-                  ? "search__button search__button"
-                  : "search__button--filled"
-              }
-              onClick={() => clickMatchingListButton(each.userID, "following")}
-            >
-              {each.isFollowing ? "following" : "follow"}
+              {each.status === 1 && <MdWineBar />}
             </div>
+          </Link>
+
+          <div
+            className={
+              each.isFollowing
+                ? "search__button search__button"
+                : "search__button--filled"
+            }
+            onClick={() => clickMatchingListButton(each.userID, "following")}
+          >
+            {each.isFollowing ? "following" : "follow"}
           </div>
-        );
-      }
+        </div>
+      );
     }
 
     return result;
@@ -259,9 +348,9 @@ const SearchBarModal = ({
 
           <div
             className={
-              each.isFollowing
-                ? "search__button--filled"
-                : "search__button search__button"
+              each.isFollows
+                ? "search__button search__button"
+                : "search__button--filled"
             }
             onClick={() => clickFollowsListButton(each.userID, "follower")}
           >
@@ -273,9 +362,6 @@ const SearchBarModal = ({
 
     return result;
   };
-
-  const [clickFollowers, setClickFollowers] = useState(true);
-  const [valueSearch, setSearch] = useState("");
 
   useEffect(() => {
     getUserdata();
@@ -403,9 +489,7 @@ const SearchBarModal = ({
               <input
                 className="search__text-input"
                 placeholder="find new people"
-                onChange={(event) => {
-                  setSearch(event.target.value);
-                }}
+                onChange={onValueSearchChange}
               ></input>
             </div>
             <BsXLg className="search__close" onClick={toggleSearchBarModal} />
