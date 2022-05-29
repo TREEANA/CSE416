@@ -14,7 +14,20 @@ const FilterModal = ({ status, setStatus }) => {
   const [valueSearch, setSearch] = useState("");
   const [list, setList] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
-
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      const formattedTag = valueSearch.toLowerCase();
+      const result = [];
+      for (let each in list) {
+        if (each.toLowerCase().indexOf(formattedTag) === 0) {
+          result.push(each);
+        }
+      }
+      if (result.length === 1) {
+        setList({ ...list, [result[0]]: !list[result[0].length] });
+      }
+    }
+  };
   const fetchTags = async () => {
     const res = await axios.get("/api/tags/list");
     const tempTags = {};
@@ -202,6 +215,7 @@ const FilterModal = ({ status, setStatus }) => {
                 onChange={(event) => {
                   setSearch(event.target.value);
                 }}
+                onKeyPress={handleKeyPress}
               ></input>
             </div>
             <div>

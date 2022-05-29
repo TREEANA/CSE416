@@ -47,7 +47,9 @@ const SearchBarModal = ({
             return el.userID === newmatching[i].userID;
           }),
         };
-        newmatchinglist.push(item);
+        if (newmatching[i].userID !== status.userID) {
+          newmatchinglist.push(item);
+        }
       }
 
       setUserList(newmatchinglist);
@@ -164,7 +166,9 @@ const SearchBarModal = ({
             return el.userID === newmatching[i].userID;
           }),
         };
-        newmatchinglist.push(item);
+        if (newmatching[i].userID !== status.userID) {
+          newmatchinglist.push(item);
+        }
       }
 
       setUserList(newmatchinglist);

@@ -40,14 +40,10 @@ const ProfilePage = ({ status, toggleStatus }) => {
     }
   };
 
-  useEffect(
-    () => {
-      setLoading(true);
-      getUserdata();
-    },
-    [userID],
-    [status]
-  );
+  useEffect(() => {
+    setLoading(true);
+    getUserdata();
+  }, [userID, status]);
 
   useEffect(() => {
     checkfollow();

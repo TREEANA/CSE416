@@ -4,12 +4,17 @@ import { BsArrowLeft, BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import Tag from "../../components/Tag/Tag";
 import axios, { CancelToken } from "axios";
+import Loader from "../../components/Loader/Loader";
+
 // RegisterModal
-const EditProfileModal = ({ status, toggleStatus }) => {
-  const [userName, setUserName] = useState();
+const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
+  const [userName, setUserName] = useState("");
   const [isavailable, setAvailable] = useState(false);
   const [valueSearch, setSearch] = useState("");
   const [list, setList] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const [currentname, setcurrentname] = useState("");
 
   const fetchTags = async () => {
     const res = await axios.get("/api/tags/list");
@@ -25,6 +30,9 @@ const EditProfileModal = ({ status, toggleStatus }) => {
         `/api/users/${status.userID}?requesterID=${status.userID}`
       );
       const usertag = res.data.tags;
+
+      setcurrentname(res.data.username);
+      setUserName(res.data.username);
       usertag.forEach((each) => {
         tempTags[each] = true;
       });
@@ -40,6 +48,21 @@ const EditProfileModal = ({ status, toggleStatus }) => {
   function onBtnClick() {
     setList({ ...list, [this.txt]: !list[this.txt] });
   }
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      const formattedTag = valueSearch.toLowerCase();
+      const result = [];
+      for (let each in list) {
+        if (each.toLowerCase().indexOf(formattedTag) === 0) {
+          result.push(each);
+        }
+      }
+      if (result.length === 1) {
+        setList({ ...list, [result[0]]: !list[result[0].length] });
+      }
+    }
+  };
 
   const displaySelectedTags = () => {
     const result = [];
@@ -100,7 +123,11 @@ const EditProfileModal = ({ status, toggleStatus }) => {
         `/api/users/username-duplicate-check?username=${e.target.value}`
       );
       if (res.status === 200) {
-        setAvailable(!res.data.duplicate);
+        if (currentname === e.target.value) {
+          setAvailable(true);
+        } else {
+          setAvailable(!res.data.duplicate);
+        }
         setUserName(e.target.value);
       }
     } catch (err) {
@@ -109,6 +136,7 @@ const EditProfileModal = ({ status, toggleStatus }) => {
   };
 
   const onEditProfile = async () => {
+    setLoading(true);
     let newtag = "";
     for (const each in list) {
       if (list[each] === true) {
@@ -133,11 +161,14 @@ const EditProfileModal = ({ status, toggleStatus }) => {
             phone: 0,
             gender: 1,
           });
+          setLoading(false);
           console.log(res1);
         } catch (err) {
           console.log(err);
         }
         toggleStatus("EditProfileModal");
+
+        setSearch("");
       }
     } catch (e) {
       console.log(e);
@@ -147,77 +178,96 @@ const EditProfileModal = ({ status, toggleStatus }) => {
   return (
     <>
       {status.EditProfileModal && (
-        <div className="register">
-          <div className="register__header">
-            <BsArrowLeft
-              className="register__back"
-              onClick={() => toggleStatus("EditProfileModal")}
-            ></BsArrowLeft>
-            <div className="register__home">
-              <Link to="/" onClick={() => toggleStatus("EditProfileModal")}>
-                podo
-              </Link>
+        <>
+          {" "}
+          {loading ? (
+            <div className="register">
+              <Loader />
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="register">
+                <div className="register__header">
+                  <BsArrowLeft
+                    className="register__back"
+                    onClick={() => toggleStatus("EditProfileModal")}
+                  ></BsArrowLeft>
+                  <div className="register__home">
+                    <Link
+                      to="/"
+                      onClick={() => toggleStatus("EditProfileModal")}
+                    >
+                      podo
+                    </Link>
+                  </div>
+                </div>
 
-          <div className="register__main">
-            <div className="register__title">Edit your profile</div>
+                <div className="register__main">
+                  <div className="register__title">Edit your profile</div>
 
-            <form className="register__main-content">
-              <br></br>
-              <div className="register_subtitle">Change your user name</div>
-              <input
-                className="register__name"
-                placeholder="username"
-                onChange={onNameChange}
-              ></input>
-              <div className="register__name-warning">
-                {isavailable ? "available username" : "unavailable username"}
+                  <form className="register__main-content">
+                    <br></br>
+                    <div className="register_subtitle">
+                      Change your user name
+                    </div>
+                    <input
+                      className="register__name"
+                      placeholder={userName}
+                      onChange={onNameChange}
+                    ></input>
+                    <div className="register__name-warning">
+                      {isavailable
+                        ? "available username"
+                        : "unavailable username"}
+                    </div>
+                    <br></br>
+                    <div className="register_subtitle">
+                      {" "}
+                      choose the tags you are interested{" "}
+                    </div>
+
+                    <div className="registertag__main-content">
+                      <div className="registertag__main-search">
+                        <BsSearch className="registertag__main-search-icon" />
+                        <input
+                          className="registertag__main-search-input"
+                          placeholder="search for more tags"
+                          onChange={(event) => {
+                            setSearch(event.target.value);
+                          }}
+                          onKeyPress={handleKeyPress}
+                        ></input>
+                      </div>
+
+                      <div>
+                        {" "}
+                        {displaySelectedTags()}
+                        {displayUnselectedTags()}
+                      </div>
+                    </div>
+
+                    {isavailable ? (
+                      <div
+                        className="register__register"
+                        onClick={() => {
+                          onEditProfile();
+                        }}
+                      >
+                        {" "}
+                        Edit profile
+                      </div>
+                    ) : (
+                      <div className="register__register_unavailable">
+                        {" "}
+                        Edit profile
+                      </div>
+                    )}
+                  </form>
+                </div>
               </div>
-              <br></br>
-              <div className="register_subtitle">
-                {" "}
-                choose the tags you are interested{" "}
-              </div>
-
-              <div className="registertag__main-content">
-                <div className="registertag__main-search">
-                  <BsSearch className="registertag__main-search-icon" />
-                  <input
-                    className="registertag__main-search-input"
-                    placeholder="search for more tags"
-                    onChange={(event) => {
-                      setSearch(event.target.value);
-                    }}
-                  ></input>
-                </div>
-
-                <div>
-                  {" "}
-                  {displaySelectedTags()}
-                  {displayUnselectedTags()}
-                </div>
-              </div>
-
-              {isavailable ? (
-                <div
-                  className="register__register"
-                  onClick={() => {
-                    onEditProfile();
-                  }}
-                >
-                  {" "}
-                  Edit profile
-                </div>
-              ) : (
-                <div className="register__register_unavailable">
-                  {" "}
-                  Edit profile
-                </div>
-              )}
-            </form>
-          </div>
-        </div>
+            </>
+          )}
+        </>
       )}
     </>
   );

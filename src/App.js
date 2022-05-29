@@ -142,6 +142,7 @@ const App = () => {
       ></RegisterModal>
       <EditProfileModal
         status={status}
+        setStatus={setStatus}
         toggleStatus={toggleStatus}
       ></EditProfileModal>
 
