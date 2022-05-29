@@ -1,8 +1,6 @@
 .sommverify {
   /* width: 100vw; */
-  /* height: 100vh; */
-  /* width: 100%; */
-  margin: var(--margin-out);
+  margin: 0 var(--margin-out);
   /* width: 100%; */
 }
 .sommverify__header {
@@ -69,18 +67,23 @@
   width: 1.8rem;
   border-radius: 50%;
 }
-
-.sommverify__statusIcon0 {
-  background-color: green;
-  color: white;
-}
-.sommverify__statusIcon1 {
-  background-color: #f9e000;
-  color: white;
-}
+/* declined */
 .sommverify__statusIcon0 {
   background-color: red;
   color: white;
+  border: 1px solid red;
+}
+/* approved */
+.sommverify__statusIcon1 {
+  background-color: green;
+  color: white;
+  border: 1px solid green;
+}
+/*  */
+.sommverify__statusIcon2 {
+  background-color: #f9e000;
+  color: white;
+  border: 1px solid #f9e000;
 }
 
 .sommverify__body {
@@ -105,8 +108,9 @@
 
 .sommverify__img {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   height: inherit;
   width: 50%;
   /* border: 1px solid orange; */

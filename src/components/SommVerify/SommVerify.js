@@ -1,24 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+
 import {
   BsXLg,
   BsFillCheckCircleFill,
   BsThreeDots,
   BsFillXCircleFill,
 } from "react-icons/bs";
+
 import "./SommVerify.css";
 
 const verifyDummyData = {
-  ticketID: 0,
+  ticketID: 1,
   userID: 60,
-  adminID: 1,
-  verificationImage:
-    "https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg",
-  userExplanation: "hi i uploaded my verification1",
-  status: 1,
+  adminID: null,
+  verificationImage: "https://s3.bucket.podo/verficationImage/1/1.jpg",
+  userExplanation: "I got my sommelier degree from Canada",
   adminFeedback: "",
-  createdAt: "1011.01.11",
-  lastUpdatedAt: "1011.11.11",
+  createdAt: "2022-04-04 18:11:12",
+  lastUpdatedAt: "2022-04-05 18:11:12",
+  status: 2,
 };
 
 const SommVerify = ({ status, request = verifyDummyData }) => {
@@ -31,7 +32,8 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
   };
 
   // current status of the Verification Ticket
-  // status: 0(approved), 1(pending), 2(rejected);
+  // //(Before) status: 0(approved), 1(pending), 2(rejected);
+  // status: 0(declined), 1(approved), 2(pending);
   const [curStatus, setCurStatus] = useState(request.status);
 
   //admin
@@ -39,10 +41,11 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
 
   //sommdata = tempRequest
   const [tempRequest, setTempRequest] = useState({});
+
   // initialize tempRequest with the data of request
   useEffect(() => {
     setTempRequest(request);
-    console.log("tempRequest:", tempRequest);
+    // console.log("tempRequest:", tempRequest);
   }, []);
 
   //username
@@ -52,12 +55,11 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
     try {
       const res = await axios.get(`/api/users/${userID}`);
       setUsername(res.data.username);
-      console.log("username after useEffect : ", username);
     } catch (err) {
       console.error(err);
     }
   };
-
+  //fetch username when initially loaded
   useEffect(() => {
     getUserName(request.userID);
   }, []);
@@ -65,15 +67,14 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
   const onSubmit = async () => {
     const body = {
       ticketID: request.ticketID,
-      adminID: status.userID,
+      adminID: status.userinfo.userID,
       adminFeedback: adminFeedback,
       status: curStatus,
     };
-
     axios
       .put(`/api/verification-tickets/answer`, body)
       .then((response) => {
-        console.log("response:", JSON.stringify(response.data, null, 2));
+        console.log("response:", JSON.stringify(response.data, null));
       })
       .catch((error) => {
         console.log(error);
@@ -90,41 +91,66 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
     console.log(newTempRequest);
   };
 
+  const displayStatus = (curStatus) => {
+    if (curStatus === 0) {
+      return <BsFillXCircleFill className="sommverify__statusIcon0" />;
+    } else if (curStatus === 1) {
+      return <BsFillCheckCircleFill className="sommverify__statusIcon1" />;
+    } else {
+      return <BsThreeDots className="sommverify__statusIcon2" />;
+    }
+  };
+
+  //able to edit? (only when the curStatus === 2)
+  const [editRequest, setEditRequest] = useState(0);
+  //editRequest should change whenver curStatus changes
+  useEffect(() => {
+    if (curStatus !== 2) {
+      setEditRequest(0);
+    } else {
+      setEditRequest(1);
+    }
+  }, [curStatus]);
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}.${month}.${day}`;
+  };
+
   return (
     <>
       <div className="sommverify">
         <div className="sommverify__header" onClick={toggleButton}>
-          <div className="sommverify__info">
-            {/* <img
-              className="sommverify__infoImg"
-              src={tempRequest.verificationImage}
-            /> */}
-            {/* <div className="sommverify__infoName">somm1</div> */}
-            {username}
-          </div>
+          <div className="sommverify__info">{username}</div>
           <div className="sommverify__status">
             <div className="sommverify__verifyButton">
-              {toggleStatus &&
-                tempRequest.status !== 0 &&
-                tempRequest.status !== 2 && (
-                  <>
-                    <div className="sommverify__verifyApprove">approve</div>
-                    <div className="sommverify__verifyReject"> reject </div>
-                  </>
-                )}
+              {toggleStatus && editRequest && (
+                <>
+                  <div
+                    className="sommverify__verifyApprove"
+                    onClick={() => {
+                      setCurStatus(1);
+                      // onSubmit();
+                    }}
+                  >
+                    approve
+                  </div>
+                  <div
+                    className="sommverify__verifyReject"
+                    onClick={() => {
+                      setCurStatus(0);
+                      // onSubmit();
+                    }}
+                  >
+                    reject
+                  </div>
+                </>
+              )}
             </div>
             <div className="sommverify__statusIcon">
-              {/* <BsFillCheckCircleFill /> */}
-              {tempRequest.status === 0 ? (
-                <BsFillCheckCircleFill className="sommverify__statusIcon0" />
-              ) : tempRequest.status === 1 ? (
-                <BsThreeDots className="sommverify__statusIcon1" />
-              ) : (
-                <BsFillXCircleFill className="sommverify__statusIcon2" />
-              )}
-              {/* {status === 0 && <BsFillCheckCircleFill className="sommverify__statusIcon0" />}
-              {status === 1 && <BsThreeDots className="sommverify__statusIcon1" />}
-              {status === 2 && <BsXLg  className="sommverify__statusIcon2"  />} */}
+              {displayStatus(curStatus)}
             </div>
           </div>
         </div>
@@ -134,26 +160,28 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
               <div className="sommverify__img">
                 <img
                   className="sommverify__verifyImg"
-                  src="https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg"
+                  src={tempRequest.verificationImage}
                 ></img>
+                <div className="sommverify__appDate">
+                  requested on {formatDate(new Date(tempRequest.lastUpdatedAt))}
+                </div>
+                {/* <div className="sommverify__verDate">verified {}</div> */}
               </div>
               <div className="sommverify__comment">
                 <div className="sommverify__userComment">
                   {tempRequest.userExplanation}
-                  {/* Hello this is sommelier woohyun park. i would like to get my
-                  sommelier badge by using this image. This is the certificate I
-                  got from my home country, I am not sure it would work here as
-                  well. Please thoroughly go over the document and let me know
-                  the result. Thank you! */}
                 </div>
 
-                <div className="sommverify__adminComment" method="POST">
+                <div className="sommverify__adminComment">
                   <textarea
                     className="sommverify__adminInput"
-                    placeholder="write a comment here"
+                    placeholder={editRequest ? "write a comment here" : ""}
                     name="adminFeedback"
                     onChange={onChange}
-                  ></textarea>
+                    readOnly={!editRequest}
+                  >
+                    {editRequest ? "" : tempRequest.adminFeedback}
+                  </textarea>
                 </div>
               </div>
             </div>

@@ -3,14 +3,19 @@ import { BsXLg, BsFillCheckCircleFill, BsThreeDots } from "react-icons/bs";
 import "./VerifyPage.css";
 import SommVerify from "../../components/SommVerify/SommVerify";
 import axios from "axios";
+import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 
-const VerifyPage = (status) => {
+const VerifyPage = ({ status }) => {
+  //list of tickets fetched from db
   const [verTickets, setVerTickets] = useState({});
 
   // fetch verification tickets from database
   const fetchVerifyReq = async () => {
     try {
-      const res = await axios.get(`/api/verification-tickets`);
+      const res = await axios.get(
+        `/api/verification-tickets/?userID=${status.userID}`
+      );
+      // console.log("res.data from fetchVerifyReq", res.data);
       setVerTickets(res.data);
     } catch (e) {
       console.log(e);
@@ -23,7 +28,7 @@ const VerifyPage = (status) => {
 
   const displayVerRequest = () => {
     return verTickets.map((each) => {
-      return <SommVerify request={each} status={status} />;
+      return <SommVerify request={each} status={status} key={each.ticketID} />;
     });
   };
 
@@ -31,10 +36,11 @@ const VerifyPage = (status) => {
     <>
       {/* verify sommelier from admin view */}
 
-      <div className="sommverify">
-        <div>
-          <SommVerify />
-          {/* {displayVerRequest} */}
+      <div className="verifypage">
+        <div className="verifypage__title"> Verify Sommelier </div>
+        <div className="verifypage__requests">
+          {/* <SommVerify /> */}
+          {displayVerRequest()}
         </div>
       </div>
     </>
