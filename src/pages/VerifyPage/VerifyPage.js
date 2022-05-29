@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { BsXLg, BsFillCheckCircleFill, BsThreeDots } from "react-icons/bs";
+import axios from "axios";
+
 import "./VerifyPage.css";
 import SommVerify from "../../components/SommVerify/SommVerify";
-import axios from "axios";
-import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
+
+// import { BsXLg, BsFillCheckCircleFill, BsThreeDots } from "react-icons/bs";
 
 const VerifyPage = ({ status }) => {
   //list of tickets fetched from db
-  const [verTickets, setVerTickets] = useState({});
+  const [verTickets, setVerTickets] = useState([]);
 
   // fetch verification tickets from database
   const fetchVerifyReq = async () => {
@@ -17,6 +18,7 @@ const VerifyPage = ({ status }) => {
       );
       // console.log("res.data from fetchVerifyReq", res.data);
       setVerTickets(res.data);
+      // console.log("verTickets:", verTickets);
     } catch (e) {
       console.log(e);
     }
@@ -27,15 +29,25 @@ const VerifyPage = ({ status }) => {
   }, []);
 
   const displayVerRequest = () => {
-    return verTickets.map((each) => {
-      return <SommVerify request={each} status={status} key={each.ticketID} />;
+    // return verTickets.map((each) => {
+    //   return <SommVerify request={each} status={status} key={each.ticketID} />;
+    // });
+    const result = [];
+    if (verTickets.length === 0) return;
+    verTickets.forEach((each, index) => {
+      // if (verTicket.)
+      result.push(
+        <>
+          <SommVerify request={each} key={index} status={status} />
+        </>
+      );
     });
+    // console.log("displayVerRequest: ", result);
+    return result;
   };
 
   return (
     <>
-      {/* verify sommelier from admin view */}
-
       <div className="verifypage">
         <div className="verifypage__title"> Verify Sommelier </div>
         <div className="verifypage__requests">

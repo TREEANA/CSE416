@@ -13,6 +13,7 @@ import "./SommVerify.css";
 const verifyDummyData = {
   ticketID: 1,
   userID: 60,
+  username: "zzaerynn",
   adminID: null,
   verificationImage: "https://s3.bucket.podo/verficationImage/1/1.jpg",
   userExplanation: "I got my sommelier degree from Canada",
@@ -48,21 +49,22 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
     // console.log("tempRequest:", tempRequest);
   }, []);
 
-  //username
-  const [username, setUsername] = useState("");
-  //fetch username using the userID
-  const getUserName = async (userID) => {
-    try {
-      const res = await axios.get(`/api/users/${userID}`);
-      setUsername(res.data.username);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  //fetch username when initially loaded
-  useEffect(() => {
-    getUserName(request.userID);
-  }, []);
+  // //username
+  // const [username, setUsername] = useState("");
+  // //fetch username using the userID
+  // const getUserName = async (userID) => {
+  //   try {
+  //     const res = await axios.get(`/api/users/${userID}`);
+  //     console.log("res.data from getUserName:", res.data);
+  //     setUsername(res.data.username);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+  // //fetch username when initially loaded
+  // useEffect(() => {
+  //   getUserName(request.userID);
+  // }, []);
 
   const onSubmit = async () => {
     const body = {
@@ -93,15 +95,19 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
 
   const displayStatus = (curStatus) => {
     if (curStatus === 0) {
-      return <BsFillXCircleFill className="sommverify__statusIcon0" />;
+      return (
+        <BsFillXCircleFill className="sommverify__statusIcon0"></BsFillXCircleFill>
+      );
     } else if (curStatus === 1) {
-      return <BsFillCheckCircleFill className="sommverify__statusIcon1" />;
+      return (
+        <BsFillCheckCircleFill className="sommverify__statusIcon1"></BsFillCheckCircleFill>
+      );
     } else {
-      return <BsThreeDots className="sommverify__statusIcon2" />;
+      return <BsThreeDots className="sommverify__statusIcon2"></BsThreeDots>;
     }
   };
 
-  //able to edit? (only when the curStatus === 2)
+  //able to edit (only when the curStatus === 2)
   const [editRequest, setEditRequest] = useState(0);
   //editRequest should change whenver curStatus changes
   useEffect(() => {
@@ -123,11 +129,11 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
     <>
       <div className="sommverify">
         <div className="sommverify__header" onClick={toggleButton}>
-          <div className="sommverify__info">{username}</div>
+          <div className="sommverify__info">{tempRequest.username}</div>
           <div className="sommverify__status">
             <div className="sommverify__verifyButton">
               {toggleStatus && editRequest && (
-                <>
+                <div>
                   <div
                     className="sommverify__verifyApprove"
                     onClick={() => {
@@ -146,7 +152,7 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
                   >
                     reject
                   </div>
-                </>
+                </div>
               )}
             </div>
             <div className="sommverify__statusIcon">
