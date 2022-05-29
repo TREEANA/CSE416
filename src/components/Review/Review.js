@@ -24,19 +24,16 @@ const dummyReview = {
 };
 
 const Review = ({ review = dummyReview, toggleStatus }) => {
+  const tags = review.tags;
+
   const getTags = (tags) => {
     const tagsResult = [];
     for (let i = 0; i < tags.length; i++) {
-      tagsResult.push(<Tag type="wineButton" isFilled="false" txt={tags[i]} />);
+      tagsResult.push(
+        <Tag type="wineButton" key={i} isFilled="false" txt={tags[i]} />
+      );
     }
     return tagsResult;
-  };
-
-  const tags = review.tags;
-  const displaySelectedTags = (tags) => {
-    return tags.map((each) => {
-      return <Tag type="wineButton" isFilled="false" txt={each} />;
-    });
   };
 
   const formatDate = (date) => {
@@ -54,7 +51,6 @@ const Review = ({ review = dummyReview, toggleStatus }) => {
             <div className="review__userImage">
               <img src={review.profileImage} />
             </div>
-            {/* <img className = "review__user-image" src = "https://mymodernmet.com/wp/wp-content/uploads/2020/08/sommelier-shutterstock-1.jpg"> </img> */}
             <div className="review__userInfo">
               <div className="review__userName">{review.username}</div>
               <div className="review__userDate">
@@ -67,7 +63,7 @@ const Review = ({ review = dummyReview, toggleStatus }) => {
           </div>
           <div
             className={
-              review.status == 1 ? "review__userRateSomm" : "review__userRate"
+              review.status == 1 ? "review__userRate--somm" : "review__userRate"
             }
           >
             <BsFillStarFill />
