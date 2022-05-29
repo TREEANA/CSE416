@@ -10,9 +10,10 @@ import "./SommVerify.css";
 
 const verifyDummyData = {
   ticketID: 0,
-  userID: 53,
+  userID: 60,
   adminID: 1,
-  verificationImage: "",
+  verificationImage:
+    "https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg",
   userExplanation: "hi i uploaded my verification1",
   status: 1,
   adminFeedback: "",
@@ -20,63 +21,73 @@ const verifyDummyData = {
   lastUpdatedAt: "1011.11.11",
 };
 
-const SommVerify = (sommdata = { ...verifyDummyData }) => {
+const SommVerify = ({ status, request = verifyDummyData }) => {
+  // toggled status of each component- either open or closed
+  // toggle status 0(closed), 1(open)
   const [toggleStatus, setToggleStatus] = useState(0);
-  //   toggle status 0(closed), 1(open)
+
   const toggleButton = () => {
     setToggleStatus(!toggleStatus);
   };
-  //   const [status, setStatus] = useState(sommdata.status);
-  //   status : 0(approved),1(pending), 2(rejected)
 
+  // current status of the Verification Ticket
+  // status: 0(approved), 1(pending), 2(rejected);
+  const [curStatus, setCurStatus] = useState(request.status);
+
+  //admin
+  const [adminFeedback, setAdminFeedback] = useState("");
+
+  //sommdata = tempRequest
   const [tempRequest, setTempRequest] = useState({});
+  // initialize tempRequest with the data of request
   useEffect(() => {
-    setTempRequest(sommdata);
-    console.log("sommdata tempRequest:", tempRequest);
-  }, [sommdata]);
+    setTempRequest(request);
+    console.log("tempRequest:", tempRequest);
+  }, []);
 
-  // const [tempSommData, setTempSommData] = useState({});
-  // const updateUser = () => {
-  //   setSommData(...sommdata);
-  // };
-
-  // const res = await axios.get(`https://podo-backend.herokuapp.com/users/${userId}?requesterID=${userId}`)
-  // if (res.status === 200){
-  //   setSommData(
-  //     ...sommdata,
-  //     [res.username]= res.username)
-  // }
-
-  const getUserName = async () => {
+  //username
+  const [username, setUsername] = useState("");
+  //fetch username using the userID
+  const getUserName = async (userID) => {
     try {
-      return await axios.get(`/api/users/${userId}?requesterID=${userId}`);
+      const res = await axios.get(`/api/users/${userID}`);
+      setUsername(res.data.username);
+      console.log("username after useEffect : ", username);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const form = new FormData();
-  // form.append("userID", userID);
-  // form.append("verficiationImage", verificationImage);
-  // form.append("userExplanation", userExplanation);
-  // ..
-  // 이건 여기서 넣을 수 없는 정보인데 verification model에는 들어있는 것들
-  // form.append(adminID);
-  // form.append(ticketID);
-  // form.append(status);
-  // form.append(createdAt);
+  useEffect(() => {
+    getUserName(request.userID);
+  }, []);
 
-  axios
-    .post(`/api/verification-tickets`, form)
-    .then((response) => {
-      console.log("response:", JSON.stringify(response, null, 2));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  const onSubmit = async () => {
+    const body = {
+      ticketID: request.ticketID,
+      adminID: status.userID,
+      adminFeedback: adminFeedback,
+      status: curStatus,
+    };
 
-  const updateUser = () => {
-    setSommData(...tempRequest, ([username] = getUserName.username));
+    axios
+      .put(`/api/verification-tickets/answer`, body)
+      .then((response) => {
+        console.log("response:", JSON.stringify(response.data, null, 2));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    let newTempRequest = {
+      ...tempRequest,
+      [name]: value,
+    };
+    setTempRequest(newTempRequest);
+    console.log(newTempRequest);
   };
 
   return (
@@ -89,7 +100,7 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
               src={tempRequest.verificationImage}
             /> */}
             {/* <div className="sommverify__infoName">somm1</div> */}
-            {tempRequest.userID}
+            {username}
           </div>
           <div className="sommverify__status">
             <div className="sommverify__verifyButton">
@@ -136,64 +147,19 @@ const SommVerify = (sommdata = { ...verifyDummyData }) => {
                   the result. Thank you! */}
                 </div>
 
-                <form className="sommverify__adminComment" method="POST">
+                <div className="sommverify__adminComment" method="POST">
                   <textarea
                     className="sommverify__adminInput"
                     placeholder="write a comment here"
+                    name="adminFeedback"
+                    onChange={onChange}
                   ></textarea>
-                </form>
+                </div>
               </div>
             </div>
           </div>
         )}
       </div>
-
-      {/* <div className="sommverify">
-        <div className="sommverify__verify">
-          <div className="verifysomm__verify-ind">
-            <div className="verifysomm__verify-info">
-              <img src="//images.vivino.com/avatars/MutAcRi8Th-OYQwBJHsb3w.jpg"></img>
-              <div className="verifysomm__verify-name"> iamdooddi</div>
-            </div>
-
-            <div
-              className={
-                ind1Status
-                  ? "verifysomm__verify-btn verifysomm__verify-btn--open"
-                  : "verifysomm__verify-btn"
-              }
-            >
-              {ind1Status && (
-                <>
-                  <div className="verifysomm__verify-approve-btn">approve</div>
-                  <div className="verifysomm__verify-reject-btn"> reject </div>
-                </>
-              )}
-
-              <div className="verifysomm__verify-pending">
-                <BsThreeDots />
-              </div>
-            </div>
-          </div>
-
-          {ind1Status && (
-            <div className="verifysomm__verify-detail">
-              <div className="verifysomm__verify-detail-img">
-                <img src="https://edu.wine/vendor/10328/pics/images/WEI-somm-adv.jpg"></img>
-              </div>
-              <div className="verifysomm__verify-detail-comment">
-                <div className="verifysomm_verify-usercomment">
-                  I request verification with my certificate. Let me know if
-                  this is too blurred.
-                </div>
-                <div className="verifysomm__verfiy-admincomment">
-                  <input placeholder="write a comment"></input>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div> */}
     </>
   );
 };
