@@ -10,12 +10,7 @@ import {
 import Ticket from "../../components/Ticket/Ticket";
 import axios from "axios";
 
-const TicketModal = ({
-  status,
-  toggleStatus,
-  ticketModalStatus,
-  toggleTicketModal,
-}) => {
+const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
   //새로 만드는 ticket에 관한 useState
   const [tempSuppTicket, setTempSuppTicket] = useState({
     ticketTitle: "",
@@ -66,14 +61,14 @@ const TicketModal = ({
   const displayTickets = () => {
     let result = [];
     prevTickets.forEach((each, index) => {
-      result.push(<Ticket type="ticket" />);
+      result.push(<Ticket type="ticket" ticketData={each} key={index} />);
     });
   };
 
   return (
     <>
       <div
-        className={ticketModalStatus ? "ticketModal" : "ticketModal--inactive"}
+        className={status.ticketModal ? "ticketModal" : "ticketModal--inactive"}
       >
         <div className="ticketModal__container">
           <div className="ticketModal__header">
@@ -138,24 +133,8 @@ const TicketModal = ({
               </div>
             </>
           )}
-          <Ticket
-            type="ticket"
-            ticketStatus={0}
-            title={"Trouble Logging in"}
-            question={"I have trouble logging in with my account"}
-            answer={
-              "Please click on forgot my password button to reset your password."
-            }
-          />
-          <Ticket
-            type="ticket"
-            ticketStatus={1}
-            title={"Trouble Logging in"}
-            question={"I have trouble logging in with my account"}
-            answer={
-              "Please click on forgot my password button to reset your password."
-            }
-          />
+          <Ticket type="ticket" />
+          <Ticket type="ticket" />
         </div>
       </div>
     </>

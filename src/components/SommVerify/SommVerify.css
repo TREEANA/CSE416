@@ -45,6 +45,10 @@
   margin-right: 5px;
 }
 
+.sommverify__button {
+  display: flex;
+}
+
 .sommverify__verifyApprove {
   border-radius: 30px;
   background-color: green;
@@ -117,8 +121,8 @@
 }
 
 .sommverify__verifyImg {
-  width: 90%;
-  height: fit-content;
+  width: inherit;
+  height: auto;
   margin: 0 5px;
   display: flex;
   align-items: center;

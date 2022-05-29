@@ -12,7 +12,7 @@ import {
 
 const TicketAdminModal = ({ status, toggleStatus }) => {
   //support tickets retreived from adminID
-  const [supportTickets, setSupportTickets] = useState({});
+  const [supportTickets, setSupportTickets] = useState([]);
 
   //userID of Admin: fetched from status
   const userID = status.userID;
@@ -82,7 +82,7 @@ const TicketAdminModal = ({ status, toggleStatus }) => {
                     : "ticketAdmin__statusButton"
                 }
                 onClick={() => {
-                  setViewStatus(1);
+                  setViewStatus(0);
                 }}
               >
                 show all

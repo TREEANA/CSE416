@@ -24,6 +24,7 @@ const Ticket = ({ type, ticketData = ticketDummyData }) => {
   const [tempTicket, setTempTicket] = useState({});
 
   const [isOpen, setIsOpen] = useState(false);
+
   const onClick = () => {
     setIsOpen(!isOpen);
   };
@@ -89,6 +90,16 @@ const Ticket = ({ type, ticketData = ticketDummyData }) => {
   //     //   }
   //   }
   // };
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    let tempNewTicket = {
+      ...tempTicket,
+      [name]: value,
+    };
+    setTempTicket(tempNewTicket);
+    console.log("tempTicket OnChange:", tempNewTicket);
+  };
   return (
     <div className="ticket__cont">
       <div
@@ -108,15 +119,23 @@ const Ticket = ({ type, ticketData = ticketDummyData }) => {
         className={isOpen ? "ticket__box" : "ticket__box ticket__box--close"}
       >
         <div className="ticket__question">
-          <b>Q</b>
+          <b>Q</b> <br />
           {tempTicket.userQuestion}
         </div>
         <hr></hr>
         <div className="ticket__answer">
           <b>A.</b>
-          <textarea className="ticket__answerInput">
-            {tempTicket.adminResponse !== "" ? tempTicket.adminResponse : ""}
-          </textarea>
+          <textarea
+            className="ticket__answerInput"
+            //read only only if when adminId is not null
+            //(implies that another admin has already answered this ticket)
+            readOnly={ticketData.adminID !== null}
+            name="adminResponse"
+            onChange={onChange}
+            value={
+              tempTicket.adminResponse !== "" ? tempTicket.adminResponse : ""
+            }
+          ></textarea>
         </div>
       </div>
     </div>

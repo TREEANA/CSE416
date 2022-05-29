@@ -133,7 +133,7 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
           <div className="sommverify__status">
             <div className="sommverify__verifyButton">
               {toggleStatus && editRequest && (
-                <div>
+                <div className="sommverify__button">
                   <div
                     className="sommverify__verifyApprove"
                     onClick={() => {
