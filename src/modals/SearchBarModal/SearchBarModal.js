@@ -47,7 +47,8 @@ const SearchBarModal = ({
             return el.userID === newmatching[i].userID;
           }),
         };
-        if (newmatching[i].userID !== status.userID) {
+
+        if (!(Number(newmatching[i].userID) === Number(status.userID))) {
           newmatchinglist.push(item);
         }
       }
@@ -166,7 +167,7 @@ const SearchBarModal = ({
             return el.userID === newmatching[i].userID;
           }),
         };
-        if (newmatching[i].userID !== status.userID) {
+        if (!(Number(newmatching[i].userID) === Number(status.userID))) {
           newmatchinglist.push(item);
         }
       }
@@ -348,8 +349,8 @@ const SearchBarModal = ({
           <div
             className={
               each.isFollows
-                ? "search__button--filled"
-                : "search__button search__button"
+                ? "search__button search__button"
+                : "search__button--filled"
             }
             onClick={() => clickFollowsListButton(each.userID, "follower")}
           >

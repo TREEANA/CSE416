@@ -25,7 +25,7 @@ import FaqPage from "./pages/FaqPage/FaqPage";
 import VerifyPage from "./pages/VerifyPage/VerifyPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import CreatePage from "./pages/CreatePage/CreatePage";
-
+import FollowingModal from "./modals/FollowingModal/FollowingModal";
 // import SommVerify from "./components/SommVerify/SommVerify";
 
 const App = () => {
@@ -58,6 +58,8 @@ const App = () => {
     registerTagModal: false,
     ticketModal: false,
     filterModal: false,
+    followingModal: false,
+    followsModal: false,
     sortModal: false,
     applyModal: false,
     // commentModal: false,
@@ -195,13 +197,11 @@ const App = () => {
           <Route
             path="/profile/:userID"
             element={
-              <ProfilePage status={status} toggleStatus={toggleStatus} />
-            }
-          />
-          <Route
-            path="/profile/:userID"
-            element={
-              <ProfilePage status={status} toggleStatus={toggleStatus} />
+              <ProfilePage
+                status={status}
+                toggleStatus={toggleStatus}
+                setStatus={setStatus}
+              />
             }
           />
           <Route

@@ -5,8 +5,10 @@ import axios from "axios";
 import { set } from "lodash";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
+import FollowingModal from "../../modals/FollowingModal/FollowingModal";
+import FollowsModal from "../../modals/FollowsModal/FollowsModal";
 
-const ProfilePage = ({ status, toggleStatus }) => {
+const ProfilePage = ({ status, toggleStatus, setStatus }) => {
   const dummpyReviewdata = [];
   const [reviewWineList, setreviewWineList] = useState([]);
   const [likesList, setlikesList] = useState([]);
@@ -307,6 +309,18 @@ const ProfilePage = ({ status, toggleStatus }) => {
       ) : (
         <>
           {" "}
+          <FollowingModal
+            status={status}
+            setStatus={setStatus}
+            userID={Number(userData.userID)}
+            username={userData.username}
+          ></FollowingModal>
+          <FollowsModal
+            status={status}
+            setStatus={setStatus}
+            userID={Number(userData.userID)}
+            username={userData.username}
+          ></FollowsModal>
           <div className="profile">
             <div className="profile__name"> {userData.username}</div>
             <div className="proflie__proflie">
@@ -327,13 +341,30 @@ const ProfilePage = ({ status, toggleStatus }) => {
                     reviews
                   </li>
                   <li>
-                    <span className="profile__stats__count">
+                    <span
+                      className="profile__stats__count"
+                      onClick={() => {
+                        setStatus({
+                          ...status,
+                          followsModal: !status.followsModal,
+                        });
+                      }}
+                    >
                       {userData.followers.length}
                     </span>{" "}
                     followers
                   </li>
                   <li>
-                    <span className="profile__stats__count">
+                    <span
+                      className="profile__stats__count"
+                      onClick={() => {
+                        setStatus({
+                          ...status,
+
+                          followingModal: !status.followingModal,
+                        });
+                      }}
+                    >
                       {userData.followings.length}
                     </span>{" "}
                     follows
