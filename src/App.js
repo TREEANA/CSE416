@@ -237,7 +237,7 @@ const App = () => {
           />
 
           <Route path="/faq" element={<FaqPage />} />
-          <Route path="/verifysomm" element={<VerifyPage />} />
+          <Route path="/verifysomm" element={<VerifyPage status={status} />} />
         </Routes>
       </div>
       <Footer />
