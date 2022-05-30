@@ -12,6 +12,7 @@ import SideBarModal from "./modals/SideBarModal/SideBarModal";
 import SearchBarModal from "./modals/SearchBarModal/SearchBarModal";
 import ApplyModal from "./modals/ApplyModal/ApplyModal";
 import TicketModal from "./modals/TicketModal/TicketModal";
+import TicketAdminModal from "./modals/TicketAdminModal/TicketAdminModal";
 import CommentPage from "./pages/CommentPage/CommentPage";
 import EditProfileModal from "./modals/EditProfileModal/EditProfileModal";
 
@@ -57,6 +58,7 @@ const App = () => {
     registerModal: false,
     registerTagModal: false,
     ticketModal: false,
+    ticketAdminModal: false,
     filterModal: false,
     followingModal: false,
     followsModal: false,
@@ -118,25 +120,38 @@ const App = () => {
         toggleStatus={toggleStatus}
         setStatus={setStatus}
       ></SideBarModal>
+
       <TicketModal
-        ticketModalStatus={status.ticketModal}
-        toggleTicketModal={() => toggleStatus("ticketModal")}
+        status={status}
+        toggleStatus={toggleStatus}
+        setStatus={setStatus}
+        // toggleTicketModal={() => toggleStatus("ticketModal")}
       ></TicketModal>
+
+      <TicketAdminModal
+        status={status}
+        toggleStatus={toggleStatus}
+        setStatus={setStatus}
+      ></TicketAdminModal>
+
       <ApplyModal
         status={status}
         applyModalStatus={status.applyModal}
         toggleApplyModal={() => toggleStatus("applyModal")}
       ></ApplyModal>
+
       {/* <CommentModal
         commentModalStatus={status.commentModal}
         togglecommentModal={() => toggleStatus("commentModal")}
       ></CommentModal> */}
-      <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
+      {/* <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
+       */}
       <SearchBarModal
         status={status}
         searchBarModalStatus={status.searchBarModal}
         toggleSearchBarModal={() => toggleStatus("searchBarModal")}
       ></SearchBarModal>
+
       <RegisterModal
         status={status}
         setStatus={setStatus}
