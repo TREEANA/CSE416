@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsSearch, BsXLg } from "react-icons/bs";
 import { MdWineBar } from "react-icons/md";
 import axios, { CancelToken } from "axios";
@@ -372,6 +372,7 @@ const SearchBarModal = ({
   const [matchingLists, setMatchingLists] = useState([]);
   const [searchWines, setSearchWines] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   useEffect(async () => {
     setLoading(true);
     const resWines = await axios.get(`/api/wines/search`);
@@ -386,6 +387,12 @@ const SearchBarModal = ({
     setSearchWines("");
     setMatchingWines([]);
     setMatchingLists([]);
+  };
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      navigate(`/search/${searchWines}`);
+      toggleSearchBarModal();
+    }
   };
   const onSearchChange = async (e) => {
     setSearchWines(e.target.value);
@@ -456,6 +463,7 @@ const SearchBarModal = ({
                 className="search__text-input"
                 placeholder="search wines and winelists"
                 onChange={onSearchChange}
+                onKeyPress={onKeyPress}
                 value={searchWines}
               ></input>
             </div>
