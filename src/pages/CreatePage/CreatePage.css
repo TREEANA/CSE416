@@ -7,7 +7,7 @@
 textarea:focus,
 textarea:hover {
   outline: none;
-  border: none;
+  /* border: none; */
 }
 
 textarea::-webkit-scrollbar {

@@ -282,7 +282,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           <div
             className="sidebar__link"
             onClick={() => {
-              toggleStatus("sideBarModal", "ticketModal");
+              toggleStatus("sideBarModal", "ticketAdminModal");
             }}
           >
             manage tickets

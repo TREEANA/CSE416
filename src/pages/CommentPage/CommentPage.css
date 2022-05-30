@@ -1,10 +1,6 @@
 button:hover {
   cursor: pointer;
 }
-/* 
-.commentModal__title {
-  color: var(--primary);
-} */
 
 .commentPage__container {
   /* padding-top: 80px; */
@@ -48,7 +44,7 @@ button:hover {
 }
 .commentPage {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   position: fixed;
   z-index: 1;
   background-color: var(--bg-20);
@@ -96,8 +92,10 @@ button:hover {
 .commentPage__input {
   width: 100%;
   border: none;
-  overflow: hidden;
-  white-space: nowrap;
+  /* overflow: auto; */
+  overflow-x: hidden;
+  overflow-y: scroll;
+  white-space: normal;
   /* text-overflow:auto; */
   /* overflow: auto; */
   color: var(--text-100);

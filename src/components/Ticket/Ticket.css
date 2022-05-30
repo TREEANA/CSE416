@@ -89,27 +89,28 @@
   justify-content: center;
 }
 
-.ticket__progress--0 {
+.ticket__progress--1 {
   color: green;
 }
 
-.ticket__progress--0 > * {
+.ticket__progress--1 > * {
   height: 30px;
   width: 30px;
 }
 
-.ticket__progress--1 {
+.ticket__progress--0 {
   background-color: #f9e000;
   color: var(--bg-0);
 }
 
-.ticket__progress--1 > svg {
+.ticket__progress--0 > svg {
   height: 24px;
   width: 24px;
 }
 
 .ticket__box {
-  background-color: var(--bg-0);
+  /* background-color: #f9ddd1; */
+  background-color: rgba(249, 221, 209, 0.4);
   border-radius: 30px;
   padding: 15px 20px;
   position: relative;
@@ -117,7 +118,7 @@
   margin-bottom: -50px;
 }
 
-.ticket_box_container {
+.ticket__box_container {
   color: var(--text-100);
   border-radius: 30px;
   display: flex;
@@ -125,7 +126,7 @@
   margin-bottom: 1.5rem;
 }
 
-.ticket_answer_box {
+.ticket__answer_box {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-100);
@@ -161,7 +162,6 @@
   margin-top: 1rem;
   color: var(--text-100);
 }
-
 .ticket__question {
   margin-top: 50px;
 }
@@ -189,4 +189,28 @@
   background-color: yellow;
   color: white;
   display: flex;
+}
+
+.ticket__answerInput {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+  color: var(--text-100);
+  background-color: transparent;
+}
+
+.ticket__submit {
+  display: flex;
+  justify-content: flex-end;
+}
+.ticket__submitButton {
+  background-color: var(--primary);
+  color: var(--bg-0);
+  border-radius: 30px;
+  height: 2rem;
+  padding: 5px;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  margin-top: 5px;
 }

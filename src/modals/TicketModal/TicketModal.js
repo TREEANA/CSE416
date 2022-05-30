@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TicketModal.css";
-import $ from "jquery";
 import {
   BsXLg,
   BsFilePlusFill,
@@ -9,82 +8,86 @@ import {
   BsFillPlusCircleFill,
 } from "react-icons/bs";
 import Ticket from "../../components/Ticket/Ticket";
+import axios from "axios";
 
-const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
-  //
-  // const { ticketID } = useParams();
-  // const fetchTicket = async (ticketID) => {
-  //   try {
-  //     const res = await axios.get(`/api/support-tickets/${ticketID}`);
-  //     setTicket(res.data);
-  //     console.log(res.data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
   //새로 만드는 ticket에 관한 useState
-  const [tempTicket, setTempTicket] = useState({
+  const [tempSuppTicket, setTempSuppTicket] = useState({
     ticketTitle: "",
     ticketContent: "",
     createdAt: "",
   });
+
   //새로 만드는 ticket의 visibility property
   const [ticketVisible, setTicketVisible] = useState(0);
   const toggleTempTicket = () => {
     setTicketVisible(!ticketVisible);
   };
+
   //새로 만드는 Ticket의 input onChange
   //근데 아직 서버에 저장은 안하는,, 로컬에만 저장됨
   const onChange = (e) => {
     const { value, name } = e.target;
     console.log(name);
     console.log(value);
-    let newTempTicket = {
-      ...tempTicket,
+    let newTempSuppTicket = {
+      ...tempSuppTicket,
       [name]: value,
     };
-    setTempTicket(newTempTicket);
+    setTempTicket(newTempSuppTicket);
     // console.log(newTempTicket);
     // saveQuestionsOnServer(newTempQuestion);
   };
 
-  // <div className="view_body">
-  //   <div className="view_graph">
-  //     <div className="view_wrapper">
-  //       <div className="view_graphWrapper">
-  //         {tempQuestions
-  //           .slice()
-  //           .reverse()
-  //           .map((question) => (
-  //             // displayData(question)
-  //             <ViewData
-  //               question={question}
-  //               responses={tempResponses}
-  //               key={question._id}
-  //             />
-  //           ))}
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div>;
+  //user가 이전에 submit한 티켓들
+  const [prevTickets, setPrevTickets] = useState({});
+
+  const userID = status.userID;
+  //fetch tickets that the user has previously sent
+  const fetchUserTickets = async (userID) => {
+    try {
+      const res = await axios.get(`/api/support-tickets/?userID=${userID}`);
+      console.log("res.data from fetchUserTickets: ", res.data);
+      setPrevTickets(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserTickets(userID);
+  }, []);
+
+  const displayTickets = () => {
+    let result = [];
+    prevTickets.forEach((each, index) => {
+      result.push(
+        <Ticket status={status} type="ticket" ticketData={each} key={index} />
+      );
+    });
+  };
 
   return (
     <>
       <div
-        className={ticketModalStatus ? "ticketModal" : "ticketModal--inactive"}
+        className={status.ticketModal ? "ticketModal" : "ticketModal--inactive"}
       >
         <div className="ticketModal__container">
           <div className="ticketModal__header">
             <div className="ticketModal__headerTitle">view tickets</div>
             <BsXLg
               className="ticketModal__topClose"
-              onClick={toggleTicketModal}
+              onClick={() => {
+                toggleStatus("ticketModal");
+              }}
             />
           </div>
-          <div className="ticketModal__create" onClick={toggleTempTicket}>
-            <BsFillPlusCircleFill />
-            create a new ticket
-          </div>
+          {status.userinfo.status !== -1 && status.userinfo.status !== 2 && (
+            <div className="ticketModal__create" onClick={toggleTempTicket}>
+              <BsFillPlusCircleFill />
+              create a new ticket
+            </div>
+          )}
           {ticketVisible && (
             <>
               <div className="ticketModal__temp">
@@ -105,7 +108,7 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
                     className="ticketModal__tempTitleInput"
                     placeholder="Title"
                     onChange={onChange}
-                    value={tempTicket.ticketTitle || ""}
+                    value={tempSuppTicket.ticketTitle || ""}
                   ></input>
                 </div>
                 <hr></hr>
@@ -117,11 +120,11 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
                     className="ticketModal__tempContentInput"
                     placeholder="Have any issues? Feel free to report it to us! \n 사실 지금 새벽 두시반.. 졸라리 늦은ㅅ ㅣ간.. 눈이 너무 감기는데 한게 없어서 감기면 안돼.. 진짜로..."
                     onChange={onChange}
-                    value={tempTicket.ticketContent || ""}
-                  ></input>
+                  >
+                    {tempSuppTicket.ticketContent || ""}
+                  </input>
                 </div>
                 <div className="ticketModal__button">
-                  {/* <div></div> */}
                   <button
                     className="ticketModal__tempSubmit"
                     onClick={toggleTempTicket}
@@ -132,24 +135,8 @@ const TicketModal = ({ ticketModalStatus, toggleTicketModal }) => {
               </div>
             </>
           )}
-          <Ticket
-            type="ticket"
-            ticketStatus={0}
-            title={"Trouble Logging in"}
-            question={"I have trouble logging in with my account"}
-            answer={
-              "Please click on forgot my password button to reset your password."
-            }
-          />
-          <Ticket
-            type="ticket"
-            ticketStatus={1}
-            title={"Trouble Logging in"}
-            question={"I have trouble logging in with my account"}
-            answer={
-              "Please click on forgot my password button to reset your password."
-            }
-          />
+          <Ticket status={status} type="ticket" />
+          <Ticket status={status} type="ticket" />
         </div>
       </div>
     </>
