@@ -1,4 +1,5 @@
 import axios from "axios";
+import { set } from "lodash";
 import React, { useEffect, useState } from "react";
 
 import {
@@ -73,14 +74,19 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
       adminFeedback: adminFeedback,
       status: curStatus,
     };
-    axios
-      .put(`/api/verification-tickets/answer`, body)
-      .then((response) => {
-        console.log("response:", JSON.stringify(response.data, null));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (adminFeedback !== "") {
+      axios
+        .put(`/api/verification-tickets/answer`, body)
+        .then((response) => {
+          console.log("response:", JSON.stringify(response.data, null));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert("no feedback from the admin user! Try again!");
+      setCurStatus(2);
+    }
   };
 
   const onChange = (e) => {
@@ -132,67 +138,73 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
           <div className="sommverify__info">{tempRequest.username}</div>
           <div className="sommverify__status">
             <div className="sommverify__verifyButton">
-              {toggleStatus && editRequest && (
-                <div className="sommverify__button">
-                  <div
-                    className="sommverify__verifyApprove"
-                    onClick={() => {
-                      setCurStatus(1);
-                      // onSubmit();
-                    }}
-                  >
-                    approve
-                  </div>
-                  <div
-                    className="sommverify__verifyReject"
-                    onClick={() => {
-                      setCurStatus(0);
-                      // onSubmit();
-                    }}
-                  >
-                    reject
-                  </div>
+              <div
+                className={
+                  toggleStatus && editRequest
+                    ? "sommverify__button"
+                    : "sommverify__button--inactive"
+                }
+              >
+                <div
+                  className="sommverify__verifyApprove"
+                  onClick={() => {
+                    setCurStatus(1);
+                    onSubmit();
+                  }}
+                >
+                  approve
                 </div>
-              )}
+                <div
+                  className="sommverify__verifyReject"
+                  onClick={() => {
+                    setCurStatus(0);
+                    onSubmit();
+                  }}
+                >
+                  reject
+                </div>
+              </div>
             </div>
             <div className="sommverify__statusIcon">
               {displayStatus(curStatus)}
             </div>
           </div>
         </div>
-        {toggleStatus && (
-          <div className="sommverify__body">
-            <div className="sommverify__bodyGrid">
-              <div className="sommverify__img">
-                <img
-                  className="sommverify__verifyImg"
-                  src={tempRequest.verificationImage}
-                ></img>
-                <div className="sommverify__appDate">
-                  requested on {formatDate(new Date(tempRequest.lastUpdatedAt))}
-                </div>
-                {/* <div className="sommverify__verDate">verified {}</div> */}
+        <div
+          className={
+            toggleStatus ? "sommverify__body" : "sommverify__body--inactive"
+          }
+        >
+          <div className="sommverify__bodyGrid">
+            <div className="sommverify__img">
+              <img
+                className="sommverify__verifyImg"
+                src={tempRequest.verificationImage}
+              ></img>
+              <div className="sommverify__appDate">
+                requested on {formatDate(new Date(tempRequest.lastUpdatedAt))}
               </div>
-              <div className="sommverify__comment">
-                <div className="sommverify__userComment">
-                  {tempRequest.userExplanation}
-                </div>
+              {/* <div className="sommverify__verDate">verified {}</div> */}
+            </div>
+            <div className="sommverify__comment">
+              <div className="sommverify__userComment">
+                {tempRequest.userExplanation}
+              </div>
 
-                <div className="sommverify__adminComment">
-                  <textarea
-                    className="sommverify__adminInput"
-                    placeholder={editRequest ? "write a comment here" : ""}
-                    name="adminFeedback"
-                    onChange={onChange}
-                    readOnly={!editRequest}
-                  >
-                    {editRequest ? "" : tempRequest.adminFeedback}
-                  </textarea>
-                </div>
+              <div className="sommverify__adminComment">
+                <textarea
+                  className="sommverify__adminInput"
+                  placeholder={editRequest ? "write a comment here" : ""}
+                  name="adminFeedback"
+                  onChange={onChange}
+                  readOnly={!editRequest}
+                >
+                  {editRequest ? "" : tempRequest.adminFeedback}
+                </textarea>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </>
   );

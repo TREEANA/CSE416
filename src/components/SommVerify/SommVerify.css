@@ -49,6 +49,9 @@
   display: flex;
 }
 
+.sommverify__button--inactive {
+  display: none;
+}
 .sommverify__verifyApprove {
   border-radius: 30px;
   background-color: green;
@@ -99,6 +102,10 @@
   padding: 45px 10px 10px 10px;
   height: 300px;
   border-radius: 30px;
+}
+
+.sommverify__body--inactive {
+  display: none;
 }
 
 .sommverify__bodyGrid {

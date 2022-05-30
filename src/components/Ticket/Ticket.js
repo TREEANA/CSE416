@@ -29,6 +29,7 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
   const onClick = () => {
     setIsOpen(!isOpen);
   };
+
   // // isAnswered : whether the ticket ifself already has answers or not
   // const [isAnswered, setIsAnswered] = useState(0);
   // const checkIsAnswered = () => {
