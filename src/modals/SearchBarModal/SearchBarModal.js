@@ -419,6 +419,9 @@ const SearchBarModal = ({
     }
   };
   const displayMatchingWines = (arr) => {
+    if (arr.length === 0) {
+      return <div className="search__result-subtitle">No matching wines</div>;
+    }
     const result = [];
     for (let i = 0; i < arr.length && i < 5; i++) {
       const each = arr[i];
@@ -435,6 +438,11 @@ const SearchBarModal = ({
     return result;
   };
   const displayMatchingLists = (arr) => {
+    if (arr.length === 0) {
+      return (
+        <div className="search__result-subtitle">No matching winelists</div>
+      );
+    }
     const result = [];
     for (let i = 0; i < arr.length && i < 3; i++) {
       const each = arr[i];
