@@ -120,6 +120,8 @@ const TicketAdminModal = ({ status, toggleStatus }) => {
 
           <div className="ticketAdmin__tickets">
             {displayAdminTickets(viewStatus)}
+            <Ticket status={status} type="ticket" />
+            <Ticket status={status} type="ticket" />
           </div>
         </div>
       </div>

@@ -118,7 +118,7 @@
   margin-bottom: -50px;
 }
 
-.ticket_box_container {
+.ticket__box_container {
   color: var(--text-100);
   border-radius: 30px;
   display: flex;
@@ -126,7 +126,7 @@
   margin-bottom: 1.5rem;
 }
 
-.ticket_answer_box {
+.ticket__answer_box {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-100);
@@ -197,4 +197,20 @@
   border-bottom: 1px solid black;
   color: var(--text-100);
   background-color: transparent;
+}
+
+.ticket__submit {
+  display: flex;
+  justify-content: flex-end;
+}
+.ticket__submitButton {
+  background-color: var(--primary);
+  color: var(--bg-0);
+  border-radius: 30px;
+  height: 2rem;
+  padding: 5px;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  margin-top: 5px;
 }

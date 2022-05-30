@@ -5,22 +5,23 @@ import {
   BsFillCheckCircleFill,
   BsThreeDots,
 } from "react-icons/bs";
+import axios from "axios";
 
 const ticketDummyData = {
   ticketID: 1,
   userID: 1,
   username: "zzaerynn",
-  adminID: 9999,
+  adminID: null,
   title: "I cannot add winelists to my favorites",
   userQuestion:
     "Everytime I click the add to favorites button, it somehow does not work",
-  adminResponse:
-    "This is now fixed! try it again and tell us if it still doesnt work",
+  adminResponse: "",
   createdAt: "2022-04-04 18:11:12",
   lastUpdatedAt: "2022-04-04 18:11:12",
 };
 
-const Ticket = ({ type, ticketData = ticketDummyData }) => {
+const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
+  //temporary ticketData
   const [tempTicket, setTempTicket] = useState({});
 
   const [isOpen, setIsOpen] = useState(false);
@@ -28,19 +29,37 @@ const Ticket = ({ type, ticketData = ticketDummyData }) => {
   const onClick = () => {
     setIsOpen(!isOpen);
   };
+  // // isAnswered : whether the ticket ifself already has answers or not
+  // const [isAnswered, setIsAnswered] = useState(0);
+  // const checkIsAnswered = () => {
+  //   if (tempTicket.adminID === null && tempTicket.adminResponse === "") {
+  //     setIsAnswered(1);
+  //   }
+  // };
 
   //ticket status (0 : not answered (pending, yellow), 1: answered (green))
   const [ticketStatus, setTicketStatus] = useState(0);
   //load status for each ticket when page is initially loaded
   useEffect(() => {
-    if (ticketData.adminID === "null") {
+    if (ticketData.adminID === null) {
       setTicketStatus(0);
     } else {
       setTicketStatus(1);
     }
     setTempTicket(ticketData);
+    // checkIsAnswered();
+    console.log(
+      "ticketStatus : ",
+      ticketStatus,
+      "tempTicket.adminRespone: ",
+      tempTicket.adminResponse,
+      "readOnly value : ",
+      ticketStatus === 1 || userStatus !== 2
+    );
   }, []);
-
+  // current user Status, to check whether one can edit the textarea
+  const userStatus = status.userinfo.status;
+  const userID = status.userID;
   const displayTicketStatus = () => {
     if (type === "faq") {
       return;
@@ -63,34 +82,6 @@ const Ticket = ({ type, ticketData = ticketDummyData }) => {
     }
   };
 
-  // const displayAnswer = () => {
-  //   if (type === "faq") {
-  //     return (
-  //       // <div className="ticket__answer">
-  //         {tempTicket.adminResponse}
-  //       // </div>
-  //     );
-  //   } else if (type === "ticket") {
-  //     if (ticketStatus === 0) {
-  //       return (
-  //         // <div className="ticket__answer">
-
-  //           {tempTicket.adminResponse}
-  //         {/* </div> */}
-  //       );
-  //     }
-  //     //verification ticket은 다른 모달/페이지/컴포 사용
-  //     // } else if (type === "verify") {
-  //     //   if (ticketStatus === 0) {
-  //     //     return (
-  //     //       <div className="ticket__answer">
-  //     //         <b>{"hella assignment"}</b>
-  //     //       </div>
-  //     //     );
-  //     //   }
-  //   }
-  // };
-
   const onChange = (e) => {
     const { value, name } = e.target;
     let tempNewTicket = {
@@ -100,6 +91,21 @@ const Ticket = ({ type, ticketData = ticketDummyData }) => {
     setTempTicket(tempNewTicket);
     console.log("tempTicket OnChange:", tempNewTicket);
   };
+
+  const onSubmit = () => {
+    const body = {
+      adminID: userID,
+      adminResponse: tempTicket.adminResponse,
+      ticketID: tempTicket.ticketID,
+    };
+    try {
+      const res = axios.put(`/api/support-tickets/answer`, body);
+      console.log("res.data from onSubmit: ", res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="ticket__cont">
       <div
@@ -119,7 +125,8 @@ const Ticket = ({ type, ticketData = ticketDummyData }) => {
         className={isOpen ? "ticket__box" : "ticket__box ticket__box--close"}
       >
         <div className="ticket__question">
-          <b>Q</b> <br />
+          <b>Q</b>
+          <br />
           {tempTicket.userQuestion}
         </div>
         <hr></hr>
@@ -127,20 +134,30 @@ const Ticket = ({ type, ticketData = ticketDummyData }) => {
           <b>A.</b>
           <textarea
             className="ticket__answerInput"
-            //read only only if when adminId is not null
-            //(implies that another admin has already answered this ticket)
-            readOnly={ticketData.adminID !== null}
+            //readOnly if adminId is not null(answered) or if userStatus is not Admin
+            //(implies that another adㅇmin has already answered this ticket)
+            readOnly={ticketStatus === 1 || userStatus !== 2}
+            //readonly iff the ticket is already answered
             name="adminResponse"
             onChange={onChange}
+            // value = when already answered, show adminResponse
             value={
-              tempTicket.adminResponse !== "" ? tempTicket.adminResponse : ""
+              ticketStatus === 1 && tempTicket?.adminResponse
+                ? ""
+                : tempTicket?.adminResponse
             }
+            // placeholder={ticketStatus === 1 ? "" : "Not answered yet"}
+            placeholder="Not answered yet"
           ></textarea>
+        </div>
+        <div className="ticket__submit">
+          <button className="ticket__submitButton" onClick={onSubmit}>
+            Submit
+          </button>
         </div>
       </div>
     </div>
   );
 };
-``;
 
 export default Ticket;

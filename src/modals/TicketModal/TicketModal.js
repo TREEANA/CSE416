@@ -61,7 +61,9 @@ const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
   const displayTickets = () => {
     let result = [];
     prevTickets.forEach((each, index) => {
-      result.push(<Ticket type="ticket" ticketData={each} key={index} />);
+      result.push(
+        <Ticket status={status} type="ticket" ticketData={each} key={index} />
+      );
     });
   };
 
@@ -133,8 +135,8 @@ const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
               </div>
             </>
           )}
-          <Ticket type="ticket" />
-          <Ticket type="ticket" />
+          <Ticket status={status} type="ticket" />
+          <Ticket status={status} type="ticket" />
         </div>
       </div>
     </>
