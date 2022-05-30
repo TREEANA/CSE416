@@ -1,5 +1,4 @@
 .profile {
-  width: 480px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -87,7 +86,7 @@ li {
   font-size: 1.5rem;
   margin: 0.5rem var(--margin-out);
   height: 0.1rem;
-  width: 480px;
+  width: 400px;
   border-radius: 5rem;
   border-style: none;
   padding: 1rem 0rem;
