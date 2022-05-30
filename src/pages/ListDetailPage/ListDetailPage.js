@@ -68,6 +68,7 @@ const ListDetailPage = ({ status, setStatus }) => {
   const fetchList = async () => {
     try {
       const resList = await axios.get(`/api/winelists/${winelistID}`);
+      console.log(resList);
       if (resList.data === null || resList.data === "") {
         setList({});
       } else {
