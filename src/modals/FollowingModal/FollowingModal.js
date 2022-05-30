@@ -10,25 +10,27 @@ const FollowingModal = ({ status, setStatus, userID, username }) => {
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
-    console.log(userID);
-    setLoading(true);
-    const res = await axios.get(`/api/users/${userID}/followings`);
-    setLoading(false);
-    const newfollowings = res.data.followings;
-    const newfollowingslist = [];
+    if (userID) {
+      console.log(userID);
+      setLoading(true);
+      const res = await axios.get(`/api/users/${userID}/followings`);
+      setLoading(false);
+      const newfollowings = res.data.followings;
+      const newfollowingslist = [];
 
-    for (let i = 0; i < newfollowings.length; i++) {
-      const item = {
-        userID: newfollowings[i].userID,
-        username: newfollowings[i].username,
-        profileImage: newfollowings[i].profileImage,
-        status: newfollowings[i].status,
-        isFollowing: true,
-      };
-      newfollowingslist.push(item);
+      for (let i = 0; i < newfollowings.length; i++) {
+        const item = {
+          userID: newfollowings[i].userID,
+          username: newfollowings[i].username,
+          profileImage: newfollowings[i].profileImage,
+          status: newfollowings[i].status,
+          isFollowing: true,
+        };
+        newfollowingslist.push(item);
+      }
+
+      setFollowering(newfollowingslist);
     }
-
-    setFollowering(newfollowingslist);
   };
 
   const displayfollowings = () => {
