@@ -109,16 +109,7 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
 
   return (
     <div className="ticket__cont">
-      <div
-        className={
-          type === "faq"
-            ? "ticket__button ticket__button--faq"
-            : // : type === "verify"
-              // ? "ticket__button ticket__verify"
-              "ticket__button"
-        }
-        onClick={onClick}
-      >
+      <div className={"ticket__button"} onClick={onClick}>
         <div className="ticket__buttonTxt">{tempTicket.title}</div>
         {displayTicketStatus()}
       </div>
