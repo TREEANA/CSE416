@@ -372,49 +372,49 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/picnic">Picnic</Link>
+                <Link to="/list/0">Picnic</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/wedding">Wedding</Link>
+                <Link to="/list/1">Wedding</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/party">Party</Link>
+                <Link to="/list/2">Party</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/christmas">Christmas</Link>
+                <Link to="/list/3">Christmas</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/business">Business</Link>
+                <Link to="/list/4">Business</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/camping">Camping</Link>
+                <Link to="/list/5">Camping</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/travelg">Travel</Link>
+                <Link to="/list/6">Travel</Link>
               </div>
               <div
                 className="sidebar__link"
                 onClick={() => toggleStatus("sideBarModal")}
               >
-                <Link to="/wines/date">Date</Link>
+                <Link to="/list/7">Date</Link>
               </div>
             </div>
             <br></br>
