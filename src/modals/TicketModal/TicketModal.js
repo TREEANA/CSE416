@@ -55,17 +55,17 @@ const TicketModal = ({ status, toggleStatus }) => {
     fetchUserTickets(userID);
   }, []);
 
-  const displayTickets = () => {
-    let result = [];
+  // const displayTickets = () => {
+  //   let result = [];
 
-    prevTickets.forEach((each, index) => {
-      console.log("prevTicketForEach in displayTickets: ", each);
-      result.push(
-        <Ticket status={status} type="ticket" ticketData={each} key={index} />
-      );
-    });
-    return result;
-  };
+  //   prevTickets.forEach((each, index) => {
+  //     console.log("prevTicketForEach in displayTickets: ", each);
+  //     result.push(
+  //       <Ticket status={status} type="ticket" ticketData={each} key={index} />
+  //     );
+  //   });
+  //   return result;
+  // };
 
   const onSubmit = async () => {
     const body = {
@@ -81,6 +81,46 @@ const TicketModal = ({ status, toggleStatus }) => {
       console.log(error);
     }
     fetchUserTickets(userID);
+  };
+
+  const [viewStatus, setViewStatus] = useState(0);
+
+  const displayUserTickets = (viewStatus) => {
+    let result = [];
+    if (viewStatus === 0) {
+      prevTickets.forEach((each, index) => {
+        result.push(
+          <Ticket type="ticket" ticketData={each} key={index} status={status} />
+        );
+      });
+    } else if (viewStatus === 1) {
+      prevTickets.forEach((each, index) => {
+        if (each.status === 1) {
+          result.push(
+            <Ticket
+              type="ticket"
+              ticketData={each}
+              key={index}
+              status={status}
+            />
+          );
+        }
+      });
+    } else if (viewStatus === 2) {
+      prevTickets.forEach((each, index) => {
+        if (each.status === 2) {
+          result.push(
+            <Ticket
+              type="ticket"
+              ticketData={each}
+              key={index}
+              status={status}
+            />
+          );
+        }
+      });
+    }
+    return result;
   };
 
   return (
@@ -156,7 +196,51 @@ const TicketModal = ({ status, toggleStatus }) => {
           ) : (
             <></>
           )}
-          {displayTickets()}
+          <div className="ticketAdmin__status">
+            <div className="ticketAdmin__statusIcon">
+              <button
+                className={
+                  viewStatus === 0
+                    ? "ticketAdmin__statusButton--active ticketAdmin__statusButton"
+                    : "ticketAdmin__statusButton"
+                }
+                onClick={() => {
+                  setViewStatus(0);
+                }}
+              >
+                show all
+              </button>
+            </div>
+            <div className="ticketAdmin__statusIcon">
+              <button
+                className={
+                  viewStatus === 1
+                    ? "ticketAdmin__statusButton--active ticketAdmin__statusButton"
+                    : "ticketAdmin__statusButton"
+                }
+                onClick={() => {
+                  setViewStatus(1);
+                }}
+              >
+                show only answered
+              </button>
+            </div>
+            <div className="ticketAdmin__statusIcon">
+              <button
+                className={
+                  viewStatus === 2
+                    ? "ticketAdmin__statusButton--active ticketAdmin__statusButton"
+                    : "ticketAdmin__statusButton"
+                }
+                onClick={() => {
+                  setViewStatus(2);
+                }}
+              >
+                show only pending
+              </button>
+            </div>
+          </div>
+          {displayUserTickets(viewStatus)}
           {/* <Ticket status={status} />
           <Ticket status={status} /> */}
         </div>
