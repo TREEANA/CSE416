@@ -18,7 +18,6 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView();
-  const [isfirstrender, setisfirstrender] = useState(true);
 
   const toggleFilterModal = () => toggleStatus("filterModal");
 
@@ -33,23 +32,23 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
     newtags.push(theme);
     setStatus({
       ...status,
-      sortOrder: "HighestRating",
+      sortOrder: 0,
       valuePrice: [23000, 128000],
       valueRate: 4.5,
       tagsForfilter: newtags,
     });
   };
 
-  const fetchWines = async (page) => {
+  const fetchWines = async (isfirstrender, page) => {
     if (isfirstrender) {
       const newtags = [];
       newtags.push(theme);
 
       setStatus({
         ...status,
-        sortOrder: "HighestRating",
+        sortOrder: 0,
         valuePrice: [23000, 128000],
-        valueRate: 4.5,
+        valueRate: 0,
         tagsForfilter: newtags,
       });
       let txt = theme;
@@ -68,8 +67,6 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
       } catch (e) {
         console.log(e);
       }
-
-      setisfirstrender(false);
     } else {
       let newtag = "";
 
@@ -84,9 +81,9 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
         setLoading(true);
         const url = `/api/wines/search?${newtag}&minPrice=${
           status.valuePrice[0]
-        }&maxPrice=${status.valuePrice[1]}&minRating=${
-          status.valueRate
-        }&sort=0&num=${page * 10}`;
+        }&maxPrice=${status.valuePrice[1]}&minRating=${status.valueRate}&sort=${
+          status.sortOrder
+        }&num=${page * 10}`;
         console.log("Fetching wines: ", url);
         const res = await axios.get(url);
         setWines(res.data);
@@ -129,12 +126,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   };
 
   useEffect(() => {
-    setisfirstrender(true);
-    fetchWines(page);
-  }, []);
-
-  useEffect(() => {
-    fetchWines(page);
+    fetchWines(false, page);
   }, [page]);
 
   useEffect(() => {
@@ -144,14 +136,13 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   }, [inView]);
 
   useEffect(() => {
-    setisfirstrender(true);
     setWines([]);
     setPage(1);
-    fetchWines(1);
+    fetchWines(true, page);
   }, [theme]);
 
   useEffect(() => {
-    fetchWines(1);
+    fetchWines(false, 1);
   }, [status.filterModal, status.sortModal]);
 
   return (
