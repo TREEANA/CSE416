@@ -20,7 +20,7 @@ const ticketDummyData = {
   lastUpdatedAt: "2022-04-04 18:11:12",
 };
 
-const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
+const Ticket = ({ status, ticketData = ticketDummyData }) => {
   //temporary ticketData
   const [tempTicket, setTempTicket] = useState({});
 
@@ -30,15 +30,6 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
     setIsOpen(!isOpen);
   };
 
-  // // isAnswered : whether the ticket ifself already has answers or not
-  // const [isAnswered, setIsAnswered] = useState(0);
-  // const checkIsAnswered = () => {
-  //   if (tempTicket.adminID === null && tempTicket.adminResponse === "") {
-  //     setIsAnswered(1);
-  //   }
-  // };
-
-  //ticket status (0 : not answered (pending, yellow), 1: answered (green))
   const [ticketStatus, setTicketStatus] = useState(0);
 
   //load status for each ticket when page is initially loaded
@@ -61,28 +52,25 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
   }, []);
   // current user Status, to check whether one can edit the textarea
   const userStatus = status.userinfo.status;
+  // current userID from status
   const userID = status.userID;
 
   //diplay icons according to status
   const displayTicketStatus = () => {
-    if (type === "faq") {
-      return;
-    } else if (type === "ticket") {
-      if (ticketStatus === 0) {
-        return (
-          //pending
-          <div className="ticket__progress ticket__progress--0">
-            <BsThreeDots />
-          </div>
-        );
-      } else if (ticketStatus === 1) {
-        return (
-          // approved(answered)
-          <div className="ticket__progress ticket__progress--1">
-            <BsFillCheckCircleFill />
-          </div>
-        );
-      }
+    if (ticketStatus === 0) {
+      return (
+        //pending
+        <div className="ticket__progress ticket__progress--0">
+          <BsThreeDots />
+        </div>
+      );
+    } else if (ticketStatus === 1) {
+      return (
+        // approved(answered)
+        <div className="ticket__progress ticket__progress--1">
+          <BsFillCheckCircleFill />
+        </div>
+      );
     }
   };
 

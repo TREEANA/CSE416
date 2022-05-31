@@ -2,13 +2,7 @@ import "./TicketAdminModal.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Ticket from "../../components/Ticket/Ticket";
-import {
-  BsXLg,
-  BsFilePlusFill,
-  BsFillCheckCircleFill,
-  BsThreeDots,
-  BsFillPlusCircleFill,
-} from "react-icons/bs";
+import { BsXLg } from "react-icons/bs";
 
 const TicketAdminModal = ({ status, toggleStatus }) => {
   //support tickets retreived from adminID
@@ -16,6 +10,8 @@ const TicketAdminModal = ({ status, toggleStatus }) => {
 
   //userID of Admin: fetched from status
   const userID = status.userID;
+  //
+  const userStatus = status.userinfo.status;
   //fetch tickets from db
   const fetchAdminTickets = async (userID) => {
     try {
@@ -27,13 +23,17 @@ const TicketAdminModal = ({ status, toggleStatus }) => {
     }
   };
   useEffect(() => {
-    if (status.userinfo.status === 2) {
+    console.log(
+      "log from useEffect, TicketAdminModal : userStatus is ",
+      userStatus
+    );
+    if (userStatus === 2) {
       fetchAdminTickets(userID);
     }
   }, []);
 
   //refers to "status" in api calls
-  // 0 (all the tickets), 1(answered tickets), 2(pending tickets)
+  // 0 (all the tickets), 1(answered tickets), 2(pending tick           ets)
   const [viewStatus, setViewStatus] = useState(0);
 
   const displayAdminTickets = (viewStatus) => {
@@ -122,8 +122,8 @@ const TicketAdminModal = ({ status, toggleStatus }) => {
 
           <div className="ticketAdmin__tickets">
             {displayAdminTickets(viewStatus)}
-            <Ticket status={status} type="ticket" />
-            <Ticket status={status} type="ticket" />
+            {/* <Ticket status={status} type="ticket" />
+            <Ticket status={status} type="ticket" /> */}
           </div>
         </div>
       </div>

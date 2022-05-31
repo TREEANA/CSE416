@@ -10,12 +10,11 @@ import {
 import Ticket from "../../components/Ticket/Ticket";
 import axios from "axios";
 
-const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
+const TicketModal = ({ status, toggleStatus }) => {
   //새로 만드는 ticket에 관한 useState
   const [tempSuppTicket, setTempSuppTicket] = useState({
     ticketTitle: "",
     ticketContent: "",
-    createdAt: "",
   });
 
   //새로 만드는 ticket의 visibility property
@@ -28,13 +27,11 @@ const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
   //근데 아직 서버에 저장은 안하는,, 로컬에만 저장됨
   const onChange = (e) => {
     const { value, name } = e.target;
-    console.log(name);
-    console.log(value);
     let newTempSuppTicket = {
       ...tempSuppTicket,
       [name]: value,
     };
-    setTempTicket(newTempSuppTicket);
+    setTempSuppTicket(newTempSuppTicket);
     // console.log(newTempTicket);
     // saveQuestionsOnServer(newTempQuestion);
   };
@@ -67,6 +64,21 @@ const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
     });
   };
 
+  const onSubmit = async () => {
+    const body = {
+      userID: userID,
+      title: tempSuppTicket.ticketTitle,
+      userQuestion: tempSuppTicket.ticketContent,
+    };
+    try {
+      console.log("onSubmit body: ", body);
+      const res = await axios.post(`/api/support-tickets`, body);
+      console.log("onSubmit from TicketModal: ", res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div
@@ -88,7 +100,7 @@ const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
               create a new ticket
             </div>
           )}
-          {ticketVisible && (
+          {ticketVisible ? (
             <>
               <div className="ticketModal__temp">
                 <div className="ticketModal__title">
@@ -99,12 +111,11 @@ const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
                     onClick={toggleTempTicket}
                   />
                 </div>
-                {/* <hr></hr> */}
                 <div className="ticketModal__tempTitle">
                   <div className="ticketModal__tempTitleTitle">Title </div>
                   <input
                     name="ticketTitle"
-                    type="text"
+                    // type="text"
                     className="ticketModal__tempTitleInput"
                     placeholder="Title"
                     onChange={onChange}
@@ -116,27 +127,33 @@ const TicketModal = ({ status, toggleStatus, toggleTicketModal }) => {
                   <div className="ticketModal__tempContentTitle">Content</div>
                   <input
                     name="ticketContent"
-                    type="text"
+                    // type="text"
                     className="ticketModal__tempContentInput"
                     placeholder="Have any issues? Feel free to report it to us! \n 사실 지금 새벽 두시반.. 졸라리 늦은ㅅ ㅣ간.. 눈이 너무 감기는데 한게 없어서 감기면 안돼.. 진짜로..."
                     onChange={onChange}
-                  >
-                    {tempSuppTicket.ticketContent || ""}
-                  </input>
+                    value={tempSuppTicket?.ticketContent || ""}
+                  />
+
+                  {/* </input> */}
                 </div>
                 <div className="ticketModal__button">
                   <button
                     className="ticketModal__tempSubmit"
-                    onClick={toggleTempTicket}
+                    onClick={() => {
+                      toggleTempTicket();
+                      onSubmit();
+                    }}
                   >
                     Submit
                   </button>
                 </div>
               </div>
             </>
+          ) : (
+            <></>
           )}
-          <Ticket status={status} type="ticket" />
-          <Ticket status={status} type="ticket" />
+          <Ticket status={status} />
+          <Ticket status={status} />
         </div>
       </div>
     </>

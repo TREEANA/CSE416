@@ -492,46 +492,41 @@ const WineDetailPage = ({ status, toggleStatus }) => {
               </div>
 
               {editReview && (
-                <div className="detail__reviewAddtag">
-                  <div className="detail__reviewTagcont">
-                    <input
-                      className="detail__reviewInput"
-                      placeholder="add tags "
-                      onChange={(e) => {
-                        setSearch(e.target.value);
-                      }}
-                    ></input>
-                    <div className="detail__reviewPlus" onClick={clickAddIcon}>
-                      +
+                <>
+                  <div className="detail__reviewAddtag">
+                    <div className="detail__reviewTagcont">
+                      <input
+                        className="detail__reviewInput"
+                        placeholder="add tags "
+                        onChange={(e) => {
+                          setSearch(e.target.value);
+                        }}
+                      ></input>
+                      <div
+                        className="detail__reviewPlus"
+                        onClick={clickAddIcon}
+                      >
+                        +
+                      </div>
+                    </div>
+                    <div>
+                      {displaySelectedTags()}
+                      {displayUnselectedTags()}
                     </div>
                   </div>
-                  <div>
-                    {displaySelectedTags()}
-                    {displayUnselectedTags()}
+                  <div className="detail__reviewContent">
+                    <input
+                      className="detail__reviewContentInput"
+                      readOnly={editReview ? false : true}
+                      // value={existReview ? newReview.content : ""}
+                      placeholder="waiting for your review here :)"
+                      name="content"
+                      onChange={onChange}
+                    ></input>
                   </div>
-                </div>
+                </>
               )}
 
-              {/* selected 된 태그만 나타내고 싶은데 db가 없어서 그런가 잘 안됨 */}
-              {/* {!editReview && (
-                <div>
-                  {wine.tags
-                    .filter((each) => each.isSelected == true)
-                    .map((each) => (
-                      <Tag key={each.id} txt={each} />
-                    ))}
-                </div>
-              )} */}
-              <div className="detail__reviewContent">
-                <input
-                  className="detail__reviewContentInput"
-                  readOnly={editReview ? false : true}
-                  // value={existReview ? newReview.content : ""}
-                  placeholder="waiting for your review here :)"
-                  name="content"
-                  onChange={onChange}
-                ></input>
-              </div>
               {editReview && (
                 <div
                   className="detail__reviewPost"
@@ -546,15 +541,14 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
               {/* <div></div> */}
             </div>
+            <hr className="detail__hr" />
             {displayReviews()}
             <div className="detail__moreReview"> view more reviews</div>
           </div>
           <hr className="detail__line"></hr>
           <div className="detail__wineRecomm">
             <div className="detail__wineRecommTitle"> You may also like</div>
-            {/* <Wine />
-            <Wine /> */}
-            {displayRecommendation()}
+            {/* {displayRecommendation()} */}
           </div>
         </div>
       )}
