@@ -517,7 +517,7 @@ const SearchBarModal = ({
               {loading ? <Loader /> : <> {displayMatchingPeople()}</>}
               <br></br>
 
-              <div className="search__header">
+              {/* <div className="search__header">
                 <div
                   className={
                     clickFollowers
@@ -527,8 +527,8 @@ const SearchBarModal = ({
                   onClick={() => setClickFollowers(true)}
                 >
                   Followers
-                </div>
-                <div
+                </div> */}
+              {/* <div
                   className={
                     clickFollowers
                       ? "search__header__unselected"
@@ -538,20 +538,20 @@ const SearchBarModal = ({
                 >
                   Follows
                 </div>
-              </div>
+              </div> */}
 
-              <div className="search__followers__font">
+              {/* <div className="search__followers__font">
                 {clickFollowers ? "Your Followers" : "Your Following"}{" "}
-              </div>
+              </div> */}
 
-              {loading ? (
+              {/* {loading ? (
                 <Loader />
               ) : (
                 <>
                   {" "}
                   {clickFollowers ? displayfollowers() : displayfollowings()}
                 </>
-              )}
+              )} */}
             </div>
           </div>
         </div>
