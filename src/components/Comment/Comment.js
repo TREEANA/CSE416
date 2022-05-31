@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Comment.css";
-import { BsPatchCheckFill } from "react-icons/bs";
+import { BsPatchCheckFill, BsTrash } from "react-icons/bs";
 import axios from "axios";
 import { set } from "lodash";
 
@@ -48,6 +48,17 @@ const Comment = ({ status, comments = dummyComment }) => {
     fetchUserData(comments.userID);
   }, []);
 
+  const onDelete = async () => {
+    try {
+      const res = await axios.delete(
+        `/api/wines/${wineID}/reviews/${reviewID}/comment/${comments.commentID}?userID=${status.userID}`
+      );
+      console.log("onDelete on Comments.js:", res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="comment">
       <div className="comment__user">
@@ -64,6 +75,13 @@ const Comment = ({ status, comments = dummyComment }) => {
         )}
       </div>
       <div className="comment__comment">{comments.content}</div>
+      {status.userinfo.status === comments.userID ? (
+        <div className="comment__trash" onClick={onDelete}>
+          <BsTrash />
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
