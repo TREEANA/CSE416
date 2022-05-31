@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./Review.css";
 import Tag from "../../components/Tag/Tag";
-
+import { Link } from "react-router-dom";
 import { BsFillStarFill, BsPatchCheckFill } from "react-icons/bs";
 import { MdWineBar, MdSettings } from "react-icons/md";
 
@@ -19,19 +19,17 @@ const dummyReview = {
   isDeleted: false,
   createdAt: "2022-05-06 22:41:45",
   lastUpdatedAt: "2022-05-06 22:41:45",
-  tags: [],
+  tags: ["hi", "my"],
   comments: [],
 };
 
-const Review = ({ review = dummyReview }) => {
+const Review = ({ review }) => {
   const tags = review.tags;
-
-  const getTags = (tags) => {
+  const getTags = () => {
+    console.log(review);
     const tagsResult = [];
     for (let i = 0; i < tags.length; i++) {
-      tagsResult.push(
-        <Tag type="wineButton" key={i} isFilled="false" txt={tags[i]} />
-      );
+      tagsResult.push(<Tag type="wineButton" isFilled="false" txt={tags[i]} />);
     }
     return tagsResult;
   };
@@ -48,9 +46,11 @@ const Review = ({ review = dummyReview }) => {
       <div className={review.status == 1 ? "review--somm" : "review"}>
         <div className="review__title">
           <div className="review__user">
-            <div className="review__userImage">
-              <img src={review.profileImage} />
-            </div>
+            <Link to={`/profile/${review.userID}`}>
+              <div className="review__userImage">
+                <img src={review.profileImage} />
+              </div>
+            </Link>
             <div className="review__userInfo">
               <div className="review__userName">{review.username}</div>
               <div className="review__userDate">
