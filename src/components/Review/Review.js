@@ -10,10 +10,12 @@ const Review = ({ review }) => {
   const tags = review.tags;
   const floatRating = review.rating.toFixed(1);
   const getTags = () => {
-    console.log(floatRating);
+    // console.log(floatRating);
     const tagsResult = [];
     for (let i = 0; i < tags.length; i++) {
-      tagsResult.push(<Tag type="wineButton" isFilled="false" txt={tags[i]} />);
+      tagsResult.push(
+        <Tag type="wineButton" isFilled="false" txt={tags[i]} key={i} />
+      );
     }
     return tagsResult;
   };
