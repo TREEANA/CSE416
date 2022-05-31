@@ -1,51 +1,13 @@
-import React, { useState } from "react";
 import "./SortModal.css";
 import { BsSearch, BsXLg } from "react-icons/bs";
+import React, { useState, useEffect } from "react";
 
 const SortModal = ({ status, setStatus }) => {
-  const [sortMethod, setSortMethod] = useState("Highest_Rating");
-  const [Highest_Rating, setHighest_Rating] = useState(
-    "sort__method--selected"
-  );
-  const [Most_Liked, setMost_Liked] = useState("sort__method--unselected");
-  const [Price_Low_to_High, setPrice_Low_to_High] = useState(
-    "sort__method--unselected"
-  );
-  const [Price_High_to_Low, setPrice_High_to_Low] = useState(
-    "sort__method--unselected"
-  );
+  const [sortMethod, setSortMethod] = useState(0);
 
-  const click_Highest_Rating = () => {
-    setHighest_Rating("sort__method--selected");
-    setMost_Liked("sort__method--unselected");
-    setPrice_Low_to_High("sort__method--unselected");
-    setPrice_High_to_Low("sort__method--unselected");
-    setSortMethod("HighestRating");
-  };
-
-  const click_Most_Liked = () => {
-    setHighest_Rating("sort__method--unselected");
-    setMost_Liked("sort__method--selected");
-    setPrice_Low_to_High("sort__method--unselected");
-    setPrice_High_to_Low("sort__method--unselected");
-    setSortMethod("MostLiked");
-  };
-
-  const click_Price_Low_to_High = () => {
-    setHighest_Rating("sort__method--unselected");
-    setMost_Liked("sort__method--unselected");
-    setPrice_Low_to_High("sort__method--selected");
-    setPrice_High_to_Low("sort__method--unselected");
-    setSortMethod("PriceLowtoHigh");
-  };
-
-  const click_Price_High_to_Low = () => {
-    setHighest_Rating("sort__method--unselected");
-    setMost_Liked("sort__method--unselected");
-    setPrice_Low_to_High("sort__method--unselected");
-    setPrice_High_to_Low("sort__method--selected");
-    setSortMethod("PriceHightoLow");
-  };
+  useEffect(() => {
+    setSortMethod(Number(status.sortOrder));
+  }, [status.sortModal]);
 
   return (
     <>
@@ -59,24 +21,85 @@ const SortModal = ({ status, setStatus }) => {
               setStatus({
                 ...status,
                 sortModal: !status.sortModal,
-                sortOrder: sortMethod,
               })
             }
           />
         </div>
 
         <div className="sort__method">
-          <div className={Highest_Rating} onClick={click_Highest_Rating}>
+          <div
+            className={
+              sortMethod === 0
+                ? "sort__method--selected"
+                : "sort__method--unselected"
+            }
+            onClick={() => {
+              setSortMethod(0);
+            }}
+          >
             Highest Rating
           </div>
-          <div className={Most_Liked} onClick={click_Most_Liked}>
+          <div
+            className={
+              sortMethod === 1
+                ? "sort__method--selected"
+                : "sort__method--unselected"
+            }
+            onClick={() => {
+              setSortMethod(1);
+            }}
+          >
             Most Liked
           </div>
-          <div className={Price_Low_to_High} onClick={click_Price_Low_to_High}>
+          <div
+            className={
+              sortMethod === 2
+                ? "sort__method--selected"
+                : "sort__method--unselected"
+            }
+            onClick={() => {
+              setSortMethod(2);
+            }}
+          >
+            Most reviewed
+          </div>
+          <div
+            className={
+              sortMethod === 3
+                ? "sort__method--selected"
+                : "sort__method--unselected"
+            }
+            onClick={() => {
+              setSortMethod(3);
+            }}
+          >
             Price - Low to High
           </div>
-          <div className={Price_High_to_Low} onClick={click_Price_High_to_Low}>
+          <div
+            className={
+              sortMethod === 4
+                ? "sort__method--selected"
+                : "sort__method--unselected"
+            }
+            onClick={() => {
+              setSortMethod(4);
+            }}
+          >
             Price - High to Low
+          </div>
+        </div>
+        <div className="filter__button">
+          <div
+            className="filter__button-apply"
+            onClick={() => {
+              setStatus({
+                ...status,
+                sortModal: !status.sortModal,
+                sortOrder: sortMethod,
+              });
+            }}
+          >
+            apply sort
           </div>
         </div>
       </div>

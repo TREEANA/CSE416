@@ -66,9 +66,9 @@ const App = () => {
     applyModal: false,
     exchangeRate: 1000,
     editProfileModal: false,
-    sortOrder: "HighestRating",
+    sortOrder: 0,
     valuePrice: [23000, 128000],
-    valueRate: 4.5,
+    valueRate: 0,
     tagsForfilter: [],
   });
 
