@@ -40,6 +40,7 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
 
   //ticket status (0 : not answered (pending, yellow), 1: answered (green))
   const [ticketStatus, setTicketStatus] = useState(0);
+
   //load status for each ticket when page is initially loaded
   useEffect(() => {
     if (ticketData.adminID === null) {
@@ -61,6 +62,8 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
   // current user Status, to check whether one can edit the textarea
   const userStatus = status.userinfo.status;
   const userID = status.userID;
+
+  //diplay icons according to status
   const displayTicketStatus = () => {
     if (type === "faq") {
       return;
@@ -142,11 +145,15 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
             placeholder="Not answered yet"
           ></textarea>
         </div>
-        <div className="ticket__submit">
-          <button className="ticket__submitButton" onClick={onSubmit}>
-            Submit
-          </button>
-        </div>
+        {userStatus === 2 ? (
+          <div className="ticket__submit">
+            <button className="ticket__submitButton" onClick={onSubmit}>
+              Submit
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
