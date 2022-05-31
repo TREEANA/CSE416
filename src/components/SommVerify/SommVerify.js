@@ -184,8 +184,9 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
                   name="adminFeedback"
                   onChange={onChange}
                   readOnly={!editRequest}
+                  value={tempRequest?.adminFeedback || ""}
                 >
-                  {editRequest ? "" : tempRequest.adminFeedback}
+                  {/* {editRequest ? "" : tempRequest.adminFeedback} */}
                 </textarea>
               </div>
             </div>
