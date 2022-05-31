@@ -5,12 +5,34 @@ import { MdWineBar } from "react-icons/md";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import "./FollowingModal.css";
+import ReactPaginate from "react-paginate";
 const FollowingModal = ({ status, setStatus, userID, username }) => {
+  const itemsPerPage = 5;
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
   const [followering, setFollowering] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    setCurrentItems(followering.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(followering.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage]);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % followering.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  };
+
   const fetchData = async () => {
-    if (userID) {
+    if (userID && userID !== -1) {
       console.log(userID);
       setLoading(true);
       const res = await axios.get(`/api/users/${userID}/followings`);
@@ -30,6 +52,9 @@ const FollowingModal = ({ status, setStatus, userID, username }) => {
       }
 
       setFollowering(newfollowingslist);
+      setPageCount(Math.ceil(newfollowingslist.length / itemsPerPage));
+      const endOffset = itemOffset + itemsPerPage;
+      setCurrentItems(newfollowingslist.slice(itemOffset, endOffset));
     }
   };
 
@@ -68,8 +93,8 @@ const FollowingModal = ({ status, setStatus, userID, username }) => {
 
   const displayfollowings22 = () => {
     const result = [];
-    for (let i = 0; i < followering.length; i++) {
-      const each = followering[i];
+    for (let i = 0; i < currentItems.length; i++) {
+      const each = currentItems[i];
       result.push(
         <div className="search__profile__container">
           <Link to={`/profile/${each.userID}`}>
@@ -181,9 +206,26 @@ const FollowingModal = ({ status, setStatus, userID, username }) => {
                   }}
                 />
               </div>
-              <div className="becomesommlier_body">
-                {loading ? <Loader /> : <>{displayfollowings22()}</>}
-              </div>
+              {loading ? (
+                <Loader />
+              ) : (
+                <>
+                  <div className="becomesommlier_body">
+                    {displayfollowings22()}
+                  </div>
+                  <div className="following__modal--page">
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel="next >"
+                      onPageChange={handlePageClick}
+                      pageRangeDisplayed={5}
+                      pageCount={pageCount}
+                      previousLabel="< previous"
+                      renderOnZeroPageCount={null}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </>
@@ -211,9 +253,26 @@ const FollowingModal = ({ status, setStatus, userID, username }) => {
                   }}
                 />
               </div>
-              <div className="becomesommlier_body">
-                {loading ? <Loader /> : <>{displayfollowings()}</>}
-              </div>
+              {loading ? (
+                <Loader />
+              ) : (
+                <>
+                  <div className="becomesommlier_body">
+                    {displayfollowings()}
+                  </div>
+                  <div className="following__modal--page">
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel="next >"
+                      onPageChange={handlePageClick}
+                      pageRangeDisplayed={5}
+                      pageCount={pageCount}
+                      previousLabel="< previous"
+                      renderOnZeroPageCount={null}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </>

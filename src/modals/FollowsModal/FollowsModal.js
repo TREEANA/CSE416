@@ -4,12 +4,34 @@ import axios, { CancelToken } from "axios";
 import { MdWineBar } from "react-icons/md";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
+import "./FollowsModal.css";
+import ReactPaginate from "react-paginate";
 const FollowsModal = ({ status, setStatus, userID, username }) => {
+  const itemsPerPage = 5;
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
   const [followers, setFollowers] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    setCurrentItems(followers.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(followers.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % followers.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  };
+
   const fetchData = async () => {
-    if (userID) {
+    if (userID && userID !== -1) {
       console.log(userID);
       setLoading(true);
       const res = await axios.get(`/api/users/${userID}/followers`);
@@ -27,6 +49,9 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
         newfollowerslist.push(item);
       }
       setFollowers(newfollowerslist);
+      setPageCount(Math.ceil(newfollowerslist.length / itemsPerPage));
+      const endOffset = itemOffset + itemsPerPage;
+      setCurrentItems(newfollowerslist.slice(itemOffset, endOffset));
     }
   };
 
@@ -172,9 +197,27 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
                   }}
                 />
               </div>
-              <div className="becomesommlier_body">
-                {loading ? <Loader /> : <>{displayfollowers222()}</>}
-              </div>
+
+              {loading ? (
+                <Loader />
+              ) : (
+                <>
+                  <div className="becomesommlier_body">
+                    {displayfollowers222()}
+                  </div>
+                  <div className="follows__modal--page">
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel="next >"
+                      onPageChange={handlePageClick}
+                      pageRangeDisplayed={5}
+                      pageCount={pageCount}
+                      previousLabel="< previous"
+                      renderOnZeroPageCount={null}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </>
@@ -203,9 +246,27 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
                   }}
                 />
               </div>
-              <div className="becomesommlier_body">
-                {loading ? <Loader /> : <>{displayfollowers()}</>}
-              </div>
+
+              {loading ? (
+                <Loader />
+              ) : (
+                <>
+                  <div className="becomesommlier_body">
+                    {displayfollowers()}
+                  </div>
+                  <div className="follows__modal--page">
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel="next >"
+                      onPageChange={handlePageClick}
+                      pageRangeDisplayed={5}
+                      pageCount={pageCount}
+                      previousLabel="< previous"
+                      renderOnZeroPageCount={null}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </>
