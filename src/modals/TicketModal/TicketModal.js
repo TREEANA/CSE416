@@ -37,7 +37,7 @@ const TicketModal = ({ status, toggleStatus }) => {
   };
 
   //user가 이전에 submit한 티켓들
-  const [prevTickets, setPrevTickets] = useState({});
+  const [prevTickets, setPrevTickets] = useState([]);
 
   const userID = status.userID;
   //fetch tickets that the user has previously sent
@@ -57,11 +57,14 @@ const TicketModal = ({ status, toggleStatus }) => {
 
   const displayTickets = () => {
     let result = [];
+
     prevTickets.forEach((each, index) => {
+      console.log("prevTicketForEach in displayTickets: ", each);
       result.push(
         <Ticket status={status} type="ticket" ticketData={each} key={index} />
       );
     });
+    return result;
   };
 
   const onSubmit = async () => {
@@ -77,6 +80,7 @@ const TicketModal = ({ status, toggleStatus }) => {
     } catch (error) {
       console.log(error);
     }
+    fetchUserTickets(userID);
   };
 
   return (
@@ -152,8 +156,9 @@ const TicketModal = ({ status, toggleStatus }) => {
           ) : (
             <></>
           )}
-          <Ticket status={status} />
-          <Ticket status={status} />
+          {displayTickets()}
+          {/* <Ticket status={status} />
+          <Ticket status={status} /> */}
         </div>
       </div>
     </>
