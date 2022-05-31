@@ -18,6 +18,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView();
+  const [isfirstrender, setisfirstrender] = useState(true);
 
   const toggleFilterModal = () => toggleStatus("filterModal");
 
@@ -40,27 +41,61 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   };
 
   const fetchWines = async (page) => {
-    setLoading(true);
-    let newtag = "";
+    if (isfirstrender) {
+      const newtags = [];
+      newtags.push(theme);
 
-    for (let i = 0; i < status.tagsForfilter.length; i++) {
-      newtag = newtag.concat("tags=" + status.tagsForfilter[i] + "&");
+      setStatus({
+        ...status,
+        sortOrder: "HighestRating",
+        valuePrice: [23000, 128000],
+        valueRate: 4.5,
+        tagsForfilter: newtags,
+      });
+      let txt = theme;
+      txt = txt.replace(" ", "+");
+
+      try {
+        setLoading(true);
+        const url = `/api/wines/search?tags=${txt}&minPrice=23000&maxPrice=128000&minRating=0&sort=0&num=${
+          page * 10
+        }`;
+        console.log("Fetching wines: ", url);
+        const res = await axios.get(url);
+        setWines(res.data);
+        setLoading(false);
+        console.log("Wines fetched: ", res.data);
+      } catch (e) {
+        console.log(e);
+      }
+
+      setisfirstrender(false);
+    } else {
+      let newtag = "";
+
+      for (let i = 0; i < status.tagsForfilter.length; i++) {
+        let txt = status.tagsForfilter[i];
+        txt = txt.replace(" ", "+");
+        newtag = newtag.concat("tags=" + txt + "&");
+      }
+      newtag = newtag.slice(0, -1);
+
+      try {
+        setLoading(true);
+        const url = `/api/wines/search?${newtag}&minPrice=${
+          status.valuePrice[0]
+        }&maxPrice=${status.valuePrice[1]}&minRating=${
+          status.valueRate
+        }&sort=0&num=${page * 10}`;
+        console.log("Fetching wines: ", url);
+        const res = await axios.get(url);
+        setWines(res.data);
+        setLoading(false);
+        console.log("Wines fetched: ", res.data);
+      } catch (e) {
+        console.log(e);
+      }
     }
-    newtag = newtag.slice(0, -1);
-    try {
-      const url = `/api/wines/search?${newtag}&minPrice=${
-        status.valuePrice[0]
-      }&maxPrice=${status.valuePrice[1]}&minRating=${
-        status.valueRate
-      }&sort=0&num=${page * 10}`;
-      console.log("Fetching wines: ", url);
-      const res = await axios.get(url);
-      setWines(res.data);
-      console.log("Wines fetched: ", res.data);
-    } catch (e) {
-      console.log(e);
-    }
-    setLoading(false);
   };
 
   const displayWines = () => {
@@ -94,6 +129,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   };
 
   useEffect(() => {
+    setisfirstrender(true);
     fetchWines(page);
   }, []);
 
@@ -108,10 +144,10 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   }, [inView]);
 
   useEffect(() => {
+    setisfirstrender(true);
     setWines([]);
     setPage(1);
     fetchWines(1);
-    fetchFilterandSortDefault();
   }, [theme]);
 
   useEffect(() => {
