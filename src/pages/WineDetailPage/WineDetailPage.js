@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+
 import axios from "axios";
 
 import Tag from "../../components/Tag/Tag";
 import Loader from "../../components/Loader/Loader";
 import Wine from "../../components/Wine/Wine";
 import WineList from "../../components/WineList/WineList";
-import CommentPage from "../CommentPage/CommentPage";
 import Review from "../../components/Review/Review";
+
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 
 import { BsFillPencilFill, BsHeartFill } from "react-icons/bs";
+
 import "./WineDetailPage.css";
 
 const WineDetailPage = ({ status, toggleStatus }) => {
+  //const for loader (true : load, false : unload)
+  const [loading, setLoading] = useState(true);
+  const [ref, inView] = useInView();
+
   const userID = status.userID;
   const [wine, setWine] = useState(false);
   const { wineID } = useParams();
@@ -46,13 +53,15 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     setNewReview({ ...newReview, userLiked: !newReview.userLiked });
   };
   //wineID로 와인 가져오기
-  const fetchWine = async (wineId) => {
+  const fetchWine = async (wineID) => {
+    setLoading(true);
     try {
-      const res = await axios.get(`/api/wines/${wineId}`);
+      const res = await axios.get(`/api/wines/${wineID}`);
       setWine(res.data);
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
   };
 
   //review중에 userID로 쓴 리뷰가 있는지 확인
@@ -92,11 +101,13 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   // //전체 tag list
   const [tagList, setTagList] = useState({});
   const fetchTags = async () => {
+    setLoading(true);
     const res = await axios.get("/api/tags/list");
     const tempTags = {};
     res.data.forEach((each) => {
       tempTags[each] = false;
     });
+    setLoading(false);
     setTagList(tempTags);
   };
 
@@ -165,14 +176,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
   //tag 클릭하면 newTag에 넣음
   function onTagClick() {
-    //우현이거
-    // const newTag = [];
-    // for (let each in tags) {
-    //   if (tags[each] === true) {
-    //     newTag.push(each);
-    //   }
-    // }
-    //우형이형거
     const newlist = [];
     for (const each in tagList) {
       if (tagList[each] === true) {
@@ -269,7 +272,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   const displayReviews = () => {
     return wine.reviews.map((each) => {
       if (each.userID !== Number(userID)) {
-        // console.log("wine.reviews : ", wine.reviews);
         return (
           <Link to={`/wine/${wineID}/reviews/${each.reviewID}`}>
             <Review
@@ -301,6 +303,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
     console.log(body);
     if (existReview) {
+      setLoading(true);
       await axios
         .put(`/api/wines/${wineID}/reviews/${reviewID}`, body)
         .then((res) => {
@@ -309,7 +312,9 @@ const WineDetailPage = ({ status, toggleStatus }) => {
         .catch((error) => {
           console.log("failed", error);
         });
+      setLoading(false);
     } else {
+      setLoading(true);
       await axios
         .post(`/api/wines/${wineID}/reviews`, body)
         .then((res) => {
@@ -318,7 +323,20 @@ const WineDetailPage = ({ status, toggleStatus }) => {
         .catch((error) => {
           console.log("failed", error);
         });
+      setLoading(false);
     }
+  };
+
+  const displayRecommendation = () => {
+    let result = [];
+    console.log(
+      "displayRecommendations, wine recomm list :  ",
+      wine.recommendations
+    );
+    wine.recommendations.forEach((each, index) => {
+      result.push(<Wine wine={each} key={index} />);
+    });
+    return result;
   };
 
   return (
@@ -335,8 +353,16 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
               <div className="detail__wineDetail">
                 <div className="detail__wineTitle">{wine.name}</div>
-                <div className="detail__grapeTitle">{formatGrape()}</div>
-                <div className="detail__wineTags">{displayTags()}</div>
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <div className="detail__grapeTitle">{formatGrape()}</div>
+                )}
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <div className="detail__wineTags">{displayTags()}</div>
+                )}
                 <div className="detail__wineRate">
                   <StarIcon fontSize="40" /> {wine.rating}
                 </div>
@@ -528,14 +554,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
             <div className="detail__wineRecommTitle"> You may also like</div>
             {/* <Wine />
             <Wine /> */}
-          </div>
-          <hr className="detail__line"></hr>
-          <div className="detail__winelistRecomm">
-            <div className="detail__winelistRecommTitle">
-              List that contains this wine
-            </div>
-            {/* <WineList />
-            <WineList /> */}
+            {displayRecommendation()}
           </div>
         </div>
       )}
