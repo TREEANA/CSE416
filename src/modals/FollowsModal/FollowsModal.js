@@ -30,6 +30,76 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
     }
   };
 
+  const follow = async (id, followOption) => {
+    try {
+      const res = await axios.post(
+        `/api/users/${status.userID}/follow?targetUserID=${id}&followOption=${followOption}`
+      );
+      if (res.status === 200) {
+        console.log(res);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const clickFollowsListButton = (id, followOption) => {
+    const newArr = [];
+    for (let i = 0; i < followers.length; i++) {
+      const each = followers[i];
+      if (each.userID === id) {
+        each.isFollows = !each.isFollows;
+
+        follow(id, followOption);
+      }
+      newArr.push(each);
+    }
+    setFollowers(newArr);
+  };
+
+  const displayfollowers222 = () => {
+    const result = [];
+    for (let i = 0; i < followers.length; i++) {
+      const each = followers[i];
+      result.push(
+        <div className="search__profile__container">
+          <Link to={`/profile/${each.userID}`}>
+            <div
+              className="search__profile"
+              onClick={() => {
+                setStatus({
+                  ...status,
+                  followsModal: !status.followsModal,
+                });
+              }}
+            >
+              <div className="search__image">
+                <img className="search__image" src={each.profileImage} />
+              </div>
+              <div className="search__name" id={each.userID}>
+                {each.username}
+              </div>
+              {each.status === 1 && <MdWineBar />}
+            </div>
+          </Link>
+
+          <div
+            className={
+              each.isFollows
+                ? "search__button search__button"
+                : "search__button--filled"
+            }
+            onClick={() => clickFollowsListButton(each.userID, "follower")}
+          >
+            {each.isFollows ? "following" : "follow"}
+          </div>
+        </div>
+      );
+    }
+
+    return result;
+  };
+
   const displayfollowers = () => {
     const result = [];
     for (let i = 0; i < followers.length; i++) {
@@ -77,31 +147,69 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
 
   return (
     <>
-      <div
-        className={
-          status.followsModal ? "becomesommlier" : "becomesommlier--inactive"
-        }
-      >
-        <div className="becomesommlier__container">
-          <div className="becomesommlier__header">
-            <div className="becomesommlier__header__title">
-              {username}'s Followers
+      {Number(status.userID) === Number(userID) ? (
+        <>
+          {" "}
+          <div
+            className={
+              status.followsModal
+                ? "becomesommlier"
+                : "becomesommlier--inactive"
+            }
+          >
+            <div className="becomesommlier__container">
+              <div className="becomesommlier__header">
+                <div className="becomesommlier__header__title">
+                  Your's Followers
+                </div>
+                <BsXLg
+                  className="becomesommlier__top-close"
+                  onClick={() => {
+                    setStatus({
+                      ...status,
+                      followsModal: !status.followsModal,
+                    });
+                  }}
+                />
+              </div>
+              <div className="becomesommlier_body">
+                {loading ? <Loader /> : <>{displayfollowers222()}</>}
+              </div>
             </div>
-            <BsXLg
-              className="becomesommlier__top-close"
-              onClick={() => {
-                setStatus({
-                  ...status,
-                  followsModal: !status.followsModal,
-                });
-              }}
-            />
           </div>
-          <div className="becomesommlier_body">
-            {loading ? <Loader /> : <>{displayfollowers()}</>}
+        </>
+      ) : (
+        <>
+          {" "}
+          <div
+            className={
+              status.followsModal
+                ? "becomesommlier"
+                : "becomesommlier--inactive"
+            }
+          >
+            <div className="becomesommlier__container">
+              <div className="becomesommlier__header">
+                <div className="becomesommlier__header__title">
+                  {username}'s Followers
+                </div>
+                <BsXLg
+                  className="becomesommlier__top-close"
+                  onClick={() => {
+                    setStatus({
+                      ...status,
+                      followsModal: !status.followsModal,
+                    });
+                  }}
+                />
+              </div>
+              <div className="becomesommlier_body">
+                {loading ? <Loader /> : <>{displayfollowers()}</>}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };

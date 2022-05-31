@@ -33,6 +33,82 @@ const FollowingModal = ({ status, setStatus, userID, username }) => {
     }
   };
 
+  const follow = async (id, followOption) => {
+    try {
+      const res = await axios.post(
+        `/api/users/${status.userID}/follow?targetUserID=${id}&followOption=${followOption}`
+      );
+      if (res.status === 200) {
+        console.log(res);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const clickFollowingListButton = (id, followOption) => {
+    const newArr = [];
+    for (let i = 0; i < followering.length; i++) {
+      const each = followering[i];
+      if (each.userID === id) {
+        each.isFollowing = !each.isFollowing;
+        // if (!checkIDinuserList(each.userID)) {
+        //   setUserList((oldArray) => [...oldArray, each]);
+        // }
+        // setFollowering(
+        //   followering.filter((item) => item.userID !== each.userID)
+        // );
+
+        follow(id, followOption);
+      }
+      newArr.push(each);
+    }
+    setFollowering(newArr);
+  };
+
+  const displayfollowings22 = () => {
+    const result = [];
+    for (let i = 0; i < followering.length; i++) {
+      const each = followering[i];
+      result.push(
+        <div className="search__profile__container">
+          <Link to={`/profile/${each.userID}`}>
+            <div
+              className="search__profile"
+              onClick={() => {
+                setStatus({
+                  ...status,
+                  followingModal: !status.followingModal,
+                });
+              }}
+            >
+              <div className="search__image">
+                <img className="search__image" src={each.profileImage} />
+              </div>
+              <div className="search__name" id={each.userID}>
+                {each.username}
+              </div>
+              {each.status === 1 && <MdWineBar />}
+            </div>
+          </Link>
+
+          <div
+            className={
+              each.isFollowing
+                ? "search__button search__button"
+                : "search__button--filled"
+            }
+            onClick={() => clickFollowingListButton(each.userID, "following")}
+          >
+            {each.isFollowing ? "following" : "follow"}
+          </div>
+        </div>
+      );
+    }
+
+    return result;
+  };
+
   const displayfollowings = () => {
     const result = [];
     for (let i = 0; i < followering.length; i++) {
@@ -81,31 +157,67 @@ const FollowingModal = ({ status, setStatus, userID, username }) => {
 
   return (
     <>
-      <div
-        className={
-          status.followingModal ? "becomesommlier" : "becomesommlier--inactive"
-        }
-      >
-        <div className="becomesommlier__container">
-          <div className="becomesommlier__header">
-            <div className="becomesommlier__header__title">
-              {username}'s Followings
+      {Number(status.userID) === Number(userID) ? (
+        <>
+          <div
+            className={
+              status.followingModal
+                ? "becomesommlier"
+                : "becomesommlier--inactive"
+            }
+          >
+            <div className="becomesommlier__container">
+              <div className="becomesommlier__header">
+                <div className="becomesommlier__header__title">
+                  Your's Followings
+                </div>
+                <BsXLg
+                  className="becomesommlier__top-close"
+                  onClick={() => {
+                    setStatus({
+                      ...status,
+                      followingModal: !status.followingModal,
+                    });
+                  }}
+                />
+              </div>
+              <div className="becomesommlier_body">
+                {loading ? <Loader /> : <>{displayfollowings22()}</>}
+              </div>
             </div>
-            <BsXLg
-              className="becomesommlier__top-close"
-              onClick={() => {
-                setStatus({
-                  ...status,
-                  followingModal: !status.followingModal,
-                });
-              }}
-            />
           </div>
-          <div className="becomesommlier_body">
-            {loading ? <Loader /> : <>{displayfollowings()}</>}
+        </>
+      ) : (
+        <>
+          <div
+            className={
+              status.followingModal
+                ? "becomesommlier"
+                : "becomesommlier--inactive"
+            }
+          >
+            <div className="becomesommlier__container">
+              <div className="becomesommlier__header">
+                <div className="becomesommlier__header__title">
+                  {username}'s Followings
+                </div>
+                <BsXLg
+                  className="becomesommlier__top-close"
+                  onClick={() => {
+                    setStatus({
+                      ...status,
+                      followingModal: !status.followingModal,
+                    });
+                  }}
+                />
+              </div>
+              <div className="becomesommlier_body">
+                {loading ? <Loader /> : <>{displayfollowings()}</>}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };
