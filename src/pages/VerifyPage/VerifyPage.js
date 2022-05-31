@@ -8,8 +8,9 @@ const VerifyPage = ({ status }) => {
   //list of tickets fetched from db
   const [verTickets, setVerTickets] = useState([]);
 
-  // filterStatus : filter requests by filter (0 : view all tickets, 1: answered, 2: pending)
-  const [filterStatus, setFilterStatus] = useState(0);
+  // filterStatus : filter requests by filter
+  // (-1 : view all tickets, 0: declined, 1: approved, 2: pending)
+  const [filterStatus, setFilterStatus] = useState(-1);
 
   // fetch verification tickets from database
   const fetchVerifyReq = async (filterStatus) => {
@@ -19,6 +20,12 @@ const VerifyPage = ({ status }) => {
       );
       // console.log("res.data from fetchVerifyReq", res.data);
       setVerTickets(res.data);
+      console.log(
+        "fetchVerifyReq filterStatus, ",
+        filterStatus,
+        ", res.data: ",
+        res.data
+      );
       // console.log("verTickets:", verTickets);
     } catch (e) {
       console.log(e);
@@ -43,7 +50,7 @@ const VerifyPage = ({ status }) => {
         </>
       );
     });
-    console.log("displayVerRequest: ", result);
+    // console.log("displayVerRequest: ", result);
     return result;
   };
 
@@ -52,6 +59,21 @@ const VerifyPage = ({ status }) => {
       <div className="verifypage">
         <div className="verifypage__title"> Verify Sommelier </div>
         <div className="verifypage__status">
+          <div className="verifypage__statusIcon">
+            <button
+              className={
+                filterStatus === -1
+                  ? "verifypage__statusButton--active verifypage__statusButton"
+                  : "verifypage__statusButton"
+              }
+              onClick={() => {
+                setFilterStatus(-1);
+                console.log("onClick setFilterStatus 0");
+              }}
+            >
+              show all
+            </button>
+          </div>
           <div className="verifypage__statusIcon">
             <button
               className={
@@ -64,7 +86,7 @@ const VerifyPage = ({ status }) => {
                 console.log("onClick setFilterStatus 0");
               }}
             >
-              show all
+              show only declined
             </button>
           </div>
           <div className="verifypage__statusIcon">
@@ -79,7 +101,7 @@ const VerifyPage = ({ status }) => {
                 console.log("onClick setFilterStatus 1");
               }}
             >
-              show only answered
+              show only approved
             </button>
           </div>
           <div className="verifypage__statusIcon">
