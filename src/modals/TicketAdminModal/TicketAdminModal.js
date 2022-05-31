@@ -27,7 +27,9 @@ const TicketAdminModal = ({ status, toggleStatus }) => {
     }
   };
   useEffect(() => {
-    fetchAdminTickets(userID);
+    if (status.userinfo.status === 2) {
+      fetchAdminTickets(userID);
+    }
   }, []);
 
   //refers to "status" in api calls
