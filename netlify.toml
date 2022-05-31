@@ -2,6 +2,10 @@
   from = "/api/users/*"
   to = "https://podo-backend.herokuapp.com/users/:splat"  
   status = 200
+  [[redirects]]
+  from = "/api/tags/list"
+  to = "https://podo-backend.herokuapp.com/tags/list"  
+  status = 200
 [[redirects]]
   from = "/api/wines/*"
   to = "https://podo-backend.herokuapp.com/wines/:splat"  

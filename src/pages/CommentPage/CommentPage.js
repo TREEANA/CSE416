@@ -10,32 +10,7 @@ import "./CommentPage.css";
 
 import { BsPlus, BsReplyFill } from "react-icons/bs";
 
-// const commentDummyData = {
-//   0: {
-//     commentID: 0,
-//     userID: 1,
-//     content: "great review!",
-//     createdAt: "2018.02.28",
-//     lastUpdatedAt: "2019.04.17",
-//     isDeleted: false,
-//   },
-//   1: {
-//     commentID: 1,
-//     userID: 2,
-//     content: "i totally agree with you",
-//     createdAt: "2019.02.12",
-//     lastUpdatedAt: "2019.02.12",
-//     isDeleted: false,
-//   },
-//   2: {
-//     commentID: 2,
-//     userID: 1,
-//     content: "thank you for consent!",
-//     createdAt: "2019.02.14",
-//     lastUpdatedAt: "2019.02.16",
-//     isDeleted: true,
-//   },
-// };
+import GoogleLogin from "react-google-login";
 
 const CommentPage = ({
   status,
@@ -52,21 +27,11 @@ const CommentPage = ({
   const fetchReview = async (reviewID) => {
     try {
       const res = await axios.get(`/api/wines/${wineID}/reviews`);
-      console.log("fetchreview.res : ", res.data);
       res.data.forEach((each) => {
-        // console.log(
-        //   "each.reviewID : ",
-        //   each.reviewID,
-        //   "type : ",
-        //   typeof each.reviewID
-        // );
-        // console.log("reviewID:", reviewID, "type : ", typeof reviewID);
-        // console.log("");
-        if (Number(each.reviewID) === Number(reviewID)) {
+        if (each.reviewID === Number(reviewID)) {
           setReview(each);
         }
       });
-      console.log("review after fetch: ", review);
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +40,6 @@ const CommentPage = ({
   //fetch matching review when first loading
   useEffect(() => {
     fetchReview(reviewID);
-    console.log("useEFFEct fetchReview : ", review);
   }, []);
 
   // 유저가 지금 작성중인 comment - submit 하지 않은
@@ -104,7 +68,7 @@ const CommentPage = ({
 
   const displayComments = (comments) => {
     return comments.map((each) => {
-      return <Comment status={status} key={each.id} comments={each} />;
+      return <Comment status={status} key={each.commentID} comments={each} />;
     });
   };
 
@@ -116,22 +80,26 @@ const CommentPage = ({
   const userID = status.userID;
 
   const onSubmit = async () => {
-    // console.log(userID);
-    // why null man
     const body = {
       userID: userID,
-      content: { tempComment },
+      content: tempComment,
     };
     console.log(body);
-    await axios
-      .post(`/api/wines/${wineID}/reviews/${reviewID}/comments`, body)
-      .then((res) => {
-        console.log("response (comment): ", JSON.stringify(res, null));
-      })
-      .catch((error) => {
-        console.log("failed(comment): ", error);
-      });
-    setTempComment("");
+    if (userID) {
+      await axios
+        .post(`/api/wines/${wineID}/reviews/${reviewID}/comments`, body)
+        .then((res) => {
+          console.log("response (comment): ", JSON.stringify(res.data, null));
+        })
+        .catch((error) => {
+          console.log("failed(comment): ", error);
+        });
+      setTempComment("");
+    }
+
+    // else {
+    //   <GoogleLogin></GoogleLogin>;
+    // }
   };
 
   const navigate = useNavigate();

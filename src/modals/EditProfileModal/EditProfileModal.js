@@ -146,7 +146,7 @@ const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
     newtag = newtag.slice(0, -1);
 
     const res = await axios.post(`/api/users/${status.userID}/tags?${newtag}`);
-    console.log(res);
+    console.log(`/api/users/${status.userID}/tags?${newtag}`);
     try {
       const res = await axios.get(
         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${status.accesstoken}`

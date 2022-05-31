@@ -186,7 +186,8 @@ button:hover {
   background-color: var(--primary);
   display: flex;
   justify-content: center;
-  height: 1.5rem;
+  height: 2rem;
+  font-size: var(--size-txt);
   align-items: center;
 }
 
@@ -200,6 +201,7 @@ button:hover {
   justify-content: center;
   height: 2.5rem;
   align-items: center;
+  margin-top: 20px;
 }
 
 /* 

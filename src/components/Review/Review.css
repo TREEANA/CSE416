@@ -5,7 +5,7 @@
   /* padding: 5px; */
   /* margin: var(--margin-out); */
   width: 100%;
-  margin: 20px 0;
+  margin-top: 20px;
   background-color: var(--bg-0);
 }
 
@@ -30,14 +30,14 @@
   align-items: center;
 }
 
-.review__user-icon > svg {
+.review__userIcon > svg {
   margin: 5px;
   color: var(--primary);
   width: 20px;
   height: 20px;
 }
 
-.review__user-image {
+.review__userImage {
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -45,7 +45,7 @@
   border: 1px solid var(--text-100);
 }
 
-.review__user-image > img {
+.review__userImage > img {
   width: 40px;
   height: 40px;
   object-fit: cover;
@@ -53,19 +53,19 @@
   margin-right: 0.5rem;
 }
 
-.review__user-info {
+.review__userInfo {
 }
 
-.review__user-name {
+.review__userName {
   font-size: 15px;
   padding-bottom: 2px;
 }
 
-.review__user-date {
+.review__userDate {
   font-size: x-small;
 }
 
-.review__user-rate {
+.review__userRate {
   border-radius: 20px;
   border: 1px solid;
   border-color: var(--text-100);
@@ -78,7 +78,7 @@
   margin-right: 10px;
 }
 
-.review__user-rate--somm {
+.review__userRate--somm {
   background-color: var(--primary);
   border-color: var(--primary);
   border-radius: 20px;
@@ -91,10 +91,10 @@
   margin-right: 10px;
 }
 
-.review__user-rate > svg {
+.review__userRate > svg {
   margin: 4px;
 }
-.review__user-rate--somm > svg {
+.review__userRate--somm > svg {
   margin: 4px;
 }
 .review__tag {
@@ -102,7 +102,7 @@
   padding: 0px 0px 0px 20px;
 }
 
-.review__ind-tag {
+.review__indTag {
   border-radius: 20px;
   border: 1px solid var(--primary);
   padding: 3px 7px;

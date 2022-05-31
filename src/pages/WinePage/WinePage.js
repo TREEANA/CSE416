@@ -10,48 +10,6 @@ import FilterModal from "../../modals/FilterModal/FilterModal";
 
 import "./WinePage.css";
 
-// const defaultLists = [
-//   {
-//     wineListID: 0,
-//     userID: 0,
-//     title: "Title 1",
-//     images: [
-//       "https://images.unsplash.com/photo-1566995541428-f2246c17cda1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
-//       "https://images.vivino.com/thumbs/ygTg4K4vR5GYCjWTFocWng_pb_x600.png",
-//       "https://images.vivino.com/thumbs/8grEUdS1S4K9s7DQhmqyfg_pb_x600.png",
-//       "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-//     ],
-//     content: "Content 1",
-//     lastUpdatedAt: new Date(),
-//   },
-//   {
-//     wineListID: 1,
-//     userID: 1,
-//     title: "Title 2",
-//     images: [
-//       "https://images.unsplash.com/photo-1566995541428-f2246c17cda1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
-//       "https://images.vivino.com/thumbs/ygTg4K4vR5GYCjWTFocWng_pb_x600.png",
-//       "https://images.vivino.com/thumbs/8grEUdS1S4K9s7DQhmqyfg_pb_x600.png",
-//       "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-//     ],
-//     content: "Content 2",
-//     lastUpdatedAt: new Date(),
-//   },
-//   {
-//     wineListID: 2,
-//     userID: 2,
-//     title: "Title 3",
-//     images: [
-//       "https://images.unsplash.com/photo-1566995541428-f2246c17cda1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
-//       "https://images.vivino.com/thumbs/ygTg4K4vR5GYCjWTFocWng_pb_x600.png",
-//       "https://images.vivino.com/thumbs/8grEUdS1S4K9s7DQhmqyfg_pb_x600.png",
-//       "https://images.vivino.com/thumbs/g8BkR_1QRESXZwMdNZdbbA_pb_x600.png",
-//     ],
-//     content: "Content 3",
-//     lastUpdatedAt: new Date(),
-//   },
-// ];
-
 const WinePage = ({ status, toggleStatus, setStatus }) => {
   const filterModal = status.filterModal;
   const sortModal = status.sortModal;
@@ -70,19 +28,31 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   };
 
   const fetchFilterandSortDefault = () => {
+    const newtags = [];
+    newtags.push(theme);
     setStatus({
       ...status,
       sortOrder: "HighestRating",
       valuePrice: [23000, 128000],
       valueRate: 4.5,
-      tagsForfilter: [theme],
+      tagsForfilter: newtags,
     });
   };
 
   const fetchWines = async (page) => {
     setLoading(true);
+    let newtag = "";
+
+    for (let i = 0; i < status.tagsForfilter.length; i++) {
+      newtag = newtag.concat("tags=" + status.tagsForfilter[i] + "&");
+    }
+    newtag = newtag.slice(0, -1);
     try {
-      const url = `/api/wines/search?tags=${theme}&num=${page * 10}`;
+      const url = `/api/wines/search?${newtag}&minPrice=${
+        status.valuePrice[0]
+      }&maxPrice=${status.valuePrice[1]}&minRating=${
+        status.valueRate
+      }&sort=0&num=${page * 10}`;
       console.log("Fetching wines: ", url);
       const res = await axios.get(url);
       setWines(res.data);
@@ -143,6 +113,10 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
     fetchWines(1);
     fetchFilterandSortDefault();
   }, [theme]);
+
+  useEffect(() => {
+    fetchWines(1);
+  }, [status.filterModal, status.sortModal]);
 
   return (
     <div className="winePage">
