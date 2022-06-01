@@ -14,13 +14,16 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 
 import { BsFillPencilFill, BsHeartFill } from "react-icons/bs";
+import { GrView } from "react-icons/gr";
 
 import "./WineDetailPage.css";
 
 const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
-  //const for loader (true : load, false : unload)
+  //const for loader (true : loading, false : not loading)
   const [loading, setLoading] = useState(true);
   const [ref, inView] = useInView();
+  const [numReviews, setNumReviews] = useState(2);
+  const [pageNum, setPageNum] = useState(1);
 
   const userID = status.userID;
   const [wine, setWine] = useState(false);
@@ -54,21 +57,20 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
   };
   //wineID로 와인 가져오기
   const fetchWine = async (wineID) => {
-    setLoading(true);
     try {
+      setLoading(true);
       const res = await axios.get(`/api/wines/${wineID}`);
       setWine(res.data);
+      // console.log(
+      //   "setWine(res.data) from fetchWine in WineDetailpage : ",
+      //   res.data
+      // );
+      setLoading(false);
+      // console.log("fetchWine from WineDetailpage, wine:", wine);
     } catch (e) {
       console.log(e);
     }
-    setLoading(false);
   };
-
-  //review중에 userID로 쓴 리뷰가 있는지 확인
-  const [existReview, setExistReview] = useState(0);
-  const [reviewID, setReviewID] = useState(0);
-
-  // 들어온 리뷰 중에 userID 겹치는게 있는지 확인
 
   //price 나타내주기 current currency price 긁어와서 계산(vivino는 달러로 되어있음)
   const formatPrice = () => {
@@ -117,39 +119,74 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     // checkReview(userID);
   }, []);
 
-  const checkReview = (userID) => {
-    console.log("checkReview starts : ");
-    console.log("checkReview: wine.reviews", wine.reviews);
-    let prevReview = wine.reviews.some((review) => {
-      // console.log(
-      //   "review.userID :",
-      //   review.userID,
-      //   "type :",
-      //   typeof review.userID
-      // );
-      // console.log("input userID:", userID, "type :", typeof userID);
-      if (review.userID === Number(userID)) {
-        return review;
-        // setExistReview(1);
-        // // setNewReview(...review);
-        // setNewReview(
-        //   (newReview.content = review.content),
-        //   (newReview.rating = review.rating),
-        //   (newReview.userLiked = review.userLiked),
-        //   (newReview.tags = review.tags)
-        // );
-        // setReviewID(review.reviewID);
-      }
+  //review중에 userID로 쓴 리뷰가 있는지 확인
+  const [existReview, setExistReview] = useState(0);
+  const [reviewID, setReviewID] = useState(0);
+
+  // 들어온 리뷰 중에 userID 겹치는게 있는지 확인
+  // const [prevReview, setPrevReview] = useState({});
+  // const checkPrevReviewExist = () => {
+  //   wine.reviews.forEach((each, index) => {
+  //     if (each.userID === Number(status.userID)) {
+  //       setExistReview(true);
+  //       setPrevReview(each);
+  //     }
+  //   });
+  //   console.log(
+  //     "useEffect from checkPrevReviewExist , existReview : ",
+  //     existReview,
+  //     ", prevReview: ",
+  //     prevReview
+  //   );
+  // };
+
+  // useEffect(() => {
+  //   checkPrevReviewExist();
+  // }, []);
+
+  const displayRecommendation = () => {
+    let result = [];
+    // console.log(
+    //   "displayRecommendations, wine recomm list :  ",
+    //   wine.recommendations
+    // );
+    wine.recommendations.forEach((each, index) => {
+      result.push(
+        <Wine type="recommendation" wine={each} key={index} status={status} />
+      );
     });
-    setExistReview(1);
-    setNewReview(...prevReview);
-    setReviewID(prevReview.reviewID);
-    console.log("checkReview result: ", existReview);
+    return result;
   };
 
-  useEffect(() => {
-    // checkReview(userID);
-  }, []);
+  // const checkReview = (userID) => {
+  //   console.log("checkReview starts : ");
+  //   console.log("checkReview: wine.reviews", wine.reviews);
+  //   let prevReview = wine.reviews.some((review) => {
+  //     // console.log(
+  //     //   "review.userID :",
+  //     //   review.userID,
+  //     //   "type :",
+  //     //   typeof review.userID
+  //     // );
+  //     // console.log("input userID:", userID, "type :", typeof userID);
+  //     if (review.userID === Number(userID)) {
+  //       return review;
+  //       // setExistReview(1);
+  //       // // setNewReview(...review);
+  //       // setNewReview(
+  //       //   (newReview.content = review.content),
+  //       //   (newReview.rating = review.rating),
+  //       //   (newReview.userLiked = review.userLiked),
+  //       //   (newReview.tags = review.tags)
+  //       // );
+  //       // setReviewID(review.reviewID);
+  //     }
+  //   });
+  //   setExistReview(1);
+  //   setNewReview(...prevReview);
+  //   setReviewID(prevReview.reviewID);
+  //   console.log("checkReview result: ", existReview);
+  // };
 
   const [search, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState({});
@@ -164,6 +201,7 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     setSelectedTag(newlist);
   }, [tagList]);
 
+  //add tag(with value on the search input) into tagList
   const clickAddIcon = () => {
     for (const each in tagList) {
       if (each === search) {
@@ -214,36 +252,6 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     return result;
   };
 
-  const onLikeClick = async (like) => {
-    setNewReview({ ...newReview, userLiked: like });
-    const res = await axios.post(
-      `/api/users/${status.userID}/like-winelist?winelistID=${wineID}`
-    );
-    console.log("res.data : ", res.data, "newReview after like : ", newReview);
-    setStatus({
-      ...status,
-      userinfo: {
-        ...status.userinfo,
-        likedWines: res.data.likedWines,
-      },
-    });
-  };
-
-  const onRateClick = async () => {
-    setNewReview({ ...newReview, rating: newReview.rating });
-    const res = await axios.post(
-      `/api/users/${status.userID}/like-winelist?winelistID=${wineID}`
-    );
-    console.log("res.data : ", res.data, "newReview after like : ", newReview);
-    setStatus({
-      ...status,
-      userinfo: {
-        ...status.userinfo,
-        likedWines: res.data.likedWines,
-      },
-    });
-  };
-
   const displayUnselectedTags = () => {
     const result = [];
     const formattedTag = search.toLowerCase();
@@ -282,9 +290,43 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     setTagList({ ...tagList, [this.txt]: !tagList[this.txt] });
   }
 
+  const onLikeClick = async (like) => {
+    setNewReview({ ...newReview, userLiked: like });
+    const res = await axios.post(
+      `/api/users/${status.userID}/like-winelist?winelistID=${wineID}`
+    );
+    console.log("res.data : ", res.data, "newReview after like : ", newReview);
+    setStatus({
+      ...status,
+      userinfo: {
+        ...status.userinfo,
+        likedWines: res.data.likedWines,
+      },
+    });
+  };
+  // const onRateClick = async () => {
+  //   setNewReview({ ...newReview, rating: newReview.rating });
+  //   const res = await axios.post(
+  //     `/api/users/${status.userID}/like-winelist?winelistID=${wineID}`
+  //   );
+  //   console.log("res.data : ", res.data, "newReview after like : ", newReview);
+  //   setStatus({
+  //     ...status,
+  //     userinfo: {
+  //       ...status.userinfo,
+  //       likedWines: res.data.likedWines,
+  //     },
+  //   });
+  // };
+
   const displayReviews = () => {
     let result = [];
-    console.log("displayReviews");
+    console.log(
+      "displayReviews, wine : ",
+      wine,
+      ", wine.reviews:",
+      wine.reviews
+    );
     wine.reviews.forEach((each) => {
       if (!each.isDeleted) {
         result.push(
@@ -317,6 +359,32 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     // });
   };
 
+  // //shownReview : reviews shown through view more button clicks
+  // const [shownReview, setShownReview] = useState([]);
+  // //when page is initially loaded, load only designated number(numReviews) of reviews
+  // useEffect(() => {
+  //   setShownReview(wine.reviews.slice(0, numReviews));
+  // }, []);
+  // // whenever numReviews changes,
+  // useEffect(() => {
+  //   setShownReview(wine.reviews.slice(0, numReviews));
+  // }, [numReviews]);
+
+  const onClickMore = () => {
+    // setPageNum(pageNum + 1);
+    setNumReviews(numReviews + 3);
+    // return wine.reviews.slice(0, numReviews).map((each) => {
+    //   return (
+    //     <Review
+    //       review={each}
+    //       status={status}
+    //       id={each.reviewID}
+    //       key={each.reviewID}
+    //     />
+    //   );
+    // });
+  };
+
   const onSubmit = async () => {
     const body = {
       userID: userID,
@@ -324,7 +392,6 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
       rating: newReview.rating,
       tags: selectedTag,
     };
-
     console.log(body);
     if (existReview) {
       setLoading(true);
@@ -358,18 +425,6 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     // });
   };
 
-  const displayRecommendation = () => {
-    let result = [];
-    console.log(
-      "displayRecommendations, wine recomm list :  ",
-      wine.recommendations
-    );
-    wine.recommendations.forEach((each, index) => {
-      result.push(<Wine wine={each} key={index} status={status} />);
-    });
-    return result;
-  };
-
   return (
     <>
       {wine === false ? (
@@ -398,6 +453,21 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
                   <StarIcon fontSize="40" /> {wine.rating.toFixed(1)}
                 </div>
                 <div className="detail__winePrice">{formatPrice()}</div>
+                <hr className="detail__hr" />
+                <div className="detail__abv">
+                  <b>alcohol by volume (abv)</b> : {wine.abv}
+                </div>
+                <div className="detail__closure">
+                  <b>closure type :</b> {wine.bottleClosure}
+                </div>
+                <div className="detail__foodpair">
+                  <b>food pairings : </b>
+                  {wine.foodPairings}
+                </div>
+                <br />
+                <div className="detail__views">
+                  <GrView /> {wine.views}
+                </div>
               </div>
             </div>
             <div className="detail__wineChar">
@@ -577,7 +647,9 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
             </div>
             <hr className="detail__hr" />
             {displayReviews()}
-            <div className="detail__moreReview"> view more reviews</div>
+            <div className="detail__moreReview" onClick={onClickMore}>
+              view more reviews
+            </div>
           </div>
           <hr className="detail__line"></hr>
           <div className="detail__wineRecomm">

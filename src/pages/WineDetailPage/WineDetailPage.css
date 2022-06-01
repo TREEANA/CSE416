@@ -334,3 +334,10 @@ input[type="range"]:focus {
   margin-top: 20px;
   color: var(--text-50);
 }
+
+.detail__abv,
+.detail__closure,
+.detail__foodpair,
+.detail__views {
+  font-size: 20px;
+}
