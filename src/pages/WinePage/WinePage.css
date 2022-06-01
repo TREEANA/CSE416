@@ -26,6 +26,12 @@
 .winePage__title:hover {
   cursor: default;
 }
+.winePage__result-subtitle {
+  margin-top: 1rem;
+  font-weight: lighter;
+  font-size: smaller;
+  margin-bottom: 0.2rem;
+}
 
 .winePage__text {
   font-size: var(--size-txt);
