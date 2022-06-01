@@ -264,7 +264,7 @@ const wineDummyData = {
   ],
 };
 
-const Wine = ({ status, wine = wineDummyData }) => {
+const Wine = ({ status, wine }) => {
   const formatPrice = () => {
     return (
       Math.round((wine.price * status.exchangeRate) / 1000) * 1000

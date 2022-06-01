@@ -65,7 +65,7 @@ const App = () => {
     followsModal: false,
     sortModal: false,
     applyModal: false,
-    exchangeRate: 1000,
+    // exchangeRate: 1000,
     editProfileModal: false,
     sortOrder: 0,
     valuePrice: [23000, 128000],
@@ -145,7 +145,6 @@ const App = () => {
         commentModalStatus={status.commentModal}
         togglecommentModal={() => toggleStatus("commentModal")}
       ></CommentModal> */}
-
 
       {/* <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
        */}

@@ -12,14 +12,10 @@ import "./CommentPage.css";
 
 import { BsPlus, BsReplyFill } from "react-icons/bs";
 
-import GoogleLogin from "react-google-login";
-
 const CommentPage = ({
   status,
   //status data 자체는 app.js 에서 받아옴
 }) => {
-  //comment에 있는 userID 바탕으로 userInfo가져오기 (username, status, isDeleted?)
-
   //get reviewID, wineID from the path
   const { wineID, reviewID } = useParams();
 
@@ -27,10 +23,20 @@ const CommentPage = ({
   const [review, setReview] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const fetchReview = async (reviewID) => {
+  const fetchReview = async () => {
     try {
       setIsLoaded(false);
       const res = await axios.get(`/api/wines/${wineID}/reviews`);
+      console.log(
+        "fetchReview with ID : ",
+        reviewID,
+        "res.data: ",
+        res.data
+        // ", res.data[0].comments:",
+        // res.data[0].comments,
+        // "res.data[1].comments",
+        // res.data[1].comments
+      );
       res.data.forEach((each) => {
         if (each.reviewID === Number(reviewID)) {
           setReview(each);
@@ -44,7 +50,7 @@ const CommentPage = ({
 
   //fetch matching review when first loading
   useEffect(() => {
-    fetchReview(reviewID);
+    fetchReview();
   }, []);
 
   // 유저가 지금 작성중인 comment - submit 하지 않은
@@ -68,10 +74,36 @@ const CommentPage = ({
       console.log(e);
     }
   };
-
   useEffect(() => {
     fetchComments(reviewID, wineID);
   }, [comments]);
+
+  useEffect(() => {
+    setComments(review.comments);
+    console.log("setComments when first loading: ", comments);
+  }, []);
+
+  // useEffect(() => {
+  //   fetchReview();
+  //   setComments(review.comments);
+  //   console.log("setComments when any changes on Comments: ", comments);
+  // }, [comments]);
+
+  // const handleKeyPress = (e) => {
+  //   if (e.key === "Enter") {
+  //     // const formattedTag = valueSearch.toLowerCase();
+  //     // const result = [];
+  //     // for (let each in tags) {
+  //     //   if (each.toLowerCase().indexOf(formattedTag) === 0) {
+  //     //     result.push(each);
+  //     //   }
+  //     // }
+  //     // if (result.length === 1) {
+  //     //   setTags({ ...tags, [result[0]]: !tags[result[0].length] });
+  //     // }
+  //     const
+  //   }
+  // };
 
   const displayComments = (comments) => {
     return comments.map((each) => {
@@ -112,11 +144,9 @@ const CommentPage = ({
           console.log("failed(comment): ", error);
         });
       setTempComment("");
+    } else {
+      alert("Login before you submit comments !");
     }
-
-    // else {
-    //   <GoogleLogin></GoogleLogin>;
-    // }
   };
 
   const navigate = useNavigate();
@@ -141,9 +171,9 @@ const CommentPage = ({
           )}
 
           <div className="commentPage__comments">
-            {displayComments(comments)}
+            {displayComments(review.comments)}
           </div>
-          {status.userinfo.status === -1 ? (
+          {status.userinfo.status !== -1 ? (
             <>
               <div className="commentPage__commentContainer">
                 <div className="commentPage__button">
@@ -156,10 +186,10 @@ const CommentPage = ({
                 </div>
                 <BsPlus className="commentPage__plusIcon" onClick={onSubmit} />
               </div>
-              <div className="commentPage__commentContainer"></div>
+              {/* <div className="commentPage__commentContainer"></div> */}
             </>
           ) : (
-            <div className=""></div>
+            <Loader />
           )}
         </div>
       </div>
