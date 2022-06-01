@@ -81,11 +81,13 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
 
       try {
         setLoading(true);
-        const url = `/api/wines/search?${newtag}&minPrice=${
-          status.valuePrice[0]
-        }&maxPrice=${status.valuePrice[1]}&minRating=${status.valueRate}&sort=${
-          status.sortOrder
-        }&num=${page * 10}`;
+        const url = `/api/wines/search?${newtag}&minPrice=${Math.round(
+          status.valuePrice[0] / status.exchangeRate
+        )}&maxPrice=${Math.round(
+          status.valuePrice[1] / status.exchangeRate
+        )}&minRating=${status.valueRate}&sort=${status.sortOrder}&num=${
+          page * 10
+        }`;
         console.log("Fetching wines: ", url);
         const res = await axios.get(url);
         setWines(res.data);

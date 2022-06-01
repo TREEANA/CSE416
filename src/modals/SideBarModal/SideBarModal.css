@@ -87,6 +87,11 @@
   flex-direction: column;
 }
 
+.sidebar__status_for_login {
+  display: flex;
+  align-items: center;
+}
+
 .sidebar__status > a {
   color: var(--bg-0);
 }

@@ -106,7 +106,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               cookiePolicy={"single_host_origin"}
               render={(renderProps) => (
                 <div
-                  className="sidebar__status"
+                  className="sidebar__status_for_login"
                   onClick={() => {
                     renderProps.onClick();
                   }}
