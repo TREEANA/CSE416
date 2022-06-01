@@ -78,11 +78,19 @@ const ListPage = ({ status, toggleStatus, setStatus }) => {
 
   const fetchLists = async (keyword, page) => {
     try {
-      const res = await axios.get(
-        `/api/winelists/search?keyword=${keyword}&tags=${keyword}&num=${
-          page * 10
-        }&isOr=${true}`
-      );
+      let res;
+      if (keyword == undefined) {
+        res = await axios.get(
+          `/api/winelists/search?&num=${page * 10}&isOr=${true}`
+        );
+      } else {
+        res = await axios.get(
+          `/api/winelists/search?keyword=${keyword}&tags=${keyword}&num=${
+            page * 10
+          }&isOr=${true}`
+        );
+      }
+
       if (res.data === null || res.data === "") {
         setLists([]);
       } else {
@@ -124,7 +132,9 @@ const ListPage = ({ status, toggleStatus, setStatus }) => {
       <div className="wineListPage">
         <div className="wineListPage__titleCont">
           <div className="wineListPage__text">Wine Lists</div>
-          <div className="wineListPage__title">{keyword}</div>
+          <div className="wineListPage__title">
+            {keyword ? keyword : "All Wine Lists"}
+          </div>
         </div>
         {/* <div className="wineListPage__btnCont">
           <button

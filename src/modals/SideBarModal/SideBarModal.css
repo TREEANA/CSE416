@@ -104,6 +104,10 @@
   margin: 1.5rem;
 }
 
+.sidebar__section > a {
+  color: white;
+}
+
 .sidebar__title {
   font-weight: bold;
   font-size: 2rem;

@@ -404,7 +404,14 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
         {displayUser()}
         <div className="sidebar__menu">
           <div className="sidebar__section">
-            <div className="sidebar__title">Wine Lists</div>
+            <Link to={`/lists/`}>
+              <div
+                className="sidebar__title"
+                onClick={() => toggleStatus("sideBarModal")}
+              >
+                Wine Lists
+              </div>
+            </Link>
             <div>
               <div
                 className="sidebar__link"
@@ -457,7 +464,14 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
             </div>
             <br></br>
 
-            <div className="sidebar__title">Wines</div>
+            <Link to={`/wines/`}>
+              <div
+                className="sidebar__title"
+                onClick={() => toggleStatus("sideBarModal")}
+              >
+                Wines
+              </div>
+            </Link>
             <div>
               <div
                 className="sidebar__link"

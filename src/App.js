@@ -233,12 +233,34 @@ const App = () => {
             }
           />
           <Route
+            exact
+            path="/lists"
+            element={
+              <ListPage
+                status={status}
+                toggleStatus={toggleStatus}
+                setStatus={setStatus}
+              />
+            }
+          />
+          <Route
             path="/lists/:keyword"
             element={
               <ListPage
                 status={status}
                 toggleStatus={toggleStatus}
                 setStatus={setStatus}
+              />
+            }
+          />
+          <Route
+            exact
+            path="/wines"
+            element={
+              <WinePage
+                status={status}
+                setStatus={setStatus}
+                toggleStatus={toggleStatus}
               />
             }
           />

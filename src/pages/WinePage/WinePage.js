@@ -56,7 +56,11 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
       console.log("fetchWines:", txt);
       try {
         setLoading(true);
-        const url = `/api/wines/search?tags=${txt}&num=${page * 10}`;
+        if (theme == undefined) {
+          const url = `/api/wines/search?num=${page * 10}`;
+        } else {
+          const url = `/api/wines/search?tags=${txt}&num=${page * 10}`;
+        }
         console.log("Fetching wines: ", url);
         const res = await axios.get(url);
         setWines(res.data);
@@ -95,7 +99,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
 
   const displayWines = () => {
     const result = [];
-    if (loading) return <></>;
+    if (loading && wines.length === 0) return <></>;
     if (wines.length === 0)
       return <div className="winePage__result-subtitle">No matching wines</div>;
     wines.forEach((each, index) => {
@@ -152,7 +156,9 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
     <div className="winePage">
       <div className="winePage__titleCont">
         <div className="winePage__text">Wines</div>
-        <div className="winePage__title">{formatTheme(theme)}</div>
+        <div className="winePage__title">
+          {theme ? formatTheme(theme) : "All Wines"}
+        </div>
       </div>
       <div className="winePage__btnCont">
         <button className="winePage__filter" onClick={toggleFilterModal}>
