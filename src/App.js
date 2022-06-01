@@ -261,7 +261,9 @@ const App = () => {
           />
           <Route
             path="/wine/:wineID/reviews/:reviewID"
-            element={<CommentPage status={status} />}
+            element={
+              <CommentPage status={status} toggleStatus={toggleStatus} />
+            }
           />
 
           <Route path="/faq" element={<FaqPage />} />
