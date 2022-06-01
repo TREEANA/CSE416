@@ -40,6 +40,10 @@ const WineList = ({ wineList, status, setStatus }) => {
     }
   };
   const onLikeClick = async () => {
+    if (status.userinfo.status === -1) {
+      alert("Please login to like the winelist");
+      return;
+    }
     setLikeStatus(!likeStatus);
     const res = await axios.post(
       `/api/users/${status.userID}/like-winelist?winelistID=${wineList.winelistID}`

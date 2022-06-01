@@ -82,6 +82,7 @@
 .wineList__bgCont--wine {
   width: inherit;
   height: inherit;
+  background: white;
 }
 
 .wineList__bgCont--wine {
@@ -137,7 +138,7 @@
 
 .wineList__profileTxt,
 .wineList__profileTxt > a {
-  color: var(--bg-0);
+  color: black;
 }
 
 .wineList__name {
