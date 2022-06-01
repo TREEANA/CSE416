@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { BsCircleFill, BsCircle } from "react-icons/bs";
@@ -7,6 +7,7 @@ import { BsCircleFill, BsCircle } from "react-icons/bs";
 import "./WineList.css";
 
 const WineList = ({ wineList, status, setStatus }) => {
+  const navigate = useNavigate();
   const [likeStatus, setLikeStatus] = useState(false);
   useEffect(() => {
     status !== undefined
@@ -53,6 +54,11 @@ const WineList = ({ wineList, status, setStatus }) => {
     });
   };
 
+  const onImageClick = () => {
+    console.log("onImageClick");
+    navigate("/list/" + wineList.winelistID);
+  };
+
   const displayPageButton = () => {
     let result = [];
     for (let i = 0; i < wineList.wines.length + 1; i++) {
@@ -67,13 +73,13 @@ const WineList = ({ wineList, status, setStatus }) => {
   const displayImages = () => {
     const result = [];
     result.push(
-      <div className="wineList__bgCont--main">
+      <div className="wineList__bgCont--main" onClick={onImageClick}>
         <img src={wineList.thumbnailImage} />
       </div>
     );
     wineList.wines.forEach((each, i) => {
       result.push(
-        <div className="wineList__bgCont--wine">
+        <div className="wineList__bgCont--wine" onClick={onImageClick}>
           <img src={each.images[0]} />
         </div>
       );
