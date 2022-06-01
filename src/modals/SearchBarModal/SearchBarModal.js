@@ -22,7 +22,6 @@ const SearchBarModal = ({
   const [valueSearch, setSearch] = useState("");
 
   const onCloseFollow = () => {
-    setSearch("");
     setFollowering([]);
     setFollowers([]);
     setMatchingLists([]);
@@ -31,9 +30,12 @@ const SearchBarModal = ({
       searchBarModal: !status.searchBarModal,
       filterApplyClicked: !status.filterApplyClicked,
     });
+    setSearch("");
   };
 
   const onValueSearchChange = async (e) => {
+    setSearch(e.target.value);
+
     if (source.current !== null) {
       source.current.cancel();
     }
@@ -47,7 +49,6 @@ const SearchBarModal = ({
         }
       );
       setLoading(false);
-      setSearch(e.target.value);
       const newmatching = res.data;
       const newmatchinglist = [];
       for (let i = 0; i < newmatching.length; i++) {
@@ -524,7 +525,10 @@ const SearchBarModal = ({
               <input
                 className="search__text-input"
                 placeholder="find new people"
-                onChange={onValueSearchChange}
+                onChange={(e) => {
+                  onValueSearchChange(e);
+                }}
+                value={valueSearch}
               ></input>
             </div>
             <BsXLg className="search__close" onClick={onCloseFollow} />
