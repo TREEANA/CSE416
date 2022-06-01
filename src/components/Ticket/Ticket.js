@@ -20,7 +20,7 @@ const ticketDummyData = {
   lastUpdatedAt: "2022-04-04 18:11:12",
 };
 
-const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
+const Ticket = ({ status, ticketData = ticketDummyData }) => {
   //temporary ticketData
   const [tempTicket, setTempTicket] = useState({});
 
@@ -30,16 +30,8 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
     setIsOpen(!isOpen);
   };
 
-  // // isAnswered : whether the ticket ifself already has answers or not
-  // const [isAnswered, setIsAnswered] = useState(0);
-  // const checkIsAnswered = () => {
-  //   if (tempTicket.adminID === null && tempTicket.adminResponse === "") {
-  //     setIsAnswered(1);
-  //   }
-  // };
-
-  //ticket status (0 : not answered (pending, yellow), 1: answered (green))
   const [ticketStatus, setTicketStatus] = useState(0);
+
   //load status for each ticket when page is initially loaded
   useEffect(() => {
     if (ticketData.adminID === null) {
@@ -60,26 +52,25 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
   }, []);
   // current user Status, to check whether one can edit the textarea
   const userStatus = status.userinfo.status;
+  // current userID from status
   const userID = status.userID;
+
+  //diplay icons according to status
   const displayTicketStatus = () => {
-    if (type === "faq") {
-      return;
-    } else if (type === "ticket") {
-      if (ticketStatus === 0) {
-        return (
-          //pending
-          <div className="ticket__progress ticket__progress--0">
-            <BsThreeDots />
-          </div>
-        );
-      } else if (ticketStatus === 1) {
-        return (
-          // approved(answered)
-          <div className="ticket__progress ticket__progress--1">
-            <BsFillCheckCircleFill />
-          </div>
-        );
-      }
+    if (ticketStatus === 0) {
+      return (
+        //pending
+        <div className="ticket__progress ticket__progress--0">
+          <BsThreeDots />
+        </div>
+      );
+    } else if (ticketStatus === 1) {
+      return (
+        // approved(answered)
+        <div className="ticket__progress ticket__progress--1">
+          <BsFillCheckCircleFill />
+        </div>
+      );
     }
   };
 
@@ -109,16 +100,7 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
 
   return (
     <div className="ticket__cont">
-      <div
-        className={
-          type === "faq"
-            ? "ticket__button ticket__button--faq"
-            : // : type === "verify"
-              // ? "ticket__button ticket__verify"
-              "ticket__button"
-        }
-        onClick={onClick}
-      >
+      <div className={"ticket__button"} onClick={onClick}>
         <div className="ticket__buttonTxt">{tempTicket.title}</div>
         {displayTicketStatus()}
       </div>
@@ -151,11 +133,15 @@ const Ticket = ({ status, type, ticketData = ticketDummyData }) => {
             placeholder="Not answered yet"
           ></textarea>
         </div>
-        <div className="ticket__submit">
-          <button className="ticket__submitButton" onClick={onSubmit}>
-            Submit
-          </button>
-        </div>
+        {userStatus === 2 ? (
+          <div className="ticket__submit">
+            <button className="ticket__submitButton" onClick={onSubmit}>
+              Submit
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

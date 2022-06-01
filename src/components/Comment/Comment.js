@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Comment.css";
-import { BsPatchCheckFill } from "react-icons/bs";
+import { BsPatchCheckFill, BsTrash } from "react-icons/bs";
 import axios from "axios";
 import { set } from "lodash";
 
@@ -15,18 +15,21 @@ const dummyComment = {
   isDeleted: false,
 };
 
-const Comment = ({ status, comments = dummyComment }) => {
+const Comment = ({ status, wineID, reviewID, comments = dummyComment }) => {
   const [date, setDate] = useState("");
 
   //주어진 포맷에 맞게 date 값 바꾸기
-  const formatDate = (date) => {
+  const formatDateTime = (date) => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const day = date.getDate().toString().padStart(2, "0");
-    return `${year}.${month}.${day}`;
+    const hr = date.getHours().toString().padStart(2, "0");
+    const min = date.getMinutes().toString().padStart(2, "0");
+    return `${year}.${month}.${day} ${hr}:${min}`;
   };
+
   useEffect(() => {
-    setDate(formatDate(new Date(comments.lastUpdatedAt)));
+    setDate(formatDateTime(new Date(comments.lastUpdatedAt)));
   }, []);
 
   //username fetch 해오는 과정
@@ -46,13 +49,46 @@ const Comment = ({ status, comments = dummyComment }) => {
 
   useEffect(() => {
     fetchUserData(comments.userID);
+    console.log(
+      "comment info, commentID: ",
+      comments.commentID,
+      " , userID: ",
+      comments.userID,
+      typeof comments.userID,
+      ", status.userID: ",
+      status.userID,
+      typeof status.userID,
+      ", wineID:",
+      wineID,
+      " , reviewID: ",
+      reviewID
+    );
   }, []);
+
+  const onDelete = async () => {
+    try {
+      const res = await axios.delete(
+        `/api/wines/${wineID}/reviews/${reviewID}/comments/${comments.commentID}?userID=${status.userID}`
+      );
+      console.log("onDelete on Comments.js:", res.data);
+      console.log(
+        "onDelete request on : ",
+        `/api/wines/${wineID}/reviews/${reviewID}/comments/${comments.commentID}?userID=${status.userID}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="comment">
       <div className="comment__user">
         <div className="comment__userInfo">
-          <div className="comment__userName">
+          <div
+            className={
+              userStatus === 1 ? "comment__userName-somm" : "comment__userName"
+            }
+          >
             {username === "" ? "undefined(deleted user)" : username}
           </div>
           <div className="comment__userDate">{date}</div>
@@ -63,7 +99,16 @@ const Comment = ({ status, comments = dummyComment }) => {
           </div>
         )}
       </div>
-      <div className="comment__comment">{comments.content}</div>
+      <div className="comment__content">
+        <div className="comment__comment">{comments.content}</div>
+        {Number(status.userID) === comments.userID ? (
+          <div className="comment__trash" onClick={onDelete}>
+            <BsTrash />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 };

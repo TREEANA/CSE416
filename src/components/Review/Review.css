@@ -1,7 +1,7 @@
 .review {
   border-radius: 30px;
   border: 1px solid;
-  border-color: var(--text-100);
+  border-color: var(--bg-20);
   /* padding: 5px; */
   /* margin: var(--margin-out); */
   width: 100%;
@@ -68,14 +68,15 @@
 .review__userRate {
   border-radius: 20px;
   border: 1px solid;
-  border-color: var(--text-100);
+  border-color: var(--bg-20);
   display: flex;
   align-items: center;
   height: fit-content;
   padding: 5px 15px 5px 5px;
-  color: var(--bg-0);
-  background-color: var(--text-100);
+  color: var(--primary);
+  background-color: var(--bg-20);
   margin-right: 10px;
+  font-weight: bold;
 }
 
 .review__userRate--somm {
@@ -87,8 +88,9 @@
   align-items: center;
   height: fit-content;
   padding: 5px 15px 5px 5px;
-  color: var(--bg-0);
+  color: var(--bg-20);
   margin-right: 10px;
+  font-weight: bold;
 }
 
 .review__userRate > svg {

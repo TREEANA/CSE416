@@ -6,6 +6,8 @@ import Review from "../../components/Review/Review";
 import Tag from "../../components/Tag/Tag";
 import Comment from "../../components/Comment/Comment";
 
+import Loader from "../../components/Loader/Loader";
+
 import "./CommentPage.css";
 
 import { BsPlus, BsReplyFill } from "react-icons/bs";
@@ -22,16 +24,19 @@ const CommentPage = ({
   const { wineID, reviewID } = useParams();
 
   //get Review using reviewID
-  const [review, setReview] = useState({});
+  const [review, setReview] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchReview = async (reviewID) => {
     try {
+      setIsLoaded(false);
       const res = await axios.get(`/api/wines/${wineID}/reviews`);
       res.data.forEach((each) => {
         if (each.reviewID === Number(reviewID)) {
           setReview(each);
         }
       });
+      setIsLoaded(true);
     } catch (error) {
       console.log(error);
     }
@@ -51,12 +56,14 @@ const CommentPage = ({
   // comment 가져오기
   const fetchComments = async (reviewID, wineID) => {
     try {
+      setIsLoaded(false);
       const res = await axios.get(
         `/api/wines/${wineID}/reviews/${reviewID}/comments`
       );
       // console.log("fetchComments : ", res.data);
       setComments(res.data);
       // console.log(comments);
+      setIsLoaded(true);
     } catch (e) {
       console.log(e);
     }
@@ -64,11 +71,21 @@ const CommentPage = ({
 
   useEffect(() => {
     fetchComments(reviewID, wineID);
-  }, []);
+  }, [comments]);
 
   const displayComments = (comments) => {
     return comments.map((each) => {
-      return <Comment status={status} key={each.commentID} comments={each} />;
+      if (!each.isDeleted) {
+        return (
+          <Comment
+            status={status}
+            comments={each}
+            reviewID={reviewID}
+            wineID={wineID}
+            key={each.commentID}
+          />
+        );
+      }
     });
   };
 
@@ -115,25 +132,35 @@ const CommentPage = ({
               onClick={() => navigate(-1)}
             />
           </div>
-          <div className="commentPage__reviewContainer">
-            <Review review={review} />
-          </div>
-          <div>{displayComments(comments)}</div>
-          <div className="commentPage__commentContainer">
-            <div className="commentPage__button">
-              <input
-                className="commentPage__input"
-                placeholder="leave a comment"
-                onChange={onChange}
-                value={tempComment === "" ? "" : tempComment}
-                // onClick={() => {
-                //   if (status.userInfo.status) {
-                //   }
-                // }}
-              ></input>
+          {isLoaded ? (
+            <div className="commentPage__reviewContainer">
+              <Review review={review} />
             </div>
-            <BsPlus className="commentPage__plusIcon" onClick={onSubmit} />
+          ) : (
+            <Loader />
+          )}
+
+          <div className="commentPage__comments">
+            {displayComments(comments)}
           </div>
+          {status.userinfo.status === -1 ? (
+            <>
+              <div className="commentPage__commentContainer">
+                <div className="commentPage__button">
+                  <input
+                    className="commentPage__input"
+                    placeholder="leave a comment"
+                    onChange={onChange}
+                    value={tempComment === "" ? "" : tempComment}
+                  ></input>
+                </div>
+                <BsPlus className="commentPage__plusIcon" onClick={onSubmit} />
+              </div>
+              <div className="commentPage__commentContainer"></div>
+            </>
+          ) : (
+            <div className=""></div>
+          )}
         </div>
       </div>
     </>

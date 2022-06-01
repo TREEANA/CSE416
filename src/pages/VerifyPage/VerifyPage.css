@@ -186,3 +186,24 @@
   /* height: 30px; */
   padding: 10px;
 }
+
+.verifypage__status {
+  display: flex;
+  justify-content: space-between;
+  height: 2.5rem;
+  margin: var(--margin-out);
+}
+.verifypage__statusButton {
+  outline: none;
+  background-color: var(--bg-20);
+  border: 1px solid var(--primary);
+  height: 2rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  color: var(--primary);
+}
+
+.verifypage__statusButton--active {
+  background-color: var(--primary);
+  color: white;
+}

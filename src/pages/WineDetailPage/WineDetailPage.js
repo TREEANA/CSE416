@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+
 import axios from "axios";
 
 import Tag from "../../components/Tag/Tag";
 import Loader from "../../components/Loader/Loader";
 import Wine from "../../components/Wine/Wine";
 import WineList from "../../components/WineList/WineList";
-import CommentPage from "../CommentPage/CommentPage";
 import Review from "../../components/Review/Review";
+
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 
 import { BsFillPencilFill, BsHeartFill } from "react-icons/bs";
+
 import "./WineDetailPage.css";
 
-const WineDetailPage = ({ status, toggleStatus }) => {
+const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
+  //const for loader (true : load, false : unload)
+  const [loading, setLoading] = useState(true);
+  const [ref, inView] = useInView();
+
   const userID = status.userID;
   const [wine, setWine] = useState(false);
   const { wineID } = useParams();
@@ -46,13 +53,15 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     setNewReview({ ...newReview, userLiked: !newReview.userLiked });
   };
   //wineID로 와인 가져오기
-  const fetchWine = async (wineId) => {
+  const fetchWine = async (wineID) => {
+    setLoading(true);
     try {
-      const res = await axios.get(`/api/wines/${wineId}`);
+      const res = await axios.get(`/api/wines/${wineID}`);
       setWine(res.data);
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
   };
 
   //review중에 userID로 쓴 리뷰가 있는지 확인
@@ -92,11 +101,13 @@ const WineDetailPage = ({ status, toggleStatus }) => {
   // //전체 tag list
   const [tagList, setTagList] = useState({});
   const fetchTags = async () => {
+    setLoading(true);
     const res = await axios.get("/api/tags/list");
     const tempTags = {};
     res.data.forEach((each) => {
       tempTags[each] = false;
     });
+    setLoading(false);
     setTagList(tempTags);
   };
 
@@ -110,13 +121,13 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     console.log("checkReview starts : ");
     console.log("checkReview: wine.reviews", wine.reviews);
     let prevReview = wine.reviews.some((review) => {
-      console.log(
-        "review.userID :",
-        review.userID,
-        "type :",
-        typeof review.userID
-      );
-      console.log("input userID:", userID, "type :", typeof userID);
+      // console.log(
+      //   "review.userID :",
+      //   review.userID,
+      //   "type :",
+      //   typeof review.userID
+      // );
+      // console.log("input userID:", userID, "type :", typeof userID);
       if (review.userID === Number(userID)) {
         return review;
         // setExistReview(1);
@@ -165,14 +176,6 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
   //tag 클릭하면 newTag에 넣음
   function onTagClick() {
-    //우현이거
-    // const newTag = [];
-    // for (let each in tags) {
-    //   if (tags[each] === true) {
-    //     newTag.push(each);
-    //   }
-    // }
-    //우형이형거
     const newlist = [];
     for (const each in tagList) {
       if (tagList[each] === true) {
@@ -209,6 +212,36 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     }
     result.sort();
     return result;
+  };
+
+  const onLikeClick = async (like) => {
+    setNewReview({ ...newReview, userLiked: like });
+    const res = await axios.post(
+      `/api/users/${status.userID}/like-winelist?winelistID=${wineID}`
+    );
+    console.log("res.data : ", res.data, "newReview after like : ", newReview);
+    setStatus({
+      ...status,
+      userinfo: {
+        ...status.userinfo,
+        likedWines: res.data.likedWines,
+      },
+    });
+  };
+
+  const onRateClick = async () => {
+    setNewReview({ ...newReview, rating: newReview.rating });
+    const res = await axios.post(
+      `/api/users/${status.userID}/like-winelist?winelistID=${wineID}`
+    );
+    console.log("res.data : ", res.data, "newReview after like : ", newReview);
+    setStatus({
+      ...status,
+      userinfo: {
+        ...status.userinfo,
+        likedWines: res.data.likedWines,
+      },
+    });
   };
 
   const displayUnselectedTags = () => {
@@ -249,46 +282,39 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     setTagList({ ...tagList, [this.txt]: !tagList[this.txt] });
   }
 
-  // const displaySelectedTagsonReview = () => {
-  //   const result = [];
-  //   for (let each in selectedTag) {
-  //     result.push(
-  //       <Tag
-  //         type="wineButton"
-  //         txt={each}
-  //         isFilled="true"
-  //         onClick={onTagClick.bind({ txt: each })}
-  //       />
-  //     );
-  //     newReview.tags.push(each);
-  //     console.log(newReview);
-  //   }
-  //   return result;
-  // };
-
   const displayReviews = () => {
-    return wine.reviews.map((each) => {
-      if (each.userID !== Number(userID)) {
-        // console.log("wine.reviews : ", wine.reviews);
-        return (
+    let result = [];
+    console.log("displayReviews");
+    wine.reviews.forEach((each) => {
+      if (!each.isDeleted) {
+        result.push(
           <Link to={`/wine/${wineID}/reviews/${each.reviewID}`}>
             <Review
-              toggleStatus={toggleStatus}
+              // toggleStatus={toggleStatus}
               review={each}
+              status={status}
               id={each.reviewID}
               key={each.reviewID}
             ></Review>
           </Link>
         );
       }
-      // if (wine.reviews === []) {
-      //   return (
-      //     <div>
-      //       No reviews yet ^^ Fill out your own comments about this wine!
-      //     </div>
-      //   );
-      // }
     });
+    return result;
+    // return wine.reviews.map((each) => {
+    //   if (each.userID !== Number(userID)) {
+    //     return (
+    // <Link to={`/wine/${wineID}/reviews/${each.reviewID}`}>
+    //   <Review
+    //     toggleStatus={toggleStatus}
+    //     review={each}
+    //     id={each.reviewID}
+    //     key={each.reviewID}
+    //   ></Review>
+    // </Link>
+    //     );
+    //   }
+    // });
   };
 
   const onSubmit = async () => {
@@ -301,6 +327,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
     console.log(body);
     if (existReview) {
+      setLoading(true);
       await axios
         .put(`/api/wines/${wineID}/reviews/${reviewID}`, body)
         .then((res) => {
@@ -309,7 +336,9 @@ const WineDetailPage = ({ status, toggleStatus }) => {
         .catch((error) => {
           console.log("failed", error);
         });
+      setLoading(false);
     } else {
+      setLoading(true);
       await axios
         .post(`/api/wines/${wineID}/reviews`, body)
         .then((res) => {
@@ -318,7 +347,27 @@ const WineDetailPage = ({ status, toggleStatus }) => {
         .catch((error) => {
           console.log("failed", error);
         });
+      setLoading(false);
     }
+    // setStatus({
+    //   ...status,
+    //   userinfo: {
+    //     ...status.userinfo,
+    //     reviewedWine: reviewedWines.push(),
+    //   },
+    // });
+  };
+
+  const displayRecommendation = () => {
+    let result = [];
+    console.log(
+      "displayRecommendations, wine recomm list :  ",
+      wine.recommendations
+    );
+    wine.recommendations.forEach((each, index) => {
+      result.push(<Wine wine={each} key={index} status={status} />);
+    });
+    return result;
   };
 
   return (
@@ -335,10 +384,18 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
               <div className="detail__wineDetail">
                 <div className="detail__wineTitle">{wine.name}</div>
-                <div className="detail__grapeTitle">{formatGrape()}</div>
-                <div className="detail__wineTags">{displayTags()}</div>
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <div className="detail__grapeTitle">{formatGrape()}</div>
+                )}
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <div className="detail__wineTags">{displayTags()}</div>
+                )}
                 <div className="detail__wineRate">
-                  <StarIcon fontSize="40" /> {wine.rating}
+                  <StarIcon fontSize="40" /> {wine.rating.toFixed(1)}
                 </div>
                 <div className="detail__winePrice">{formatPrice()}</div>
               </div>
@@ -436,7 +493,10 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                         ? "detail__reviewIcon--active"
                         : "detail__reviewIcon--inactive"
                     }
-                    onClick={toggleLikes}
+                    onClick={() => {
+                      toggleLikes();
+                      onLikeClick(1);
+                    }}
                     name="userLiked"
                     // onChange={onChange}
                     readOnly={!editReview}
@@ -466,46 +526,41 @@ const WineDetailPage = ({ status, toggleStatus }) => {
               </div>
 
               {editReview && (
-                <div className="detail__reviewAddtag">
-                  <div className="detail__reviewTagcont">
-                    <input
-                      className="detail__reviewInput"
-                      placeholder="add tags "
-                      onChange={(e) => {
-                        setSearch(e.target.value);
-                      }}
-                    ></input>
-                    <div className="detail__reviewPlus" onClick={clickAddIcon}>
-                      +
+                <>
+                  <div className="detail__reviewAddtag">
+                    <div className="detail__reviewTagcont">
+                      <input
+                        className="detail__reviewInput"
+                        placeholder="add tags "
+                        onChange={(e) => {
+                          setSearch(e.target.value);
+                        }}
+                      ></input>
+                      <div
+                        className="detail__reviewPlus"
+                        onClick={clickAddIcon}
+                      >
+                        +
+                      </div>
+                    </div>
+                    <div>
+                      {displaySelectedTags()}
+                      {displayUnselectedTags()}
                     </div>
                   </div>
-                  <div>
-                    {displaySelectedTags()}
-                    {displayUnselectedTags()}
+                  <div className="detail__reviewContent">
+                    <input
+                      className="detail__reviewContentInput"
+                      readOnly={editReview ? false : true}
+                      // value={existReview ? newReview.content : ""}
+                      placeholder="waiting for your review here :)"
+                      name="content"
+                      onChange={onChange}
+                    ></input>
                   </div>
-                </div>
+                </>
               )}
 
-              {/* selected 된 태그만 나타내고 싶은데 db가 없어서 그런가 잘 안됨 */}
-              {/* {!editReview && (
-                <div>
-                  {wine.tags
-                    .filter((each) => each.isSelected == true)
-                    .map((each) => (
-                      <Tag key={each.id} txt={each} />
-                    ))}
-                </div>
-              )} */}
-              <div className="detail__reviewContent">
-                <input
-                  className="detail__reviewContentInput"
-                  readOnly={editReview ? false : true}
-                  // value={existReview ? newReview.content : ""}
-                  placeholder="waiting for your review here :)"
-                  name="content"
-                  onChange={onChange}
-                ></input>
-              </div>
               {editReview && (
                 <div
                   className="detail__reviewPost"
@@ -520,22 +575,14 @@ const WineDetailPage = ({ status, toggleStatus }) => {
 
               {/* <div></div> */}
             </div>
+            <hr className="detail__hr" />
             {displayReviews()}
             <div className="detail__moreReview"> view more reviews</div>
           </div>
           <hr className="detail__line"></hr>
           <div className="detail__wineRecomm">
-            <div className="detail__wineRecommTitle"> You may also like</div>
-            {/* <Wine />
-            <Wine /> */}
-          </div>
-          <hr className="detail__line"></hr>
-          <div className="detail__winelistRecomm">
-            <div className="detail__winelistRecommTitle">
-              List that contains this wine
-            </div>
-            {/* <WineList />
-            <WineList /> */}
+            <div className="detail__wineRecommTitle"> You may also like...</div>
+            {displayRecommendation()}
           </div>
         </div>
       )}
