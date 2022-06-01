@@ -97,6 +97,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
 
   const displayWines = () => {
     const result = [];
+    if (loading) return <></>;
     if (wines.length === 0)
       return <div className="search__result-subtitle">No matching wines</div>;
     wines.forEach((each, index) => {
