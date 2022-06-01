@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import axios from "axios";
+
+import Loader from "../../components/Loader/Loader";
 
 import "./VerifyPage.css";
 import SommVerify from "../../components/SommVerify/SommVerify";
 
 const VerifyPage = ({ status }) => {
   //list of tickets fetched from db
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [ref, inView] = useInView();
+
   const [verTickets, setVerTickets] = useState([]);
 
   // filterStatus : filter requests by filter
@@ -15,27 +22,29 @@ const VerifyPage = ({ status }) => {
   // fetch verification tickets from database
   const fetchVerifyReq = async (filterStatus) => {
     try {
+      setIsLoading(true);
       const res = await axios.get(
-        `/api/verification-tickets/?userID=${status.userID}&?status=${filterStatus}`
+        // `/api/verification-tickets/?userID=${status.userID}&?status=${filterStatus}`
+        `/api/verification-tickets/?userID=${status.userID}&status=${filterStatus}`
       );
       // console.log("res.data from fetchVerifyReq", res.data);
       setVerTickets(res.data);
-      console.log(
-        "fetchVerifyReq filterStatus, ",
-        filterStatus,
-        ", res.data: ",
-        res.data
-      );
+      setIsLoading(false);
+      console.log("isLoading: ", isLoading);
       // console.log("verTickets:", verTickets);
     } catch (e) {
       console.log(e);
     }
   };
-  //fetch verification tickets when the page is initially loaded
+  // //fetch verification tickets when the page is initially loaded
   useEffect(() => {
     fetchVerifyReq(filterStatus);
     displayVerRequest();
   }, [filterStatus]);
+
+  // useEffect(() => {
+  //   fetchVerifyReq();
+  // }, []);
 
   const displayVerRequest = () => {
     // return verTickets.map((each) => {
@@ -50,7 +59,6 @@ const VerifyPage = ({ status }) => {
         </>
       );
     });
-    // console.log("displayVerRequest: ", result);
     return result;
   };
 
@@ -68,7 +76,7 @@ const VerifyPage = ({ status }) => {
               }
               onClick={() => {
                 setFilterStatus(-1);
-                console.log("onClick setFilterStatus 0");
+                console.log("onClick setFilterStatus -1");
               }}
             >
               show all
@@ -120,10 +128,14 @@ const VerifyPage = ({ status }) => {
             </button>
           </div>
         </div>
-        <div className="verifypage__requests">
-          {/* <SommVerify /> */}
-          {displayVerRequest()}
-        </div>
+        {!isLoading ? (
+          <div className="verifypage__requests">
+            {/* <SommVerify /> */}
+            {displayVerRequest()}
+          </div>
+        ) : (
+          <Loader />
+        )}
       </div>
     </>
   ) : (
