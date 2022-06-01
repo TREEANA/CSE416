@@ -324,7 +324,58 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
           ></FollowsModal>
           <div className="profile">
             <div className="profile__name"> {userData.username}</div>
+
+            <div className="profile_table">
+              <img className="profile__image" src={userData.profileImage}></img>
+              <div className="profile_table_stats">
+                <div className="profile_table_stats_number">
+                  {" "}
+                  {likesList.length}{" "}
+                </div>
+                <div className="profile_table_stats_title">likes </div>
+              </div>
+              <div className="profile_table_stats">
+                {" "}
+                <div className="profile_table_stats_number">
+                  {reviewWineList.length}{" "}
+                </div>
+                <div className="profile_table_stats_title">reviews </div>
+              </div>
+              <div
+                className="profile_table_stats"
+                onClick={() => {
+                  setStatus({
+                    ...status,
+                    followsModal: !status.followsModal,
+                  });
+                }}
+              >
+                {" "}
+                <div className="profile_table_stats_number">
+                  {userData.followers.length}{" "}
+                </div>
+                <div className="profile_table_stats_title">followers </div>
+              </div>
+              <div
+                className="profile_table_stats"
+                onClick={() => {
+                  setStatus({
+                    ...status,
+
+                    followingModal: !status.followingModal,
+                  });
+                }}
+              >
+                {" "}
+                <div className="profile_table_stats_number">
+                  {userData.followings.length}{" "}
+                </div>
+                <div className="profile_table_stats_title">follows </div>
+              </div>
+            </div>
+            {/* 
             <div className="proflie__proflie">
+
               <img className="profile__image" src={userData.profileImage}></img>
               <div className="profile__stats">
                 <ul>
@@ -371,7 +422,7 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> */}
 
             {Number(status.userID) === Number(userID) ? (
               <div

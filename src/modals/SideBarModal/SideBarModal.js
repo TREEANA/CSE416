@@ -145,9 +145,14 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                 toggleStatus("sideBarModal");
               }}
             >
-              <img src={status.userinfo.profileImage} />
               <Link to={`/profile/${status.userID}`}>
-                <div className="sidebar__name">{status.userinfo.username}</div>
+                <img
+                  className="sidebar__profile__img"
+                  src={status.userinfo.profileImage}
+                />
+              </Link>
+              <Link to={`/profile/${status.userID}`}>
+                <div className="sidebar__name">{status.userinfo.username}</div>{" "}
               </Link>
             </div>
 
@@ -168,8 +173,12 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                 toggleStatus("sideBarModal");
               }}
             >
-              <img src={status.userinfo.profileImage} />
-
+              <Link to={`/profile/${status.userID}`}>
+                <img
+                  className="sidebar__profile__img"
+                  src={status.userinfo.profileImage}
+                />
+              </Link>
               <Link to={`/profile/${status.userID}`}>
                 <div className="sidebar__name">{status.userinfo.username}</div>{" "}
               </Link>
@@ -204,10 +213,15 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                 toggleStatus("sideBarModal");
               }}
             >
-              <img src={status.userinfo.profileImage} />
               <Link to={`/profile/${status.userID}`}>
-                <div className="sidebar__name">{status.userinfo.username}</div>
-              </Link>{" "}
+                <img
+                  className="sidebar__profile__img"
+                  src={status.userinfo.profileImage}
+                />
+              </Link>
+              <Link to={`/profile/${status.userID}`}>
+                <div className="sidebar__name">{status.userinfo.username}</div>{" "}
+              </Link>
               <MdSettings className="sidebar__icon" />
             </div>
 
