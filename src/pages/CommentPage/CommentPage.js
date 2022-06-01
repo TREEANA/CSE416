@@ -206,7 +206,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Review from "../../components/Review/Review";
-import Tag from "../../components/Tag/Tag";
 import Comment from "../../components/Comment/Comment";
 
 import Loader from "../../components/Loader/Loader";
@@ -215,7 +214,7 @@ import "./CommentPage.css";
 
 import { BsPlus, BsReplyFill } from "react-icons/bs";
 
-import GoogleLogin from "react-google-login";
+// import Tag from "../../components/Tag/Tag";
 
 const CommentPage = ({
   status,
@@ -279,7 +278,15 @@ const CommentPage = ({
   const displayComments = (comments) => {
     if (comments.length === 0) return;
     return comments.map((each) => {
-      return <Comment status={status} key={each.commentID} comments={each} />;
+      return (
+        <Comment
+          status={status}
+          wineID={wineID}
+          reviewID={reviewID}
+          key={each.commentID}
+          comments={each}
+        />
+      );
     });
   };
 
@@ -306,6 +313,7 @@ const CommentPage = ({
           console.log("failed(comment): ", error);
         });
       setTempComment("");
+      fetchComments(reviewID, wineID);
     }
 
     // else {
