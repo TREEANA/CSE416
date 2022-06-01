@@ -182,6 +182,24 @@ const CreatePage = ({ status, toggleStatus }) => {
     imageInput.current.click();
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === "Enter" && search.tagKeyword !== "") {
+      const formattedTag = search.tagKeyword.toLowerCase();
+      let temp;
+      for (let each in tags) {
+        if (
+          each.toLowerCase().indexOf(formattedTag) === 0 &&
+          tags[each] === false
+        ) {
+          temp = each;
+          break;
+        }
+      }
+      setTags({ ...tags, [temp]: true });
+      setSearch({ ...search, tagKeyword: "" });
+    }
+  };
+
   const displaySelectedTags = () => {
     const result = [];
     for (let each in tags) {
@@ -351,6 +369,7 @@ const CreatePage = ({ status, toggleStatus }) => {
               placeholder="search tags"
               value={search.tagKeyword}
               onChange={onSearchChange}
+              onKeyPress={onKeyPress}
             />
           </div>
           <div className="create__tag">
