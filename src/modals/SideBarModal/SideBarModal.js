@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./SideBarModal.css";
 import { BsXLg, BsFillPlusCircleFill } from "react-icons/bs";
 import { MdWineBar, MdSettings } from "react-icons/md";
-
+import { FcGoogle } from "react-icons/fc";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 
@@ -112,7 +112,8 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                   }}
                   disabled={renderProps.disabled}
                 >
-                  login
+                  <FcGoogle className="sidebar__login__icon" />
+                  Sign in with Google
                 </div>
               )}
             />
@@ -148,7 +149,6 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               <Link to={`/profile/${status.userID}`}>
                 <div className="sidebar__name">{status.userinfo.username}</div>
               </Link>
-              <BsXLg className="sidebar__close" onClick={() => onlogout()} />
             </div>
 
             <BsXLg
@@ -169,13 +169,12 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               }}
             >
               <img src={status.userinfo.profileImage} />
+
               <Link to={`/profile/${status.userID}`}>
                 <div className="sidebar__name">{status.userinfo.username}</div>{" "}
               </Link>
               <MdWineBar className="sidebar__icon" />
-              <BsXLg className="sidebar__close" onClick={() => onlogout()} />
             </div>
-
             <BsXLg
               className="sidebar__close"
               onClick={() => toggleStatus("sideBarModal")}
@@ -210,7 +209,6 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                 <div className="sidebar__name">{status.userinfo.username}</div>
               </Link>{" "}
               <MdSettings className="sidebar__icon" />
-              <BsXLg className="sidebar__close" onClick={() => onlogout()} />
             </div>
 
             <BsXLg
@@ -235,6 +233,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           >
             become sommlier
           </div>
+
           <div
             className="sidebar__link"
             onClick={() => {
@@ -242,6 +241,15 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
             }}
           >
             view tickets
+          </div>
+
+          <div
+            className="sidebar__link"
+            onClick={() => {
+              onlogout();
+            }}
+          >
+            log out
           </div>
         </>
       );
@@ -256,6 +264,14 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
             }}
           >
             view tickets
+          </div>
+          <div
+            className="sidebar__link"
+            onClick={() => {
+              onlogout();
+            }}
+          >
+            log out
           </div>
         </>
       );
@@ -286,6 +302,14 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
             }}
           >
             manage tickets
+          </div>
+          <div
+            className="sidebar__link"
+            onClick={() => {
+              onlogout();
+            }}
+          >
+            log out
           </div>
         </>
       );

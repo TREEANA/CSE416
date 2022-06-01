@@ -78,7 +78,7 @@ li {
 }
 
 .profile__editporfile {
-  width: 90%;
+  width: 100%;
   margin-left: var(--margin-out);
   display: flex;
   justify-content: center;
