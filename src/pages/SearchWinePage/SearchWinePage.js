@@ -8,9 +8,9 @@ import Loader from "../../components/Loader/Loader";
 import SortModal from "../../modals/SortModal/SortModal";
 import FilterModal from "../../modals/FilterModal/FilterModal";
 
-import "./WinePage.css";
+import "./SearchWinePage.css";
 
-const WinePage = ({ status, toggleStatus, setStatus }) => {
+const SearchWinePage = ({ status, toggleStatus, setStatus }) => {
   const filterModal = status.filterModal;
   const sortModal = status.sortModal;
   const { theme } = useParams();
@@ -47,7 +47,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
       setStatus({
         ...status,
         sortOrder: 0,
-        valuePrice: [0, 20000000],
+        valuePrice: [23000, 128000],
         valueRate: 0,
         tagsForfilter: newtags,
       });
@@ -56,7 +56,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
       console.log("fetchWines:", txt);
       try {
         setLoading(true);
-        const url = `/api/wines/search?tags=${txt}&num=${page * 10}`;
+        const url = `/api/wines/search?keyword=${txt}&num=${page * 10}`;
         console.log("Fetching wines: ", url);
         const res = await axios.get(url);
         setWines(res.data);
@@ -67,9 +67,9 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
       }
     } else {
       let newtag = "";
-
+      let txt;
       for (let i = 0; i < status.tagsForfilter.length; i++) {
-        let txt = status.tagsForfilter[i];
+        txt = status.tagsForfilter[i];
         txt = txt.replace(" ", "+");
         newtag = newtag.concat("tags=" + txt + "&");
       }
@@ -81,7 +81,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
           status.valuePrice[0]
         }&maxPrice=${status.valuePrice[1]}&minRating=${status.valueRate}&sort=${
           status.sortOrder
-        }&num=${page * 10}`;
+        }&num=${page * 10}&keyword=${txt}`;
         console.log("Fetching wines: ", url);
         const res = await axios.get(url);
         setWines(res.data);
@@ -95,9 +95,9 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
 
   const displayWines = () => {
     const result = [];
-    if (loading) return <></>;
+    if (loading && wines.length === 0) return <></>;
     if (wines.length === 0)
-      return <div className="winePage__result-subtitle">No matching wines</div>;
+      return <div className="search__result-subtitle">No matching wines</div>;
     wines.forEach((each, index) => {
       wines.length - 1 == index
         ? result.push(
@@ -145,12 +145,12 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
 
   useEffect(() => {
     fetchWines(false, 1);
-  }, [status.filterApplyClicked]);
+  }, [status.filterModal, status.sortModal]);
 
   return (
     <div className="winePage">
       <div className="winePage__titleCont">
-        <div className="winePage__text">Wines</div>
+        <div className="winePage__text">Searched wines</div>
         <div className="winePage__title">{formatTheme(theme)}</div>
       </div>
       <div className="winePage__btnCont">
@@ -169,4 +169,4 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   );
 };
 
-export default WinePage;
+export default SearchWinePage;

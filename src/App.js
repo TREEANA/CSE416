@@ -25,6 +25,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import FaqPage from "./pages/FaqPage/FaqPage";
 import VerifyPage from "./pages/VerifyPage/VerifyPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
+import SearchWinePage from "./pages/SearchWinePage/SearchWinePage";
 import CreatePage from "./pages/CreatePage/CreatePage";
 import FollowingModal from "./modals/FollowingModal/FollowingModal";
 // import SommVerify from "./components/SommVerify/SommVerify";
@@ -251,6 +252,16 @@ const App = () => {
             path="/search/:keyword"
             element={
               <SearchPage
+                status={status}
+                toggleStatus={toggleStatus}
+                setStatus={setStatus}
+              />
+            }
+          />
+          <Route
+            path="/searchWine/:theme"
+            element={
+              <SearchWinePage
                 status={status}
                 toggleStatus={toggleStatus}
                 setStatus={setStatus}

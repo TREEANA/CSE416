@@ -1,0 +1,75 @@
+.winePage__btn:hover {
+  cursor: pointer;
+}
+
+.winePage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-20);
+  margin: var(--margin-out);
+}
+
+.winePage__text {
+  font-size: var(--size-txt);
+  color: var(--primary);
+}
+
+.winePage__title {
+  font-size: var(--size-title);
+  color: var(--primary);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.winePage__text:hover,
+.winePage__title:hover {
+  cursor: default;
+}
+
+.winePage__text {
+  font-size: var(--size-txt);
+  color: var(--primary);
+}
+
+.winePage__btnCont {
+  display: flex;
+  justify-content: space-between;
+}
+
+.winePage__filter {
+  width: 69%;
+  height: var(--size-btn);
+  border-radius: 30px;
+  border: solid 1px var(--primary);
+  background-color: var(--bg-20);
+}
+
+.winePage__sort {
+  width: 29%;
+  height: var(--size-btn);
+  border-radius: 30px;
+  border: solid 1px var(--primary);
+  background-color: var(--bg-20);
+}
+
+.winePage__btn {
+  width: 100%;
+  height: 2rem;
+  border-radius: 30px;
+  border: solid 1px var(--primary);
+  background-color: var(--bg-20);
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: var(--bg-0);
+}
+
+.winePage__hr {
+  color: var(--primary);
+  width: 200%;
+  margin-left: -50%;
+  margin-top: 2rem;
+}
