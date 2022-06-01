@@ -161,3 +161,6 @@ button:hover {
   width: 20px;
   height: 20px;
 } */
+.commentPage__comments {
+  margin-top: 20px;
+}

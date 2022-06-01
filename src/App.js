@@ -38,6 +38,7 @@ const App = () => {
     followings: [],
     likedWinelists: [],
     likedWines: [],
+    // reviewedWines: [],
     profileImage: "",
     status: -1,
     tags: [],
@@ -123,14 +124,14 @@ const App = () => {
       <TicketModal
         status={status}
         toggleStatus={toggleStatus}
-        setStatus={setStatus}
+        // setStatus={setStatus}
         // toggleTicketModal={() => toggleStatus("ticketModal")}
       ></TicketModal>
 
       <TicketAdminModal
         status={status}
         toggleStatus={toggleStatus}
-        setStatus={setStatus}
+        // setStatus={setStatus}
       ></TicketAdminModal>
 
       <ApplyModal
@@ -200,7 +201,11 @@ const App = () => {
           <Route
             path="/wine/:wineID"
             element={
-              <WineDetailPage status={status} toggleStatus={toggleStatus} />
+              <WineDetailPage
+                status={status}
+                setStatus={setStatus}
+                toggleStatus={toggleStatus}
+              />
             }
           />
           <Route

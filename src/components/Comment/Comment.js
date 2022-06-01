@@ -19,14 +19,16 @@ const Comment = ({ status, comments = dummyComment }) => {
   const [date, setDate] = useState("");
 
   //주어진 포맷에 맞게 date 값 바꾸기
-  const formatDate = (date) => {
+  const formatDateTime = (date) => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const day = date.getDate().toString().padStart(2, "0");
-    return `${year}.${month}.${day}`;
+    const hr = date.getHours().toString().padStart(2, "0");
+    const min = date.getMinutes().toString().padStart(2, "0");
+    return `${year}.${month}.${day} ${hr}:${min}`;
   };
   useEffect(() => {
-    setDate(formatDate(new Date(comments.lastUpdatedAt)));
+    setDate(formatDateTime(new Date(comments.lastUpdatedAt)));
   }, []);
 
   //username fetch 해오는 과정

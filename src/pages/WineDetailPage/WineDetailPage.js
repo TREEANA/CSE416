@@ -17,7 +17,7 @@ import { BsFillPencilFill, BsHeartFill } from "react-icons/bs";
 
 import "./WineDetailPage.css";
 
-const WineDetailPage = ({ status, toggleStatus }) => {
+const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
   //const for loader (true : load, false : unload)
   const [loading, setLoading] = useState(true);
   const [ref, inView] = useInView();
@@ -214,6 +214,36 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     return result;
   };
 
+  const onLikeClick = async (like) => {
+    setNewReview({ ...newReview, userLiked: like });
+    const res = await axios.post(
+      `/api/users/${status.userID}/like-winelist?winelistID=${wineID}`
+    );
+    console.log("res.data : ", res.data, "newReview after like : ", newReview);
+    setStatus({
+      ...status,
+      userinfo: {
+        ...status.userinfo,
+        likedWines: res.data.likedWines,
+      },
+    });
+  };
+
+  const onRateClick = async () => {
+    setNewReview({ ...newReview, rating: newReview.rating });
+    const res = await axios.post(
+      `/api/users/${status.userID}/like-winelist?winelistID=${wineID}`
+    );
+    console.log("res.data : ", res.data, "newReview after like : ", newReview);
+    setStatus({
+      ...status,
+      userinfo: {
+        ...status.userinfo,
+        likedWines: res.data.likedWines,
+      },
+    });
+  };
+
   const displayUnselectedTags = () => {
     const result = [];
     const formattedTag = search.toLowerCase();
@@ -252,45 +282,39 @@ const WineDetailPage = ({ status, toggleStatus }) => {
     setTagList({ ...tagList, [this.txt]: !tagList[this.txt] });
   }
 
-  // const displaySelectedTagsonReview = () => {
-  //   const result = [];
-  //   for (let each in selectedTag) {
-  //     result.push(
-  //       <Tag
-  //         type="wineButton"
-  //         txt={each}
-  //         isFilled="true"
-  //         onClick={onTagClick.bind({ txt: each })}
-  //       />
-  //     );
-  //     newReview.tags.push(each);
-  //     console.log(newReview);
-  //   }
-  //   return result;
-  // };
-
   const displayReviews = () => {
-    return wine.reviews.map((each) => {
-      if (each.userID !== Number(userID)) {
-        return (
+    let result = [];
+    console.log("displayReviews");
+    wine.reviews.forEach((each) => {
+      if (!each.isDeleted) {
+        result.push(
           <Link to={`/wine/${wineID}/reviews/${each.reviewID}`}>
             <Review
-              toggleStatus={toggleStatus}
+              // toggleStatus={toggleStatus}
               review={each}
+              status={status}
               id={each.reviewID}
               key={each.reviewID}
             ></Review>
           </Link>
         );
       }
-      // if (wine.reviews === []) {
-      //   return (
-      //     <div>
-      //       No reviews yet ^^ Fill out your own comments about this wine!
-      //     </div>
-      //   );
-      // }
     });
+    return result;
+    // return wine.reviews.map((each) => {
+    //   if (each.userID !== Number(userID)) {
+    //     return (
+    // <Link to={`/wine/${wineID}/reviews/${each.reviewID}`}>
+    //   <Review
+    //     toggleStatus={toggleStatus}
+    //     review={each}
+    //     id={each.reviewID}
+    //     key={each.reviewID}
+    //   ></Review>
+    // </Link>
+    //     );
+    //   }
+    // });
   };
 
   const onSubmit = async () => {
@@ -325,6 +349,13 @@ const WineDetailPage = ({ status, toggleStatus }) => {
         });
       setLoading(false);
     }
+    // setStatus({
+    //   ...status,
+    //   userinfo: {
+    //     ...status.userinfo,
+    //     reviewedWine: reviewedWines.push(),
+    //   },
+    // });
   };
 
   const displayRecommendation = () => {
@@ -334,7 +365,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
       wine.recommendations
     );
     wine.recommendations.forEach((each, index) => {
-      result.push(<Wine wine={each} key={index} />);
+      result.push(<Wine wine={each} key={index} status={status} />);
     });
     return result;
   };
@@ -364,7 +395,7 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                   <div className="detail__wineTags">{displayTags()}</div>
                 )}
                 <div className="detail__wineRate">
-                  <StarIcon fontSize="40" /> {wine.rating}
+                  <StarIcon fontSize="40" /> {wine.rating.toFixed(1)}
                 </div>
                 <div className="detail__winePrice">{formatPrice()}</div>
               </div>
@@ -462,7 +493,10 @@ const WineDetailPage = ({ status, toggleStatus }) => {
                         ? "detail__reviewIcon--active"
                         : "detail__reviewIcon--inactive"
                     }
-                    onClick={toggleLikes}
+                    onClick={() => {
+                      toggleLikes();
+                      onLikeClick(1);
+                    }}
                     name="userLiked"
                     // onChange={onChange}
                     readOnly={!editReview}
@@ -547,8 +581,8 @@ const WineDetailPage = ({ status, toggleStatus }) => {
           </div>
           <hr className="detail__line"></hr>
           <div className="detail__wineRecomm">
-            <div className="detail__wineRecommTitle"> You may also like</div>
-            {/* {displayRecommendation()} */}
+            <div className="detail__wineRecommTitle"> You may also like...</div>
+            {displayRecommendation()}
           </div>
         </div>
       )}

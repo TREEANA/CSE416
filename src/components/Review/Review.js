@@ -24,9 +24,10 @@ const reviewDummydata = {
   userLiked: false,
 };
 
-const Review = ({ review }) => {
+const Review = ({ status, review }) => {
+  console.log(review);
   const tags = review.tags;
-  const floatRating = review.rating.toFixed(1);
+  // const floatRating = review.rating.toFixed(1);
   const getTags = () => {
     const tagsResult = [];
     for (let i = 0; i < tags.length; i++) {
@@ -47,9 +48,11 @@ const Review = ({ review }) => {
   useEffect(() => {
     console.log(
       "useEffect on Review, floatRating: :",
-      floatRating,
+      // floatRating,
       ", review.rating:",
-      review.rating
+      review.rating,
+      " , reviewID: ",
+      review.reviewID
     );
   });
 
@@ -79,7 +82,7 @@ const Review = ({ review }) => {
             }
           >
             <BsFillStarFill />
-            {floatRating}
+            {review.rating}
           </div>
         </div>
         {/* <div className="review__tag">{displaySelectedTags(tags)}</div> */}

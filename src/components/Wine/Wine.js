@@ -295,7 +295,7 @@ const Wine = ({ status, wine = wineDummyData }) => {
         </div>
         <div className="wine__rate">
           <StarIcon sx={{ fontSize: 40 }} />
-          {wine.rating}
+          {wine.rating.toFixed(1)}
         </div>
         <div className="wine__price">{formatPrice()}</div>
       </div>
