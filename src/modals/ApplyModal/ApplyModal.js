@@ -110,6 +110,9 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
   const displayHistory = () => {
     const result = [];
 
+    if (userHistory.length === 0) {
+      result.push(<div className="apply__font">No history</div>);
+    }
     for (let each in userHistory) {
       result.push(<SommHistory status={status} data={userHistory[each]} />);
     }
@@ -211,11 +214,11 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
         <div className="becomesommlier__section1">
           <div className="becomesommelier__title">
             <div className="becomesommlier__create">History</div>
-            <div className="becomesommlier__history" onClick={close}>
-              Back to apply
-            </div>
           </div>
           {displayHistory()}
+          <div className="becomesommlier__history" onClick={close}>
+            Back to apply
+          </div>
         </div>
       );
     } else if (step === 4) {

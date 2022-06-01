@@ -179,6 +179,12 @@
   margin-bottom: 1rem;
 }
 
+.apply__font {
+  align-self: center;
+  color: var(--text-100);
+  font-size: var(--size-txt);
+  font-weight: bold;
+}
 .create__subtitle {
   color: var(--primary);
   font-size: 1.5rem;
