@@ -261,6 +261,11 @@ const SearchBarModal = ({
 
   const displayMatchingPeople = () => {
     const result = [];
+
+    if (userList.length === 0) {
+      return <div className="search__result-subtitle">No matching users</div>;
+    }
+
     for (let i = 0; i < userList.length; i++) {
       const each = userList[i];
       result.push(
