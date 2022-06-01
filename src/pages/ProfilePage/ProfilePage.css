@@ -1,13 +1,13 @@
 .profile {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-direction: column;
   width: 100%;
   margin: var(--margin-out);
   background-color: var(--bg-20);
 }
 .profile__name {
-  margin-left: var(--margin-out);
+  /* margin-left: var(--margin-out); */
   align-self: flex-start;
   font-size: 1.5rem;
   text-decoration: none;
@@ -43,7 +43,7 @@
   border-radius: 50%;
   width: 3.5rem;
   height: 3.5rem;
-  margin-right: 3rem;
+  margin-right: 1rem;
   border: 1px solid var(--text-100);
   align-items: center;
   display: flex;
@@ -78,15 +78,14 @@ li {
 }
 
 .profile__editporfile {
-  width: 90%;
-  margin-left: var(--margin-out);
+  width: 100%;
+  margin-top: var(--margin-out);
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--primary);
   color: var(--bg-0);
   font-size: 1.5rem;
-  margin: 0.5rem var(--margin-out);
   height: 0.1rem;
   border-radius: 5rem;
   border-style: none;
@@ -95,16 +94,16 @@ li {
 }
 
 .profile__editporfile_unfilled {
-  margin-left: var(--margin-out);
+  /* margin-left: var(--margin-out); */
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--bg-0);
   color: var(--primary);
   font-size: 1.5rem;
-  margin: 0.5rem var(--margin-out);
+  margin-top: var(--margin-out);
   height: 0.1rem;
-  width: 90%;
+  width: 100%;
   border-radius: 5rem;
   border-style: none;
   padding: 1rem 0rem;
@@ -222,4 +221,29 @@ li {
 .gallery {
   display: flex;
   flex-wrap: wrap;
+}
+
+.profile_table {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile_table_stats {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile_table_stats_number {
+  font-size: var(--size-txt);
+  font-weight: bold;
+}
+.profile_table_stats_title {
+  font-size: 1rem;
 }

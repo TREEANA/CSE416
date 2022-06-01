@@ -2,7 +2,6 @@
   position: fixed;
   z-index: 800;
   transition: 1s;
-
   width: 70vw;
   height: 100vh;
   background-color: var(--primary);
@@ -40,6 +39,13 @@
   margin-right: 0.5rem;
 }
 
+.sidebar__profile__img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 30px;
+  margin-right: 0.5rem;
+}
 .sidebar__name {
   color: var(--primary);
   font-weight: bold;
@@ -59,8 +65,13 @@
   justify-content: space-between;
   align-items: center;
   margin: 3rem 1.5rem 0 1.5rem;
-  font-size: 3rem;
+  font-size: 1rem;
   font-weight: bold;
+}
+
+.sidebar__status {
+  display: flex;
+  align-items: center;
 }
 
 .sidebar__status > a {
@@ -127,4 +138,11 @@
   width: 30px;
   height: 30px;
   margin-right: 0.5rem;
+}
+
+.sidebar__login__icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.3rem;
+  color: var(--bg-0);
 }

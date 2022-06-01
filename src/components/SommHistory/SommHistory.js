@@ -79,9 +79,6 @@ const SommHistory = ({ status, data }) => {
             <div className="verifysomm_verifyUserComment">
               {data.userExplanation}
             </div>
-            <div className="verifysomm__verfiyAdminComment">
-              {data.adminFeedback}
-            </div>
           </div>
         </div>
       )}

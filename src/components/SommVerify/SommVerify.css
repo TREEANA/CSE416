@@ -6,7 +6,8 @@
 .sommverify__header {
   display: flex;
   justify-content: space-between;
-  margin: var(--margin-out);
+  /* margin: var(--margin-out); */
+  margin: 10px 0;
   align-items: center;
   background-color: var(--bg-20);
   border-radius: 30px;
@@ -96,8 +97,8 @@
 .sommverify__body {
   background-color: var(--bg-100);
   position: relative;
-  top: -70px;
-  margin: 0 var(--margin-out);
+  top: -50px;
+  /* margin: 0 var(--margin-out); */
   /* border: 1px solid black; */
   padding: 45px 10px 10px 10px;
   height: 300px;

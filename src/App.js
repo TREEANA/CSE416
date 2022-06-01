@@ -38,6 +38,7 @@ const App = () => {
     followings: [],
     likedWinelists: [],
     likedWines: [],
+    // reviewedWines: [],
     profileImage: "",
     status: -1,
     tags: [],
@@ -64,8 +65,7 @@ const App = () => {
     followsModal: false,
     sortModal: false,
     applyModal: false,
-    // commentModal: false,
-    exchangeRate: 0,
+    exchangeRate: 1000,
     editProfileModal: false,
     sortOrder: 0,
     valuePrice: [23000, 128000],
@@ -125,15 +125,15 @@ const App = () => {
       <TicketModal
         status={status}
         toggleStatus={toggleStatus}
-        setStatus={setStatus}
+        // setStatus={setStatus}
         // toggleTicketModal={() => toggleStatus("ticketModal")}
       ></TicketModal>
 
-      {/* <TicketAdminModal
+      <TicketAdminModal
         status={status}
         toggleStatus={toggleStatus}
-        setStatus={setStatus}
-      ></TicketAdminModal> */}
+        // setStatus={setStaㅌtus}
+      ></TicketAdminModal>
 
       <ApplyModal
         status={status}
@@ -145,6 +145,8 @@ const App = () => {
         commentModalStatus={status.commentModal}
         togglecommentModal={() => toggleStatus("commentModal")}
       ></CommentModal> */}
+
+
       {/* <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
        */}
       <SearchBarModal
@@ -202,7 +204,11 @@ const App = () => {
           <Route
             path="/wine/:wineID"
             element={
-              <WineDetailPage status={status} toggleStatus={toggleStatus} />
+              <WineDetailPage
+                status={status}
+                setStatus={setStatus}
+                toggleStatus={toggleStatus}
+              />
             }
           />
           <Route

@@ -50,31 +50,17 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
     // console.log("tempRequest:", tempRequest);
   }, []);
 
-  // //username
-  // const [username, setUsername] = useState("");
-  // //fetch username using the userID
-  // const getUserName = async (userID) => {
-  //   try {
-  //     const res = await axios.get(`/api/users/${userID}`);
-  //     console.log("res.data from getUserName:", res.data);
-  //     setUsername(res.data.username);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-  // //fetch username when initially loaded
-  // useEffect(() => {
-  //   getUserName(request.userID);
-  // }, []);
-
-  const onSubmit = async () => {
+  const onSubmit = async (curStatus) => {
     const body = {
       ticketID: request.ticketID,
       adminID: status.userinfo.userID,
-      adminFeedback: adminFeedback,
+      adminFeedback: tempRequest.adminFeedback,
       status: curStatus,
     };
-    if (adminFeedback !== "") {
+    console.log("body from onSubmit:", body);
+    //prevent empty adminFeedback
+    if (tempRequest.adminFeedback !== "") {
+      console.log("onSubmit, tempRequest not empty");
       axios
         .put(`/api/verification-tickets/answer`, body)
         .then((response) => {
@@ -96,7 +82,7 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
       [name]: value,
     };
     setTempRequest(newTempRequest);
-    console.log(newTempRequest);
+    // console.log(newTempRequest);
   };
 
   const displayStatus = (curStatus) => {
@@ -149,7 +135,7 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
                   className="sommverify__verifyApprove"
                   onClick={() => {
                     setCurStatus(1);
-                    onSubmit();
+                    onSubmit(1);
                   }}
                 >
                   approve
@@ -158,7 +144,7 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
                   className="sommverify__verifyReject"
                   onClick={() => {
                     setCurStatus(0);
-                    onSubmit();
+                    onSubmit(0);
                   }}
                 >
                   reject
@@ -198,8 +184,9 @@ const SommVerify = ({ status, request = verifyDummyData }) => {
                   name="adminFeedback"
                   onChange={onChange}
                   readOnly={!editRequest}
+                  value={tempRequest?.adminFeedback || ""}
                 >
-                  {editRequest ? "" : tempRequest.adminFeedback}
+                  {/* {editRequest ? "" : tempRequest.adminFeedback} */}
                 </textarea>
               </div>
             </div>

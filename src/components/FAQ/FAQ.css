@@ -1,11 +1,34 @@
-.ticket__cont {
+.FAQ {
   margin-bottom: 1rem;
-  width: 95%;
 }
 
-.ticket__button:hover {
-  cursor: pointer;
+.FAQ__header {
+  background-color: var(--primary);
+  font-size: 1.3rem;
+  color: var(--bg-0);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 3rem;
+  border-radius: 30px;
+  position: relative;
+  align-items: center;
+  z-index: 1;
+  /* justify-content: space-between; */
 }
+
+.faq__box {
+  background-color: rgba(249, 221, 209, 0.4);
+  border-radius: 30px;
+  padding: 15px 20px;
+  position: relative;
+  top: -50px;
+  margin-bottom: -50px;
+}
+
+/* .ticket__button:hover {
+  cursor: pointer;
+} */
 
 .ticket__button {
   display: flex;
@@ -90,28 +113,10 @@
   justify-content: center;
 }
 
-.ticket__progress--1 {
-  color: green;
-}
-
-.ticket__progress--1 > * {
-  height: 30px;
-  width: 30px;
-}
-
-.ticket__progress--0 {
-  background-color: #f9e000;
-  color: var(--bg-0);
-}
-
-.ticket__progress--0 > svg {
-  height: 24px;
-  width: 24px;
-}
-
-.ticket__box {
+.faq__box {
   /* background-color: #f9ddd1; */
-  background-color: rgba(249, 221, 209, 0.4);
+  /* background-color: rgba(249, 221, 209, 0.4); */
+  background-color: var(--bg-0);
   border-radius: 30px;
   padding: 15px 20px;
   position: relative;
@@ -127,44 +132,13 @@
   margin-bottom: 1.5rem;
 }
 
-.ticket__answer_box {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg-100);
-  border-radius: 0 0 30px 30px;
-  padding: 0 1rem 1rem 1rem;
-  padding-top: 1.75rem;
-  margin-top: -1.75rem;
-  position: relative;
-  font-size: 1.2rem;
-  z-index: 0;
-  transition: all 0.3s;
-
-  height: auto;
-}
-
-.ticket__box--close {
+.faq__box--close {
   height: 0%;
   display: none;
 }
 
-.ticket__box--close > * {
-  height: 0%;
-  display: none;
-}
-
-.ticket__button__text {
-  margin-left: 1rem;
-  color: var(--text-100);
-}
-
-.ticket__question,
-.ticket__answer {
-  margin-top: 1rem;
-  color: var(--text-100);
-}
-.ticket__question {
-  margin-top: 50px;
+.faq__question {
+  margin-top: 3rem;
 }
 
 .ticket__question > b,
