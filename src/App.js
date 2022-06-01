@@ -70,6 +70,7 @@ const App = () => {
     sortOrder: 0,
     valuePrice: [0, 20000000],
     valueRate: 0,
+    filterApplyClicked: true,
     tagsForfilter: [],
     exchangeRate: 1246,
   });

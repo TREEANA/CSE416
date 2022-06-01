@@ -292,6 +292,7 @@ const FilterModal = ({ status, setStatus }) => {
                 ...status,
                 filterModal: !status.filterModal,
                 tagsForfilter: newselectedTags,
+                filterApplyClicked: !status.filterApplyClicked,
                 valuePrice,
                 valueRate,
               });
