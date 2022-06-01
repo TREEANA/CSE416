@@ -174,7 +174,7 @@ const SearchPage = ({ status, toggleStatus, setStatus }) => {
           ) : (
             <>
               {displayWines()}
-              <Link to={"/wines/" + keyword}>
+              <Link to={"/searchWine/" + keyword}>
                 <div className="winePage__btn">show more wines</div>
               </Link>
               <hr className="winePage__hr"></hr>
