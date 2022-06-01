@@ -30,24 +30,24 @@ const SommHistory = ({ status, data }) => {
   const verifybtn = () => {
     if (data.status === 0) {
       return (
-        <div className="verifysomm__verifyBtn">
-          <div className="verifysomm__verifyReject">
+        <div className="sommverify__verifyBtn">
+          <div className="sommverify__verifyReject">
             <BsXLg />
           </div>
         </div>
       );
     } else if (data.status === 1) {
       return (
-        <div className="verifysomm__verifyBtn">
-          <div className="verifysomm__verifyApprove">
+        <div className="sommverify__verifyBtn">
+          <div className="sommverify__verifyApprove">
             <BsFillCheckCircleFill />
           </div>
         </div>
       );
     } else if (data.status === 2) {
       return (
-        <div className="verifysomm__verifyBtn">
-          <div className="verifysomm__verifyPending">
+        <div className="sommverify__verifyBtn">
+          <div className="sommverify__verifyPending">
             <BsThreeDots />
           </div>
         </div>
@@ -57,28 +57,33 @@ const SommHistory = ({ status, data }) => {
 
   return (
     <>
-      <div className="verifysomm__verifyInd" onClick={toggleInd2Status}>
-        <div className="verifysomm__verifyInfo">
+      <div className="sommverify__verifyInd" onClick={toggleInd2Status}>
+        <div className="sommverify__verifyInfo">
           <img
-            className="verifysomm__img"
+            className="sommverify__img"
             src={status.userinfo.profileImage}
           ></img>
-          <div className="verifysomm__verifyName">
-            {" "}
-            {formatDate(new Date(data.createdAt))}{" "}
+          <div className="sommverify__verifyName">
+            {formatDate(new Date(data.createdAt))}
           </div>
         </div>
         {verifybtn()}
       </div>
       {ind2Status && (
-        <div className="verifysomm__verifyDetail">
-          <div className="verifysomm__verifyDetailImg">
+        <div className="sommverify__verifyDetail">
+          <div className="sommverify__verifyDetailImg">
             <img src={data.verificationImage}></img>
           </div>
-          <div className="verifysomm__verifyDetailComment">
-            <div className="verifysomm_verifyUserComment">
+          <div className="sommverify__verifyDetailComment">
+            <div className="sommverify_verifyUserComment">
               {data.userExplanation}
             </div>
+<<<<<<< HEAD
+            <div className="sommverify__verfiyAdminComment">
+              {data.adminFeedback}
+            </div>
+=======
+>>>>>>> 71114ece5917b0318c961eab645de7bc7034d5d6
           </div>
         </div>
       )}

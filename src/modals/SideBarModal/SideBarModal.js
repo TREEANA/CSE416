@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SideBarModal.css";
-import { BsXLg, BsFillPlusCircleFill } from "react-icons/bs";
-import { MdWineBar, MdSettings } from "react-icons/md";
+import { BsXLg, BsFillPlusCircleFill, BsPatchCheckFill } from "react-icons/bs";
+import { MdSettings } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
@@ -174,15 +174,22 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               }}
             >
               <Link to={`/profile/${status.userID}`}>
-                <img
-                  className="sidebar__profile__img"
-                  src={status.userinfo.profileImage}
-                />
+                <div className="sidebar__userinfo">
+                  <img
+                    className="sidebar__profile__img"
+                    src={status.userinfo.profileImage}
+                  />
+                  <div className="sidebar__user">
+                    <div className="sidebar__status">
+                      <div className="sidebar__username">
+                        {status.userinfo.username}
+                      </div>
+                      <div className="sidebar__statusLabel">(sommelier)</div>
+                    </div>
+                    <BsPatchCheckFill className="sidebar__icon" />
+                  </div>
+                </div>
               </Link>
-              <Link to={`/profile/${status.userID}`}>
-                <div className="sidebar__name">{status.userinfo.username}</div>{" "}
-              </Link>
-              <MdWineBar className="sidebar__icon" />
             </div>
             <BsXLg
               className="sidebar__close"
@@ -214,15 +221,22 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               }}
             >
               <Link to={`/profile/${status.userID}`}>
-                <img
-                  className="sidebar__profile__img"
-                  src={status.userinfo.profileImage}
-                />
+                <div className="sidebar__userinfo">
+                  <img
+                    className="sidebar__profile__img"
+                    src={status.userinfo.profileImage}
+                  />
+                  <div className="sidebar__user">
+                    <div className="sidebar__status">
+                      <div className="sidebar__username">
+                        {status.userinfo.username}
+                      </div>
+                      <div className="sidebar__statusLabel">(admin)</div>
+                    </div>
+                    <MdSettings className="sidebar__icon" />
+                  </div>
+                </div>
               </Link>
-              <Link to={`/profile/${status.userID}`}>
-                <div className="sidebar__name">{status.userinfo.username}</div>{" "}
-              </Link>
-              <MdSettings className="sidebar__icon" />
             </div>
 
             <BsXLg

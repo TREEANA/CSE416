@@ -164,3 +164,8 @@ button:hover {
 .commentPage__comments {
   margin-top: 20px;
 }
+
+.commentPage__loginWarning {
+  margin: 10px var(--margin-out);
+  cursor: pointer;
+}
