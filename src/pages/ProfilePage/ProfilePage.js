@@ -45,7 +45,7 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
   useEffect(() => {
     setLoading(true);
     getUserdata();
-  }, [userID, status, isFollowd]);
+  }, [userID, status.filterApplyClicked, isFollowd]);
 
   useEffect(() => {
     checkfollow();
@@ -428,7 +428,7 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
               <div
                 className="profile__editporfile"
                 onClick={() => {
-                  toggleStatus("EditProfileModal");
+                  toggleStatus("editProfileModal");
                 }}
               >
                 Edit Profile

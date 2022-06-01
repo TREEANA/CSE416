@@ -200,6 +200,7 @@ const FollowingModal = ({ status, setStatus, userID, username }) => {
                     setStatus({
                       ...status,
                       followingModal: !status.followingModal,
+                      filterApplyClicked: !status.filterApplyClicked,
                     });
                   }}
                 />
