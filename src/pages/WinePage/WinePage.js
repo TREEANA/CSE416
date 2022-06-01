@@ -144,6 +144,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
   }, [theme]);
 
   useEffect(() => {
+    console.log("useEffect:", status.filterApplyClicked);
     fetchWines(false, 1);
   }, [status.filterApplyClicked]);
 

@@ -64,12 +64,14 @@ const ListPage = ({ status, toggleStatus, setStatus }) => {
       lists.length - 1 === index
         ? result.push(
             <>
-              <WineList wineList={each} />
+              <WineList wineList={each} status={status} setStatus={setStatus} />
               <div ref={ref}></div>
               {loading && <Loader />}
             </>
           )
-        : result.push(<WineList wineList={each} />);
+        : result.push(
+            <WineList wineList={each} status={status} setStatus={setStatus} />
+          );
     });
     return result;
   };
@@ -124,7 +126,7 @@ const ListPage = ({ status, toggleStatus, setStatus }) => {
           <div className="wineListPage__text">Wine Lists</div>
           <div className="wineListPage__title">{keyword}</div>
         </div>
-        <div className="wineListPage__btnCont">
+        {/* <div className="wineListPage__btnCont">
           <button
             className="wineListPage__filter"
             onClick={() => {
@@ -133,7 +135,7 @@ const ListPage = ({ status, toggleStatus, setStatus }) => {
           >
             filter
           </button>
-        </div>
+        </div> */}
         {loading && page === 1 ? <Loader /> : <>{displayLists()}</>}
       </div>
       {/* <FilterModal

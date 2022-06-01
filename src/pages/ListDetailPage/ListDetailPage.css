@@ -31,6 +31,7 @@
 
 .wineListDetail__secondCont .wineList__profile {
   text-align: right;
+  background: none;
 }
 
 .wineListDetail__titleCont .tag {

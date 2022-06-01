@@ -19,7 +19,7 @@
   font-size: var(--size-title);
   color: var(--primary);
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: -0.5rem;
 }
 
 .wineListPage__title:hover {
