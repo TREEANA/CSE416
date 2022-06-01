@@ -55,11 +55,12 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
       txt = txt.replace(" ", "+");
       console.log("fetchWines:", txt);
       try {
+        let url;
         setLoading(true);
         if (theme == undefined) {
-          const url = `/api/wines/search?num=${page * 10}`;
+          url = `/api/wines/search?num=${page * 10}`;
         } else {
-          const url = `/api/wines/search?tags=${txt}&num=${page * 10}`;
+          url = `/api/wines/search?tags=${txt}&num=${page * 10}`;
         }
         console.log("Fetching wines: ", url);
         const res = await axios.get(url);
