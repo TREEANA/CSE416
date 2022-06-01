@@ -165,7 +165,12 @@ const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
         } catch (err) {
           console.log(err);
         }
-        toggleStatus("EditProfileModal");
+
+        setStatus({
+          ...status,
+          editProfileModal: !status.editProfileModal,
+          filterApplyClicked: !status.filterApplyClicked,
+        });
 
         setSearch("");
       }
@@ -176,7 +181,7 @@ const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
 
   return (
     <>
-      {status.EditProfileModal && (
+      {status.editProfileModal && (
         <>
           {" "}
           {loading ? (
@@ -189,12 +194,12 @@ const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
                 <div className="register__header">
                   <BsArrowLeft
                     className="register__back"
-                    onClick={() => toggleStatus("EditProfileModal")}
+                    onClick={() => toggleStatus("editProfileModal")}
                   ></BsArrowLeft>
                   <div className="register__home">
                     <Link
                       to="/"
-                      onClick={() => toggleStatus("EditProfileModal")}
+                      onClick={() => toggleStatus("editProfileModal")}
                     >
                       podo
                     </Link>

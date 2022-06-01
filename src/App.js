@@ -152,6 +152,7 @@ const App = () => {
        */}
       <SearchBarModal
         status={status}
+        setStatus={setStatus}
         searchBarModalStatus={status.searchBarModal}
         toggleSearchBarModal={() => toggleStatus("searchBarModal")}
       ></SearchBarModal>
