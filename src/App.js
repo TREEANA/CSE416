@@ -66,7 +66,7 @@ const App = () => {
     followsModal: false,
     sortModal: false,
     applyModal: false,
-    exchangeRate: 1000,
+    // exchangeRate: 1000,
     editProfileModal: false,
     sortOrder: 0,
     valuePrice: [0, 20000000],
@@ -300,7 +300,9 @@ const App = () => {
           />
           <Route
             path="/wine/:wineID/reviews/:reviewID"
-            element={<CommentPage status={status} />}
+            element={
+              <CommentPage status={status} toggleStatus={toggleStatus} />
+            }
           />
 
           <Route path="/faq" element={<FaqPage />} />

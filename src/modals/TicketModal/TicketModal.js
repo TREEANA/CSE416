@@ -56,7 +56,7 @@ const TicketModal = ({ status, toggleStatus }) => {
       const res = await axios.get(
         `/api/support-tickets/?userID=${userID}&num=${numTicket * pageNum}`
       );
-      console.log("res.data from fetchUserTickets: ", res.data);
+      // console.log("res.data from fetchUserTickets: ", res.data);
       setPrevTickets(res.data);
     } catch (error) {
       console.log(error);

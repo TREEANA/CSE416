@@ -264,7 +264,7 @@ const wineDummyData = {
   ],
 };
 
-const Wine = ({ status, wine = wineDummyData }) => {
+const Wine = ({ type = "component", status, wine }) => {
   const formatPrice = () => {
     return (
       Math.round((wine.price * status.exchangeRate) / 1000) * 1000
@@ -278,9 +278,9 @@ const Wine = ({ status, wine = wineDummyData }) => {
     return wine.grape.map((each, index) => <div>{each}</div>);
   };
 
-  return (
+  return type === "component" ? (
     <div className="wine">
-      <div className="wine__image">
+      <div className={"wine__image"}>
         <img src={wine.images[0]}></img>
       </div>
       <div className="wine__detail">
@@ -298,6 +298,31 @@ const Wine = ({ status, wine = wineDummyData }) => {
           {wine.rating.toFixed(1)}
         </div>
         <div className="wine__price">{formatPrice()}</div>
+      </div>
+    </div>
+  ) : (
+    <div className="wine--recomm">
+      <div className="wine__image--recomm">
+        <img src={wine.images[0]}></img>
+        <div className="wine__price--recomm">{formatPrice()}</div>
+      </div>
+      <div className="wine__detail--recomm">
+        <div className="wine__nameTitle--recomm">
+          <Link to={`/wine/${wine.wineID}`}>{wine.name}</Link>
+          <div className="wine__rate--recomm">
+            <StarIcon sx={{ fontSize: 30 }} />
+            {wine.rating.toFixed(1)}
+          </div>
+        </div>
+        <div className="wine__grapeTitle--recomm"> Grape : {formatGrape()}</div>
+        <div className="wine__specific--recomm">
+          <div className="wine__tags--recomm">
+            {wine.tags.slice(0, 5).map((tag, index) => (
+              <Tag type="wineButton" txt={tag} key={index} />
+            ))}
+          </div>
+        </div>
+        {/* <div className="wine__price--recomm">{formatPrice()}</div> */}
       </div>
     </div>
   );
