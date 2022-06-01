@@ -121,13 +121,13 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     console.log("checkReview starts : ");
     console.log("checkReview: wine.reviews", wine.reviews);
     let prevReview = wine.reviews.some((review) => {
-      console.log(
-        "review.userID :",
-        review.userID,
-        "type :",
-        typeof review.userID
-      );
-      console.log("input userID:", userID, "type :", typeof userID);
+      // console.log(
+      //   "review.userID :",
+      //   review.userID,
+      //   "type :",
+      //   typeof review.userID
+      // );
+      // console.log("input userID:", userID, "type :", typeof userID);
       if (review.userID === Number(userID)) {
         return review;
         // setExistReview(1);

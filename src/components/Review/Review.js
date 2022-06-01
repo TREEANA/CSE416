@@ -24,8 +24,8 @@ const reviewDummydata = {
   userLiked: false,
 };
 
-const Review = ({ status, review }) => {
-  console.log(review);
+const Review = ({ review }) => {
+  // console.log(review);
   const tags = review.tags;
   // const floatRating = review.rating.toFixed(1);
   const getTags = () => {
@@ -45,16 +45,16 @@ const Review = ({ status, review }) => {
     return `${year}.${month}.${day}`;
   };
 
-  useEffect(() => {
-    console.log(
-      "useEffect on Review, floatRating: :",
-      // floatRating,
-      ", review.rating:",
-      review.rating,
-      " , reviewID: ",
-      review.reviewID
-    );
-  });
+  // useEffect(() => {
+  //   console.log(
+  //     "useEffect on Review, floatRating: :",
+  //     // floatRating,
+  //     ", review.rating:",
+  //     review.rating,
+  //     " , reviewID: ",
+  //     review.reviewID
+  //   );
+  // });
 
   return (
     <>

@@ -15,7 +15,7 @@ const dummyComment = {
   isDeleted: false,
 };
 
-const Comment = ({ status, comments = dummyComment }) => {
+const Comment = ({ status, wineID, reviewID, comments = dummyComment }) => {
   const [date, setDate] = useState("");
 
   //주어진 포맷에 맞게 date 값 바꾸기
@@ -48,14 +48,32 @@ const Comment = ({ status, comments = dummyComment }) => {
 
   useEffect(() => {
     fetchUserData(comments.userID);
+    console.log(
+      "comment info, commentID: ",
+      comments.commentID,
+      " , userID: ",
+      comments.userID,
+      typeof comments.userID,
+      ", status.userID: ",
+      status.userID,
+      typeof status.userID,
+      ", wineID:",
+      wineID,
+      " , reviewID: ",
+      reviewID
+    );
   }, []);
 
   const onDelete = async () => {
     try {
       const res = await axios.delete(
-        `/api/wines/${wineID}/reviews/${reviewID}/comment/${comments.commentID}?userID=${status.userID}`
+        `/api/wines/${wineID}/reviews/${reviewID}/comments/${comments.commentID}?userID=${status.userID}`
       );
       console.log("onDelete on Comments.js:", res.data);
+      console.log(
+        "onDelete request on : ",
+        `/api/wines/${wineID}/reviews/${reviewID}/comment/${comments.commentID}?userID=${status.userID}`
+      );
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +83,11 @@ const Comment = ({ status, comments = dummyComment }) => {
     <div className="comment">
       <div className="comment__user">
         <div className="comment__userInfo">
-          <div className="comment__userName">
+          <div
+            className={
+              userStatus === 1 ? "comment__userName-somm" : "comment__userName"
+            }
+          >
             {username === "" ? "undefined(deleted user)" : username}
           </div>
           <div className="comment__userDate">{date}</div>
@@ -76,14 +98,16 @@ const Comment = ({ status, comments = dummyComment }) => {
           </div>
         )}
       </div>
-      <div className="comment__comment">{comments.content}</div>
-      {status.userinfo.status === comments.userID ? (
-        <div className="comment__trash" onClick={onDelete}>
-          <BsTrash />
-        </div>
-      ) : (
-        <></>
-      )}
+      <div className="comment__content">
+        <div className="comment__comment">{comments.content}</div>
+        {Number(status.userID) === comments.userID ? (
+          <div className="comment__trash" onClick={onDelete}>
+            <BsTrash />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 };

@@ -71,11 +71,21 @@ const CommentPage = ({
 
   useEffect(() => {
     fetchComments(reviewID, wineID);
-  }, []);
+  }, [comments]);
 
   const displayComments = (comments) => {
     return comments.map((each) => {
-      return <Comment status={status} key={each.commentID} comments={each} />;
+      if (!each.isDeleted) {
+        return (
+          <Comment
+            status={status}
+            comments={each}
+            reviewID={reviewID}
+            wineID={wineID}
+            key={each.commentID}
+          />
+        );
+      }
     });
   };
 
@@ -142,10 +152,6 @@ const CommentPage = ({
                     placeholder="leave a comment"
                     onChange={onChange}
                     value={tempComment === "" ? "" : tempComment}
-                    // onClick={() => {
-                    //   if (status.userInfo.status) {
-                    //   }
-                    // }}
                   ></input>
                 </div>
                 <BsPlus className="commentPage__plusIcon" onClick={onSubmit} />
@@ -153,7 +159,7 @@ const CommentPage = ({
               <div className="commentPage__commentContainer"></div>
             </>
           ) : (
-            <></>
+            <div className=""></div>
           )}
         </div>
       </div>
