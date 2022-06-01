@@ -117,7 +117,10 @@ const SearchPage = ({ status, toggleStatus, setStatus }) => {
     const result = [];
     wines.forEach((each, i) => {
       result.push(
-        <Wine wine={{ ...each, exchangeRate: status.exchangeRate }} />
+        <Wine
+          wine={{ ...each, exchangeRate: status.exchangeRate }}
+          status={status}
+        />
       );
     });
     return result;

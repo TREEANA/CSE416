@@ -12,7 +12,7 @@ import WineList from "../../components/WineList/WineList";
 
 const ListDetailPage = ({ status, setStatus }) => {
   const { winelistID } = useParams();
-  const [list, setList] = useState({});
+  const [list, setList] = useState({ title: "", images: [], wines: [] });
   const [curPage, setCurPage] = useState(0);
   const [likeStatus, setLikeStatus] = useState(false);
   useEffect(() => {
@@ -72,23 +72,9 @@ const ListDetailPage = ({ status, setStatus }) => {
   const fetchList = async () => {
     try {
       const resList = await axios.get(`/api/winelists/${winelistID}`);
-      console.log(resList);
-      if (resList.data === null || resList.data === "") {
-        setList({});
-      } else {
-        const temp = resList.data;
-        const tempWines = [];
-        for await (const each of resList.data.wines) {
-          const resWines = await axios.get(`/api/wines/${each.wineID}`);
-          tempWines.push(resWines.data);
-        }
-        tempWines.forEach((each, i) => {
-          each.sommelierComment = temp.wines[i].sommelierComment;
-        });
-        temp.images = tempWines.map((each) => each.images[0]);
-        setList({ ...temp, wines: tempWines });
-        console.log("fetched list: ", { ...resList.data, wines: tempWines });
-      }
+      const tempList = { ...resList.data };
+      tempList.images = tempList.wines.map((each) => each.images[0]);
+      setList(tempList);
     } catch (e) {
       console.log(e);
     }

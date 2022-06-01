@@ -77,7 +77,9 @@ const ListPage = ({ status, toggleStatus, setStatus }) => {
   const fetchLists = async (keyword, page) => {
     try {
       const res = await axios.get(
-        `/api/winelists/search?keyword=${keyword}&num=${page * 10}`
+        `/api/winelists/search?keyword=${keyword}&tags=${keyword}&num=${
+          page * 10
+        }&isOr=${true}`
       );
       if (res.data === null || res.data === "") {
         setLists([]);

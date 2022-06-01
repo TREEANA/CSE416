@@ -78,9 +78,12 @@ const SommHistory = ({ status, data }) => {
             <div className="sommverify_verifyUserComment">
               {data.userExplanation}
             </div>
+<<<<<<< HEAD
             <div className="sommverify__verfiyAdminComment">
               {data.adminFeedback}
             </div>
+=======
+>>>>>>> 71114ece5917b0318c961eab645de7bc7034d5d6
           </div>
         </div>
       )}

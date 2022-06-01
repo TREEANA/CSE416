@@ -53,7 +53,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
       });
       let txt = theme;
       txt = txt.replace(" ", "+");
-
+      console.log("fetchWines:", txt);
       try {
         setLoading(true);
         const url = `/api/wines/search?tags=${txt}&minPrice=23000&maxPrice=128000&minRating=0&sort=0&num=${
@@ -97,7 +97,8 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
 
   const displayWines = () => {
     const result = [];
-    if (wines.length === 0) return;
+    if (wines.length === 0)
+      return <div className="search__result-subtitle">No matching wines</div>;
     wines.forEach((each, index) => {
       wines.length - 1 == index
         ? result.push(
@@ -108,6 +109,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
                   exchangeRate: status.exchangeRate,
                 }}
                 key={index}
+                status={status}
               />
               <div ref={ref}>{loading && <Loader />}</div>
             </>
@@ -119,6 +121,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
                 exchangeRate: status.exchangeRate,
               }}
               key={index}
+              status={status}
             />
           );
     });

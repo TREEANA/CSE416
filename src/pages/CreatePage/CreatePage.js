@@ -25,7 +25,8 @@ const CreatePage = ({ status, toggleStatus }) => {
   });
   const [tempImage, setTempImage] = useState("");
   const [tempFile, setTempFile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [wineLoading, setWineLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
 
   const fetchTags = async () => {
@@ -37,8 +38,10 @@ const CreatePage = ({ status, toggleStatus }) => {
     setTags(tempTags);
   };
 
-  useEffect(() => {
-    fetchTags();
+  useEffect(async () => {
+    setLoading(true);
+    await fetchTags();
+    setLoading(false);
   }, []);
 
   function onTagClick() {
@@ -102,14 +105,14 @@ const CreatePage = ({ status, toggleStatus }) => {
           wines: [],
         });
       } else {
-        setLoading(true);
+        setWineLoading(true);
         const res = await axios.get(
           `api/wines/search?keyword=${e.target.value}`,
           {
             cancelToken: source.current.token,
           }
         );
-        setLoading(false);
+        setWineLoading(false);
         if (res.status === 200) {
           setSearch({
             ...search,
@@ -124,6 +127,10 @@ const CreatePage = ({ status, toggleStatus }) => {
   };
 
   const onSearchedWineClick = (wine) => (e) => {
+    if (newList.wines.length >= 5) {
+      alert("The maximum number of wines you can select is 5");
+      return;
+    }
     const tempWines = [...newList.wines];
     if (tempWines.find((each) => each.wineID === wine.wineID) !== undefined) {
       alert("The wine is already selected");
@@ -142,7 +149,37 @@ const CreatePage = ({ status, toggleStatus }) => {
     });
   };
 
+  const checkWineComments = () => {
+    let result = true;
+    newList.wines.forEach((each) => {
+      if (each.sommelierComment === "" || each.sommelierComment === undefined) {
+        result = false;
+      }
+    });
+    console.log("checkWineComments: ", result);
+    return result;
+  };
+
   const onSubmit = async () => {
+    if (newList.title === "") {
+      alert("Please enter title");
+      return;
+    } else if (tempFile == null) {
+      alert("Please upload an image");
+      return;
+    } else if (newList.wines.length === 0) {
+      alert("Please select wines");
+      return;
+    } else if (!checkWineComments()) {
+      alert("Please comment on each wines");
+      return;
+    } else if (newList.tags.length === 0) {
+      alert("Please select tags");
+      return;
+    } else if (newList.content === "") {
+      alert("Please write description of the winelist");
+      return;
+    }
     setCreating(true);
     const body = {
       ...newList,
@@ -317,7 +354,9 @@ const CreatePage = ({ status, toggleStatus }) => {
 
   return (
     <>
-      {status.userinfo.status === -1 ? (
+      {loading || creating ? (
+        <Loader />
+      ) : status.userinfo.status === -1 ? (
         <div className="create__alert">
           Login as sommelier to create a winelist
         </div>
@@ -325,8 +364,6 @@ const CreatePage = ({ status, toggleStatus }) => {
         <div className="create__alert">
           Get verified as sommelier to create a winelist
         </div>
-      ) : creating ? (
-        <Loader />
       ) : (
         <div className="create">
           <div className="create__header">Create Winelist</div>
@@ -370,7 +407,7 @@ const CreatePage = ({ status, toggleStatus }) => {
             ></input>
           </div>
           <div className="create__selectCont">
-            {loading ? <Loader /> : <>{displaySearchedWines()}</>}
+            {wineLoading ? <Loader /> : <>{displaySearchedWines()}</>}
           </div>
 
           <div className="create__subtitle">Tags</div>

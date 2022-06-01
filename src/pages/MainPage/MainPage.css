@@ -7,3 +7,33 @@
   margin-top: 0;
   background-color: var(--bg-20);
 }
+
+.main__icon {
+  border-radius: 10rem;
+  padding: 1rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.3rem solid black;
+  margin-top: 1rem;
+}
+
+.main > .main__icon > svg {
+  font-size: 4rem;
+  margin-top: -0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.main__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.main__message {
+  text-align: center;
+  line-height: 1rem;
+  margin-top: 0.5rem;
+}
