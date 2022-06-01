@@ -104,13 +104,18 @@ const ListDetailPage = ({ status, setStatus }) => {
       ) : (
         <div className="wineListDetail">
           <div className="wineListDetail__firstCont">
-            <div className="wineListDetail__titleCont">
+            <div className="wineListDetail__firstContCont">
               <div className="wineListDetail__title">{list.title}</div>
-
-              <div className="wineListDetail__tagCont">
-                {displayTags(list.tags, "listButton")}
+              <div
+                className={
+                  likeStatus
+                    ? "wineListDetail__like wineListDetail__like--filled"
+                    : "wineListDetail__like"
+                }
+                onClick={onLikeClick}
+              >
+                ❤
               </div>
-              <div className="wineListDetail__subTitle">{list.content}</div>
             </div>
             <div className="wineListDetail__secondCont">
               <div className="wineList__profile">
@@ -123,16 +128,12 @@ const ListDetailPage = ({ status, setStatus }) => {
                   </div>
                 </div>
               </div>
-              <div
-                className={
-                  likeStatus
-                    ? "wineListDetail__like wineListDetail__like--filled"
-                    : "wineListDetail__like"
-                }
-                onClick={onLikeClick}
-              >
-                ❤
+            </div>
+            <div className="wineListDetail__titleCont">
+              <div className="wineListDetail__tagCont">
+                {displayTags(list.tags, "listButton")}
               </div>
+              <div className="wineListDetail__subTitle">{list.content}</div>
             </div>
           </div>
           <Carousel images={list.images} curPage={curPage} wines={list.wines} />

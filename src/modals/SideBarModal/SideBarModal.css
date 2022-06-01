@@ -87,6 +87,11 @@
   flex-direction: column;
 }
 
+.sidebar__status_for_login {
+  display: flex;
+  align-items: center;
+}
+
 .sidebar__status > a {
   color: var(--bg-0);
 }
@@ -115,6 +120,10 @@
 .sidebar__menu {
   justify-content: space-around;
   margin: 1.5rem;
+}
+
+.sidebar__section > a {
+  color: white;
 }
 
 .sidebar__title {

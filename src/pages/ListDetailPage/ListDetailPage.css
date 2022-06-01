@@ -20,7 +20,12 @@
 
 .wineListDetail__firstCont {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+}
+
+.wineListDetail__firstContCont {
+  display: flex;
 }
 
 .wineListDetail__secondCont {
@@ -31,6 +36,9 @@
 
 .wineListDetail__secondCont .wineList__profile {
   text-align: right;
+  background: none;
+  margin-top: -1rem;
+  margin-bottom: 3rem;
 }
 
 .wineListDetail__titleCont .tag {
@@ -63,9 +71,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  width: 36px;
+  min-width: 36px;
   height: 36px;
   border-radius: 30px;
   background-color: var(--bg-100);
