@@ -175,15 +175,22 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               }}
             >
               <Link to={`/profile/${status.userID}`}>
-                <img
-                  className="sidebar__profile__img"
-                  src={status.userinfo.profileImage}
-                />
+                <div className="sidebar__userinfo">
+                  <img
+                    className="sidebar__profile__img"
+                    src={status.userinfo.profileImage}
+                  />
+                  <div className="sidebar__user">
+                    <div className="sidebar__status">
+                      <div className="sidebar__username">
+                        {status.userinfo.username}
+                      </div>
+                      <div className="sidebar__statusLabel">(sommelier)</div>
+                    </div>
+                    <BsPatchCheckFill className="sidebar__icon" />
+                  </div>
+                </div>
               </Link>
-              <Link to={`/profile/${status.userID}`}>
-                <div className="sidebar__name">{status.userinfo.username}</div>{" "}
-              </Link>
-              <BsPatchCheckFill className="sidebar__icon" />
             </div>
             <BsXLg
               className="sidebar__close"
@@ -215,15 +222,22 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
               }}
             >
               <Link to={`/profile/${status.userID}`}>
-                <img
-                  className="sidebar__profile__img"
-                  src={status.userinfo.profileImage}
-                />
+                <div className="sidebar__userinfo">
+                  <img
+                    className="sidebar__profile__img"
+                    src={status.userinfo.profileImage}
+                  />
+                  <div className="sidebar__user">
+                    <div className="sidebar__status">
+                      <div className="sidebar__username">
+                        {status.userinfo.username}
+                      </div>
+                      <div className="sidebar__statusLabel">(admin)</div>
+                    </div>
+                    <MdSettings className="sidebar__icon" />
+                  </div>
+                </div>
               </Link>
-              <Link to={`/profile/${status.userID}`}>
-                <div className="sidebar__name">{status.userinfo.username}</div>{" "}
-              </Link>
-              <MdSettings className="sidebar__icon" />
             </div>
 
             <BsXLg

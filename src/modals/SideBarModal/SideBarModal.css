@@ -46,7 +46,19 @@
   border-radius: 30px;
   margin-right: 0.5rem;
 }
-.sidebar__name {
+
+.sidebar__user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--bg-0);
+}
+
+.sidebar__userinfo {
+  display: flex;
+}
+
+.sidebar__username {
   color: var(--primary);
   font-weight: bold;
   font-size: 1.5rem;
@@ -72,6 +84,7 @@
 .sidebar__status {
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 .sidebar__status > a {
