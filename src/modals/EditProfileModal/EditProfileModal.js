@@ -169,7 +169,7 @@ const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
         setStatus({
           ...status,
           editProfileModal: !status.editProfileModal,
-          filterApplyClicked: !status.filterApplyClicked,
+          editprofileSubmit: !status.editprofileSubmit,
         });
 
         setSearch("");
