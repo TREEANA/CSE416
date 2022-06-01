@@ -20,3 +20,8 @@
 .modalBackground--inactive {
   display: none;
 }
+
+.pageDoesNotExist {
+  display: flex;
+  align-items: center;
+}

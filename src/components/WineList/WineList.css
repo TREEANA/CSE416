@@ -5,7 +5,9 @@
 .wineList__title:hover,
 .wineList__leftArrow:hover,
 .wineList__rightArrow:hover,
-.wineList__pages > *:hover {
+.wineList__pages > *:hover,
+.wineList__bgCont--wine:hover,
+.wineList__bgCont--main:hover {
   cursor: pointer;
 }
 

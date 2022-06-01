@@ -254,6 +254,12 @@ const App = () => {
 
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/verifysomm" element={<VerifyPage status={status} />} />
+          <Route
+            path="*"
+            element={
+              <div className="pageDoesNotExist">Page does not exist</div>
+            }
+          />
         </Routes>
       </div>
       <Footer />
