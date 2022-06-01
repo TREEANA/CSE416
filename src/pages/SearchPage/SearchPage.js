@@ -149,19 +149,20 @@ const SearchPage = ({ status, toggleStatus, setStatus }) => {
         <div className="winePage__text">search results for</div>
         <div className="winePage__title">{formatKeyword(keyword)}</div>
       </div>
-      <div className="winePage__btnCont">
+      <hr className="winePage__hrTitle"></hr>
+      {/* <div className="winePage__btnCont">
         <button className="winePage__filter" onClick={toggleFilterModal}>
           filter
         </button>
         <button className="winePage__sort" onClick={toggleSortModal}>
           sort
         </button>
-      </div>
+      </div> */}
       {loading ? (
         <Loader />
       ) : (
         <>
-          <div className="winePage__subtitle">Wines</div>
+          <div className="winePage__subtitle--first">Wines</div>
           {wines.length === 0 && !loading ? (
             <>
               <div className="winePage__noMatchWines">No matching wines</div>
@@ -176,7 +177,9 @@ const SearchPage = ({ status, toggleStatus, setStatus }) => {
               <hr className="winePage__hr"></hr>
             </>
           )}
-          <div className="winePage__subtitle">Winelists</div>
+          <div className="winePage__subtitle winePage__subtitle--first">
+            Winelists
+          </div>
           {lists.length === 0 && !loading ? (
             <>
               <div className="winePage__noMatchLists">
@@ -192,11 +195,18 @@ const SearchPage = ({ status, toggleStatus, setStatus }) => {
               </Link>
             </>
           )}
-          <FilterModal
-            toggleFilterModal={toggleFilterModal}
-            filterModal={filterModal}
+          {/* <FilterModal
+            // toggleFilterModal={toggleFilterModal}
+            // filterModal={filterModal}
+            status={status}
+            setStatus={setStatus}
           />
-          <SortModal sortModal={sortModal} toggleSortModal={toggleSortModal} />
+          <SortModal
+            sortModal={sortModal}
+            toggleSortModal={toggleSortModal}
+            status={status}
+            setStatus={setStatus}
+          /> */}
         </>
       )}
     </div>
