@@ -191,14 +191,18 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     } else if (step === 2) {
       return (
         <div className="becomesommlier__section3">
+          <div className="becomesommlier__section3_font">
+            Submission complete!<br></br>
+            The rsult will be notified in 2-3 businness days
+          </div>
+
           <div
-            className="becomesommlier__section3_font"
+            className="becomesommlier__history"
             onClick={() => {
               close();
             }}
           >
-            Submission complete!<br></br>
-            The rsult will be notified in 2-3 businness days
+            Back to apply
           </div>
         </div>
       );
@@ -259,14 +263,14 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     <>
       <div
         className={
-          applyModalStatus ? "becomesommlier" : "becomesommlier--inactive"
+          applyModalStatus ? "applysommlier" : "becomesommlier--inactive"
         }
       >
-        <div className="becomesommlier__container">
+        <div className="applysommlier_container">
           <div className="becomesommlier__header">
             <div className="becomesommlier__header__title">become sommlier</div>
             <BsXLg
-              className="becomesommlier__top-close"
+              className="apply__top-close"
               onClick={() => {
                 toggleApplyModal(), close(), setDescription("");
                 setTempImage("");
@@ -274,7 +278,7 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
               }}
             />
           </div>
-          <div className="becomesommlier_body">{getPagebystep()}</div>
+          <div className="applysommlier_body">{getPagebystep()}</div>
         </div>
       </div>
     </>
