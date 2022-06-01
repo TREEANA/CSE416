@@ -214,12 +214,9 @@ import "./CommentPage.css";
 
 import { BsPlus, BsReplyFill } from "react-icons/bs";
 
-// import Tag from "../../components/Tag/Tag";
-
 const CommentPage = ({
   status,
   toggleStatus,
-  setStatus,
   //status data 자체는 app.js 에서 받아옴
 }) => {
   //comment에 있는 userID 바탕으로 userInfo가져오기 (username, status, isDeleted?)
