@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { BsCircleFill, BsCircle } from "react-icons/bs";
@@ -7,6 +7,7 @@ import { BsCircleFill, BsCircle } from "react-icons/bs";
 import "./WineList.css";
 
 const WineList = ({ wineList, status, setStatus }) => {
+  const navigate = useNavigate();
   const [likeStatus, setLikeStatus] = useState(false);
   useEffect(() => {
     status !== undefined
@@ -39,6 +40,10 @@ const WineList = ({ wineList, status, setStatus }) => {
     }
   };
   const onLikeClick = async () => {
+    if (status.userinfo.status === -1) {
+      alert("Please login to like the winelist");
+      return;
+    }
     setLikeStatus(!likeStatus);
     const res = await axios.post(
       `/api/users/${status.userID}/like-winelist?winelistID=${wineList.winelistID}`
@@ -51,6 +56,11 @@ const WineList = ({ wineList, status, setStatus }) => {
         likedWinelists: res.data.likedWinelists,
       },
     });
+  };
+
+  const onImageClick = () => {
+    console.log("onImageClick");
+    navigate("/list/" + wineList.winelistID);
   };
 
   const displayPageButton = () => {
@@ -67,13 +77,13 @@ const WineList = ({ wineList, status, setStatus }) => {
   const displayImages = () => {
     const result = [];
     result.push(
-      <div className="wineList__bgCont--main">
+      <div className="wineList__bgCont--main" onClick={onImageClick}>
         <img src={wineList.thumbnailImage} />
       </div>
     );
     wineList.wines.forEach((each, i) => {
       result.push(
-        <div className="wineList__bgCont--wine">
+        <div className="wineList__bgCont--wine" onClick={onImageClick}>
           <img src={each.images[0]} />
         </div>
       );

@@ -125,7 +125,12 @@ const CreatePage = ({ status, toggleStatus }) => {
 
   const onSearchedWineClick = (wine) => (e) => {
     const tempWines = [...newList.wines];
+    if (tempWines.find((each) => each.wineID === wine.wineID) !== undefined) {
+      alert("The wine is already selected");
+      return;
+    }
     tempWines.push({ ...wine, sommelierComment: "" });
+    console.log(tempWines);
     setNewList({
       ...newList,
       wines: tempWines,
@@ -147,8 +152,8 @@ const CreatePage = ({ status, toggleStatus }) => {
       }),
     };
     const formData = new FormData();
-    formData.append("api_key", 673363115651154);
-    formData.append("upload_preset", "ibgzg33i");
+    formData.append("api_key", process.env.REACT_APP_IMAGE_API_KEY);
+    formData.append("upload_preset", process.env.REACT_APP_IMAGE_UPLOAD_PRESET);
     formData.append("timestamp", (Date.now() / 1000) | 0);
     formData.append("file", tempFile);
 
@@ -180,6 +185,30 @@ const CreatePage = ({ status, toggleStatus }) => {
 
   const onImgInputBtnClick = () => {
     imageInput.current.click();
+  };
+
+  const onKeyPress = (e) => {
+    if (e.key === "Enter" && search.tagKeyword !== "") {
+      const formattedTag = search.tagKeyword.toLowerCase();
+      let temp;
+      for (let each in tags) {
+        if (
+          each.toLowerCase().indexOf(formattedTag) === 0 &&
+          tags[each] === false
+        ) {
+          temp = each;
+          break;
+        }
+      }
+      if (temp === undefined) {
+        return;
+      }
+      setTags({ ...tags, [temp]: true });
+      setSearch({ ...search, tagKeyword: "" });
+      const tempTags = newList.tags.slice();
+      tempTags.push(temp);
+      setNewList({ ...newList, tags: tempTags });
+    }
   };
 
   const displaySelectedTags = () => {
@@ -219,13 +248,15 @@ const CreatePage = ({ status, toggleStatus }) => {
       }
     } else {
       for (let each in tags) {
-        result.push(
-          <Tag
-            type="selected"
-            txt={each}
-            onClick={onTagClick.bind({ txt: each })}
-          />
-        );
+        if (!tags[each]) {
+          result.push(
+            <Tag
+              type="selected"
+              txt={each}
+              onClick={onTagClick.bind({ txt: each })}
+            />
+          );
+        }
       }
     }
     return result;
@@ -286,7 +317,15 @@ const CreatePage = ({ status, toggleStatus }) => {
 
   return (
     <>
-      {creating ? (
+      {status.userinfo.status === -1 ? (
+        <div className="create__alert">
+          Login as sommelier to create a winelist
+        </div>
+      ) : status.userinfo.status === 0 ? (
+        <div className="create__alert">
+          Get verified as sommelier to create a winelist
+        </div>
+      ) : creating ? (
         <Loader />
       ) : (
         <div className="create">
@@ -343,6 +382,7 @@ const CreatePage = ({ status, toggleStatus }) => {
               placeholder="search tags"
               value={search.tagKeyword}
               onChange={onSearchChange}
+              onKeyPress={onKeyPress}
             />
           </div>
           <div className="create__tag">

@@ -45,7 +45,7 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
   useEffect(() => {
     setLoading(true);
     getUserdata();
-  }, [userID, status]);
+  }, [userID, status, isFollowd]);
 
   useEffect(() => {
     checkfollow();

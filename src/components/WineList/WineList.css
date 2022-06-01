@@ -5,7 +5,9 @@
 .wineList__title:hover,
 .wineList__leftArrow:hover,
 .wineList__rightArrow:hover,
-.wineList__pages > *:hover {
+.wineList__pages > *:hover,
+.wineList__bgCont--wine:hover,
+.wineList__bgCont--main:hover {
   cursor: pointer;
 }
 
@@ -80,6 +82,7 @@
 .wineList__bgCont--wine {
   width: inherit;
   height: inherit;
+  background: white;
 }
 
 .wineList__bgCont--wine {
@@ -135,7 +138,7 @@
 
 .wineList__profileTxt,
 .wineList__profileTxt > a {
-  color: var(--bg-0);
+  color: black;
 }
 
 .wineList__name {

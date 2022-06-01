@@ -23,10 +23,29 @@
   justify-content: space-between;
 }
 
+.wineListDetail__titleCont .tag {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
 .wineListDetail__title {
   font-size: 1.5rem;
   color: var(--primary);
   font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.wineListDetail__tagCont {
+  width: 100%;
+}
+
+.wineListDetail__tagCont .tag {
+  margin-top: 0rem;
+}
+
+.wineListDetail__subTitle {
+  margin-bottom: 3rem;
+  margin-left: 0.3rem;
 }
 
 .wineListDetail__like {

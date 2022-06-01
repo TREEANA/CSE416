@@ -9,11 +9,10 @@ import Loader from "../../components/Loader/Loader";
 // RegisterModal
 const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
   const [userName, setUserName] = useState("");
-  const [isavailable, setAvailable] = useState(false);
+  const [isavailable, setAvailable] = useState(true);
   const [valueSearch, setSearch] = useState("");
   const [list, setList] = useState({});
   const [loading, setLoading] = useState(false);
-
   const [currentname, setcurrentname] = useState("");
 
   const fetchTags = async () => {
@@ -118,6 +117,7 @@ const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
   };
 
   const onNameChange = async (e) => {
+    setUserName(e.target.value);
     try {
       const res = await axios.get(
         `/api/users/username-duplicate-check?username=${e.target.value}`
@@ -128,7 +128,6 @@ const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
         } else {
           setAvailable(!res.data.duplicate);
         }
-        setUserName(e.target.value);
       }
     } catch (err) {
       console.log(err);
@@ -212,8 +211,11 @@ const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
                     </div>
                     <input
                       className="register__name"
-                      placeholder={userName}
-                      onChange={onNameChange}
+                      placeholder="UserName"
+                      value={userName}
+                      onChange={(e) => {
+                        onNameChange(e);
+                      }}
                     ></input>
                     <div className="register__name-warning">
                       {isavailable

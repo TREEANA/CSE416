@@ -71,6 +71,7 @@ const App = () => {
     valuePrice: [23000, 128000],
     valueRate: 0,
     tagsForfilter: [],
+    exchangeRate: 1246,
   });
 
   useEffect(async () => {
@@ -97,7 +98,7 @@ const App = () => {
     }
   };
   useEffect(() => {
-    fetchCurrency();
+    // fetchCurrency();
   }, []);
   const handleStatus = (name, value) => {
     setStatus({
@@ -131,7 +132,7 @@ const App = () => {
       <TicketAdminModal
         status={status}
         toggleStatus={toggleStatus}
-        // setStatus={setStatus}
+        // setStatus={setStaㅌtus}
       ></TicketAdminModal>
 
       <ApplyModal
@@ -144,6 +145,8 @@ const App = () => {
         commentModalStatus={status.commentModal}
         togglecommentModal={() => toggleStatus("commentModal")}
       ></CommentModal> */}
+
+
       {/* <LoginModal status={status} toggleStatus={toggleStatus}></LoginModal>
        */}
       <SearchBarModal
@@ -225,7 +228,13 @@ const App = () => {
           />
           <Route
             path="/lists/:keyword"
-            element={<ListPage status={status} toggleStatus={toggleStatus} />}
+            element={
+              <ListPage
+                status={status}
+                toggleStatus={toggleStatus}
+                setStatus={setStatus}
+              />
+            }
           />
           <Route
             path="/wines/:theme"
@@ -258,6 +267,12 @@ const App = () => {
 
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/verifysomm" element={<VerifyPage status={status} />} />
+          <Route
+            path="*"
+            element={
+              <div className="pageDoesNotExist">Page does not exist</div>
+            }
+          />
         </Routes>
       </div>
       <Footer />

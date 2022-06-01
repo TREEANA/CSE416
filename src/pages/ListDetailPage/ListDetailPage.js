@@ -55,13 +55,17 @@ const ListDetailPage = ({ status, setStatus }) => {
     });
   };
 
-  const displayTags = () => {
+  const displayTags = (tags, type = "wineButton") => {
     const result = [];
-    list.wines[curPage].tags.forEach((each, i) => {
-      if (i < 3)
-        result.push(<Tag type="wineButton" isFilled={true} txt={each} />);
-      else result.push(<Tag type="wineButton" isFilled={false} txt={each} />);
-    });
+    if (type === "wineButton") {
+      tags.forEach((each, i) => {
+        result.push(<Tag type={type} isFilled={false} txt={each} />);
+      });
+    } else {
+      tags.forEach((each, i) => {
+        result.push(<Tag type={type} isFilled={true} txt={each} />);
+      });
+    }
     return result;
   };
 
@@ -105,6 +109,9 @@ const ListDetailPage = ({ status, setStatus }) => {
           <div className="wineListDetail__firstCont">
             <div className="wineListDetail__titleCont">
               <div className="wineListDetail__title">{list.title}</div>
+              <div className="wineListDetail__tagCont">
+                {displayTags(list.tags, "listButton")}
+              </div>
               <div className="wineListDetail__subTitle">{list.content}</div>
             </div>
             <div
@@ -145,7 +152,9 @@ const ListDetailPage = ({ status, setStatus }) => {
             </div>
           </div>
           <div className="wineListDetail__detail">
-            <div className="wineListDetail__tags">{displayTags()}</div>
+            <div className="wineListDetail__tags">
+              {displayTags(list.wines[curPage].tags)}
+            </div>
             <div className="wineListDetail__rate">{`★${list.wines[curPage].rating}`}</div>
             <div className="wineListDetail__price">
               {formatPrice(list.wines[curPage].price)}

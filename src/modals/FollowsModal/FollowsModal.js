@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import "./FollowsModal.css";
 import ReactPaginate from "react-paginate";
+import { BsArrowLeft, BsSearch } from "react-icons/bs";
 const FollowsModal = ({ status, setStatus, userID, username }) => {
   const itemsPerPage = 5;
   const [currentItems, setCurrentItems] = useState([]);
@@ -184,10 +185,7 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
           >
             <div className="becomesommlier__container">
               <div className="becomesommlier__header">
-                <div className="becomesommlier__header__title">
-                  Your's Followers
-                </div>
-                <BsXLg
+                <BsArrowLeft
                   className="becomesommlier__top-close"
                   onClick={() => {
                     setStatus({
@@ -196,6 +194,9 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
                     });
                   }}
                 />
+                <div className="becomesommlier__header__title">
+                  Your's Followers
+                </div>
               </div>
 
               {loading ? (
@@ -212,7 +213,7 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
                       onPageChange={handlePageClick}
                       pageRangeDisplayed={5}
                       pageCount={pageCount}
-                      previousLabel="< previous"
+                      previousLabel="< prev"
                       renderOnZeroPageCount={null}
                     />
                   </div>
@@ -233,10 +234,7 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
           >
             <div className="becomesommlier__container">
               <div className="becomesommlier__header">
-                <div className="becomesommlier__header__title">
-                  {username}'s Followers
-                </div>
-                <BsXLg
+                <BsArrowLeft
                   className="becomesommlier__top-close"
                   onClick={() => {
                     setStatus({
@@ -245,6 +243,10 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
                     });
                   }}
                 />
+
+                <div className="becomesommlier__header__title">
+                  {username}'s Followers
+                </div>
               </div>
 
               {loading ? (
@@ -261,7 +263,7 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
                       onPageChange={handlePageClick}
                       pageRangeDisplayed={5}
                       pageCount={pageCount}
-                      previousLabel="< previous"
+                      previousLabel="< prev"
                       renderOnZeroPageCount={null}
                     />
                   </div>

@@ -28,6 +28,11 @@ textarea::-webkit-scrollbar {
   margin: var(--margin-out);
 }
 
+.create__alert {
+  display: flex;
+  align-items: center;
+}
+
 .create__header {
   font-size: var(--size-title);
   font-weight: bold;

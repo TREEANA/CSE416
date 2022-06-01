@@ -78,7 +78,7 @@ li {
 }
 
 .profile__editporfile {
-  width: 90%;
+  width: 100%;
   margin-left: var(--margin-out);
   display: flex;
   justify-content: center;
@@ -117,6 +117,9 @@ li {
 }
 
 .profile__selected {
+  border-left: 1px solid var(--primary);
+  border-right: 1px solid var(--primary);
+  border-top: 1px solid var(--primary);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,21 +128,21 @@ li {
   font-size: 1.5rem;
   height: 1rem;
   width: 100%;
-  border: 1px solid;
   border-color: var(--primary);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  border-style: none;
   font-size: 1.5rem;
   padding: 1rem 0rem;
 }
 .profile__unselected {
+  border-left: 1px solid var(--primary);
+  border-right: 1px solid var(--primary);
+  border-top: 1px solid var(--primary);
   color: var(--bg-0);
   font-size: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid;
   background-color: var(--primary);
   color: var(--bg-0);
   font-size: 1.5rem;
@@ -148,7 +151,6 @@ li {
   border-color: var(--primary);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  border-style: none;
   font-size: 1.5rem;
   padding: 1rem 0rem;
 }
@@ -157,14 +159,14 @@ li {
   border-bottom: 1px solid;
   border-left: 1px solid;
   border-right: 1px solid;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  /* border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px; */
   border-left-color: var(--primary);
   border-bottom-color: var(--primary);
   border-right-color: var(--primary);
   border-top-color: transparent;
   background-color: transparent;
-  width: 100%;
+  width: 99.5%;
 }
 
 .gallery {
@@ -181,7 +183,6 @@ li {
   width: 33%;
   padding-bottom: 33%;
   overflow: hidden;
-  margin-bottom: 0.7%;
 }
 
 .gallery__imageCont > a {
