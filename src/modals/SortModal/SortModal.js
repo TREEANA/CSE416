@@ -96,6 +96,7 @@ const SortModal = ({ status, setStatus }) => {
                 ...status,
                 sortModal: !status.sortModal,
                 sortOrder: sortMethod,
+                sortApplyClicked: !status.sortApplyClicked,
               });
             }}
           >

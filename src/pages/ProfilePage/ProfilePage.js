@@ -44,12 +44,20 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
 
   useEffect(() => {
     setLoading(true);
-    getUserdata();
-  }, [userID, status, isFollowd]);
-
-  useEffect(() => {
     checkfollow();
-  }, [userID]);
+    getUserdata();
+  }, [
+    userID,
+    status.searchBarXClicked,
+    status.editprofileSubmit,
+    status.followersbackclick,
+    status.followingbackclick,
+    isFollowd,
+  ]);
+
+  // useEffect(() => {
+  //   checkfollow();
+  // }, [userID]);
 
   const displaylikes = () => {
     console.log("보자", likesList);
@@ -428,7 +436,7 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
               <div
                 className="profile__editporfile"
                 onClick={() => {
-                  toggleStatus("EditProfileModal");
+                  toggleStatus("editProfileModal");
                 }}
               >
                 Edit Profile

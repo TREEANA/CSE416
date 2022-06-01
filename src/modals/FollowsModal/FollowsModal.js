@@ -191,6 +191,7 @@ const FollowsModal = ({ status, setStatus, userID, username }) => {
                     setStatus({
                       ...status,
                       followsModal: !status.followsModal,
+                      followersbackclick: !status.followersbackclick,
                     });
                   }}
                 />

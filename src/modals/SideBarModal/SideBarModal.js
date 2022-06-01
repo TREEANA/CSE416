@@ -95,7 +95,6 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
   };
 
   const displayUser = () => {
-    console.log(process.env.REACT_APP_GOOGLE_LOGIN_API_KEY);
     if (status.userinfo.status === -1)
       return (
         <div className="sidebar__login">

@@ -10,6 +10,7 @@ import "./SearchBarModal.css";
 
 const SearchBarModal = ({
   status,
+  setStatus,
   toggleSearchBarModal,
   searchBarModalStatus,
 }) => {
@@ -20,7 +21,21 @@ const SearchBarModal = ({
   const [clickFollowers, setClickFollowers] = useState(true);
   const [valueSearch, setSearch] = useState("");
 
+  const onCloseFollow = () => {
+    setFollowering([]);
+    setFollowers([]);
+    setMatchingLists([]);
+    setStatus({
+      ...status,
+      searchBarModal: !status.searchBarModal,
+      searchBarXClicked: !status.searchBarXClicked,
+    });
+    setSearch("");
+  };
+
   const onValueSearchChange = async (e) => {
+    setSearch(e.target.value);
+
     if (source.current !== null) {
       source.current.cancel();
     }
@@ -34,7 +49,6 @@ const SearchBarModal = ({
         }
       );
       setLoading(false);
-      setSearch(e.target.value);
       const newmatching = res.data;
       const newmatchinglist = [];
       for (let i = 0; i < newmatching.length; i++) {
@@ -271,7 +285,7 @@ const SearchBarModal = ({
       result.push(
         <div className="search__profile__container">
           <Link to={`/profile/${each.userID}`}>
-            <div className="search__profile" onClick={toggleSearchBarModal}>
+            <div className="search__profile" onClick={onCloseFollow}>
               <div className="search__image">
                 <img className="search__image" src={each.profileImage} />
               </div>
@@ -393,6 +407,7 @@ const SearchBarModal = ({
     setMatchingWines([]);
     setMatchingLists([]);
   };
+
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
       navigate(`/search/${searchWines}`);
@@ -510,10 +525,13 @@ const SearchBarModal = ({
               <input
                 className="search__text-input"
                 placeholder="find new people"
-                onChange={onValueSearchChange}
+                onChange={(e) => {
+                  onValueSearchChange(e);
+                }}
+                value={valueSearch}
               ></input>
             </div>
-            <BsXLg className="search__close" onClick={toggleSearchBarModal} />
+            <BsXLg className="search__close" onClick={onCloseFollow} />
           </div>
           <div className="search__result">
             <div className="search__result-wine">
