@@ -54,7 +54,7 @@ const VerifyPage = ({ status }) => {
     return result;
   };
 
-  return (
+  return status.userinfo.status === 2 ? (
     <>
       <div className="verifypage">
         <div className="verifypage__title"> Verify Sommelier </div>
@@ -126,6 +126,10 @@ const VerifyPage = ({ status }) => {
         </div>
       </div>
     </>
+  ) : (
+    <div>
+      Oops, you are not approved for this page, sorry for inconvenience!
+    </div>
   );
 };
 
