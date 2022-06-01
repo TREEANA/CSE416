@@ -41,13 +41,13 @@ const MainPage = ({ status, setStatus }) => {
 
   useEffect(async () => {
     setLoading(true);
-    const listLen = await fetchLists();
+    await fetchLists();
     setLoading(false);
   }, []);
 
   useEffect(async () => {
     setLoading(true);
-    const listLen = await fetchLists();
+    await fetchLists();
     setLoading(false);
   }, [page, status.userinfo]);
 
