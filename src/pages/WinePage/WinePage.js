@@ -145,7 +145,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
 
   useEffect(() => {
     fetchWines(false, 1);
-  }, [status.filterApplyClicked]);
+  }, [status.filterApplyClicked, status.sortApplyClicked]);
 
   return (
     <div className="winePage">

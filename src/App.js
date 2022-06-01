@@ -72,7 +72,11 @@ const App = () => {
     valuePrice: [0, 20000000],
     valueRate: 0,
     filterApplyClicked: true,
+    sortApplyClicked: true,
     tagsForfilter: [],
+    searchBarXClicked: true,
+    editprofileSubmit: true,
+    followersbackclick: true,
     exchangeRate: 1246,
   });
 

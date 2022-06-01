@@ -28,7 +28,7 @@ const SearchBarModal = ({
     setStatus({
       ...status,
       searchBarModal: !status.searchBarModal,
-      filterApplyClicked: !status.filterApplyClicked,
+      searchBarXClicked: !status.searchBarXClicked,
     });
     setSearch("");
   };
