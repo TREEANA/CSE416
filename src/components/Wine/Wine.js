@@ -278,79 +278,53 @@ const Wine = ({ type = "component", status, wine }) => {
     return wine.grape.map((each, index) => <div>{each}</div>);
   };
 
-  return (
-    // <div className={type === "component" ? "wine" : "wine--recomm"}>
-    //   <div
-    //     className={type === "component" ? "wine__image" : "wine__image--recomm"}
-    //   >
-    //     <img src={wine.images[0]}></img>
-    //   </div>
-    //   <div className="wine__detail">
-    //     <div className="wine__nameTitle">
-    //       <Link to={`/wine/${wine.wineID}`}>{wine.name}</Link>
-    //     </div>
-    //     <div className="wine__grapeTitle">{formatGrape()}</div>
-    //     <div className="wine__tags">
-    //       {wine.tags.slice(0, 5).map((tag, index) => (
-    //         <Tag type="wineButton" txt={tag} key={index} />
-    //       ))}
-    //     </div>
-    //     <div className="wine__rate">
-    //       <StarIcon sx={{ fontSize: 40 }} />
-    //       {wine.rating.toFixed(1)}
-    //     </div>
-    //     <div className="wine__price">{formatPrice()}</div>
-    //   </div>
-    // </div>
-    // <>{showWine()}</>
-    type === "component" ? (
-      <div className="wine">
-        <div className={"wine__image"}>
-          <img src={wine.images[0]}></img>
+  return type === "component" ? (
+    <div className="wine">
+      <div className={"wine__image"}>
+        <img src={wine.images[0]}></img>
+      </div>
+      <div className="wine__detail">
+        <div className="wine__nameTitle">
+          <Link to={`/wine/${wine.wineID}`}>{wine.name}</Link>
         </div>
-        <div className="wine__detail">
-          <div className="wine__nameTitle">
-            <Link to={`/wine/${wine.wineID}`}>{wine.name}</Link>
+        <div className="wine__grapeTitle">{formatGrape()}</div>
+        <div className="wine__tags">
+          {wine.tags.slice(0, 5).map((tag, index) => (
+            <Tag type="wineButton" txt={tag} key={index} />
+          ))}
+        </div>
+        <div className="wine__rate">
+          <StarIcon sx={{ fontSize: 40 }} />
+          {wine.rating.toFixed(1)}
+        </div>
+        <div className="wine__price">{formatPrice()}</div>
+      </div>
+    </div>
+  ) : (
+    <div className="wine--recomm">
+      <div className="wine__image--recomm">
+        <img src={wine.images[0]}></img>
+        <div className="wine__price--recomm">{formatPrice()}</div>
+      </div>
+      <div className="wine__detail--recomm">
+        <div className="wine__nameTitle--recomm">
+          <Link to={`/wine/${wine.wineID}`}>{wine.name}</Link>
+          <div className="wine__rate--recomm">
+            <StarIcon sx={{ fontSize: 30 }} />
+            {wine.rating.toFixed(1)}
           </div>
-          <div className="wine__grapeTitle">{formatGrape()}</div>
-          <div className="wine__tags">
+        </div>
+        <div className="wine__grapeTitle--recomm"> Grape : {formatGrape()}</div>
+        <div className="wine__specific--recomm">
+          <div className="wine__tags--recomm">
             {wine.tags.slice(0, 5).map((tag, index) => (
               <Tag type="wineButton" txt={tag} key={index} />
             ))}
           </div>
-          <div className="wine__rate">
-            <StarIcon sx={{ fontSize: 40 }} />
-            {wine.rating.toFixed(1)}
-          </div>
-          <div className="wine__price">{formatPrice()}</div>
         </div>
+        {/* <div className="wine__price--recomm">{formatPrice()}</div> */}
       </div>
-    ) : (
-      <div className="wine--recomm">
-        <div className="wine__image--recomm">
-          <img src={wine.images[0]}></img>
-          <div className="wine__price--recomm">{formatPrice()}</div>
-        </div>
-        <div className="wine__detail--recomm">
-          <div className="wine__nameTitle--recomm">
-            <Link to={`/wine/${wine.wineID}`}>{wine.name}</Link>
-            <div className="wine__rate--recomm">
-              <StarIcon sx={{ fontSize: 30 }} />
-              {wine.rating.toFixed(1)}
-            </div>
-          </div>
-          <div className="wine__grapeTitle--recomm">{formatGrape()}</div>
-          <div className="wine__specific--recomm">
-            <div className="wine__tags--recomm">
-              {wine.tags.slice(0, 5).map((tag, index) => (
-                <Tag type="wineButton" txt={tag} key={index} />
-              ))}
-            </div>
-          </div>
-          {/* <div className="wine__price--recomm">{formatPrice()}</div> */}
-        </div>
-      </div>
-    )
+    </div>
   );
 };
 

@@ -337,7 +337,41 @@ input[type="range"]:focus {
 
 .detail__abv,
 .detail__closure,
-.detail__foodpair,
-.detail__views {
+.detail__foodpair {
   font-size: 20px;
+}
+
+/* .detail__foodpair > b {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+} */
+
+.detail__foodpair > div {
+  display: flex;
+  align-items: flex-end;
+  font-weight: bold;
+}
+
+.detail__views,
+.detail__likes {
+  /* font-size: 25px;
+  font-weight: bold; */
+  font-size: 20px;
+  align-items: center;
+  display: flex;
+  margin: 5px 0;
+}
+
+.detail__views > svg,
+.detail__likes > svg {
+  margin: 0 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.detail__extrainfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }

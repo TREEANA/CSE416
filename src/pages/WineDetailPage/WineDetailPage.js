@@ -14,7 +14,7 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 
 import { BsFillPencilFill, BsHeartFill } from "react-icons/bs";
-import { GrView } from "react-icons/gr";
+import { GrView, GrLike } from "react-icons/gr";
 
 import "./WineDetailPage.css";
 
@@ -84,7 +84,13 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
 
   //grape 품종 (퍼센트와 품명) 대로 가져와서 display
   const formatGrape = () => {
-    return wine.grape.map((each, index) => <div>{each}</div>);
+    return wine.grape.map((each, index) => <div key={index}>{each}</div>);
+  };
+
+  const formatFoodPairing = () => {
+    return wine.foodPairings.map((each, index) => (
+      <div key={index}>{each}</div>
+    ));
   };
 
   //tags display
@@ -442,7 +448,9 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
                 {loading ? (
                   <Loader />
                 ) : (
-                  <div className="detail__grapeTitle">{formatGrape()}</div>
+                  <div className="detail__grapeTitle">
+                    Grape : {formatGrape()}
+                  </div>
                 )}
                 {loading ? (
                   <Loader />
@@ -453,22 +461,30 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
                   <StarIcon fontSize="40" /> {wine.rating.toFixed(1)}
                 </div>
                 <div className="detail__winePrice">{formatPrice()}</div>
-                <hr className="detail__hr" />
+                {/* <hr className="detail__hr" /> */}
+                {/* <div className="detail__extrainfo"> */}
                 <div className="detail__abv">
-                  <b>alcohol by volume (abv)</b> : {wine.abv}
+                  <b>abv</b> : {wine.abv} %
                 </div>
                 <div className="detail__closure">
                   <b>closure type :</b> {wine.bottleClosure}
                 </div>
                 <div className="detail__foodpair">
-                  <b>food pairings : </b>
-                  {wine.foodPairings}
+                  <div>food pairings :</div>
+                  {/* <br /> */}
                 </div>
+                <div>{formatFoodPairing()}</div>
                 <br />
-                <div className="detail__views">
-                  <GrView /> {wine.views}
+                <div className="detail__userViewLike">
+                  <div className="detail__views">
+                    <GrView /> viewed : <b> {wine.views}</b>
+                  </div>
+                  <div className="detail__likes">
+                    <GrLike /> liked : <b> {wine.likes}</b>
+                  </div>
                 </div>
               </div>
+              {/* </div> */}
             </div>
             <div className="detail__wineChar">
               <div className="detail__wineCharInd">
