@@ -74,6 +74,14 @@ const Ticket = ({ status, ticketData = ticketDummyData }) => {
     }
   };
 
+  const formatDateTime = (date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const hr = date.getHours().toString().padStart(2, "0");
+    const min = date.getMinutes().toString().padStart(2, "0");
+    return `${year}.${month}.${day} ${hr}:${min}`;
+  };
   const onChange = (e) => {
     const { value, name } = e.target;
     let tempNewTicket = {
@@ -107,6 +115,10 @@ const Ticket = ({ status, ticketData = ticketDummyData }) => {
       <div
         className={isOpen ? "ticket__box" : "ticket__box ticket__box--close"}
       >
+        <div className="ticket__time">
+          submitted at
+          <b> {formatDateTime(new Date(ticketData.lastUpdatedAt))}</b>
+        </div>
         <div className="ticket__question">
           <b>Q</b>
           <br />

@@ -109,6 +109,11 @@
   width: 24px;
 }
 
+.ticket__time {
+  margin-top: 50px;
+  color: var(--text-100);
+}
+
 .ticket__box {
   /* background-color: #f9ddd1; */
   background-color: rgba(249, 221, 209, 0.4);
@@ -164,7 +169,7 @@
   color: var(--text-100);
 }
 .ticket__question {
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 
 .ticket__question > b,
