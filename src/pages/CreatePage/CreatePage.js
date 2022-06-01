@@ -152,8 +152,8 @@ const CreatePage = ({ status, toggleStatus }) => {
       }),
     };
     const formData = new FormData();
-    formData.append("api_key", 673363115651154);
-    formData.append("upload_preset", "ibgzg33i");
+    formData.append("api_key", process.env.REACT_APP_IMAGE_API_KEY);
+    formData.append("upload_preset", process.env.REACT_APP_IMAGE_UPLOAD_PRESET);
     formData.append("timestamp", (Date.now() / 1000) | 0);
     formData.append("file", tempFile);
 
@@ -200,8 +200,14 @@ const CreatePage = ({ status, toggleStatus }) => {
           break;
         }
       }
+      if (temp === undefined) {
+        return;
+      }
       setTags({ ...tags, [temp]: true });
       setSearch({ ...search, tagKeyword: "" });
+      const tempTags = newList.tags.slice();
+      tempTags.push(temp);
+      setNewList({ ...newList, tags: tempTags });
     }
   };
 
@@ -242,13 +248,15 @@ const CreatePage = ({ status, toggleStatus }) => {
       }
     } else {
       for (let each in tags) {
-        result.push(
-          <Tag
-            type="selected"
-            txt={each}
-            onClick={onTagClick.bind({ txt: each })}
-          />
-        );
+        if (!tags[each]) {
+          result.push(
+            <Tag
+              type="selected"
+              txt={each}
+              onClick={onTagClick.bind({ txt: each })}
+            />
+          );
+        }
       }
     }
     return result;

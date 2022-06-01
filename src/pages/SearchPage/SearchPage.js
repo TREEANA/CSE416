@@ -149,7 +149,7 @@ const SearchPage = ({ status, toggleStatus, setStatus }) => {
         <div className="winePage__text">search results for</div>
         <div className="winePage__title">{formatKeyword(keyword)}</div>
       </div>
-      <hr className="winePage__hrTitle"></hr>
+      {/* <hr className="winePage__hrTitle"></hr> */}
       {/* <div className="winePage__btnCont">
         <button className="winePage__filter" onClick={toggleFilterModal}>
           filter

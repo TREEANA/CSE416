@@ -134,12 +134,12 @@ const ListPage = ({ status, toggleStatus, setStatus }) => {
         </div>
         {loading && page === 1 ? <Loader /> : <>{displayLists()}</>}
       </div>
-      <FilterModal
+      {/* <FilterModal
         // filterModal={status.filterModal}
         // toggleFilterModal={() => toggleStatus("filterModal")}
         status={status}
         setStatus={setStatus}
-      />
+      /> */}
     </>
   );
 };

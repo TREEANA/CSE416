@@ -71,6 +71,7 @@ const App = () => {
     valuePrice: [23000, 128000],
     valueRate: 0,
     tagsForfilter: [],
+    exchangeRate: 1246,
   });
 
   useEffect(async () => {
@@ -97,7 +98,7 @@ const App = () => {
     }
   };
   useEffect(() => {
-    fetchCurrency();
+    // fetchCurrency();
   }, []);
   const handleStatus = (name, value) => {
     setStatus({
@@ -128,11 +129,11 @@ const App = () => {
         // toggleTicketModal={() => toggleStatus("ticketModal")}
       ></TicketModal>
 
-      <TicketAdminModal
+      {/* <TicketAdminModal
         status={status}
         toggleStatus={toggleStatus}
         setStatus={setStatus}
-      ></TicketAdminModal>
+      ></TicketAdminModal> */}
 
       <ApplyModal
         status={status}

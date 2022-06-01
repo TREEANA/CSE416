@@ -59,8 +59,8 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     };
 
     const formData = new FormData();
-    formData.append("api_key", 673363115651154);
-    formData.append("upload_preset", "ibgzg33i");
+    formData.append("api_key", process.env.REACT_APP_IMAGE_API_KEY);
+    formData.append("upload_preset", process.env.REACT_APP_IMAGE_UPLOAD_PRESET);
     formData.append("timestamp", (Date.now() / 1000) | 0);
     formData.append("file", tempFile);
 
