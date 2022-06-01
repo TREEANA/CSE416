@@ -69,8 +69,9 @@ const App = () => {
     exchangeRate: 1000,
     editProfileModal: false,
     sortOrder: 0,
-    valuePrice: [23000, 128000],
+    valuePrice: [0, 20000000],
     valueRate: 0,
+    filterApplyClicked: true,
     tagsForfilter: [],
     exchangeRate: 1246,
   });

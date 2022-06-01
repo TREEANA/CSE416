@@ -47,7 +47,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
       setStatus({
         ...status,
         sortOrder: 0,
-        valuePrice: [23000, 128000],
+        valuePrice: [0, 20000000],
         valueRate: 0,
         tagsForfilter: newtags,
       });
@@ -97,7 +97,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
     const result = [];
     if (loading) return <></>;
     if (wines.length === 0)
-      return <div className="search__result-subtitle">No matching wines</div>;
+      return <div className="winePage__result-subtitle">No matching wines</div>;
     wines.forEach((each, index) => {
       wines.length - 1 == index
         ? result.push(
@@ -145,7 +145,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
 
   useEffect(() => {
     fetchWines(false, 1);
-  }, [status.filterModal, status.sortModal]);
+  }, [status.filterApplyClicked]);
 
   return (
     <div className="winePage">

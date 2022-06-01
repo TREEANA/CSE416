@@ -10,7 +10,7 @@ import { AlternateEmail } from "@mui/icons-material";
 const FilterModal = ({ status, setStatus }) => {
   console.log(status);
   // tag명과 status를 key, value로 준 객체를 생성
-  const [valuePrice, setValuePrice] = useState([23000, 128000]);
+  const [valuePrice, setValuePrice] = useState([0, 20000000]);
   const [valueRate, setValueRate] = useState(0);
   const [valueSearch, setSearch] = useState("");
   const [list, setList] = useState([]);
@@ -143,25 +143,21 @@ const FilterModal = ({ status, setStatus }) => {
       label: "0",
     },
     {
-      value: 40000,
-      label: "40000",
+      value: 5000000,
+      label: "5000000",
     },
     {
-      value: 70000,
-      label: "70000",
+      value: 10000000,
+      label: "10000000",
     },
     {
-      value: 100000,
-      label: "100000",
+      value: 15000000,
+      label: "15000000",
     },
 
     {
-      value: 130000,
-      label: "130000",
-    },
-    {
-      value: 150000,
-      label: "150000",
+      value: 20000000,
+      label: "20000000",
     },
   ];
 
@@ -244,8 +240,8 @@ const FilterModal = ({ status, setStatus }) => {
                 marks={price_marks}
                 size="small"
                 min={0}
-                max={150000}
-                step={1000}
+                max={20000000}
+                step={100000}
                 // color = "primary"
               />
             </Box>
@@ -296,6 +292,7 @@ const FilterModal = ({ status, setStatus }) => {
                 ...status,
                 filterModal: !status.filterModal,
                 tagsForfilter: newselectedTags,
+                filterApplyClicked: !status.filterApplyClicked,
                 valuePrice,
                 valueRate,
               });
