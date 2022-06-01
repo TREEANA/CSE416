@@ -42,7 +42,7 @@ const EditProfileModal = ({ status, toggleStatus, setStatus }) => {
 
   useEffect(() => {
     fetchTags();
-  }, [status.EditProfileModal]);
+  }, [status.editProfileModal]);
 
   function onBtnClick() {
     setList({ ...list, [this.txt]: !list[this.txt] });
