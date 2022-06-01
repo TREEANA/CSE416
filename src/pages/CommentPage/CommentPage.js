@@ -24,7 +24,7 @@ const CommentPage = ({
   const { wineID, reviewID } = useParams();
 
   //get Review using reviewID
-  const [review, setReview] = useState({});
+  const [review, setReview] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchReview = async (reviewID) => {

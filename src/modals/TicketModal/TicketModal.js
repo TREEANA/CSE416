@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+
 import "./TicketModal.css";
 import {
   BsXLg,
@@ -7,7 +9,10 @@ import {
   BsThreeDots,
   BsFillPlusCircleFill,
 } from "react-icons/bs";
+
 import Ticket from "../../components/Ticket/Ticket";
+import Loader from "../../components/Loader/Loader";
+
 import axios from "axios";
 
 const TicketModal = ({ status, toggleStatus }) => {
@@ -41,9 +46,16 @@ const TicketModal = ({ status, toggleStatus }) => {
 
   const userID = status.userID;
   //fetch tickets that the user has previously sent
-  const fetchUserTickets = async (userID) => {
+
+  //page number
+  const [pageNum, setPageNum] = useState(1);
+  const [numTicket, setNumTicket] = useState(8);
+
+  const fetchUserTickets = async () => {
     try {
-      const res = await axios.get(`/api/support-tickets/?userID=${userID}`);
+      const res = await axios.get(
+        `/api/support-tickets/?userID=${userID}&num=${numTicket * pageNum}`
+      );
       console.log("res.data from fetchUserTickets: ", res.data);
       setPrevTickets(res.data);
     } catch (error) {
@@ -55,17 +67,26 @@ const TicketModal = ({ status, toggleStatus }) => {
     fetchUserTickets(userID);
   }, []);
 
-  // const displayTickets = () => {
-  //   let result = [];
+  const [ref, inView] = useInView();
+  const [loading, setLoading] = useState(true);
 
-  //   prevTickets.forEach((each, index) => {
-  //     console.log("prevTicketForEach in displayTickets: ", each);
-  //     result.push(
-  //       <Ticket status={status} type="ticket" ticketData={each} key={index} />
-  //     );
-  //   });
-  //   return result;
-  // };
+  useEffect(() => {
+    if (inView && !loading) {
+      setPageNum(pageNum + 1);
+    }
+  }, [inView]);
+
+  useEffect(async () => {
+    setLoading(true);
+    await fetchUserTickets();
+    setLoading(false);
+  }, []);
+
+  useEffect(async () => {
+    setLoading(true);
+    await fetchUserTickets();
+    setLoading(false);
+  }, [pageNum]);
 
   const onSubmit = async () => {
     const body = {
@@ -90,19 +111,30 @@ const TicketModal = ({ status, toggleStatus }) => {
     if (viewStatus === 0) {
       prevTickets.forEach((each, index) => {
         result.push(
-          <Ticket type="ticket" ticketData={each} key={index} status={status} />
-        );
-      });
-    } else if (viewStatus === 1) {
-      prevTickets.forEach((each, index) => {
-        if (each.status === 1) {
-          result.push(
+          <div className="ticketModal__eachTicket">
+            <div className="ticketModal__eachTicketNum"> {index + 1}</div>
             <Ticket
               type="ticket"
               ticketData={each}
               key={index}
               status={status}
             />
+          </div>
+        );
+      });
+    } else if (viewStatus === 1) {
+      prevTickets.forEach((each, index) => {
+        if (each.status === 1) {
+          result.push(
+            <div className="ticketModal__eachTicket">
+              <div className="ticketModal__eachTicketNum"> {index + 1}</div>
+              <Ticket
+                type="ticket"
+                ticketData={each}
+                key={index}
+                status={status}
+              />
+            </div>
           );
         }
       });
@@ -110,12 +142,15 @@ const TicketModal = ({ status, toggleStatus }) => {
       prevTickets.forEach((each, index) => {
         if (each.status === 2) {
           result.push(
-            <Ticket
-              type="ticket"
-              ticketData={each}
-              key={index}
-              status={status}
-            />
+            <div className="ticketModal__eachTicket">
+              <div className="ticketModal__eachTicketNum"> {index + 1}</div>
+              <Ticket
+                type="ticket"
+                ticketData={each}
+                key={index}
+                status={status}
+              />
+            </div>
           );
         }
       });
@@ -241,6 +276,7 @@ const TicketModal = ({ status, toggleStatus }) => {
             </div>
           </div>
           {displayUserTickets(viewStatus)}
+          <div ref={ref}>{loading && <Loader />}</div>
           {/* <Ticket status={status} />
           <Ticket status={status} /> */}
         </div>

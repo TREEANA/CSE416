@@ -27,6 +27,7 @@ const Comment = ({ status, wineID, reviewID, comments = dummyComment }) => {
     const min = date.getMinutes().toString().padStart(2, "0");
     return `${year}.${month}.${day} ${hr}:${min}`;
   };
+
   useEffect(() => {
     setDate(formatDateTime(new Date(comments.lastUpdatedAt)));
   }, []);
@@ -72,7 +73,7 @@ const Comment = ({ status, wineID, reviewID, comments = dummyComment }) => {
       console.log("onDelete on Comments.js:", res.data);
       console.log(
         "onDelete request on : ",
-        `/api/wines/${wineID}/reviews/${reviewID}/comment/${comments.commentID}?userID=${status.userID}`
+        `/api/wines/${wineID}/reviews/${reviewID}/comments/${comments.commentID}?userID=${status.userID}`
       );
     } catch (error) {
       console.log(error);

@@ -1,5 +1,6 @@
 .ticket__cont {
   margin-bottom: 1rem;
+  width: 95%;
 }
 
 .ticket__button:hover {
