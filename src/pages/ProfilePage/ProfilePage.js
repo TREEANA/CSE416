@@ -44,12 +44,13 @@ const ProfilePage = ({ status, toggleStatus, setStatus }) => {
 
   useEffect(() => {
     setLoading(true);
+    checkfollow();
     getUserdata();
   }, [userID, status.filterApplyClicked, isFollowd]);
 
-  useEffect(() => {
-    checkfollow();
-  }, [userID]);
+  // useEffect(() => {
+  //   checkfollow();
+  // }, [userID]);
 
   const displaylikes = () => {
     console.log("보자", likesList);
