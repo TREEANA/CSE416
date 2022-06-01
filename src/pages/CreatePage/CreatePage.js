@@ -125,7 +125,12 @@ const CreatePage = ({ status, toggleStatus }) => {
 
   const onSearchedWineClick = (wine) => (e) => {
     const tempWines = [...newList.wines];
+    if (tempWines.find((each) => each.wineID === wine.wineID) !== undefined) {
+      alert("The wine is already selected");
+      return;
+    }
     tempWines.push({ ...wine, sommelierComment: "" });
+    console.log(tempWines);
     setNewList({
       ...newList,
       wines: tempWines,
