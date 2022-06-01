@@ -47,7 +47,7 @@ const WinePage = ({ status, toggleStatus, setStatus }) => {
       setStatus({
         ...status,
         sortOrder: 0,
-        valuePrice: [23000, 128000],
+        valuePrice: [0, 20000000],
         valueRate: 0,
         tagsForfilter: newtags,
       });
