@@ -286,7 +286,15 @@ const CreatePage = ({ status, toggleStatus }) => {
 
   return (
     <>
-      {creating ? (
+      {status.userinfo.status === -1 ? (
+        <div className="create__alert">
+          Login as sommelier to create a winelist
+        </div>
+      ) : status.userinfo.status === 0 ? (
+        <div className="create__alert">
+          Get verified as sommelier to create a winelist
+        </div>
+      ) : creating ? (
         <Loader />
       ) : (
         <div className="create">

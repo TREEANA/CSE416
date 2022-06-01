@@ -8,6 +8,7 @@ import axios, { CancelToken } from "axios";
 
 import { AlternateEmail } from "@mui/icons-material";
 const FilterModal = ({ status, setStatus }) => {
+  console.log(status);
   // tag명과 status를 key, value로 준 객체를 생성
   const [valuePrice, setValuePrice] = useState([23000, 128000]);
   const [valueRate, setValueRate] = useState(0);
@@ -216,7 +217,6 @@ const FilterModal = ({ status, setStatus }) => {
               ></input>
             </div>
             <div>
-              {" "}
               {displaySelectedTags()}
               {displayUnselectedTags()}
             </div>

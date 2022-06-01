@@ -51,7 +51,7 @@ const defaultLists = [
   },
 ];
 
-const ListPage = ({ status, toggleStatus }) => {
+const ListPage = ({ status, toggleStatus, setStatus }) => {
   const { keyword } = useParams();
   const [lists, setLists] = useState([]);
   const [page, setPage] = useState(1);
@@ -135,8 +135,10 @@ const ListPage = ({ status, toggleStatus }) => {
         {loading && page === 1 ? <Loader /> : <>{displayLists()}</>}
       </div>
       <FilterModal
-        filterModal={status.filterModal}
-        toggleFilterModal={() => toggleStatus("filterModal")}
+        // filterModal={status.filterModal}
+        // toggleFilterModal={() => toggleStatus("filterModal")}
+        status={status}
+        setStatus={setStatus}
       />
     </>
   );

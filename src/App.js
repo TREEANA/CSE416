@@ -221,7 +221,13 @@ const App = () => {
           />
           <Route
             path="/lists/:keyword"
-            element={<ListPage status={status} toggleStatus={toggleStatus} />}
+            element={
+              <ListPage
+                status={status}
+                toggleStatus={toggleStatus}
+                setStatus={setStatus}
+              />
+            }
           />
           <Route
             path="/wines/:theme"
