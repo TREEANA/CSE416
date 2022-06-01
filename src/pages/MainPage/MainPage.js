@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { GrHomeRounded } from "react-icons/gr";
 import axios from "axios";
 
 import WineList from "../../components/WineList/WineList";
@@ -14,8 +15,18 @@ const MainPage = ({ status, setStatus }) => {
   const [ref, inView] = useInView();
 
   const fetchLists = async () => {
+    let res;
     try {
-      const res = await axios.get(`/api/winelists/search?num=${page * 3}`);
+      console.log(status.userinfo.userID);
+      if (status.userinfo.userID !== -1) {
+        res = await axios.get(
+          `/api/winelists/search?num=${page * 3}&userID=${
+            status.userinfo.userID
+          }`
+        );
+      } else {
+        res = await axios.get(`/api/winelists/search?num=${page * 3}`);
+      }
       if (res.data === null || res.data === "") {
         setLists([]);
       } else {
@@ -25,19 +36,20 @@ const MainPage = ({ status, setStatus }) => {
     } catch (e) {
       console.log(e);
     }
+    return res.data.length;
   };
 
   useEffect(async () => {
     setLoading(true);
-    await fetchLists();
+    const listLen = await fetchLists();
     setLoading(false);
   }, []);
 
   useEffect(async () => {
     setLoading(true);
-    await fetchLists();
+    const listLen = await fetchLists();
     setLoading(false);
-  }, [page]);
+  }, [page, status.userinfo]);
 
   useEffect(() => {
     if (inView && !loading) {
@@ -52,24 +64,37 @@ const MainPage = ({ status, setStatus }) => {
       ) : (
         <>
           <main className="main">
-            {lists.map((each, i) => {
-              return lists.length - 1 == i ? (
-                <>
+            {lists.length === 0 ? (
+              <>
+                <div className="main__icon">
+                  <GrHomeRounded />
+                </div>
+                <div className="main__title">Welcome to PODO</div>
+                <div className="main__message">
+                  Follow other users to see winelists <br />
+                  that suits your taste!
+                </div>
+              </>
+            ) : (
+              lists.map((each, i) => {
+                return lists.length - 1 == i ? (
+                  <>
+                    <WineList
+                      wineList={each}
+                      status={status}
+                      setStatus={setStatus}
+                    />
+                    <div ref={ref}>{loading && <Loader />}</div>
+                  </>
+                ) : (
                   <WineList
                     wineList={each}
                     status={status}
                     setStatus={setStatus}
                   />
-                  <div ref={ref}>{loading && <Loader />}</div>
-                </>
-              ) : (
-                <WineList
-                  wineList={each}
-                  status={status}
-                  setStatus={setStatus}
-                />
-              );
-            })}
+                );
+              })
+            )}
           </main>
         </>
       )}

@@ -76,18 +76,20 @@ const ListDetailPage = ({ status, setStatus }) => {
       if (resList.data === null || resList.data === "") {
         setList({});
       } else {
-        const temp = resList.data;
-        const tempWines = [];
-        for await (const each of resList.data.wines) {
-          const resWines = await axios.get(`/api/wines/${each.wineID}`);
-          tempWines.push(resWines.data);
-        }
-        tempWines.forEach((each, i) => {
-          each.sommelierComment = temp.wines[i].sommelierComment;
-        });
-        temp.images = tempWines.map((each) => each.images[0]);
-        setList({ ...temp, wines: tempWines });
-        console.log("fetched list: ", { ...resList.data, wines: tempWines });
+        setList(...resList.data);
+
+        // const temp = resList.data;
+        // const tempWines = [];
+        // for await (const each of resList.data.wines) {
+        //   const resWines = await axios.get(`/api/wines/${each.wineID}`);
+        //   tempWines.push(resWines.data);
+        // }
+        // tempWines.forEach((each, i) => {
+        //   each.sommelierComment = temp.wines[i].sommelierComment;
+        // });
+        // temp.images = tempWines.map((each) => each.images[0]);
+        // setList({ ...temp, wines: tempWines });
+        // console.log("fetched list: ", { ...resList.data, wines: tempWines });
       }
     } catch (e) {
       console.log(e);
