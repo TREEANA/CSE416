@@ -95,12 +95,13 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
   };
 
   const displayUser = () => {
+    console.log(process.env.REACT_APP_GOOGLE_LOGIN_API_KEY);
     if (status.userinfo.status === -1)
       return (
         <div className="sidebar__login">
           <div className="sidebar__header">
             <GoogleLogin
-              clientId="1085857977500-hci29d5464imb3l7hdau6qipmjpeqstd.apps.googleusercontent.com"
+              clientId={process.env.REACT_APP_GOOGLE_LOGIN_API_KEY}
               onSuccess={onSuccess}
               onFailure={onFailure}
               cookiePolicy={"single_host_origin"}
