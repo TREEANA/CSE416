@@ -89,7 +89,7 @@ const Comment = ({ status, wineID, reviewID, comments = dummyComment }) => {
               userStatus === 1 ? "comment__userName-somm" : "comment__userName"
             }
           >
-            {username === "" ? "undefined(deleted user)" : username}
+            {username}
           </div>
           <div className="comment__userDate">{date}</div>
         </div>
