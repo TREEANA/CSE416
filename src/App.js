@@ -107,12 +107,12 @@ const App = () => {
   useEffect(() => {
     // fetchCurrency();
   }, []);
-  const handleStatus = (name, value) => {
-    setStatus({
-      ...status,
-      [name]: value,
-    });
-  };
+  // const handleStatus = (name, value) => {
+  //   setStatus({
+  //     ...status,
+  //     [name]: value,
+  //   });
+  // };
   const toggleStatus = (...names) => {
     const result = { ...status };
     names.forEach((name) => {
@@ -129,17 +129,11 @@ const App = () => {
         setStatus={setStatus}
       ></SideBarModal>
 
-      <TicketModal
-        status={status}
-        toggleStatus={toggleStatus}
-        // setStatus={setStatus}
-        // toggleTicketModal={() => toggleStatus("ticketModal")}
-      ></TicketModal>
+      <TicketModal status={status} toggleStatus={toggleStatus}></TicketModal>
 
       <TicketAdminModal
         status={status}
         toggleStatus={toggleStatus}
-        // setStatus={setStaㅌtus}
       ></TicketAdminModal>
 
       <ApplyModal
