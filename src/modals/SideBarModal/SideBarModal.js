@@ -133,6 +133,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           >
             don't have an account?
           </div> */}
+          {/* <hr className="sidebar__hr"></hr> */}
         </div>
       );
     else if (status.userinfo.status === 0) {
