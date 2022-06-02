@@ -315,14 +315,14 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
           >
             <Link to="/verifysomm">verify sommeliers</Link>
           </div>
-          <div
+          {/* <div
             className="sidebar__link"
             onClick={() => {
               toggleStatus("sideBarModal");
             }}
           >
             manage reviews
-          </div>
+          </div> */}
           <div
             className="sidebar__link"
             onClick={() => {

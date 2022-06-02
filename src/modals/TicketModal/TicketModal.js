@@ -44,7 +44,7 @@ const TicketModal = ({ status, toggleStatus }) => {
   //user가 이전에 submit한 티켓들
   const [prevTickets, setPrevTickets] = useState([]);
 
-  const userID = status.userID;
+  // const userID = status.userID;
   //fetch tickets that the user has previously sent
 
   //page number
@@ -53,18 +53,25 @@ const TicketModal = ({ status, toggleStatus }) => {
 
   const fetchUserTickets = async () => {
     try {
-      const res = await axios.get(
-        `/api/support-tickets/?userID=${userID}&num=${numTicket * pageNum}`
-      );
-      // console.log("res.data from fetchUserTickets: ", res.data);
-      setPrevTickets(res.data);
+      if (status.userID) {
+        const res = await axios.get(
+          `/api/support-tickets/?userID=${status.userID}&num=${
+            numTicket * pageNum
+          }`
+        );
+
+        // console.log("res.data from fetchUserTickets: ", res.data);
+        setPrevTickets(res.data);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchUserTickets(userID);
+    // if (status.userID) {
+    fetchUserTickets(status.userID);
+    // }
   }, []);
 
   const [ref, inView] = useInView();
@@ -90,7 +97,7 @@ const TicketModal = ({ status, toggleStatus }) => {
 
   const onSubmit = async () => {
     const body = {
-      userID: userID,
+      userID: status.userID,
       title: tempSuppTicket.ticketTitle,
       userQuestion: tempSuppTicket.ticketContent,
     };
@@ -101,7 +108,7 @@ const TicketModal = ({ status, toggleStatus }) => {
     } catch (error) {
       console.log(error);
     }
-    fetchUserTickets(userID);
+    fetchUserTickets(status.userID);
   };
 
   const [viewStatus, setViewStatus] = useState(0);

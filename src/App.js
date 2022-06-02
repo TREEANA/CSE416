@@ -28,6 +28,7 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import SearchWinePage from "./pages/SearchWinePage/SearchWinePage";
 import CreatePage from "./pages/CreatePage/CreatePage";
 import FollowingModal from "./modals/FollowingModal/FollowingModal";
+import AboutUsPage from "./pages/AboutUsPage/AboutUsPage";
 // import SommVerify from "./components/SommVerify/SommVerify";
 
 const App = () => {
@@ -313,6 +314,7 @@ const App = () => {
               <div className="pageDoesNotExist">Page does not exist</div>
             }
           />
+          <Route path="/about-us" element={<AboutUsPage />} />
         </Routes>
       </div>
       <Footer />

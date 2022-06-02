@@ -24,6 +24,23 @@ const TicketAdminModal = ({ status, toggleStatus }) => {
       console.log(error);
     }
   };
+
+  const [userStatus, setUserStatus] = useState(-1);
+
+  const fetchUserData = async (userID) => {
+    try {
+      const res = await axios.get(`/api/users/${userID}`);
+      console.log("fetchUserData from TicketAdminModal: ", res.data);
+      setUserStatus(res.data.status);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData(status.userID);
+  }, []);
+
   useEffect(() => {
     console.log(
       "log from useEffect, TicketAdminModal : userStatus is ",

@@ -15,9 +15,9 @@ const Footer = () => {
             <div className="footer__link">
               <Link to="/FAQ">FAQ</Link>
             </div>
-            {/* <div className="footer__link">
-              <Link to="/email-us">Email Us</Link>
-            </div> */}
+            <div className="footer__link">
+              <Link to="/about-us">About us</Link>
+            </div>
           </div>
         </div>
       </footer>

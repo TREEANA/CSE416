@@ -17,7 +17,7 @@ const MainPage = ({ status, setStatus }) => {
   const fetchLists = async () => {
     let res;
     try {
-      console.log(status.userinfo.userID);
+      // console.log(status.userinfo.userID);
       if (status.userinfo.userID !== -1) {
         res = await axios.get(
           `/api/winelists/search?num=${page * 3}&userID=${
