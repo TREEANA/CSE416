@@ -426,6 +426,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                 Wine Lists
               </div>
             </Link>
+
             <div>
               <div
                 className="sidebar__link"
@@ -486,6 +487,7 @@ const SideBarModal = ({ status, toggleStatus, setStatus }) => {
                 Wines
               </div>
             </Link>
+
             <div>
               <div
                 className="sidebar__link"
