@@ -7,6 +7,30 @@
 - Woohyun Park
 - Woohyung Lee
 
+# Project Proposal
+
+[Team Notion page](https://www.notion.so/podo-dc94e6d2f017482ca798316a998613db)
+
+# Deploy Link
+
+Front-end (Netlify) : [ Official Podo Frontend Page](https://podoofficial.netlify.app/)
+
+Back-end (Heroku): [Official Podo Backend page](https://podo-backend.herokuapp.com/)
+
+# Test account
+
+<b>general user : </b> use your own google account to log in
+
+<b>sommelier : </b>
+
+- userID : podo.sommelier@gmail.com
+- password : podopodo99
+
+<b>admin : </b>
+
+- userID : podo.official@gmail.com
+- password : podopodo99
+
 # OS
 
 For all of these instructions, state the operating system(s) that the instructions
@@ -60,13 +84,3 @@ use `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-# Project Proposal
-
-[Click here](https://www.notion.so/podo-dc94e6d2f017482ca798316a998613db)
-
-# Deploy Link
-
-We use netlify for hosting.
-
-[Click here](https://podoofficial.netlify.app/)
