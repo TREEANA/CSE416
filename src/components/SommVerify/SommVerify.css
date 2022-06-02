@@ -64,10 +64,10 @@
 .sommverify__verifyReject {
   border-radius: 30px;
   background-color: var(--primary);
-  padding: 0.4rem;
-  margin: 0 3px;
+  /* padding: 0.4rem;
+  margin: 0 3px; */
   color: var(--bg-0);
-  width: fit-content;
+  /* width: fit-content; */
 }
 
 .sommverify__statusIcon0,

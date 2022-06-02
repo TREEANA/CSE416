@@ -79,7 +79,9 @@ const SommHistory = ({ status, data }) => {
               {data.userExplanation}
             </div>
             <div className="sommverify__verfiyAdminComment">
-              {data.adminFeedback}
+              {data.adminFeedback === ""
+                ? "no admin feedback"
+                : data.adminFeedback}
             </div>
           </div>
         </div>
