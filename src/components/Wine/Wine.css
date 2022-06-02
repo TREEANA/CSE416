@@ -34,6 +34,9 @@ button:hover {
   width: 30%;
 }
 
+.wine__image > a > img {
+  width: 66%;
+}
 .wine__image--recomm {
   display: flex;
   flex-direction: column;
@@ -42,11 +45,7 @@ button:hover {
   width: 2rem;
 }
 
-.wine__image > img {
-  width: 30%;
-}
-
-.wine__image--recomm > img {
+.wine__image--recomm > a > img {
   width: 100%;
 }
 .wine__detail {
@@ -72,6 +71,12 @@ button:hover {
 .wine__nameTitle > a {
   color: var(--primary);
 }
+/* 
+.wine__nameTitle:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+} */
+
 .wine__nameTitle--recomm {
   font-size: 2rem;
   text-align: right;

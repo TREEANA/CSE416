@@ -281,7 +281,9 @@ const Wine = ({ type = "component", status, wine }) => {
   return type === "component" ? (
     <div className="wine">
       <div className={"wine__image"}>
-        <img src={wine.images[0]}></img>
+        <Link to={`/wine/${wine.wineID}`}>
+          <img src={wine.images[0]}></img>
+        </Link>
       </div>
       <div className="wine__detail">
         <div className="wine__nameTitle">
@@ -289,7 +291,7 @@ const Wine = ({ type = "component", status, wine }) => {
         </div>
         <div className="wine__grapeTitle">{formatGrape()}</div>
         <div className="wine__tags">
-          {wine.tags.slice(0, 5).map((tag, index) => (
+          {wine.tags.slice(1, 9).map((tag, index) => (
             <Tag type="wineButton" txt={tag} key={index} />
           ))}
         </div>
