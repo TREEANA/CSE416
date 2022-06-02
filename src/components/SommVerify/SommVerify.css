@@ -53,6 +53,21 @@
 .sommverify__button--inactive {
   display: none;
 }
+
+.sommverify__verifyInd {
+  /* 지워야한다 */
+  background-color: var(--bg-0);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  height: 3rem;
+  z-index: 1;
+  margin: 10px 0;
+  color: var(--text-100);
+}
+
 .sommverify__verifyApprove {
   border-radius: 30px;
   background-color: green;
