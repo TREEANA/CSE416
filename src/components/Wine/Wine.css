@@ -16,7 +16,7 @@ button:hover {
 
 .wine--recomm {
   width: calc(100% - 3rem);
-  margin-top: var(--margin-out);
+  /* margin-top: var(--margin-out); */
   min-height: 7rem;
   height: auto;
   /* border-radius: 30px; */
