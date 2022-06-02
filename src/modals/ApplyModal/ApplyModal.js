@@ -75,17 +75,27 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
     // }
     try {
       await axios.post(`/api/verification-tickets`, body).then((res) => {
-        console.log(res);
-
         setLoading(false);
+
+        if (res.status === 200) {
+          setDescription("");
+          setTempImage("");
+          setTempFile(null);
+          setstep(2);
+        } else {
+          setDescription("");
+          setTempImage("");
+          setTempFile(null);
+          setstep(5);
+        }
       });
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      setDescription("");
+      setTempImage("");
+      setTempFile(null);
+      setstep(5);
     }
-    setDescription("");
-    setTempImage("");
-    setTempFile(null);
-    setstep(2);
   };
   const choose = () => {
     setstep(1);
@@ -257,6 +267,24 @@ const ApplyModal = ({ status, applyModalStatus, toggleApplyModal }) => {
               )}
             </>
           )}
+        </div>
+      );
+    } else {
+      return (
+        <div className="becomesommlier__section3">
+          <div className="becomesommlier__section3_font">
+            Your already applied <br></br>
+            please wait for the response
+          </div>
+
+          <div
+            className="becomesommlier__history"
+            onClick={() => {
+              close();
+            }}
+          >
+            Back to apply
+          </div>
         </div>
       );
     }
