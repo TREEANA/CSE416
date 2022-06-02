@@ -21,21 +21,22 @@
 .wineListDetail__firstCont {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .wineListDetail__firstContCont {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
 }
 
 .wineListDetail__secondCont {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .wineListDetail__secondCont .wineList__profile {
-  text-align: right;
+  text-align: left;
   background: none;
   margin-top: -1rem;
   margin-bottom: 3rem;
