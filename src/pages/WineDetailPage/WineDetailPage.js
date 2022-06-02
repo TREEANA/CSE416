@@ -51,8 +51,8 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     }
   };
 
+  //toggle likes
   const toggleLikes = () => {
-    // setLikes(!likes);
     setNewReview({ ...newReview, userLiked: !newReview.userLiked });
   };
   //wineID로 와인 가져오기
@@ -61,10 +61,6 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
       setLoading(true);
       const res = await axios.get(`/api/wines/${wineID}`);
       setWine(res.data);
-      // console.log(
-      //   "setWine(res.data) from fetchWine in WineDetailpage : ",
-      //   res.data
-      // );
       setLoading(false);
       // console.log("fetchWine from WineDetailpage, wine:", wine);
     } catch (e) {
@@ -88,6 +84,7 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
   };
 
   const formatFoodPairing = () => {
+    if (wine.foodPairings.length === 0) return "N/A";
     return wine.foodPairings.map((each, index) => (
       <div key={index}>{each}</div>
     ));
@@ -479,9 +476,9 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
                   <div className="detail__views">
                     <GrView /> viewed : <b> {wine.views}</b>
                   </div>
-                  <div className="detail__likes">
+                  {/* <div className="detail__likes">
                     <GrLike /> liked : <b> {wine.likes}</b>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* </div> */}

@@ -53,7 +53,7 @@ const Review = ({ review }) => {
             }
           >
             <BsFillStarFill />
-            {review.rating}
+            {review.rating.toFixed(1)}
           </div>
         </div>
         {/* <div className="review__tag">{displaySelectedTags(tags)}</div> */}
