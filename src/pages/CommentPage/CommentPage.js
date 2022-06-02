@@ -274,6 +274,10 @@ const CommentPage = ({
     fetchComments(reviewID, wineID);
   }, []);
 
+  useEffect(() => {
+    fetchComments(reviewID, wineID);
+  }, [comments]);
+
   const displayComments = (comments) => {
     if (comments.length === 0) return;
     return comments.map((each) => {
