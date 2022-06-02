@@ -89,7 +89,7 @@ const AboutUsPage = () => {
               <a
                 className="about__link"
                 target="_blank"
-                href="https://github.com/TREEANA/CSE416"
+                href="https://github.com/Duk-young/Podo_Backend"
               >
                 <div className="about__repo">
                   <FaGithubSquare value="back" />
