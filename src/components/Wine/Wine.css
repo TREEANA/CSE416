@@ -37,25 +37,8 @@ button:hover {
 .wine__image > a > img {
   width: 66%;
 }
-.wine__image--recomm {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 2rem;
-}
 
-.wine__image--recomm > a > img {
-  width: 100%;
-}
 .wine__detail {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 70%;
-}
-
-.wine__detail--recomm {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -76,19 +59,6 @@ button:hover {
   text-decoration: underline;
   opacity: 0.8;
 } */
-
-.wine__nameTitle--recomm {
-  font-size: 2rem;
-  text-align: right;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-}
-.wine__nameTitle--recomm > a {
-  color: var(--primary);
-  margin: 0 5px;
-}
 
 .wine__grapeTitle {
   font-size: 1.5rem;
@@ -111,16 +81,49 @@ button:hover {
 .wine__price {
   font-size: 2rem;
 }
+.wine__image--recomm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+}
+
+.wine__image--recomm > a > img {
+  width: 100%;
+}
+.wine__detail--recomm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 85%;
+}
+
+.wine__nameTitle--recomm {
+  font-size: 1.5rem;
+  text-align: right;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.wine__nameTitle--recomm > a {
+  color: var(--primary);
+  margin: 0 5px;
+}
 
 .wine__grapeTitle--recomm {
   font-size: 1rem;
   text-align: right;
   margin-bottom: 0.2rem;
   display: flex;
+  align-items: center;
 }
 
 .wine__grapeTitle--recomm > div {
   margin: 0 8px;
+  /* display: flex;
+  align-items: center; */
 }
 
 .wine__tags--recomm {
@@ -131,7 +134,7 @@ button:hover {
 }
 
 .wine__rate--recomm {
-  font-size: 30px;
+  font-size: 20px;
   color: var(--primary);
   font-weight: bold;
   border-radius: 30px;
@@ -141,6 +144,8 @@ button:hover {
   align-items: center;
   justify-content: center;
   margin-left: 5px;
+  display: flex;
+  flex-direction: row;
 }
 
 .wine__price--recomm {
