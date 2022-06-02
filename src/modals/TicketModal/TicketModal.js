@@ -215,7 +215,7 @@ const TicketModal = ({ status, toggleStatus }) => {
                     name="ticketContent"
                     // type="text"
                     className="ticketModal__tempContentInput"
-                    placeholder="Have any issues? Feel free to report it to us! \n 사실 지금 새벽 두시반.. 졸라리 늦은ㅅ ㅣ간.. 눈이 너무 감기는데 한게 없어서 감기면 안돼.. 진짜로..."
+                    placeholder="Have any issues? Feel free to report it to us! "
                     onChange={onChange}
                     value={tempSuppTicket?.ticketContent || ""}
                   />
@@ -283,7 +283,7 @@ const TicketModal = ({ status, toggleStatus }) => {
             </div>
           </div>
           {displayUserTickets(viewStatus)}
-          <div ref={ref}>{loading && <Loader />}</div>
+          <div ref={ref}>{loading ? <Loader /> : <></>} </div>
           {/* <Ticket status={status} />
           <Ticket status={status} /> */}
         </div>
