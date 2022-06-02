@@ -2,7 +2,7 @@
   margin: var(--margin-out);
 }
 
-.ommhistory__verifyInd {
+.sommhistory__verifyInd {
   background-color: var(--bg-0);
   border-radius: 30px;
   display: flex;
@@ -15,7 +15,7 @@
   color: var(--text-100);
 }
 
-.ommhistory__verifyInfo {
+.sommhistory__verifyInfo {
   display: flex;
   align-items: center;
 }
