@@ -19,12 +19,6 @@ import { GrView, GrLike } from "react-icons/gr";
 import "./WineDetailPage.css";
 
 const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
-  //const for loader (true : loading, false : not loading)
-  const [loading, setLoading] = useState(true);
-  const [ref, inView] = useInView();
-  const [numReviews, setNumReviews] = useState(2);
-  const [pageNum, setPageNum] = useState(1);
-
   const userID = status.userID;
   const [wine, setWine] = useState(false);
   const { wineID } = useParams();
@@ -51,8 +45,8 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     }
   };
 
+  //toggle likes
   const toggleLikes = () => {
-    // setLikes(!likes);
     setNewReview({ ...newReview, userLiked: !newReview.userLiked });
   };
   //wineID로 와인 가져오기
@@ -61,12 +55,14 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
       setLoading(true);
       const res = await axios.get(`/api/wines/${wineID}`);
       setWine(res.data);
-      // console.log(
-      //   "setWine(res.data) from fetchWine in WineDetailpage : ",
-      //   res.data
-      // );
+      setTotalReviews(res.data.reviews.length);
       setLoading(false);
-      // console.log("fetchWine from WineDetailpage, wine:", wine);
+      // console.log(
+      //   "fetchWine from WineDetailpage, wine:",
+      //   wine,
+      //   "totalReview: ",
+      //   totalReviews
+      // );
     } catch (e) {
       console.log(e);
     }
@@ -88,6 +84,7 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
   };
 
   const formatFoodPairing = () => {
+    if (wine.foodPairings.length === 0) return "N/A";
     return wine.foodPairings.map((each, index) => (
       <div key={index}>{each}</div>
     ));
@@ -124,6 +121,13 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     fetchTags();
     // checkReview(userID);
   }, []);
+
+  const [totalReviews, setTotalReviews] = useState(0);
+  //const for loader (true : loading, false : not loading)
+  const [loading, setLoading] = useState(true);
+  // const [ref, inView] = useInView();
+  const [numReviews, setNumReviews] = useState(2);
+  // const [pageNum, setPageNum] = useState(1);
 
   //review중에 userID로 쓴 리뷰가 있는지 확인
   const [existReview, setExistReview] = useState(0);
@@ -325,15 +329,15 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
   //   });
   // };
 
-  const displayReviews = () => {
+  const displayReviews = (numReviews) => {
     let result = [];
-    console.log(
-      "displayReviews, wine : ",
-      wine,
-      ", wine.reviews:",
-      wine.reviews
-    );
-    wine.reviews.forEach((each) => {
+    // console.log(
+    //   "displayReviews, wine : ",
+    //   wine,
+    //   ", wine.reviews:",
+    //   wine.reviews
+    // );
+    wine.reviews.slice(0, numReviews).forEach((each) => {
       if (!each.isDeleted) {
         result.push(
           <Link to={`/wine/${wineID}/reviews/${each.reviewID}`}>
@@ -378,17 +382,14 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
 
   const onClickMore = () => {
     // setPageNum(pageNum + 1);
-    setNumReviews(numReviews + 3);
-    // return wine.reviews.slice(0, numReviews).map((each) => {
-    //   return (
-    //     <Review
-    //       review={each}
-    //       status={status}
-    //       id={each.reviewID}
-    //       key={each.reviewID}
-    //     />
-    //   );
-    // });
+    if (numReviews + 3 < totalReviews) {
+      setNumReviews(numReviews + 3);
+      console.log(" setNumReviews(numReviews + 3)", numReviews + 3);
+    } else {
+      setNumReviews(totalReviews);
+      console.log(" setNumReviews(totalReviews)", totalReviews);
+    }
+    console.log("setNumReviews: ", numReviews, ",totalReviews,", totalReviews);
   };
 
   const onSubmit = async () => {
@@ -479,9 +480,9 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
                   <div className="detail__views">
                     <GrView /> viewed : <b> {wine.views}</b>
                   </div>
-                  <div className="detail__likes">
+                  {/* <div className="detail__likes">
                     <GrLike /> liked : <b> {wine.likes}</b>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* </div> */}
@@ -663,9 +664,13 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
             </div>
             <hr className="detail__hr" />
             {displayReviews()}
-            <div className="detail__moreReview" onClick={onClickMore}>
-              view more reviews
-            </div>
+            {totalReviews <= numReviews ? (
+              <></>
+            ) : (
+              <div className="detail__moreReview" onClick={onClickMore}>
+                view more reviews
+              </div>
+            )}
           </div>
           <hr className="detail__line"></hr>
           <div className="detail__wineRecomm">

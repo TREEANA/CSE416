@@ -90,6 +90,7 @@
 .sidebar__status_for_login {
   display: flex;
   align-items: center;
+  font-size: 25px;
 }
 
 .sidebar__status > a {
