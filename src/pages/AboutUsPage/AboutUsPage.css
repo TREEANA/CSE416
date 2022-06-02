@@ -96,6 +96,7 @@
 }
 .about__name {
   /* align-self: center; */
+  margin: 0 2px;
 }
 
 .about__links {
