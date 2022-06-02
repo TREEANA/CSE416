@@ -9,13 +9,15 @@ const TicketAdminModal = ({ status, toggleStatus }) => {
   const [supportTickets, setSupportTickets] = useState([]);
 
   //userID of Admin: fetched from status
-  const userID = status.userID;
-  //
-  const userStatus = status.userinfo.status;
+  // const userID = status.userID;
+  // //
+  // const userStatus = status.userinfo.status;
   //fetch tickets from db
   const fetchAdminTickets = async (userID) => {
     try {
-      const res = await axios.get(`/api/support-tickets/?userID=${userID}`);
+      const res = await axios.get(
+        `/api/support-tickets/?userID=${status.userID}`
+      );
       console.log("res.data from fetchAdminTickets: ", res.data);
       setSupportTickets(res.data);
     } catch (error) {
@@ -25,10 +27,10 @@ const TicketAdminModal = ({ status, toggleStatus }) => {
   useEffect(() => {
     console.log(
       "log from useEffect, TicketAdminModal : userStatus is ",
-      userStatus
+      status.userinfo.status
     );
-    if (userStatus === 2) {
-      fetchAdminTickets(userID);
+    if (status.userinfo.status === 2) {
+      fetchAdminTickets(status.userID);
     }
   }, []);
 

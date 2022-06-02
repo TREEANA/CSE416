@@ -32,11 +32,11 @@
 .wineListDetail__secondCont {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .wineListDetail__secondCont .wineList__profile {
-  text-align: left;
+  text-align: right;
   background: none;
   margin-top: -1rem;
   margin-bottom: 3rem;
