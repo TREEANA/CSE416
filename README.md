@@ -15,6 +15,8 @@
 
 Front-end (Netlify) : [ Official Podo Frontend Page](https://podoofficial.netlify.app/)
 
+- Recommended view width : around 500~ 800px
+
 Back-end (Heroku): [Official Podo Backend page](https://podo-backend.herokuapp.com/)
 
 # Test account
@@ -30,6 +32,8 @@ Back-end (Heroku): [Official Podo Backend page](https://podo-backend.herokuapp.c
 
 - userID : podo.official@gmail.com
 - password : podopodo99
+
+\*\* Note that these sample accounts will not be available after grading, since each of the account contains personal information of members.
 
 # OS
 
