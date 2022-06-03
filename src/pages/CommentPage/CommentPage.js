@@ -132,7 +132,7 @@ const CommentPage = ({
               onClick={() => navigate(-1)}
             />
           </div>
-          {isReviewLoading ? (
+          {!isReviewLoading ? (
             <div className="commentPage__reviewContainer">
               <Review review={review} />
             </div>
