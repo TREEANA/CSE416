@@ -94,5 +94,6 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 During our development, we have figured out some bugs or issues that weren't working as we intended.
 
 1. Edit / remove reviews after posting
-2. Loading Review from the comment page
+2. View more reviews not working properly
 3. Displaying tickets on 'Manage Ticket' modal
+4. redirecting to another wine from wine recommendations (available by 'open as new tab')
