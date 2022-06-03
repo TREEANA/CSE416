@@ -9,7 +9,7 @@
 
 # Project Proposal
 
-[Team Notion page](https://www.notion.so/podo-dc94e6d2f017482ca798316a998613db)
+You can access [Team Notion page](https://www.notion.so/podo-dc94e6d2f017482ca798316a998613db) or [Documents Folder](https://github.com/TREEANA/CSE416/tree/main/Documents) for more information.
 
 # Deploy Link
 
@@ -88,3 +88,11 @@ use `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+# Known Bugs (to be fixed)
+
+During our development, we have figured out some bugs or issues that weren't working as we intended.
+
+1. Edit / remove reviews after posting
+2. Loading Review from the comment page
+3. Displaying tickets on 'Manage Ticket' modal
