@@ -192,6 +192,7 @@ li {
 .gallery__wine__image {
   position: absolute;
   width: 100%;
+  height: 100%;
 }
 
 .gallery__image {
