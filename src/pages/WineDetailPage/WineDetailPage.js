@@ -122,6 +122,12 @@ const WineDetailPage = ({ status, setStatus, toggleStatus }) => {
     // checkReview(userID);
   }, []);
 
+  useEffect(() => {
+    fetchWine(wineID);
+    fetchTags();
+    // checkReview(userID);
+  }, [wineID]);
+
   const [totalReviews, setTotalReviews] = useState(0);
   //const for loader (true : loading, false : not loading)
   const [loading, setLoading] = useState(true);
