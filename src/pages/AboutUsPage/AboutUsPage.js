@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import { FaGithubSquare, FaLinkedin } from "react-icons/fa";
 
-import profileDKE from "../../images/profileDKE.png";
+import profileDKE from "../../images/profileDKE.jpg";
 import profileWHP from "../../images/profileWHP.jpg";
 import profileWHL from "../../images/profileWHL.jpg";
 import profileHRC from "../../images/profileHRC.jpg";
