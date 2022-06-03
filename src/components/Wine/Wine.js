@@ -305,16 +305,14 @@ const Wine = ({ type = "component", status, wine }) => {
   ) : (
     <div className="wine--recomm">
       <div className="wine__image--recomm">
-        <Link to={`/wine/${wine.wineID}`}>
-          <img src={wine.images[0]}></img>
-        </Link>
+        <img src={wine.images[0]}></img>
         <div className="wine__price--recomm">{formatPrice()}</div>
       </div>
       <div className="wine__detail--recomm">
         <div className="wine__nameTitle--recomm">
           <Link to={`/wine/${wine.wineID}`}>{wine.name}</Link>
           <div className="wine__rate--recomm">
-            <StarIcon sx={{ fontSize: 20 }} />
+            <StarIcon sx={{ fontSize: 30 }} />
             {wine.rating.toFixed(1)}
           </div>
         </div>
