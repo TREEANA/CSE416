@@ -89,6 +89,9 @@ button:hover {
   width: 2rem;
 }
 
+.wine__image--recomm > img {
+  width: 100%;
+}
 .wine__image--recomm > a > img {
   width: 100%;
 }
